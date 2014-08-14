@@ -139,11 +139,15 @@
     <Compile Include="DataModule.Designer.cs">
       <DependentUpon>DataModule.cs</DependentUpon>
     </Compile>
-    <Compile Include="LogOnForm.cs" />
+    <Compile Include="LogOnForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="LogOnForm.Designer.cs">
       <DependentUpon>LogOnForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
