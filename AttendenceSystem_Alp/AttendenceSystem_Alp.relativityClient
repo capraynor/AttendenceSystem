@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativityClient>
+  <Server>
+    <Name>RISETKT-PC</Name>
+    <ServerUri>localhost:7099/bin</ServerUri>
+  </Server>
+  <Domain>AttendanceSystem</Domain>
+  <Schema>PC</Schema>
+  <AdminLogin />
+  <DataLogin>Data</DataLogin>
+</RelativityClient>
