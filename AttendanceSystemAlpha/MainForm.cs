@@ -23,7 +23,9 @@ namespace AttendanceSystemAlpha
 
             this.fDataModule = new DataModule();
         }
-
+        /// <summary>
+        /// 显示信息
+        /// </summary>
         private void DisplayOfflineInformations()
         {
             pnLoad.Visible = true;
@@ -52,10 +54,9 @@ namespace AttendanceSystemAlpha
             {
                 pnLoad.Visible = false;
                 loginForm.Show();
-                if (loginForm.IsLogin())
-                {
-                    DisplayOfflineInformations();
-                }
+                if (!loginForm.IsLogin()) return;
+                pnLoad.Visible = true;
+                DisplayOfflineInformations();
             }
         }
 

@@ -142,7 +142,7 @@
             this.mainPageView.Font = new System.Drawing.Font("微软雅黑", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.mainPageView.Location = new System.Drawing.Point(0, 0);
             this.mainPageView.Name = "mainPageView";
-            this.mainPageView.SelectedPage = this.viewpageLoadData;
+            this.mainPageView.SelectedPage = this.viewpageCall;
             this.mainPageView.Size = new System.Drawing.Size(999, 487);
             this.mainPageView.TabIndex = 0;
             this.mainPageView.ThemeName = "TelerikMetro";
