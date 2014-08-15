@@ -52,11 +52,14 @@ namespace AttendanceSystemAlpha
             }
             else
             {
-                pnLoad.Visible = false;
-                loginForm.Show();
+                pnLoad.Enabled = false;
+                loginForm.ShowDialog();
                 if (!loginForm.IsLogin()) return;
                 pnLoad.Visible = true;
                 DisplayOfflineInformations();
+                pnLoad.Enabled = true;
+                pnLoad.Refresh();
+                
             }
         }
 
@@ -87,7 +90,7 @@ namespace AttendanceSystemAlpha
 
         private void rbtnCancel_Click(object sender, EventArgs e)
         {
-            mainPageView.TabIndex = 0;
+            
         }
     }
 }
