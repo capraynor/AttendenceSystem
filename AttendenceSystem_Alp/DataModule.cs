@@ -18,6 +18,10 @@ namespace AttendenceSystem_Alp
     {
         #region FuncDefinition
 
+        /// <summary>
+        /// datamodule实例化以后需要运行此函数
+        /// </summary>
+        /// <param name="urLstring">relativityserver的地址</param>
         public void SetUp(string urLstring)
         {
             if (urLstring == null) throw new ArgumentNullException("urLstring");
@@ -58,6 +62,11 @@ namespace AttendenceSystem_Alp
             }
 
         }
+        /// <summary>
+        /// 将服务器的数据离线至本地 
+        /// todo:老版本函数 需要重点测试
+        /// </summary>
+        /// <param name="offlinePasswd"></param>
         public void ServerToBriefcase(string offlinePasswd)
         {
 
@@ -282,7 +291,7 @@ namespace AttendenceSystem_Alp
         }
         #endregion
         /// <summary>
-        /// 从properties中获取登录数据 并进行登录
+        /// 从properties中获取登录数据 并进行登录 登录成功后properties中的username会改变
         /// </summary>
         /// <returns>登录成功 返回 true否则返回false</returns>
         public bool login()
@@ -306,7 +315,7 @@ namespace AttendenceSystem_Alp
             }
             else
             {
-                //todo 在properties中将教师名字改一下
+                
                 if (!JstableQuery())
                 {
                     MessageBox.Show("出现错误 请重新启动软件");
