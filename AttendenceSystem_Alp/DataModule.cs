@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
-using AttendenceSystemClientBeta;
 using AttendenceSystem_Alp.PC;
 using RemObjects.DataAbstract.Server;
 using RemObjects.InternetPack;
@@ -111,12 +110,12 @@ namespace AttendenceSystem_Alp
                 }
                 else
                 {
-                    DialogResult dr = MessageBox.Show("刷新本地离线数据",
-                        "课程“" + kktable05.KKNAME + "”的离线数据存在，要刷新离线数据吗？\n未提交的更改将会被删除", MessageBoxButtons.OKCancel,
+                    DialogResult dr = MessageBox.Show("课程“" + kktable05.KKNAME + "”的离线数据存在，要刷新离线数据吗？\n未提交的更改将会被删除", "刷新本地离线数据"
+                        , MessageBoxButtons.OKCancel,
                         MessageBoxIcon.Question);
                     if (dr != DialogResult.OK) continue;
-                    DialogResult dr2 = MessageBox.Show("刷新本地离线数据",
-                        "真的确定吗，未提交的数据将被永久删除", MessageBoxButtons.OKCancel,
+                    DialogResult dr2 = MessageBox.Show("真的确定吗，未提交的数据将被永久删除", "刷新本地离线数据"
+                        , MessageBoxButtons.OKCancel,
                         MessageBoxIcon.Question);
                     if (dr2 != DialogResult.OK) continue;
                     StartDownloadData(kktable05, offlinePasswd);

@@ -39,8 +39,8 @@ namespace AttendanceSystemAlpha
             isLogin = _fDataModule.login();
             if (isLogin)
             {
-                this.lbMsg.BackColor = Color.LightBlue;
-                this.Hide();
+                lbMsg.BackColor = Color.LightBlue;
+                Hide();
             }
             else
             {

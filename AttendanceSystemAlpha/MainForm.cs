@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Data;
+using System.Drawing.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.Linq;
-using AttendenceSystemClientBeta;
 using AttendenceSystem_Alp;
 using AttendenceSystem_Alp.PC;
+using RemObjects.DataAbstract;
 using RemObjects.DataAbstract.Linq;
 namespace AttendanceSystemAlpha
 {
@@ -60,6 +61,23 @@ namespace AttendanceSystemAlpha
 
         private void rbtnFinish_Click(object sender, EventArgs e)
         {
+            string offlineFolder = ".\\Resources\\OfflineData\\";
+            if (!System.IO.Directory.Exists(offlineFolder))
+            {
+                System.IO.Directory.CreateDirectory(offlineFolder);
+            }
+            if (!System.IO.File.Exists(".\\Resources\\Properties.daBriefcase"))
+            {
+                Briefcase propertiesBriefcase = new FileBriefcase(".\\Resources\\Properties.daBriefcase");
+                DataTable bClistTable = new DataTable("PropertiesTable");
+                DataRow bflistRow = null;
+                bClistTable.Columns.Add("开课编号", type: Type.GetType("System.String"));
+                bClistTable.Columns.Add("教师姓名", type: Type.GetType("System.String"));
+                bClistTable.Columns.Add("开课名称", type: Type.GetType("System.String"));
+                propertiesBriefcase.AddTable(bClistTable);
+                propertiesBriefcase.WriteBriefcase();
+                
+            }
             if (fDataModule.ServerToBriefcase(tboxPasswd.Text))
             {
                 lbOfflineStatus.Text = "下载完成";
