@@ -7,7 +7,6 @@ using AttendenceSystemClientBeta;
 using AttendenceSystem_Alp;
 using AttendenceSystem_Alp.PC;
 using RemObjects.DataAbstract.Linq;
-using 
 namespace AttendanceSystemAlpha
 {
     public partial class MainForm : Telerik.WinControls.UI.RadForm
@@ -24,6 +23,18 @@ namespace AttendanceSystemAlpha
             this.fDataModule = new DataModule();
         }
 
+        private void DisplayOfflineInformations()
+        {
+            pnLoad.Visible = true;
+
+            this.lbTeacherName.Text = fDataModule.getTeacherName();
+            this.clboxClassnames.Items.Clear();
+
+            foreach (KKTABLE_05 kktable05 in this.fDataModule.Context.KKTABLE_05)
+            {
+                clboxClassnames.Items.Add(kktable05.KKNAME);
+            }
+        }
         private void MainForm_Load(object sender, EventArgs e)
         {
             loginForm = new LoginForm(fDataModule);
@@ -31,28 +42,28 @@ namespace AttendanceSystemAlpha
 
         private void mainPageView_MouseUp(object sender, MouseEventArgs e)
         {
-            if (mainPageView.SelectedPage.Name == "viewpageLoadData")
+            if (mainPageView.SelectedPage.Name != "viewpageLoadData") return;
+            if (loginForm.IsLogin()) //todo :将kktablequery写出来
             {
-                if (loginForm.IsLogin()) //todo :将kktablequery写出来
+                DisplayOfflineInformations();
+            }
+            else
+            {
+                pnLoad.Visible = false;
+                loginForm.Show();
+                if (loginForm.IsLogin())
                 {
-                    this.lbTeacherName.Text = fDataModule.getTeacherName();
-                    this.clboxClassnames.Items.Clear();
-
-                    foreach (KKTABLE_05 kktable05 in this.fDataModule.Context.KKTABLE_05)
-                    {
-                        clboxClassnames.Items.Add(kktable05.KKNAME);
-                    }
-                }
-                else
-                {
-                    loginForm.Show();
+                    DisplayOfflineInformations();
                 }
             }
         }
 
         private void rbtnFinish_Click(object sender, EventArgs e)
         {
-            fDataModule.ServerToBriefcase(tboxPasswd.Text);
+            if (fDataModule.ServerToBriefcase(tboxPasswd.Text))
+            {
+                lbOfflineStatus.Text = "下载完成";
+            }
         }
 
         private void rbtnCancel_Click(object sender, EventArgs e)

@@ -91,6 +91,7 @@
             this.lbTeacherName = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.lbOfflineStatus = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainPageView)).BeginInit();
             this.mainPageView.SuspendLayout();
@@ -150,6 +151,7 @@
             // 
             // viewpageWelcome
             // 
+            this.viewpageWelcome.Controls.Add(this.button1);
             this.viewpageWelcome.Controls.Add(this.pboxWelcome);
             this.viewpageWelcome.ItemSize = new System.Drawing.SizeF(166F, 61F);
             this.viewpageWelcome.Location = new System.Drawing.Point(205, 4);
@@ -760,6 +762,15 @@
             this.lbOfflineStatus.TabIndex = 9;
             this.lbOfflineStatus.Text = "输入离线密码并点击\"开始下载\"";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(129, 51);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(307, 138);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "欢迎使用 这个按钮是没用的嘻嘻";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -871,6 +882,7 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label lbTeacherName;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Button button1;
 
     }
 }

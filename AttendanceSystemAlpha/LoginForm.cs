@@ -23,6 +23,7 @@ namespace AttendanceSystemAlpha
             this.Hide();
             tboxPasswd.Text = "";
             tboxUsername.Text = "";
+            lbMsg.BackColor = Color.LightBlue;
         }
 
         private void LoginForm_Load(object sender, EventArgs e)

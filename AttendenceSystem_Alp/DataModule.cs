@@ -99,7 +99,7 @@ namespace AttendenceSystem_Alp
         /// todo:老版本函数 需要重点测试
         /// </summary>
         /// <param name="offlinePasswd"></param>
-        public void ServerToBriefcase(string offlinePasswd)
+        public Boolean ServerToBriefcase(string offlinePasswd)
         {
 
             foreach (var kktable05 in this.Context.KKTABLE_05)
@@ -122,6 +122,7 @@ namespace AttendenceSystem_Alp
                     StartDownloadData(kktable05, offlinePasswd);
                 }
             } //foreach
+            return true;
         }
 
         public bool StartDownloadData(KKTABLE_05 kktable05 , string offlinePasswd)

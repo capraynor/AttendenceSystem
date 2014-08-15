@@ -28,23 +28,23 @@ namespace AttendenceSystemClientBeta
         public static DataTable XktableListToDataTable(List<XKTABLE_VIEW1> list, string tableName)
         {
             DataTable dt = new DataTable(tableName);
-            foreach (PropertyInfo info in typeof(XKTABLE_VIEW1).GetProperties())
+            foreach (PropertyInfo info in typeof (XKTABLE_VIEW1).GetProperties())
             {
                 dt.Columns.Add(new DataColumn(info.Name, info.PropertyType));
             }
             foreach (XKTABLE_VIEW1 t in list)
             {
                 DataRow row = dt.NewRow();
-                foreach (PropertyInfo info in typeof(XKTABLE_VIEW1).GetProperties())
+                foreach (PropertyInfo info in typeof (XKTABLE_VIEW1).GetProperties())
                 {
-                   row[info.Name] = info.GetValue(t, null);
+                    row[info.Name] = info.GetValue(t, null);
                 }
                 dt.Rows.Add(row);
             }
             return dt;
         }
 
-        
+
         public static DataTable TableListToDataTable<T>(List<T> list, string tableName)
         {
             DataTable result = new DataTable(tableName);
@@ -56,7 +56,7 @@ namespace AttendenceSystemClientBeta
                     //获取类型
                     Type colType = pi.PropertyType;
                     //当类型为Nullable<>时
-                    if ((colType.IsGenericType) && (colType.GetGenericTypeDefinition() == typeof(Nullable<>)))
+                    if ((colType.IsGenericType) && (colType.GetGenericTypeDefinition() == typeof (Nullable<>)))
                     {
                         colType = colType.GetGenericArguments()[0];
                     }
@@ -76,32 +76,8 @@ namespace AttendenceSystemClientBeta
             }
             return result;
         }
-        //public static DataTable TableListToDataTable<T>(List<T> list, string tableName)
-        //{
-        //    DataTable dt = new DataTable(tableName);
-        //    foreach (PropertyInfo info in typeof(T).GetProperties())
-        //    {
-        //        // dt.Columns.Add(new DataColumn(info.Name, info.PropertyType));
-        //        dt.Columns.Add(new DataColumn(info.Name, Nullable.GetUnderlyingType(info.PropertyType) ?? info.PropertyType));
-        //    }
-        //    foreach (T t in list)
-        //    {
-        //        DataRow row = dt.NewRow();
-        //        foreach (PropertyInfo info in typeof(T).GetProperties())
-        //        {
-        //            if (info.GetValue(t, null) == null)
-        //            {
-        //                row[info.Name] = DBNull.Value;
-        //            }
-        //            else
-        //            {
-        //                row[info.Name] = info.GetValue(t, null);
-        //            }
-        //            //row[info.Name] = info.GetValue(t, null);
-        //        }
-        //        dt.Rows.Add(row);
-        //    }
-        //    return dt;
-        //}
+    }
+}
+       
 
       
