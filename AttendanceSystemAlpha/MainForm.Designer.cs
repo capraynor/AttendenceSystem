@@ -1,4 +1,6 @@
-﻿namespace AttendanceSystemAlpha
+﻿using System.Data;
+
+namespace AttendanceSystemAlpha
 {
     partial class MainForm
     {
@@ -34,9 +36,14 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.mainPageView = new Telerik.WinControls.UI.RadPageView();
             this.viewpageWelcome = new Telerik.WinControls.UI.RadPageViewPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.pboxWelcome = new System.Windows.Forms.PictureBox();
             this.viewpageLoadData = new Telerik.WinControls.UI.RadPageViewPage();
             this.pnLoad = new System.Windows.Forms.Panel();
+            this.lbOfflineStatus = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.lbTeacherName = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.tboxLoadpasswd = new System.Windows.Forms.TextBox();
             this.lbLoadpasswd = new System.Windows.Forms.Label();
             this.rbtnFinish = new Telerik.WinControls.UI.RadButton();
@@ -87,11 +94,6 @@
             this.cbboxClassname = new System.Windows.Forms.ComboBox();
             this.lbCname = new System.Windows.Forms.Label();
             this.viewpageDataManagement = new Telerik.WinControls.UI.RadPageViewPage();
-            this.label17 = new System.Windows.Forms.Label();
-            this.lbTeacherName = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.lbOfflineStatus = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainPageView)).BeginInit();
             this.mainPageView.SuspendLayout();
@@ -142,7 +144,7 @@
             this.mainPageView.Font = new System.Drawing.Font("微软雅黑", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.mainPageView.Location = new System.Drawing.Point(0, 0);
             this.mainPageView.Name = "mainPageView";
-            this.mainPageView.SelectedPage = this.viewpageLoadData;
+            this.mainPageView.SelectedPage = this.viewpageCall;
             this.mainPageView.Size = new System.Drawing.Size(999, 487);
             this.mainPageView.TabIndex = 0;
             this.mainPageView.ThemeName = "TelerikMetro";
@@ -158,6 +160,15 @@
             this.viewpageWelcome.Name = "viewpageWelcome";
             this.viewpageWelcome.Size = new System.Drawing.Size(790, 479);
             this.viewpageWelcome.Text = "  首  页";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(129, 51);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(307, 138);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "欢迎使用 这个按钮是没用的嘻嘻";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // pboxWelcome
             // 
@@ -194,6 +205,41 @@
             this.pnLoad.Name = "pnLoad";
             this.pnLoad.Size = new System.Drawing.Size(794, 479);
             this.pnLoad.TabIndex = 0;
+            // 
+            // lbOfflineStatus
+            // 
+            this.lbOfflineStatus.AutoSize = true;
+            this.lbOfflineStatus.Location = new System.Drawing.Point(404, 336);
+            this.lbOfflineStatus.Name = "lbOfflineStatus";
+            this.lbOfflineStatus.Size = new System.Drawing.Size(290, 27);
+            this.lbOfflineStatus.TabIndex = 9;
+            this.lbOfflineStatus.Text = "输入离线密码并点击\"开始下载\"";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(13, 91);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(172, 27);
+            this.label18.TabIndex = 8;
+            this.label18.Text = "需要离线的课程：";
+            // 
+            // lbTeacherName
+            // 
+            this.lbTeacherName.AutoSize = true;
+            this.lbTeacherName.Location = new System.Drawing.Point(125, 42);
+            this.lbTeacherName.Name = "lbTeacherName";
+            this.lbTeacherName.Size = new System.Drawing.Size(0, 27);
+            this.lbTeacherName.TabIndex = 7;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(13, 42);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(112, 27);
+            this.label17.TabIndex = 6;
+            this.label17.Text = "教师姓名：";
             // 
             // tboxLoadpasswd
             // 
@@ -537,6 +583,7 @@
             // cbboxCalltimes
             // 
             this.cbboxCalltimes.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cbboxCalltimes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbboxCalltimes.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbboxCalltimes.FormattingEnabled = true;
             this.cbboxCalltimes.Location = new System.Drawing.Point(424, 104);
@@ -558,6 +605,7 @@
             // cbboxCallWay
             // 
             this.cbboxCallWay.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cbboxCallWay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbboxCallWay.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbboxCallWay.FormattingEnabled = true;
             this.cbboxCallWay.Location = new System.Drawing.Point(424, 50);
@@ -606,6 +654,7 @@
             this.rbtnStartcall.TabIndex = 20;
             this.rbtnStartcall.Text = "开始点名";
             this.rbtnStartcall.ThemeName = "TelerikMetro";
+            this.rbtnStartcall.Click += new System.EventHandler(this.rbtnStartcall_Click);
             // 
             // tboxTeachername
             // 
@@ -650,6 +699,7 @@
             // cbboxJieCi
             // 
             this.cbboxJieCi.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cbboxJieCi.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbboxJieCi.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbboxJieCi.FormattingEnabled = true;
             this.cbboxJieCi.Location = new System.Drawing.Point(129, 10);
@@ -695,16 +745,19 @@
             this.tboxPasswd.Name = "tboxPasswd";
             this.tboxPasswd.Size = new System.Drawing.Size(193, 34);
             this.tboxPasswd.TabIndex = 10;
+            this.tboxPasswd.TextChanged += new System.EventHandler(this.tboxPasswd_TextChanged);
             // 
             // cbboxClassname
             // 
             this.cbboxClassname.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cbboxClassname.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbboxClassname.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbboxClassname.FormattingEnabled = true;
             this.cbboxClassname.Location = new System.Drawing.Point(132, 33);
             this.cbboxClassname.Name = "cbboxClassname";
             this.cbboxClassname.Size = new System.Drawing.Size(270, 35);
             this.cbboxClassname.TabIndex = 4;
+            this.cbboxClassname.SelectedIndexChanged += new System.EventHandler(this.cbboxClassname_SelectedIndexChanged);
             // 
             // lbCname
             // 
@@ -715,7 +768,7 @@
             this.lbCname.Name = "lbCname";
             this.lbCname.Size = new System.Drawing.Size(112, 27);
             this.lbCname.TabIndex = 1;
-            this.lbCname.Text = "课程名称：";
+            this.lbCname.Text = "开课名称：";
             // 
             // viewpageDataManagement
             // 
@@ -725,50 +778,6 @@
             this.viewpageDataManagement.Name = "viewpageDataManagement";
             this.viewpageDataManagement.Size = new System.Drawing.Size(790, 479);
             this.viewpageDataManagement.Text = "数据管理";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(13, 42);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(112, 27);
-            this.label17.TabIndex = 6;
-            this.label17.Text = "教师姓名：";
-            // 
-            // lbTeacherName
-            // 
-            this.lbTeacherName.AutoSize = true;
-            this.lbTeacherName.Location = new System.Drawing.Point(125, 42);
-            this.lbTeacherName.Name = "lbTeacherName";
-            this.lbTeacherName.Size = new System.Drawing.Size(0, 27);
-            this.lbTeacherName.TabIndex = 7;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(13, 91);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(172, 27);
-            this.label18.TabIndex = 8;
-            this.label18.Text = "需要离线的课程：";
-            // 
-            // lbOfflineStatus
-            // 
-            this.lbOfflineStatus.AutoSize = true;
-            this.lbOfflineStatus.Location = new System.Drawing.Point(404, 336);
-            this.lbOfflineStatus.Name = "lbOfflineStatus";
-            this.lbOfflineStatus.Size = new System.Drawing.Size(290, 27);
-            this.lbOfflineStatus.TabIndex = 9;
-            this.lbOfflineStatus.Text = "输入离线密码并点击\"开始下载\"";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(129, 51);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(307, 138);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "欢迎使用 这个按钮是没用的嘻嘻";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -882,7 +891,6 @@
         private System.Windows.Forms.Label lbTeacherName;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Button button1;
-
     }
 }
 

@@ -118,6 +118,8 @@ namespace AttendenceSystem_Alp
                         , MessageBoxButtons.OKCancel,
                         MessageBoxIcon.Question);
                     if (dr2 != DialogResult.OK) continue;
+                    File.Delete(string.Format(GlobalParams.CurrentOfflineDataFile, kktable05.KKNO.ToString()) +
+                                 ".daBriefcase");
                     StartDownloadData(kktable05, offlinePasswd);
                 }
             } //foreach

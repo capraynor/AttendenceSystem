@@ -20,5 +20,11 @@
     <Setting Name="ServerUrl" Type="System.String" Scope="User">
       <Value Profile="(Default)">localhost:7099/bin/</Value>
     </Setting>
+    <Setting Name="PropertiesBriefcaseFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.\\Resources\\Properties.daBriefcase</Value>
+    </Setting>
+    <Setting Name="OfflineFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.\\Resources\\OfflineData</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

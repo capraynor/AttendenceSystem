@@ -94,5 +94,29 @@ namespace AttendanceSystemAlpha.Properties {
                 this["ServerUrl"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".\\\\Resources\\\\Properties.daBriefcase")]
+        public string PropertiesBriefcaseFolder {
+            get {
+                return ((string)(this["PropertiesBriefcaseFolder"]));
+            }
+            set {
+                this["PropertiesBriefcaseFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".\\\\Resources\\\\OfflineData")]
+        public string OfflineFolder {
+            get {
+                return ((string)(this["OfflineFolder"]));
+            }
+            set {
+                this["OfflineFolder"] = value;
+            }
+        }
     }
 }

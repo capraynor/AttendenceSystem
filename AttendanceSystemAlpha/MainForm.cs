@@ -4,6 +4,7 @@ using System.Drawing.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.Linq;
+using System.Windows.Forms.PropertyGridInternal;
 using AttendenceSystem_Alp;
 using AttendenceSystem_Alp.PC;
 using RemObjects.DataAbstract;
@@ -12,13 +13,18 @@ namespace AttendanceSystemAlpha
 {
     public partial class MainForm : Telerik.WinControls.UI.RadForm
     {
-        private LoginForm loginForm;
+        
         #region Private fields
         private DataModule fDataModule;
+        private DataTable _propertiesTable;
+        private LoginForm loginForm;
+        private string _teacherName = "";
+        private string _currentPasswd = "";
         #endregion
 
-        public MainForm()
+        public MainForm(string teacherName)
         {
+            this._teacherName = teacherName;
             this.InitializeComponent();
 
             this.fDataModule = new DataModule();
@@ -45,21 +51,39 @@ namespace AttendanceSystemAlpha
 
         private void mainPageView_MouseUp(object sender, MouseEventArgs e)
         {
-            if (mainPageView.SelectedPage.Name != "viewpageLoadData") return;
-            if (loginForm.IsLogin()) //todo :将kktablequery写出来
+            if (mainPageView.SelectedPage.Name == "viewpageLoadData")
             {
-                DisplayOfflineInformations();
+                if (loginForm.IsLogin()) //todo :将kktablequery写出来
+                {
+                    DisplayOfflineInformations();
+                }
+                else
+                {
+                    pnLoad.Enabled = false;
+                    loginForm.ShowDialog();
+                    if (!loginForm.IsLogin()) return;
+                    pnLoad.Visible = true;
+                    DisplayOfflineInformations();
+                    pnLoad.Enabled = true;
+                    pnLoad.Refresh();
+                }
             }
-            else
+            else if (mainPageView.SelectedPage.Name == "viewpageLoadData")
             {
-                pnLoad.Enabled = false;
-                loginForm.ShowDialog();
-                if (!loginForm.IsLogin()) return;
-                pnLoad.Visible = true;
-                DisplayOfflineInformations();
-                pnLoad.Enabled = true;
-                pnLoad.Refresh();
                 
+
+                if (System.IO.Directory.GetFiles(Properties.Settings.Default.OfflineFolder).Length == 0)
+                {
+                    MessageBox.Show("没有离线数据 请先下载离线数据");
+                }
+                else
+                {
+                    Briefcase propertieBriefcase = new FileBriefcase(Properties.Settings.Default.PropertiesBriefcaseFolder , true);
+                    _propertiesTable = propertieBriefcase.FindTable("PropertiesTable");
+                    cbboxClassname.DataSource = _propertiesTable;
+                    cbboxClassname.DisplayMember = "开课名称";
+                    cbboxClassname.ValueMember = "开课编号";
+                }
             }
         }
 
@@ -82,7 +106,7 @@ namespace AttendanceSystemAlpha
                 propertiesBriefcase.WriteBriefcase();
                 
             }
-            if (fDataModule.ServerToBriefcase(tboxPasswd.Text))
+            if (fDataModule.ServerToBriefcase(tboxLoadpasswd.Text))
             {
                 lbOfflineStatus.Text = "下载完成";
             }
@@ -91,6 +115,22 @@ namespace AttendanceSystemAlpha
         private void rbtnCancel_Click(object sender, EventArgs e)
         {
             
+        }
+
+        private void rbtnStartcall_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbboxClassname_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _teacherName = _propertiesTable.Select("开课编号 like '" + cbboxClassname.SelectedValue + "'").First()["教师姓名"].ToString();
+            tboxTeachername.Text = _teacherName;//todo:离线密码验证
+        }
+
+        private void tboxPasswd_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
