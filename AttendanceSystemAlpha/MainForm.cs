@@ -52,7 +52,7 @@ namespace AttendanceSystemAlpha
 
         private void rbtnFinish_Click(object sender, EventArgs e)
         {
-            
+            fDataModule.ServerToBriefcase(tboxPasswd.Text);
         }
 
         private void rbtnCancel_Click(object sender, EventArgs e)

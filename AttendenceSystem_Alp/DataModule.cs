@@ -4,6 +4,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using AttendenceSystemClientBeta;
 using AttendenceSystem_Alp.PC;
 using RemObjects.DataAbstract.Server;
@@ -88,7 +89,7 @@ namespace AttendenceSystem_Alp
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.Message);
+                MessageBox.Show("获取数据失败  请重新启动软件");
                 return false;//获取数据失败
             }
 
@@ -103,83 +104,96 @@ namespace AttendenceSystem_Alp
 
             foreach (var kktable05 in this.Context.KKTABLE_05)
             {
-                
-                if (
-                    File.Exists(string.Format(GlobalParams.CurrentOfflineDataFile, kktable05.KKNO.ToString()) +
-                                ".daBriefcase"))
+                if (!File.Exists(string.Format(GlobalParams.CurrentOfflineDataFile, kktable05.KKNO.ToString()) +
+                                 ".daBriefcase"))
                 {
-                    MessageBox.Show("课程" + kktable05.KKNAME + "的离线数据存在，将下载最新的离线数据");
-                }
-
-                Briefcase newBriefcase = new FileBriefcase(string.Format(GlobalParams.CurrentOfflineDataFile, kktable05.KKNO.ToString()));
-
-                DataTable classRecordTable = null;
-                DataRow classRecordRow = null;
-                classRecordTable = new DataTable("ClassStatus");
-                classRecordTable.Columns.Add("Table编号", type: Type.GetType("System.String"));
-                classRecordTable.Columns.Add("课次", type: Type.GetType("System.String"));
-                classRecordTable.Columns.Add("签到情况", type: Type.GetType("System.String"));
-                classRecordTable.Columns.Add("离线数据提交情况", type: Type.GetType("System.String"));
-                newBriefcase.Properties.Add(GlobalParams.PropertiesLastModified, DateTime.Now.ToString());
-                newBriefcase.Properties.Add(GlobalParams.PropertiesTeacherName, GlobalParams.jsname);
-                newBriefcase.Properties.Add(GlobalParams.PropertiesTeacherID,Properties.Settings.Default.UserId);
-                newBriefcase.Properties.Add(GlobalParams.PropertiesPasswd, offlinePasswd);
-                newBriefcase.Properties.Add(GlobalParams.PropertiesClassName, kktable05.KKNAME);
-                IQueryable<XKTABLE_VIEW1> xktableView1s =
-                    from c in
-                        remoteDataAdapter.GetTable<XKTABLE_VIEW1>(new DataParameter[] { new DataParameter("KKNO", kktable05.KKNO), })
-                    select c;
-                newBriefcase.AddTable(OfflineHelper.TableListToDataTable(xktableView1s.ToList(), "XKTABLE_VIEW1")); // 将XKTABLE离线出来 带出学生信息
-
-                IQueryable<SKTABLE_VIEW1> sktableView1s =
-                    from c in
-                        remoteDataAdapter.GetTable<SKTABLE_VIEW1>(new DataParameter[] { new DataParameter("KKNO", kktable05.KKNO), })
-                    select c;
-
-                newBriefcase.AddTable(OfflineHelper.TableListToDataTable(sktableView1s.ToList(), "SKTABLE"));  // 将SKTABLE离线出来 带出每节课的课程信息
-                foreach (var sktableView1 in sktableView1s)
-                {
-                    IQueryable<DMTABLE_08> dmtable08S =
-                        from c in
-                            remoteDataAdapter.GetTable<DMTABLE_08>(new DataParameter[] { new DataParameter("SKNO", sktableView1.SKNO), })
-                        select c;
-                    newBriefcase.AddTable(OfflineHelper.TableListToDataTable(dmtable08S.ToList(), sktableView1.SKNO.ToString()));
-                    classRecordRow = classRecordTable.NewRow();
-                    classRecordRow[0] = sktableView1.SKNO.ToString();
-                    classRecordRow[1] = sktableView1.SKDATE.ToString();
-                    classRecordRow[2] = GlobalParams.DidNotSigned;
-                    classRecordRow[3] = GlobalParams.NotSubmitYet;
-                    classRecordTable.Rows.Add(classRecordRow);
-                }
-                newBriefcase.AddTable(classRecordTable); // briefcase里有几个table
-                newBriefcase.WriteBriefcase();
-                Briefcase propertiesBriefcase = new FileBriefcase(GlobalParams.PropertiesBriefcaseName, true);
-                DataTable propertiesTable = propertiesBriefcase.FindTable("PropertiesTable");
-                DataRow propertiesRow = null;
-                propertiesRow = propertiesTable.NewRow();
-                propertiesRow[0] = kktable05.KKNO.ToString();
-                propertiesRow[1] = GlobalParams.jsname;
-                propertiesRow[2] = kktable05.KKNAME;
-                DataRow[] dataRows = propertiesTable.Select("开课编号 = '" + kktable05.KKNO.ToString() + "'");
-                if (dataRows.Length >= 1)
-                {
-
-                    foreach (var dataRow in dataRows)
-                    {
-                        dataRow.Delete();
-                    }
-                    propertiesTable.Rows.Add(propertiesRow);
+                    StartDownloadData(kktable05, offlinePasswd);
                 }
                 else
                 {
-                    propertiesTable.Rows.Add(propertiesRow);
+                    DialogResult dr = MessageBox.Show("刷新本地离线数据",
+                        "课程“" + kktable05.KKNAME + "”的离线数据存在，要刷新离线数据吗？\n未提交的更改将会被删除", MessageBoxButtons.OKCancel,
+                        MessageBoxIcon.Question);
+                    if (dr != DialogResult.OK) continue;
+                    DialogResult dr2 = MessageBox.Show("刷新本地离线数据",
+                        "真的确定吗，未提交的数据将被永久删除", MessageBoxButtons.OKCancel,
+                        MessageBoxIcon.Question);
+                    if (dr2 != DialogResult.OK) continue;
+                    StartDownloadData(kktable05, offlinePasswd);
                 }
-                propertiesBriefcase.RemoveTable("PropertiesTable");
+            } //foreach
+        }
 
-                propertiesBriefcase.AddTable(propertiesTable);
-                propertiesBriefcase.WriteBriefcase();
+        public bool StartDownloadData(KKTABLE_05 kktable05 , string offlinePasswd)
+        {
+            Briefcase newBriefcase = new FileBriefcase(string.Format(GlobalParams.CurrentOfflineDataFile, kktable05.KKNO.ToString()));
 
+            DataTable classRecordTable = null;
+            DataRow classRecordRow = null;
+            classRecordTable = new DataTable("ClassStatus");
+            classRecordTable.Columns.Add("Table编号", type: Type.GetType("System.String"));
+            classRecordTable.Columns.Add("课次", type: Type.GetType("System.String"));
+            classRecordTable.Columns.Add("签到情况", type: Type.GetType("System.String"));
+            classRecordTable.Columns.Add("离线数据提交情况", type: Type.GetType("System.String"));
+            newBriefcase.Properties.Add(GlobalParams.PropertiesLastModified, DateTime.Now.ToString());
+            newBriefcase.Properties.Add(GlobalParams.PropertiesTeacherName, Properties.Settings.Default.UserName);
+            newBriefcase.Properties.Add(GlobalParams.PropertiesTeacherID, Properties.Settings.Default.UserId);
+            newBriefcase.Properties.Add(GlobalParams.PropertiesPasswd, offlinePasswd);
+            newBriefcase.Properties.Add(GlobalParams.PropertiesClassName, kktable05.KKNAME);
+            IQueryable<XKTABLE_VIEW1> xktableView1s =
+                from c in
+                    remoteDataAdapter.GetTable<XKTABLE_VIEW1>(new DataParameter[] { new DataParameter("KKNO", kktable05.KKNO), })
+                select c;
+            newBriefcase.AddTable(OfflineHelper.TableListToDataTable(xktableView1s.ToList(), "XKTABLE_VIEW1")); // 将XKTABLE离线出来 带出学生信息
+
+            IQueryable<SKTABLE_VIEW1> sktableView1s =
+                from c in
+                    remoteDataAdapter.GetTable<SKTABLE_VIEW1>(new DataParameter[] { new DataParameter("KKNO", kktable05.KKNO), })
+                select c;
+
+            newBriefcase.AddTable(OfflineHelper.TableListToDataTable(sktableView1s.ToList(), "SKTABLE"));  // 将SKTABLE离线出来 带出每节课的课程信息
+            foreach (var sktableView1 in sktableView1s)
+            {
+                IQueryable<DMTABLE_08> dmtable08S =
+                    from c in
+                        remoteDataAdapter.GetTable<DMTABLE_08>(new DataParameter[] { new DataParameter("SKNO", sktableView1.SKNO), })
+                    select c;
+                newBriefcase.AddTable(OfflineHelper.TableListToDataTable(dmtable08S.ToList(), sktableView1.SKNO.ToString()));
+                classRecordRow = classRecordTable.NewRow();
+                classRecordRow[0] = sktableView1.SKNO.ToString();
+                classRecordRow[1] = sktableView1.SKDATE.ToString();
+                classRecordRow[2] = GlobalParams.DidNotSigned;
+                classRecordRow[3] = GlobalParams.NotSubmitYet;
+                classRecordTable.Rows.Add(classRecordRow);
             }
+            newBriefcase.AddTable(classRecordTable); // briefcase里有几个table
+            newBriefcase.WriteBriefcase();
+            Briefcase propertiesBriefcase = new FileBriefcase(GlobalParams.PropertiesBriefcaseName, true);
+            DataTable propertiesTable = propertiesBriefcase.FindTable("PropertiesTable");
+            DataRow propertiesRow = null;
+            propertiesRow = propertiesTable.NewRow();
+            propertiesRow[0] = kktable05.KKNO.ToString();
+            propertiesRow[1] = Properties.Settings.Default.UserName;
+            propertiesRow[2] = kktable05.KKNAME;
+            DataRow[] dataRows = propertiesTable.Select("开课编号 = '" + kktable05.KKNO.ToString() + "'");
+            if (dataRows.Length >= 1)
+            {
+
+                foreach (var dataRow in dataRows)
+                {
+                    dataRow.Delete();
+                }
+                propertiesTable.Rows.Add(propertiesRow);
+            }
+            else
+            {
+                propertiesTable.Rows.Add(propertiesRow);
+            }
+            propertiesBriefcase.RemoveTable("PropertiesTable");
+
+            propertiesBriefcase.AddTable(propertiesTable);
+            propertiesBriefcase.WriteBriefcase();
+            return true;
         }
         /// <summary>
         /// 上传点名表中的一条记录
@@ -352,6 +366,7 @@ namespace AttendenceSystem_Alp
                     MessageBox.Show("出现错误 请重新启动软件");
                 }
                 Properties.Settings.Default.UserName = this.Context.JSTABLE_03.First().JSNAME;
+                GetkkQueryTables(Convert.ToInt64(Properties.Settings.Default.UserId));
                 return true;
             }
         }
