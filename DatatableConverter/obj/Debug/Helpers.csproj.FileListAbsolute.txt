@@ -1,0 +1,10 @@
+C:\Users\mahmoud.soufi.ITSOFT\Desktop\Helpers\bin\Debug\Helpers.dll
+C:\Users\mahmoud.soufi.ITSOFT\Desktop\Helpers\bin\Debug\Helpers.pdb
+C:\Users\mahmoud.soufi.ITSOFT\Desktop\Helpers\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\mahmoud.soufi.ITSOFT\Desktop\Helpers\obj\Debug\Helpers.dll
+C:\Users\mahmoud.soufi.ITSOFT\Desktop\Helpers\obj\Debug\Helpers.pdb
+C:\MyProjects\Convert DataTable\C#\bin\Debug\Helpers.dll
+C:\MyProjects\Convert DataTable\C#\bin\Debug\Helpers.pdb
+C:\MyProjects\Convert DataTable\C#\obj\Debug\Helpers.csprojResolveAssemblyReference.cache
+C:\MyProjects\Convert DataTable\C#\obj\Debug\Helpers.dll
+C:\MyProjects\Convert DataTable\C#\obj\Debug\Helpers.pdb
