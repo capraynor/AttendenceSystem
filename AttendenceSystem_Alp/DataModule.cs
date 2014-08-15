@@ -32,6 +32,7 @@ namespace AttendenceSystem_Alp
                     {new DataParameter("JSID", Convert.ToInt64(Properties.Settings.Default.UserId)),})
                 select c;
             this.Context.JSTABLE_03 = jstable03S.ToList();
+            return true;
         }
         /// <summary>
         /// 获取教师对应的开课表 并存储于datamodule.context.kktable中
@@ -306,7 +307,10 @@ namespace AttendenceSystem_Alp
             else
             {
                 //todo 在properties中将教师名字改一下
-                this.JstableQuery();
+                if (!JstableQuery())
+                {
+                    MessageBox.Show("出现错误 请重新启动软件");
+                }
                 Properties.Settings.Default.UserName = this.Context.JSTABLE_03.First().JSNAME;
                 return true;
             }
