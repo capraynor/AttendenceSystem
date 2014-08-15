@@ -25,7 +25,7 @@ namespace AttendenceSystem_Alp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data")]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
         public string UserId {
             get {
                 return ((string)(this["UserId"]));
@@ -49,7 +49,7 @@ namespace AttendenceSystem_Alp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool StorePassword {
             get {
                 return ((bool)(this["StorePassword"]));
@@ -80,6 +80,18 @@ namespace AttendenceSystem_Alp.Properties {
             }
             set {
                 this["Schema"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string UserName {
+            get {
+                return ((string)(this["UserName"]));
+            }
+            set {
+                this["UserName"] = value;
             }
         }
     }

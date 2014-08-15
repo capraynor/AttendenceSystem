@@ -3,19 +3,22 @@
   <Profiles />
   <Settings>
     <Setting Name="UserId" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Data</Value>
+      <Value Profile="(Default)">5</Value>
     </Setting>
     <Setting Name="Password" Type="System.String" Scope="User">
       <Value Profile="(Default)">Relativity</Value>
     </Setting>
-	<Setting Name="StorePassword" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+    <Setting Name="StorePassword" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="Domain" Type="System.String" Scope="User">
       <Value Profile="(Default)">AttendanceSystem</Value>
     </Setting>
     <Setting Name="Schema" Type="System.String" Scope="User">
       <Value Profile="(Default)">PC</Value>
+    </Setting>
+    <Setting Name="UserName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

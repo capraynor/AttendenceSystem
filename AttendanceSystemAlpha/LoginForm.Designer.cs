@@ -91,6 +91,7 @@
             this.rbtnLogin.TabIndex = 5;
             this.rbtnLogin.Text = "登 录";
             this.rbtnLogin.ThemeName = "TelerikMetro";
+            this.rbtnLogin.Click += new System.EventHandler(this.rbtnLogin_Click);
             // 
             // rbtnCancel
             // 

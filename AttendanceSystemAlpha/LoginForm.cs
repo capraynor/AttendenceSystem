@@ -26,5 +26,10 @@ namespace AttendanceSystemAlpha
         {
             isLogin = false;
         }
+
+        private void rbtnLogin_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
