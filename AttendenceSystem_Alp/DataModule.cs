@@ -28,6 +28,37 @@ namespace AttendenceSystem_Alp
             this.clientChannel.TargetUrl = urLstring;
         }
 
+        public string GetUserID()
+        {
+            return Properties.Settings.Default.UserId;
+        }
+
+        public void SetUserID(string UserID)
+        {
+            Properties.Settings.Default.UserId = UserID;
+        }
+        
+
+        public void SetPasswd(string Password)
+        {
+            Properties.Settings.Default.Password = Password;
+        }
+
+        public string GetServerUrl()
+        {
+            return Properties.Settings.Default.ServerUrl;
+        }
+
+        public void SetUrl(string serverUrl)
+        {
+            Properties.Settings.Default.ServerUrl = serverUrl;
+        }
+
+        public string getTeacherName()
+        {
+            return Properties.Settings.Default.UserName;
+        }
+        
         public bool JstableQuery()
         {
             IQueryable<JSTABLE_03> jstable03S =

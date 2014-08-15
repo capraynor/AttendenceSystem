@@ -42,7 +42,6 @@
             this.rbtnFinish = new Telerik.WinControls.UI.RadButton();
             this.rbtnCancel = new Telerik.WinControls.UI.RadButton();
             this.clboxClassnames = new System.Windows.Forms.CheckedListBox();
-            this.lbClassname = new System.Windows.Forms.Label();
             this.viewpageCall = new Telerik.WinControls.UI.RadPageViewPage();
             this.pnMaincall = new System.Windows.Forms.Panel();
             this.gboxMsg = new System.Windows.Forms.GroupBox();
@@ -88,6 +87,10 @@
             this.cbboxClassname = new System.Windows.Forms.ComboBox();
             this.lbCname = new System.Windows.Forms.Label();
             this.viewpageDataManagement = new Telerik.WinControls.UI.RadPageViewPage();
+            this.label17 = new System.Windows.Forms.Label();
+            this.lbTeacherName = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.lbOfflineStatus = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainPageView)).BeginInit();
             this.mainPageView.SuspendLayout();
@@ -138,7 +141,7 @@
             this.mainPageView.Font = new System.Drawing.Font("微软雅黑", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.mainPageView.Location = new System.Drawing.Point(0, 0);
             this.mainPageView.Name = "mainPageView";
-            this.mainPageView.SelectedPage = this.viewpageCall;
+            this.mainPageView.SelectedPage = this.viewpageLoadData;
             this.mainPageView.Size = new System.Drawing.Size(999, 487);
             this.mainPageView.TabIndex = 0;
             this.mainPageView.ThemeName = "TelerikMetro";
@@ -175,12 +178,15 @@
             // 
             // pnLoad
             // 
+            this.pnLoad.Controls.Add(this.lbOfflineStatus);
+            this.pnLoad.Controls.Add(this.label18);
+            this.pnLoad.Controls.Add(this.lbTeacherName);
+            this.pnLoad.Controls.Add(this.label17);
             this.pnLoad.Controls.Add(this.tboxLoadpasswd);
             this.pnLoad.Controls.Add(this.lbLoadpasswd);
             this.pnLoad.Controls.Add(this.rbtnFinish);
             this.pnLoad.Controls.Add(this.rbtnCancel);
             this.pnLoad.Controls.Add(this.clboxClassnames);
-            this.pnLoad.Controls.Add(this.lbClassname);
             this.pnLoad.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnLoad.Location = new System.Drawing.Point(0, 0);
             this.pnLoad.Name = "pnLoad";
@@ -211,8 +217,9 @@
             this.rbtnFinish.Name = "rbtnFinish";
             this.rbtnFinish.Size = new System.Drawing.Size(107, 40);
             this.rbtnFinish.TabIndex = 3;
-            this.rbtnFinish.Text = "完 成";
+            this.rbtnFinish.Text = "开始下载";
             this.rbtnFinish.ThemeName = "TelerikMetro";
+            this.rbtnFinish.Click += new System.EventHandler(this.rbtnFinish_Click);
             // 
             // rbtnCancel
             // 
@@ -223,23 +230,15 @@
             this.rbtnCancel.TabIndex = 2;
             this.rbtnCancel.Text = "取 消";
             this.rbtnCancel.ThemeName = "TelerikMetro";
+            this.rbtnCancel.Click += new System.EventHandler(this.rbtnCancel_Click);
             // 
             // clboxClassnames
             // 
             this.clboxClassnames.FormattingEnabled = true;
-            this.clboxClassnames.Location = new System.Drawing.Point(12, 59);
+            this.clboxClassnames.Location = new System.Drawing.Point(12, 121);
             this.clboxClassnames.Name = "clboxClassnames";
             this.clboxClassnames.Size = new System.Drawing.Size(331, 294);
             this.clboxClassnames.TabIndex = 1;
-            // 
-            // lbClassname
-            // 
-            this.lbClassname.AutoSize = true;
-            this.lbClassname.Location = new System.Drawing.Point(7, 15);
-            this.lbClassname.Name = "lbClassname";
-            this.lbClassname.Size = new System.Drawing.Size(112, 27);
-            this.lbClassname.TabIndex = 0;
-            this.lbClassname.Text = "课程名称：";
             // 
             // viewpageCall
             // 
@@ -726,6 +725,41 @@
             this.viewpageDataManagement.Size = new System.Drawing.Size(790, 479);
             this.viewpageDataManagement.Text = "数据管理";
             // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(13, 42);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(112, 27);
+            this.label17.TabIndex = 6;
+            this.label17.Text = "教师姓名：";
+            // 
+            // lbTeacherName
+            // 
+            this.lbTeacherName.AutoSize = true;
+            this.lbTeacherName.Location = new System.Drawing.Point(125, 42);
+            this.lbTeacherName.Name = "lbTeacherName";
+            this.lbTeacherName.Size = new System.Drawing.Size(0, 27);
+            this.lbTeacherName.TabIndex = 7;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(13, 91);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(172, 27);
+            this.label18.TabIndex = 8;
+            this.label18.Text = "需要离线的课程：";
+            // 
+            // lbOfflineStatus
+            // 
+            this.lbOfflineStatus.AutoSize = true;
+            this.lbOfflineStatus.Location = new System.Drawing.Point(404, 336);
+            this.lbOfflineStatus.Name = "lbOfflineStatus";
+            this.lbOfflineStatus.Size = new System.Drawing.Size(290, 27);
+            this.lbOfflineStatus.TabIndex = 9;
+            this.lbOfflineStatus.Text = "输入离线密码并点击\"开始下载\"";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -786,7 +820,6 @@
         private System.Windows.Forms.PictureBox pboxWelcome;
         private System.Windows.Forms.Panel pnLoad;
         private System.Windows.Forms.CheckedListBox clboxClassnames;
-        private System.Windows.Forms.Label lbClassname;
         private Telerik.WinControls.UI.RadButton rbtnFinish;
         private Telerik.WinControls.UI.RadButton rbtnCancel;
         private System.Windows.Forms.TextBox tboxLoadpasswd;
@@ -834,6 +867,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cbboxJieCi;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbOfflineStatus;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label lbTeacherName;
+        private System.Windows.Forms.Label label17;
 
     }
 }

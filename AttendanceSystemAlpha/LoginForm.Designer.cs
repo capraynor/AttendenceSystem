@@ -38,6 +38,7 @@
             this.tboxUsername = new System.Windows.Forms.TextBox();
             this.lbPasswd = new System.Windows.Forms.Label();
             this.lbUsername = new System.Windows.Forms.Label();
+            this.lblStatus = new System.Windows.Forms.Label();
             this.pnLogin.SuspendLayout();
             this.pnHead.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rbtnLogin)).BeginInit();
@@ -48,6 +49,7 @@
             // pnLogin
             // 
             this.pnLogin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnLogin.Controls.Add(this.lblStatus);
             this.pnLogin.Controls.Add(this.pnHead);
             this.pnLogin.Controls.Add(this.rbtnLogin);
             this.pnLogin.Controls.Add(this.rbtnCancel);
@@ -107,7 +109,7 @@
             // tboxPasswd
             // 
             this.tboxPasswd.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tboxPasswd.Location = new System.Drawing.Point(167, 157);
+            this.tboxPasswd.Location = new System.Drawing.Point(167, 156);
             this.tboxPasswd.Name = "tboxPasswd";
             this.tboxPasswd.Size = new System.Drawing.Size(288, 39);
             this.tboxPasswd.TabIndex = 3;
@@ -124,7 +126,7 @@
             // 
             this.lbPasswd.AutoSize = true;
             this.lbPasswd.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbPasswd.Location = new System.Drawing.Point(26, 160);
+            this.lbPasswd.Location = new System.Drawing.Point(26, 159);
             this.lbPasswd.Name = "lbPasswd";
             this.lbPasswd.Size = new System.Drawing.Size(93, 31);
             this.lbPasswd.TabIndex = 1;
@@ -139,6 +141,14 @@
             this.lbUsername.Size = new System.Drawing.Size(110, 31);
             this.lbUsername.TabIndex = 0;
             this.lbUsername.Text = "用户名：";
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(214, 249);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(0, 12);
+            this.lblStatus.TabIndex = 7;
             // 
             // LoginForm
             // 
@@ -178,5 +188,6 @@
         private System.Windows.Forms.TextBox tboxUsername;
         private System.Windows.Forms.Label lbPasswd;
         private System.Windows.Forms.Label lbUsername;
+        private System.Windows.Forms.Label lblStatus;
     }
 }
