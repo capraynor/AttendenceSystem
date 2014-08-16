@@ -109,13 +109,37 @@ namespace AttendanceSystemAlpha.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(".\\\\Resources\\\\OfflineData")]
+        [global::System.Configuration.DefaultSettingValueAttribute(".\\\\Resources\\\\OfflineData\\\\{0}")]
         public string OfflineFolder {
             get {
                 return ((string)(this["OfflineFolder"]));
             }
             set {
                 this["OfflineFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("BRIEF_CASE_TEACHER_PASSWD")]
+        public string PropertiesBriefcasePasswd {
+            get {
+                return ((string)(this["PropertiesBriefcasePasswd"]));
+            }
+            set {
+                this["PropertiesBriefcasePasswd"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("BRIEF_CASE_TEACHER_NAME")]
+        public string PropertiesBriefCaseTeacherName {
+            get {
+                return ((string)(this["PropertiesBriefCaseTeacherName"]));
+            }
+            set {
+                this["PropertiesBriefCaseTeacherName"] = value;
             }
         }
     }

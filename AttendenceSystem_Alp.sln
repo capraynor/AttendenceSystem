@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatatableHelper", "Datatabl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "AttendanceSystemAlpha\UI.csproj", "{D6B71DBB-AA01-41C5-A1D7-1669A289D4B8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FingerprintHelper", "FingerprintHelper\FingerprintHelper.csproj", "{3569A675-CBBD-4635-8957-69DBCF3C0290}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{D6B71DBB-AA01-41C5-A1D7-1669A289D4B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6B71DBB-AA01-41C5-A1D7-1669A289D4B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6B71DBB-AA01-41C5-A1D7-1669A289D4B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3569A675-CBBD-4635-8957-69DBCF3C0290}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3569A675-CBBD-4635-8957-69DBCF3C0290}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3569A675-CBBD-4635-8957-69DBCF3C0290}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3569A675-CBBD-4635-8957-69DBCF3C0290}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

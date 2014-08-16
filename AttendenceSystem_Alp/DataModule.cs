@@ -372,5 +372,9 @@ namespace AttendenceSystem_Alp
                 return true;
             }
         }
+        public void ApplyChanges()
+        {
+            this.remoteDataAdapter.ApplyChanges();
+        }
     }
 }

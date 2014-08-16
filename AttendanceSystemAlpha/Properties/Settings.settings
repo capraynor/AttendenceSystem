@@ -24,7 +24,13 @@
       <Value Profile="(Default)">.\\Resources\\Properties.daBriefcase</Value>
     </Setting>
     <Setting Name="OfflineFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)">.\\Resources\\OfflineData</Value>
+      <Value Profile="(Default)">.\\Resources\\OfflineData\\{0}</Value>
+    </Setting>
+    <Setting Name="PropertiesBriefcasePasswd" Type="System.String" Scope="User">
+      <Value Profile="(Default)">BRIEF_CASE_TEACHER_PASSWD</Value>
+    </Setting>
+    <Setting Name="PropertiesBriefCaseTeacherName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">BRIEF_CASE_TEACHER_NAME</Value>
     </Setting>
   </Settings>
 </SettingsFile>

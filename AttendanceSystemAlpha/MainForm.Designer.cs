@@ -84,7 +84,7 @@ namespace AttendanceSystemAlpha
             this.rbtnStartcall = new Telerik.WinControls.UI.RadButton();
             this.tboxTeachername = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.DateTimePaker = new System.Windows.Forms.DateTimePicker();
+            this.DateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.cbboxJieCi = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -94,6 +94,9 @@ namespace AttendanceSystemAlpha
             this.cbboxClassname = new System.Windows.Forms.ComboBox();
             this.lbCname = new System.Windows.Forms.Label();
             this.viewpageDataManagement = new Telerik.WinControls.UI.RadPageViewPage();
+            this.axZKFPEngX1 = new AxZKFPEngXControl.AxZKFPEngX();
+            this.radGridView1 = new Telerik.WinControls.UI.RadGridView();
+            this.radGridView2 = new Telerik.WinControls.UI.RadGridView();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainPageView)).BeginInit();
             this.mainPageView.SuspendLayout();
@@ -113,6 +116,12 @@ namespace AttendanceSystemAlpha
             this.pnClassmsg.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rbtnStartcall)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboxPasswd)).BeginInit();
+            this.viewpageDataManagement.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.axZKFPEngX1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridView2.MasterTemplate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -335,6 +344,7 @@ namespace AttendanceSystemAlpha
             this.radButton1.TabIndex = 6;
             this.radButton1.Text = "结束点名";
             this.radButton1.ThemeName = "TelerikMetro";
+            this.radButton1.Click += new System.EventHandler(this.radButton1_Click);
             // 
             // lbCdrs
             // 
@@ -539,6 +549,7 @@ namespace AttendanceSystemAlpha
             this.pboxPhoto.Location = new System.Drawing.Point(14, 36);
             this.pboxPhoto.Name = "pboxPhoto";
             this.pboxPhoto.Size = new System.Drawing.Size(136, 178);
+            this.pboxPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pboxPhoto.TabIndex = 0;
             this.pboxPhoto.TabStop = false;
             // 
@@ -561,6 +572,7 @@ namespace AttendanceSystemAlpha
             // 
             // pnClassmsg
             // 
+            this.pnClassmsg.Controls.Add(this.axZKFPEngX1);
             this.pnClassmsg.Controls.Add(this.cbboxCalltimes);
             this.pnClassmsg.Controls.Add(this.label16);
             this.pnClassmsg.Controls.Add(this.cbboxCallWay);
@@ -570,15 +582,17 @@ namespace AttendanceSystemAlpha
             this.pnClassmsg.Controls.Add(this.rbtnStartcall);
             this.pnClassmsg.Controls.Add(this.tboxTeachername);
             this.pnClassmsg.Controls.Add(this.label3);
-            this.pnClassmsg.Controls.Add(this.DateTimePaker);
+            this.pnClassmsg.Controls.Add(this.DateTimePicker1);
             this.pnClassmsg.Controls.Add(this.label2);
             this.pnClassmsg.Controls.Add(this.cbboxJieCi);
             this.pnClassmsg.Controls.Add(this.label1);
             this.pnClassmsg.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnClassmsg.Enabled = false;
             this.pnClassmsg.Location = new System.Drawing.Point(3, 77);
             this.pnClassmsg.Name = "pnClassmsg";
             this.pnClassmsg.Size = new System.Drawing.Size(784, 171);
             this.pnClassmsg.TabIndex = 13;
+            this.pnClassmsg.EnabledChanged += new System.EventHandler(this.pnClassmsg_EnabledChanged);
             // 
             // cbboxCalltimes
             // 
@@ -586,6 +600,8 @@ namespace AttendanceSystemAlpha
             this.cbboxCalltimes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbboxCalltimes.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbboxCalltimes.FormattingEnabled = true;
+            this.cbboxCalltimes.Items.AddRange(new object[] {
+            "1"});
             this.cbboxCalltimes.Location = new System.Drawing.Point(424, 104);
             this.cbboxCalltimes.Name = "cbboxCalltimes";
             this.cbboxCalltimes.Size = new System.Drawing.Size(131, 35);
@@ -608,6 +624,8 @@ namespace AttendanceSystemAlpha
             this.cbboxCallWay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbboxCallWay.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbboxCallWay.FormattingEnabled = true;
+            this.cbboxCallWay.Items.AddRange(new object[] {
+            "指纹点名"});
             this.cbboxCallWay.Location = new System.Drawing.Point(424, 50);
             this.cbboxCallWay.Name = "cbboxCallWay";
             this.cbboxCallWay.Size = new System.Drawing.Size(205, 35);
@@ -676,14 +694,14 @@ namespace AttendanceSystemAlpha
             this.label3.TabIndex = 18;
             this.label3.Text = "授课教师：";
             // 
-            // DateTimePaker
+            // DateTimePicker1
             // 
-            this.DateTimePaker.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.DateTimePaker.CalendarFont = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.DateTimePaker.Location = new System.Drawing.Point(424, 10);
-            this.DateTimePaker.Name = "DateTimePaker";
-            this.DateTimePaker.Size = new System.Drawing.Size(270, 34);
-            this.DateTimePaker.TabIndex = 17;
+            this.DateTimePicker1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.DateTimePicker1.CalendarFont = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.DateTimePicker1.Location = new System.Drawing.Point(424, 10);
+            this.DateTimePicker1.Name = "DateTimePicker1";
+            this.DateTimePicker1.Size = new System.Drawing.Size(270, 34);
+            this.DateTimePicker1.TabIndex = 17;
             // 
             // label2
             // 
@@ -706,6 +724,7 @@ namespace AttendanceSystemAlpha
             this.cbboxJieCi.Name = "cbboxJieCi";
             this.cbboxJieCi.Size = new System.Drawing.Size(131, 35);
             this.cbboxJieCi.TabIndex = 15;
+            this.cbboxJieCi.SelectedIndexChanged += new System.EventHandler(this.cbboxJieCi_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -772,12 +791,40 @@ namespace AttendanceSystemAlpha
             // 
             // viewpageDataManagement
             // 
+            this.viewpageDataManagement.Controls.Add(this.radGridView2);
+            this.viewpageDataManagement.Controls.Add(this.radGridView1);
             this.viewpageDataManagement.Enabled = false;
             this.viewpageDataManagement.ItemSize = new System.Drawing.SizeF(166F, 61F);
             this.viewpageDataManagement.Location = new System.Drawing.Point(205, 4);
             this.viewpageDataManagement.Name = "viewpageDataManagement";
             this.viewpageDataManagement.Size = new System.Drawing.Size(790, 479);
             this.viewpageDataManagement.Text = "数据管理";
+            // 
+            // axZKFPEngX1
+            // 
+            this.axZKFPEngX1.Enabled = true;
+            this.axZKFPEngX1.Location = new System.Drawing.Point(605, 116);
+            this.axZKFPEngX1.Name = "axZKFPEngX1";
+            this.axZKFPEngX1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axZKFPEngX1.OcxState")));
+            this.axZKFPEngX1.Size = new System.Drawing.Size(24, 23);
+            this.axZKFPEngX1.TabIndex = 27;
+            this.axZKFPEngX1.OnCapture += new AxZKFPEngXControl.IZKFPEngXEvents_OnCaptureEventHandler(this.axZKFPEngX1_OnCapture);
+            // 
+            // radGridView1
+            // 
+            this.radGridView1.Location = new System.Drawing.Point(0, 3);
+            this.radGridView1.Name = "radGridView1";
+            this.radGridView1.Size = new System.Drawing.Size(277, 468);
+            this.radGridView1.TabIndex = 0;
+            this.radGridView1.Text = "radGridView1";
+            // 
+            // radGridView2
+            // 
+            this.radGridView2.Location = new System.Drawing.Point(283, 271);
+            this.radGridView2.Name = "radGridView2";
+            this.radGridView2.Size = new System.Drawing.Size(496, 200);
+            this.radGridView2.TabIndex = 1;
+            this.radGridView2.Text = "radGridView2";
             // 
             // MainForm
             // 
@@ -821,6 +868,12 @@ namespace AttendanceSystemAlpha
             this.pnClassmsg.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rbtnStartcall)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboxPasswd)).EndInit();
+            this.viewpageDataManagement.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.axZKFPEngX1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridView2.MasterTemplate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -882,7 +935,7 @@ namespace AttendanceSystemAlpha
         private Telerik.WinControls.UI.RadButton rbtnStartcall;
         private System.Windows.Forms.TextBox tboxTeachername;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DateTimePicker DateTimePaker;
+        private System.Windows.Forms.DateTimePicker DateTimePicker1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cbboxJieCi;
         private System.Windows.Forms.Label label1;
@@ -891,6 +944,9 @@ namespace AttendanceSystemAlpha
         private System.Windows.Forms.Label lbTeacherName;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Button button1;
+        private AxZKFPEngXControl.AxZKFPEngX axZKFPEngX1;
+        private Telerik.WinControls.UI.RadGridView radGridView2;
+        private Telerik.WinControls.UI.RadGridView radGridView1;
     }
 }
 
