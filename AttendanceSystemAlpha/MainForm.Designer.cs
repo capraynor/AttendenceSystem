@@ -36,7 +36,6 @@ namespace AttendanceSystemAlpha
             this.panel1 = new System.Windows.Forms.Panel();
             this.mainPageView = new Telerik.WinControls.UI.RadPageView();
             this.viewpageWelcome = new Telerik.WinControls.UI.RadPageViewPage();
-            this.button1 = new System.Windows.Forms.Button();
             this.pboxWelcome = new System.Windows.Forms.PictureBox();
             this.viewpageLoadData = new Telerik.WinControls.UI.RadPageViewPage();
             this.pnLoad = new System.Windows.Forms.Panel();
@@ -52,6 +51,8 @@ namespace AttendanceSystemAlpha
             this.viewpageCall = new Telerik.WinControls.UI.RadPageViewPage();
             this.pnMaincall = new System.Windows.Forms.Panel();
             this.gboxMsg = new System.Windows.Forms.GroupBox();
+            this.lbDKPercent = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
             this.radButton1 = new Telerik.WinControls.UI.RadButton();
             this.lbCdrs = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -74,7 +75,8 @@ namespace AttendanceSystemAlpha
             this.label5 = new System.Windows.Forms.Label();
             this.pboxPhoto = new System.Windows.Forms.PictureBox();
             this.gboxClassmsg = new System.Windows.Forms.GroupBox();
-            this.pnClassmsg = new System.Windows.Forms.Panel();
+            this.GBoxChooseLesson = new System.Windows.Forms.Panel();
+            this.axZKFPEngX1 = new AxZKFPEngXControl.AxZKFPEngX();
             this.cbboxCalltimes = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
             this.cbboxCallWay = new System.Windows.Forms.ComboBox();
@@ -94,9 +96,35 @@ namespace AttendanceSystemAlpha
             this.cbboxClassname = new System.Windows.Forms.ComboBox();
             this.lbCname = new System.Windows.Forms.Label();
             this.viewpageDataManagement = new Telerik.WinControls.UI.RadPageViewPage();
-            this.axZKFPEngX1 = new AxZKFPEngXControl.AxZKFPEngX();
-            this.radGridView1 = new Telerik.WinControls.UI.RadGridView();
-            this.radGridView2 = new Telerik.WinControls.UI.RadGridView();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.radButton4 = new Telerik.WinControls.UI.RadButton();
+            this.radButton3 = new Telerik.WinControls.UI.RadButton();
+            this.radButton2 = new Telerik.WinControls.UI.RadButton();
+            this.lbMngOfflineStatus = new System.Windows.Forms.Label();
+            this.lbMngDkpercent = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.lbMngsdrs = new System.Windows.Forms.Label();
+            this.lbMngStudentTotal = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.mngGridView = new Telerik.WinControls.UI.RadGridView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.PnMngChooseLesson = new System.Windows.Forms.Panel();
+            this.cbboxMngCheckinMethod = new System.Windows.Forms.ComboBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.rbtnMngShowInformation = new Telerik.WinControls.UI.RadButton();
+            this.tbMngTeacherName = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.label23 = new System.Windows.Forms.Label();
+            this.cbboxMngJieCi = new System.Windows.Forms.ComboBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.tbMngOfflinePasswd = new System.Windows.Forms.TextBox();
+            this.cbboxMngClassName = new System.Windows.Forms.ComboBox();
+            this.label26 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainPageView)).BeginInit();
             this.mainPageView.SuspendLayout();
@@ -113,15 +141,21 @@ namespace AttendanceSystemAlpha
             this.gboxStudentMsg.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxPhoto)).BeginInit();
             this.gboxClassmsg.SuspendLayout();
-            this.pnClassmsg.SuspendLayout();
+            this.GBoxChooseLesson.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.axZKFPEngX1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rbtnStartcall)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboxPasswd)).BeginInit();
             this.viewpageDataManagement.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.axZKFPEngX1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridView2.MasterTemplate)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radButton4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radButton3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radButton2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mngGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mngGridView.MasterTemplate)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.PnMngChooseLesson.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.rbtnMngShowInformation)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -153,7 +187,7 @@ namespace AttendanceSystemAlpha
             this.mainPageView.Font = new System.Drawing.Font("微软雅黑", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.mainPageView.Location = new System.Drawing.Point(0, 0);
             this.mainPageView.Name = "mainPageView";
-            this.mainPageView.SelectedPage = this.viewpageCall;
+            this.mainPageView.SelectedPage = this.viewpageDataManagement;
             this.mainPageView.Size = new System.Drawing.Size(999, 487);
             this.mainPageView.TabIndex = 0;
             this.mainPageView.ThemeName = "TelerikMetro";
@@ -162,22 +196,12 @@ namespace AttendanceSystemAlpha
             // 
             // viewpageWelcome
             // 
-            this.viewpageWelcome.Controls.Add(this.button1);
             this.viewpageWelcome.Controls.Add(this.pboxWelcome);
             this.viewpageWelcome.ItemSize = new System.Drawing.SizeF(166F, 61F);
             this.viewpageWelcome.Location = new System.Drawing.Point(205, 4);
             this.viewpageWelcome.Name = "viewpageWelcome";
             this.viewpageWelcome.Size = new System.Drawing.Size(790, 479);
             this.viewpageWelcome.Text = "  首  页";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(129, 51);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(307, 138);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "欢迎使用 这个按钮是没用的嘻嘻";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // pboxWelcome
             // 
@@ -318,6 +342,8 @@ namespace AttendanceSystemAlpha
             // 
             // gboxMsg
             // 
+            this.gboxMsg.Controls.Add(this.lbDKPercent);
+            this.gboxMsg.Controls.Add(this.label31);
             this.gboxMsg.Controls.Add(this.radButton1);
             this.gboxMsg.Controls.Add(this.lbCdrs);
             this.gboxMsg.Controls.Add(this.label14);
@@ -335,6 +361,25 @@ namespace AttendanceSystemAlpha
             this.gboxMsg.TabStop = false;
             this.gboxMsg.Text = "到课信息";
             // 
+            // lbDKPercent
+            // 
+            this.lbDKPercent.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lbDKPercent.AutoSize = true;
+            this.lbDKPercent.Location = new System.Drawing.Point(123, 151);
+            this.lbDKPercent.Name = "lbDKPercent";
+            this.lbDKPercent.Size = new System.Drawing.Size(0, 27);
+            this.lbDKPercent.TabIndex = 8;
+            // 
+            // label31
+            // 
+            this.label31.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(6, 151);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(72, 27);
+            this.label31.TabIndex = 7;
+            this.label31.Text = "到课率";
+            // 
             // radButton1
             // 
             this.radButton1.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -350,7 +395,7 @@ namespace AttendanceSystemAlpha
             // 
             this.lbCdrs.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lbCdrs.AutoSize = true;
-            this.lbCdrs.Location = new System.Drawing.Point(123, 136);
+            this.lbCdrs.Location = new System.Drawing.Point(123, 111);
             this.lbCdrs.Name = "lbCdrs";
             this.lbCdrs.Size = new System.Drawing.Size(0, 27);
             this.lbCdrs.TabIndex = 5;
@@ -359,7 +404,7 @@ namespace AttendanceSystemAlpha
             // 
             this.label14.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 136);
+            this.label14.Location = new System.Drawing.Point(6, 111);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(72, 27);
             this.label14.TabIndex = 4;
@@ -369,7 +414,7 @@ namespace AttendanceSystemAlpha
             // 
             this.lbSdrs.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lbSdrs.AutoSize = true;
-            this.lbSdrs.Location = new System.Drawing.Point(123, 84);
+            this.lbSdrs.Location = new System.Drawing.Point(123, 71);
             this.lbSdrs.Name = "lbSdrs";
             this.lbSdrs.Size = new System.Drawing.Size(0, 27);
             this.lbSdrs.TabIndex = 3;
@@ -378,7 +423,7 @@ namespace AttendanceSystemAlpha
             // 
             this.label13.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 84);
+            this.label13.Location = new System.Drawing.Point(6, 71);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(72, 27);
             this.label13.TabIndex = 2;
@@ -555,7 +600,7 @@ namespace AttendanceSystemAlpha
             // 
             // gboxClassmsg
             // 
-            this.gboxClassmsg.Controls.Add(this.pnClassmsg);
+            this.gboxClassmsg.Controls.Add(this.GBoxChooseLesson);
             this.gboxClassmsg.Controls.Add(this.pboxPasswd);
             this.gboxClassmsg.Controls.Add(this.label4);
             this.gboxClassmsg.Controls.Add(this.tboxPasswd);
@@ -570,29 +615,39 @@ namespace AttendanceSystemAlpha
             this.gboxClassmsg.TabStop = false;
             this.gboxClassmsg.Text = "课程信息";
             // 
-            // pnClassmsg
+            // GBoxChooseLesson
             // 
-            this.pnClassmsg.Controls.Add(this.axZKFPEngX1);
-            this.pnClassmsg.Controls.Add(this.cbboxCalltimes);
-            this.pnClassmsg.Controls.Add(this.label16);
-            this.pnClassmsg.Controls.Add(this.cbboxCallWay);
-            this.pnClassmsg.Controls.Add(this.label15);
-            this.pnClassmsg.Controls.Add(this.tboxClassplace);
-            this.pnClassmsg.Controls.Add(this.label11);
-            this.pnClassmsg.Controls.Add(this.rbtnStartcall);
-            this.pnClassmsg.Controls.Add(this.tboxTeachername);
-            this.pnClassmsg.Controls.Add(this.label3);
-            this.pnClassmsg.Controls.Add(this.DateTimePicker1);
-            this.pnClassmsg.Controls.Add(this.label2);
-            this.pnClassmsg.Controls.Add(this.cbboxJieCi);
-            this.pnClassmsg.Controls.Add(this.label1);
-            this.pnClassmsg.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnClassmsg.Enabled = false;
-            this.pnClassmsg.Location = new System.Drawing.Point(3, 77);
-            this.pnClassmsg.Name = "pnClassmsg";
-            this.pnClassmsg.Size = new System.Drawing.Size(784, 171);
-            this.pnClassmsg.TabIndex = 13;
-            this.pnClassmsg.EnabledChanged += new System.EventHandler(this.pnClassmsg_EnabledChanged);
+            this.GBoxChooseLesson.Controls.Add(this.axZKFPEngX1);
+            this.GBoxChooseLesson.Controls.Add(this.cbboxCalltimes);
+            this.GBoxChooseLesson.Controls.Add(this.label16);
+            this.GBoxChooseLesson.Controls.Add(this.cbboxCallWay);
+            this.GBoxChooseLesson.Controls.Add(this.label15);
+            this.GBoxChooseLesson.Controls.Add(this.tboxClassplace);
+            this.GBoxChooseLesson.Controls.Add(this.label11);
+            this.GBoxChooseLesson.Controls.Add(this.rbtnStartcall);
+            this.GBoxChooseLesson.Controls.Add(this.tboxTeachername);
+            this.GBoxChooseLesson.Controls.Add(this.label3);
+            this.GBoxChooseLesson.Controls.Add(this.DateTimePicker1);
+            this.GBoxChooseLesson.Controls.Add(this.label2);
+            this.GBoxChooseLesson.Controls.Add(this.cbboxJieCi);
+            this.GBoxChooseLesson.Controls.Add(this.label1);
+            this.GBoxChooseLesson.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.GBoxChooseLesson.Enabled = false;
+            this.GBoxChooseLesson.Location = new System.Drawing.Point(3, 77);
+            this.GBoxChooseLesson.Name = "GBoxChooseLesson";
+            this.GBoxChooseLesson.Size = new System.Drawing.Size(784, 171);
+            this.GBoxChooseLesson.TabIndex = 13;
+            this.GBoxChooseLesson.EnabledChanged += new System.EventHandler(this.pnClassmsg_EnabledChanged);
+            // 
+            // axZKFPEngX1
+            // 
+            this.axZKFPEngX1.Enabled = true;
+            this.axZKFPEngX1.Location = new System.Drawing.Point(605, 116);
+            this.axZKFPEngX1.Name = "axZKFPEngX1";
+            this.axZKFPEngX1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axZKFPEngX1.OcxState")));
+            this.axZKFPEngX1.Size = new System.Drawing.Size(24, 24);
+            this.axZKFPEngX1.TabIndex = 27;
+            this.axZKFPEngX1.OnCapture += new AxZKFPEngXControl.IZKFPEngXEvents_OnCaptureEventHandler(this.axZKFPEngX1_OnCapture);
             // 
             // cbboxCalltimes
             // 
@@ -698,9 +753,12 @@ namespace AttendanceSystemAlpha
             // 
             this.DateTimePicker1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.DateTimePicker1.CalendarFont = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.DateTimePicker1.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.DateTimePicker1.Location = new System.Drawing.Point(424, 10);
             this.DateTimePicker1.Name = "DateTimePicker1";
-            this.DateTimePicker1.Size = new System.Drawing.Size(270, 34);
+            this.DateTimePicker1.ShowUpDown = true;
+            this.DateTimePicker1.Size = new System.Drawing.Size(225, 34);
             this.DateTimePicker1.TabIndex = 17;
             // 
             // label2
@@ -791,40 +849,352 @@ namespace AttendanceSystemAlpha
             // 
             // viewpageDataManagement
             // 
-            this.viewpageDataManagement.Controls.Add(this.radGridView2);
-            this.viewpageDataManagement.Controls.Add(this.radGridView1);
-            this.viewpageDataManagement.Enabled = false;
+            this.viewpageDataManagement.Controls.Add(this.groupBox2);
+            this.viewpageDataManagement.Controls.Add(this.groupBox1);
             this.viewpageDataManagement.ItemSize = new System.Drawing.SizeF(166F, 61F);
             this.viewpageDataManagement.Location = new System.Drawing.Point(205, 4);
             this.viewpageDataManagement.Name = "viewpageDataManagement";
             this.viewpageDataManagement.Size = new System.Drawing.Size(790, 479);
             this.viewpageDataManagement.Text = "数据管理";
             // 
-            // axZKFPEngX1
+            // groupBox2
             // 
-            this.axZKFPEngX1.Enabled = true;
-            this.axZKFPEngX1.Location = new System.Drawing.Point(605, 116);
-            this.axZKFPEngX1.Name = "axZKFPEngX1";
-            this.axZKFPEngX1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axZKFPEngX1.OcxState")));
-            this.axZKFPEngX1.Size = new System.Drawing.Size(24, 23);
-            this.axZKFPEngX1.TabIndex = 27;
-            this.axZKFPEngX1.OnCapture += new AxZKFPEngXControl.IZKFPEngXEvents_OnCaptureEventHandler(this.axZKFPEngX1_OnCapture);
+            this.groupBox2.Controls.Add(this.radButton4);
+            this.groupBox2.Controls.Add(this.radButton3);
+            this.groupBox2.Controls.Add(this.radButton2);
+            this.groupBox2.Controls.Add(this.lbMngOfflineStatus);
+            this.groupBox2.Controls.Add(this.lbMngDkpercent);
+            this.groupBox2.Controls.Add(this.label34);
+            this.groupBox2.Controls.Add(this.label33);
+            this.groupBox2.Controls.Add(this.lbMngsdrs);
+            this.groupBox2.Controls.Add(this.lbMngStudentTotal);
+            this.groupBox2.Controls.Add(this.label21);
+            this.groupBox2.Controls.Add(this.label19);
+            this.groupBox2.Controls.Add(this.mngGridView);
+            this.groupBox2.Font = new System.Drawing.Font("微软雅黑", 15F);
+            this.groupBox2.Location = new System.Drawing.Point(4, 225);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(783, 246);
+            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "到课情况浏览";
             // 
-            // radGridView1
+            // radButton4
             // 
-            this.radGridView1.Location = new System.Drawing.Point(0, 3);
-            this.radGridView1.Name = "radGridView1";
-            this.radGridView1.Size = new System.Drawing.Size(277, 468);
-            this.radGridView1.TabIndex = 0;
-            this.radGridView1.Text = "radGridView1";
+            this.radButton4.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.radButton4.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radButton4.Location = new System.Drawing.Point(688, 193);
+            this.radButton4.Name = "radButton4";
+            this.radButton4.Size = new System.Drawing.Size(89, 44);
+            this.radButton4.TabIndex = 23;
+            this.radButton4.Text = "<html><p>更改课程</p><p>/节次</p></html>";
+            this.radButton4.ThemeName = "TelerikMetro";
             // 
-            // radGridView2
+            // radButton3
             // 
-            this.radGridView2.Location = new System.Drawing.Point(283, 271);
-            this.radGridView2.Name = "radGridView2";
-            this.radGridView2.Size = new System.Drawing.Size(496, 200);
-            this.radGridView2.TabIndex = 1;
-            this.radGridView2.Text = "radGridView2";
+            this.radButton3.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.radButton3.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radButton3.Location = new System.Drawing.Point(499, 193);
+            this.radButton3.Name = "radButton3";
+            this.radButton3.Size = new System.Drawing.Size(89, 44);
+            this.radButton3.TabIndex = 22;
+            this.radButton3.Text = "刷新数据";
+            this.radButton3.ThemeName = "TelerikMetro";
+            // 
+            // radButton2
+            // 
+            this.radButton2.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.radButton2.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radButton2.Location = new System.Drawing.Point(594, 193);
+            this.radButton2.Name = "radButton2";
+            this.radButton2.Size = new System.Drawing.Size(89, 44);
+            this.radButton2.TabIndex = 21;
+            this.radButton2.Text = "提交数据";
+            this.radButton2.ThemeName = "TelerikMetro";
+            this.radButton2.Click += new System.EventHandler(this.radButton2_Click);
+            // 
+            // lbMngOfflineStatus
+            // 
+            this.lbMngOfflineStatus.AutoSize = true;
+            this.lbMngOfflineStatus.Location = new System.Drawing.Point(632, 156);
+            this.lbMngOfflineStatus.Name = "lbMngOfflineStatus";
+            this.lbMngOfflineStatus.Size = new System.Drawing.Size(81, 27);
+            this.lbMngOfflineStatus.TabIndex = 11;
+            this.lbMngOfflineStatus.Text = "label35";
+            // 
+            // lbMngDkpercent
+            // 
+            this.lbMngDkpercent.AutoSize = true;
+            this.lbMngDkpercent.Location = new System.Drawing.Point(632, 118);
+            this.lbMngDkpercent.Name = "lbMngDkpercent";
+            this.lbMngDkpercent.Size = new System.Drawing.Size(81, 27);
+            this.lbMngDkpercent.TabIndex = 10;
+            this.lbMngDkpercent.Text = "label36";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(494, 156);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(132, 27);
+            this.label34.TabIndex = 9;
+            this.label34.Text = "数据提交状态";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(534, 114);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(92, 27);
+            this.label33.TabIndex = 8;
+            this.label33.Text = "到课比率";
+            // 
+            // lbMngsdrs
+            // 
+            this.lbMngsdrs.AutoSize = true;
+            this.lbMngsdrs.Location = new System.Drawing.Point(632, 74);
+            this.lbMngsdrs.Name = "lbMngsdrs";
+            this.lbMngsdrs.Size = new System.Drawing.Size(81, 27);
+            this.lbMngsdrs.TabIndex = 5;
+            this.lbMngsdrs.Text = "label29";
+            // 
+            // lbMngStudentTotal
+            // 
+            this.lbMngStudentTotal.AutoSize = true;
+            this.lbMngStudentTotal.Location = new System.Drawing.Point(632, 30);
+            this.lbMngStudentTotal.Name = "lbMngStudentTotal";
+            this.lbMngStudentTotal.Size = new System.Drawing.Size(81, 27);
+            this.lbMngStudentTotal.TabIndex = 4;
+            this.lbMngStudentTotal.Text = "label28";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(574, 72);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(52, 27);
+            this.label21.TabIndex = 2;
+            this.label21.Text = "实到";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(574, 30);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(52, 27);
+            this.label19.TabIndex = 1;
+            this.label19.Text = "应到";
+            // 
+            // mngGridView
+            // 
+            this.mngGridView.Location = new System.Drawing.Point(6, 33);
+            // 
+            // mngGridView
+            // 
+            this.mngGridView.MasterTemplate.AllowAddNewRow = false;
+            this.mngGridView.MasterTemplate.AllowCellContextMenu = false;
+            this.mngGridView.MasterTemplate.AllowColumnChooser = false;
+            this.mngGridView.MasterTemplate.AllowDeleteRow = false;
+            this.mngGridView.MasterTemplate.AllowEditRow = false;
+            this.mngGridView.MasterTemplate.AutoSizeColumnsMode = Telerik.WinControls.UI.GridViewAutoSizeColumnsMode.Fill;
+            this.mngGridView.Name = "mngGridView";
+            this.mngGridView.Size = new System.Drawing.Size(467, 201);
+            this.mngGridView.TabIndex = 0;
+            this.mngGridView.Text = "radGridView1";
+            this.mngGridView.ThemeName = "TelerikMetro";
+            this.mngGridView.CreateRow += new Telerik.WinControls.UI.GridViewCreateRowEventHandler(this.mngGridView_CreateRow);
+            this.mngGridView.DataBindingComplete += new Telerik.WinControls.UI.GridViewBindingCompleteEventHandler(this.mngGridView_DataBindingComplete);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.PnMngChooseLesson);
+            this.groupBox1.Controls.Add(this.pictureBox1);
+            this.groupBox1.Controls.Add(this.label25);
+            this.groupBox1.Controls.Add(this.tbMngOfflinePasswd);
+            this.groupBox1.Controls.Add(this.cbboxMngClassName);
+            this.groupBox1.Controls.Add(this.label26);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(790, 210);
+            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "课程信息";
+            // 
+            // PnMngChooseLesson
+            // 
+            this.PnMngChooseLesson.Controls.Add(this.cbboxMngCheckinMethod);
+            this.PnMngChooseLesson.Controls.Add(this.label20);
+            this.PnMngChooseLesson.Controls.Add(this.rbtnMngShowInformation);
+            this.PnMngChooseLesson.Controls.Add(this.tbMngTeacherName);
+            this.PnMngChooseLesson.Controls.Add(this.label22);
+            this.PnMngChooseLesson.Controls.Add(this.dateTimePicker2);
+            this.PnMngChooseLesson.Controls.Add(this.label23);
+            this.PnMngChooseLesson.Controls.Add(this.cbboxMngJieCi);
+            this.PnMngChooseLesson.Controls.Add(this.label24);
+            this.PnMngChooseLesson.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.PnMngChooseLesson.Enabled = false;
+            this.PnMngChooseLesson.Location = new System.Drawing.Point(3, 90);
+            this.PnMngChooseLesson.Name = "PnMngChooseLesson";
+            this.PnMngChooseLesson.Size = new System.Drawing.Size(784, 117);
+            this.PnMngChooseLesson.TabIndex = 13;
+            this.PnMngChooseLesson.EnabledChanged += new System.EventHandler(this.PnMngChooseLesson_EnabledChanged);
+            // 
+            // cbboxMngCheckinMethod
+            // 
+            this.cbboxMngCheckinMethod.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cbboxMngCheckinMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbboxMngCheckinMethod.Enabled = false;
+            this.cbboxMngCheckinMethod.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbboxMngCheckinMethod.FormattingEnabled = true;
+            this.cbboxMngCheckinMethod.Items.AddRange(new object[] {
+            "指纹点名"});
+            this.cbboxMngCheckinMethod.Location = new System.Drawing.Point(424, 60);
+            this.cbboxMngCheckinMethod.Name = "cbboxMngCheckinMethod";
+            this.cbboxMngCheckinMethod.Size = new System.Drawing.Size(205, 35);
+            this.cbboxMngCheckinMethod.TabIndex = 24;
+            // 
+            // label20
+            // 
+            this.label20.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label20.Location = new System.Drawing.Point(306, 68);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(112, 27);
+            this.label20.TabIndex = 23;
+            this.label20.Text = "点名方式：";
+            // 
+            // rbtnMngShowInformation
+            // 
+            this.rbtnMngShowInformation.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.rbtnMngShowInformation.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtnMngShowInformation.Location = new System.Drawing.Point(641, 58);
+            this.rbtnMngShowInformation.Name = "rbtnMngShowInformation";
+            this.rbtnMngShowInformation.Size = new System.Drawing.Size(89, 44);
+            this.rbtnMngShowInformation.TabIndex = 20;
+            this.rbtnMngShowInformation.Text = "查看信息";
+            this.rbtnMngShowInformation.ThemeName = "TelerikMetro";
+            this.rbtnMngShowInformation.Click += new System.EventHandler(this.rbtnMngShowInformation_Click);
+            // 
+            // tbMngTeacherName
+            // 
+            this.tbMngTeacherName.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.tbMngTeacherName.Location = new System.Drawing.Point(129, 61);
+            this.tbMngTeacherName.Name = "tbMngTeacherName";
+            this.tbMngTeacherName.ReadOnly = true;
+            this.tbMngTeacherName.Size = new System.Drawing.Size(131, 34);
+            this.tbMngTeacherName.TabIndex = 19;
+            // 
+            // label22
+            // 
+            this.label22.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label22.Location = new System.Drawing.Point(11, 68);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(112, 27);
+            this.label22.TabIndex = 18;
+            this.label22.Text = "授课教师：";
+            // 
+            // dateTimePicker2
+            // 
+            this.dateTimePicker2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dateTimePicker2.CalendarFont = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.dateTimePicker2.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.dateTimePicker2.Enabled = false;
+            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker2.Location = new System.Drawing.Point(424, 8);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.Size = new System.Drawing.Size(270, 34);
+            this.dateTimePicker2.TabIndex = 17;
+            // 
+            // label23
+            // 
+            this.label23.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label23.Location = new System.Drawing.Point(306, 15);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(112, 27);
+            this.label23.TabIndex = 16;
+            this.label23.Text = "授课时间：";
+            // 
+            // cbboxMngJieCi
+            // 
+            this.cbboxMngJieCi.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cbboxMngJieCi.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbboxMngJieCi.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbboxMngJieCi.FormattingEnabled = true;
+            this.cbboxMngJieCi.Location = new System.Drawing.Point(129, 8);
+            this.cbboxMngJieCi.Name = "cbboxMngJieCi";
+            this.cbboxMngJieCi.Size = new System.Drawing.Size(131, 35);
+            this.cbboxMngJieCi.TabIndex = 15;
+            this.cbboxMngJieCi.SelectedIndexChanged += new System.EventHandler(this.cbboxMngJieCi_SelectedIndexChanged);
+            // 
+            // label24
+            // 
+            this.label24.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label24.Location = new System.Drawing.Point(11, 16);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(72, 27);
+            this.label24.TabIndex = 14;
+            this.label24.Text = "节次：";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBox1.Location = new System.Drawing.Point(739, 34);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(38, 34);
+            this.pictureBox1.TabIndex = 12;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label25
+            // 
+            this.label25.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label25.Location = new System.Drawing.Point(422, 41);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(112, 27);
+            this.label25.TabIndex = 11;
+            this.label25.Text = "离线密码：";
+            // 
+            // tbMngOfflinePasswd
+            // 
+            this.tbMngOfflinePasswd.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.tbMngOfflinePasswd.Location = new System.Drawing.Point(540, 34);
+            this.tbMngOfflinePasswd.Name = "tbMngOfflinePasswd";
+            this.tbMngOfflinePasswd.Size = new System.Drawing.Size(193, 34);
+            this.tbMngOfflinePasswd.TabIndex = 10;
+            this.tbMngOfflinePasswd.TextChanged += new System.EventHandler(this.tbMngOfflinePasswd_TextChanged);
+            // 
+            // cbboxMngClassName
+            // 
+            this.cbboxMngClassName.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cbboxMngClassName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbboxMngClassName.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbboxMngClassName.FormattingEnabled = true;
+            this.cbboxMngClassName.Location = new System.Drawing.Point(132, 33);
+            this.cbboxMngClassName.Name = "cbboxMngClassName";
+            this.cbboxMngClassName.Size = new System.Drawing.Size(270, 35);
+            this.cbboxMngClassName.TabIndex = 4;
+            this.cbboxMngClassName.SelectedIndexChanged += new System.EventHandler(this.cbboxMngClassName_SelectedIndexChanged);
+            // 
+            // label26
+            // 
+            this.label26.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label26.Location = new System.Drawing.Point(14, 41);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(112, 27);
+            this.label26.TabIndex = 1;
+            this.label26.Text = "开课名称：";
             // 
             // MainForm
             // 
@@ -864,16 +1234,25 @@ namespace AttendanceSystemAlpha
             ((System.ComponentModel.ISupportInitialize)(this.pboxPhoto)).EndInit();
             this.gboxClassmsg.ResumeLayout(false);
             this.gboxClassmsg.PerformLayout();
-            this.pnClassmsg.ResumeLayout(false);
-            this.pnClassmsg.PerformLayout();
+            this.GBoxChooseLesson.ResumeLayout(false);
+            this.GBoxChooseLesson.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.axZKFPEngX1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rbtnStartcall)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboxPasswd)).EndInit();
             this.viewpageDataManagement.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.axZKFPEngX1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridView1.MasterTemplate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridView2.MasterTemplate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radGridView2)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radButton4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radButton3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radButton2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mngGridView.MasterTemplate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mngGridView)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.PnMngChooseLesson.ResumeLayout(false);
+            this.PnMngChooseLesson.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.rbtnMngShowInformation)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -925,7 +1304,7 @@ namespace AttendanceSystemAlpha
         private System.Windows.Forms.Label lbYdrs;
         private System.Windows.Forms.Label label8;
         private Telerik.WinControls.UI.RadButton radButton1;
-        private System.Windows.Forms.Panel pnClassmsg;
+        private System.Windows.Forms.Panel GBoxChooseLesson;
         private System.Windows.Forms.ComboBox cbboxCalltimes;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.ComboBox cbboxCallWay;
@@ -943,10 +1322,38 @@ namespace AttendanceSystemAlpha
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label lbTeacherName;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Button button1;
         private AxZKFPEngXControl.AxZKFPEngX axZKFPEngX1;
-        private Telerik.WinControls.UI.RadGridView radGridView2;
-        private Telerik.WinControls.UI.RadGridView radGridView1;
+        private Telerik.WinControls.UI.RadGridView mngGridView;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Panel PnMngChooseLesson;
+        private System.Windows.Forms.ComboBox cbboxMngCheckinMethod;
+        private System.Windows.Forms.Label label20;
+        private Telerik.WinControls.UI.RadButton rbtnMngShowInformation;
+        private System.Windows.Forms.TextBox tbMngTeacherName;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.ComboBox cbboxMngJieCi;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.TextBox tbMngOfflinePasswd;
+        private System.Windows.Forms.ComboBox cbboxMngClassName;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label lbMngsdrs;
+        private System.Windows.Forms.Label lbMngStudentTotal;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label lbDKPercent;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label lbMngOfflineStatus;
+        private System.Windows.Forms.Label lbMngDkpercent;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label33;
+        private Telerik.WinControls.UI.RadButton radButton2;
+        private Telerik.WinControls.UI.RadButton radButton3;
+        private Telerik.WinControls.UI.RadButton radButton4;
     }
 }
 

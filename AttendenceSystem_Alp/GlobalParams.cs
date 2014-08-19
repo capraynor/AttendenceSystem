@@ -24,6 +24,7 @@
         public static string PropertiesPasswd = "BRIEF_CASE_TEACHER_PASSWD";
         public static string PropertiesTeacherID = "BRIEF_CASE_TEACHER_ID";
         public static string PropertiesLastCheckin = "BRIEF_CASE_LAST_CHECKIN"; //最后一次签到上课编号(skno)
+        public static string PropertiesTotalStudentNumber = "BRIEF_CASE_TOTAL_NUMBER";
         public static string DidNotSigned = "未签到";
         public static string Signed = "已签到";
         public static string NotSubmitYet = "未提交";

@@ -32,5 +32,11 @@
     <Setting Name="PropertiesBriefCaseTeacherName" Type="System.String" Scope="User">
       <Value Profile="(Default)">BRIEF_CASE_TEACHER_NAME</Value>
     </Setting>
+    <Setting Name="PropertiesLastCheckin" Type="System.String" Scope="User">
+      <Value Profile="(Default)">BRIEF_CASE_LAST_CHECKIN</Value>
+    </Setting>
+    <Setting Name="PropertiesTotalStudentNumber" Type="System.String" Scope="User">
+      <Value Profile="(Default)">BRIEF_CASE_TOTAL_NUMBER</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

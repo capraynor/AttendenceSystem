@@ -142,5 +142,29 @@ namespace AttendanceSystemAlpha.Properties {
                 this["PropertiesBriefCaseTeacherName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("BRIEF_CASE_LAST_CHECKIN")]
+        public string PropertiesLastCheckin {
+            get {
+                return ((string)(this["PropertiesLastCheckin"]));
+            }
+            set {
+                this["PropertiesLastCheckin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("BRIEF_CASE_TOTAL_NUMBER")]
+        public string PropertiesTotalStudentNumber {
+            get {
+                return ((string)(this["PropertiesTotalStudentNumber"]));
+            }
+            set {
+                this["PropertiesTotalStudentNumber"] = value;
+            }
+        }
     }
 }

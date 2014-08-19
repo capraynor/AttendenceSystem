@@ -142,6 +142,8 @@ namespace AttendenceSystem_Alp
             newBriefcase.Properties.Add(GlobalParams.PropertiesTeacherID, Properties.Settings.Default.UserId);
             newBriefcase.Properties.Add(GlobalParams.PropertiesPasswd, offlinePasswd);
             newBriefcase.Properties.Add(GlobalParams.PropertiesClassName, kktable05.KKNAME);
+            newBriefcase.Properties.Add(GlobalParams.PropertiesLastCheckin, "1");
+            newBriefcase.Properties.Add(GlobalParams.PropertiesTotalStudentNumber, kktable05.XXRS.ToString());
             IQueryable<XKTABLE_VIEW1> xktableView1s =
                 from c in
                     remoteDataAdapter.GetTable<XKTABLE_VIEW1>(new DataParameter[] { new DataParameter("KKNO", kktable05.KKNO), })

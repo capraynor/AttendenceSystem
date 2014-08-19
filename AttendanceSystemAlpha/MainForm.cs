@@ -13,6 +13,9 @@ using RemObjects.DataAbstract;
 using RemObjects.DataAbstract.Linq;
 using FingerprintHelper;
 using Helpers;
+using stdole;
+using Telerik.WinControls.UI;
+
 namespace AttendanceSystemAlpha
 {
     public partial class MainForm : Telerik.WinControls.UI.RadForm
@@ -29,6 +32,15 @@ namespace AttendanceSystemAlpha
         private DataTable xsidTable;
         private DataTable xkTable;
         private int _buffDatabaseNum;
+        private Briefcase propertieBriefcase;
+        private DataTable _mngPropertiesTable;
+        private Briefcase _mngPropertieBriefcase;
+        private DateTime classTime;
+        private int sdrs = 0;
+        private string mngTeacherName;
+        private string mngCurrentPasswd;
+        private Briefcase mngchooseClassBriefcase;
+        private DataTable mngdmTable;
         #endregion
 
         public MainForm()
@@ -55,52 +67,66 @@ namespace AttendanceSystemAlpha
         private void MainForm_Load(object sender, EventArgs e)
         {
             loginForm = new LoginForm(fDataModule);
+           // DateTimePicker1.CustomFormat = "yyyy-MM-dd HH:mm:ss";
         }
 
         private void mainPageView_MouseUp(object sender, MouseEventArgs e)
         {
-            if (mainPageView.SelectedPage.Name == "viewpageLoadData")
+            switch (mainPageView.SelectedPage.Name)
             {
-                if (loginForm.IsLogin()) //todo :将kktablequery写出来
-                {
-                    DisplayOfflineInformations();
-                }
-                else
-                {
-                    pnLoad.Enabled = false;
-                    loginForm.ShowDialog();
-                    if (!loginForm.IsLogin()) return;
-                    pnLoad.Visible = true;
-                    DisplayOfflineInformations();
-                    pnLoad.Enabled = true;
-                    pnLoad.Refresh();
-                }
-            }
-            else if (mainPageView.SelectedPage.Name == "viewpageCall")
-            {
-
-
-                if (System.IO.Directory.GetFiles(string.Format(Properties.Settings.Default.OfflineFolder , "")).Length == 0)
-                {
-                    MessageBox.Show("没有离线数据 请先下载离线数据");
-                }
-                else
-                {
-                    Briefcase propertieBriefcase = new FileBriefcase(Properties.Settings.Default.PropertiesBriefcaseFolder , true);
-                    _propertiesTable = propertieBriefcase.FindTable("PropertiesTable");
-                    cbboxClassname.DataSource = _propertiesTable;
-                    cbboxClassname.DisplayMember = "开课名称";
-                    cbboxClassname.ValueMember = "开课编号";
-                }
+                case "viewpageLoadData":
+                    if (loginForm.IsLogin()) //todo :将kktablequery写出来
+                    {
+                        DisplayOfflineInformations();
+                    }
+                    else
+                    {
+                        pnLoad.Enabled = false;
+                        loginForm.ShowDialog();
+                        if (!loginForm.IsLogin()) return;
+                        pnLoad.Visible = true;
+                        DisplayOfflineInformations();
+                        pnLoad.Enabled = true;
+                        pnLoad.Refresh();
+                    }
+                    break;
+                case "viewpageCall":
+                    if (System.IO.Directory.GetFiles(string.Format(Properties.Settings.Default.OfflineFolder , "")).Length == 0)
+                    {
+                        MessageBox.Show("没有离线数据 请先下载离线数据");
+                    }
+                    else
+                    {
+                        propertieBriefcase = new FileBriefcase(Properties.Settings.Default.PropertiesBriefcaseFolder , true);
+                        _propertiesTable = propertieBriefcase.FindTable("PropertiesTable");
+                        cbboxClassname.DataSource = _propertiesTable;
+                        cbboxClassname.DisplayMember = "开课名称";
+                        cbboxClassname.ValueMember = "开课编号";
+                    }
+                    break;
+                case "viewpageDataManagement":
+                    if (System.IO.Directory.GetFiles(string.Format(Properties.Settings.Default.OfflineFolder, "")).Length == 0)
+                    {
+                        MessageBox.Show("没有离线数据 请先下载离线数据");
+                    }
+                    else
+                    {
+                        _mngPropertieBriefcase = new FileBriefcase(Properties.Settings.Default.PropertiesBriefcaseFolder, true);
+                        _mngPropertiesTable = _mngPropertieBriefcase.FindTable("PropertiesTable");
+                        cbboxMngClassName.DataSource = _mngPropertiesTable;
+                        cbboxMngClassName.DisplayMember = "开课名称";
+                        cbboxMngClassName.ValueMember = "开课编号";
+                    }
+                    break;
             }
         }
 
         private void rbtnFinish_Click(object sender, EventArgs e)
         {
             string offlineFolder = Properties.Settings.Default.OfflineFolder;
-            if (!System.IO.Directory.Exists(offlineFolder))
+            if (!System.IO.Directory.Exists(string.Format(offlineFolder,"")))
             {
-                System.IO.Directory.CreateDirectory(offlineFolder);
+                System.IO.Directory.CreateDirectory(string.Format(offlineFolder,""));
             }
             if (!System.IO.File.Exists(Properties.Settings.Default.PropertiesBriefcaseFolder))
             {
@@ -199,17 +225,17 @@ namespace AttendanceSystemAlpha
 
         private void ShowClassInformations()
         {
-            pnClassmsg.Enabled = true;
+            GBoxChooseLesson.Enabled = true;
         }
 
         private void HideInformations()
         {
-            pnClassmsg.Enabled = false;
+            GBoxChooseLesson.Enabled = false;
         }
 
         private void pnClassmsg_EnabledChanged(object sender, EventArgs e)
         {
-            if (!pnClassmsg.Enabled) return;
+            if (!GBoxChooseLesson.Enabled) return;
             try
             {
                 DataTable xktTable = _chooseClassBriefcase.FindTable("SKTABLE");
@@ -231,6 +257,8 @@ namespace AttendanceSystemAlpha
 
         private void axZKFPEngX1_OnCapture(object sender, AxZKFPEngXControl.IZKFPEngXEvents_OnCaptureEvent e)
         {
+            int sdrs = 0;
+            int dkrs = 0;
             int similarity = 0;
             int IdentifyNum = 0;
             string XSID = "";
@@ -240,6 +268,8 @@ namespace AttendanceSystemAlpha
             DataRow[] xsidRows;
             DataRow[] dmRows;
             DataRow[] xkRows;
+            
+            classTime = DateTimePicker1.Value;
             xsidRows = xsidTable.Select("指纹识别号 like '%" + fingerPrintID.ToString() + "%'");
             if (xsidRows.Count() != 0 && similarity > 9)
             {
@@ -252,7 +282,17 @@ namespace AttendanceSystemAlpha
 
                 dmRows.First().BeginEdit();
                 //dmRows.First()["DMSJ1"] = DateTime.Now; //Convert.ToInt16(1);
-                dmRows.First()["DKZT"] = 1;
+                if ((DateTime)cbboxJieCi.SelectedValue >  DateTime.Now)
+                {
+                    dmRows.First()["DKZT"] = 0;
+                    lbDczt.Text = "按时到课";
+                }
+                else
+                {
+                    dmRows.First()["DKZT"] = 1;
+                    lbDczt.Text = "迟到";
+                }
+                dmRows.First()["DMSJ1"] = DateTime.Now;
                 dmRows.First().EndEdit();
 
                 //briefcase.RemoveTable(GlobalParams.SKNO); //briefcase直接addtable 代表更新
@@ -264,7 +304,9 @@ namespace AttendanceSystemAlpha
                 dmTable = OfflineHelper.TableListToDataTable(Helpers.EnumerableExtension.ToList<DMTABLE_08>(dmTable),
                     cbboxJieCi.Text);
                 briefcase.AddTable(dmTable);
+                briefcase.Properties[Properties.Settings.Default.PropertiesLastCheckin] = cbboxJieCi.Text;
                 briefcase.WriteBriefcase();//写入briefcase
+                sdrs = CountArriveSudentNumber(dmTable);
 
                 //显示信息
                 xkRows = xkTable.Select("XSID like '%" + XSID + "%'");
@@ -275,7 +317,11 @@ namespace AttendanceSystemAlpha
                 pboxPhoto.Image = Image.FromStream(ms);
                 lbStudentName.Text = xsName;
                 lbStudentId.Text = XSID;
-
+                lbDcsj.Text = DateTime.Now.TimeOfDay.ToString();
+                lbYdrs.Text =  briefcase.Properties[Properties.Settings.Default.PropertiesTotalStudentNumber];
+                GBoxChooseLesson.Text = (sdrs/Convert.ToInt32(lbYdrs.Text)).ToString("0.00%");
+                lbSdrs.Text = sdrs.ToString();
+                lbCdrs.Text = CountLateStudentNumber(dmTable).ToString();
             }
             else
             {
@@ -307,6 +353,140 @@ namespace AttendanceSystemAlpha
                 fDataModule.UpdateDmtable(dmtableRows);
             }
             fDataModule.ApplyChanges();
+        }
+
+        private static int CountArriveSudentNumber(DataTable dmTable)
+        {
+            DataRow[] dmRows;
+            dmRows = dmTable.Select("DKZT = '0' AND DKZT = 1");
+            return dmRows.Count();
+        }
+
+        private static int CountLateStudentNumber(DataTable dmTable)
+        {
+            DataRow[] dmRows;
+            dmRows = dmTable.Select( "DKZT = '1'");
+            return dmRows.Count();
+        }
+
+        private void cbboxMngClassName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_mngPropertiesTable.Select("开课编号 like '" + cbboxMngClassName.SelectedValue + "'").Length == 0) return;
+            mngTeacherName = _mngPropertiesTable.Select("开课编号 like '" + cbboxMngClassName.SelectedValue + "'").First()["教师姓名"].ToString();
+            tbMngTeacherName.Text = mngTeacherName;//todo:离线密码验证
+            mngchooseClassBriefcase = new FileBriefcase(string.Format(Properties.Settings.Default.OfflineFolder, cbboxMngClassName.SelectedValue), true);
+            mngCurrentPasswd = mngchooseClassBriefcase.Properties[Properties.Settings.Default.PropertiesBriefcasePasswd];
+            if (MngChkPasswd())
+            {
+                pictureBox1.BackColor = Color.LawnGreen;
+                ShowMngClassInformations();
+            }
+            else
+            {
+                pictureBox1.BackColor = Color.OrangeRed;
+                HideMngInformations();
+            }
+            
+        }
+
+        private Boolean MngChkPasswd()
+        {
+            return (tbMngOfflinePasswd.Text == mngCurrentPasswd);
+        }
+        private void ShowMngClassInformations()
+        {
+            PnMngChooseLesson.Enabled = true;
+        }
+
+        private void HideMngInformations()
+        {
+            PnMngChooseLesson.Enabled = false;
+        }
+
+        private void tbMngOfflinePasswd_TextChanged(object sender, EventArgs e)
+        {
+            if (MngChkPasswd())
+            {
+                pboxPasswd.BackColor = Color.OrangeRed;
+                ShowMngClassInformations();
+            }
+            else
+            {
+                pboxPasswd.BackColor = Color.LawnGreen;
+                HideMngInformations();
+            }
+        }
+
+        private void PnMngChooseLesson_EnabledChanged(object sender, EventArgs e)
+        {
+            if (!PnMngChooseLesson.Enabled) return;
+            try
+            {
+                DataTable mngxkTable = mngchooseClassBriefcase.FindTable("SKTABLE");
+                cbboxMngJieCi.DisplayMember = "SKNO";
+                cbboxMngJieCi.ValueMember = "SKDATE";
+                cbboxMngJieCi.DataSource = mngxkTable;
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        private void cbboxMngJieCi_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbboxMngJieCi.Text == "System.Data.DataRowView") return;
+            dateTimePicker2.Value = (DateTime)cbboxMngJieCi.SelectedValue;
+            tbMngTeacherName.Text = mngTeacherName;
+            cbboxMngCheckinMethod.Text = "指纹点名";
+        }
+
+        private void rbtnMngShowInformation_Click(object sender, EventArgs e)
+        {
+            DataTable mngxkTable = null;
+            DataTable dtResault = new DataTable();
+            dtResault.Columns.Add("姓名", typeof (string));
+            dtResault.Columns.Add("到课状态", typeof (Int16));
+            dtResault.Columns.Add("学号", typeof (string));
+            if (cbboxMngJieCi.SelectedValue.ToString() == "System.Data.DataRowView") return;
+            mngdmTable =mngchooseClassBriefcase.FindTable(cbboxMngJieCi.Text.ToString());//从briefcase中将表拉出来
+            mngxkTable = mngchooseClassBriefcase.FindTable(cbboxMngJieCi.Text.ToString());//从briefcase中将表拉出来
+            mngGridView.DataSource = mngdmTable;
+            lbMngStudentTotal.Text = CountArriveSudentNumber(mngdmTable).ToString();
+            //mngGridView.Columns["fucker"].HeaderText
+            //  mngGridView.Columns["fucker"].IsVisible
+            // mngGridView.Columns["fucker"].vis
+        }
+
+        private void mngGridView_DataBindingComplete(object sender, GridViewBindingCompleteEventArgs e)
+        {
+            mngGridView.Columns["XSID"].HeaderText = "学号";
+            mngGridView.Columns["DKZT"].HeaderText = "到课状态";
+            
+        }
+
+        private void mngGridView_CreateRow(object sender, GridViewCreateRowEventArgs e)
+        {
+            
+        }
+
+        private void radButton2_Click(object sender, EventArgs e)
+        {
+            
+            loginForm.ShowDialog();
+            foreach (DataRow dr in mngdmTable.Rows)
+            {
+                dr["POSTDATE"] = DateTime.Now;
+                dr["POSTMANNO"] = Convert.ToDecimal(fDataModule.GetUserID());
+            }
+            var dmtableList = EnumerableExtension.ToList<DMTABLE_08>(mngdmTable);
+            mngchooseClassBriefcase.AddTable(OfflineHelper.TableListToDataTable(dmtableList,cbboxMngJieCi.Text));
+            foreach (var dmtable08 in dmtableList)
+            {
+                fDataModule.UpdateDmtable(dmtable08);
+            }
+            fDataModule.ApplyChanges();
+            lbMngOfflineStatus.Text = "数据提交成功";
         }
     }
 }
