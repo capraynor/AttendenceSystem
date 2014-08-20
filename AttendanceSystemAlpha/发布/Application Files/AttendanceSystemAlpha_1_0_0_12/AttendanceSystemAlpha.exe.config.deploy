@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <configSections>
+        <sectionGroup name="userSettings" type="System.Configuration.UserSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" >
+            <section name="AttendanceSystemAlpha.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" allowExeDefinition="MachineToLocalUser" requirePermission="false" />
+        </sectionGroup>
+    </configSections>
+    <userSettings>
+        <AttendanceSystemAlpha.Properties.Settings>
+            <setting name="UserId" serializeAs="String">
+                <value>Data</value>
+            </setting>
+            <setting name="Password" serializeAs="String">
+                <value>Relativity</value>
+            </setting>
+            <setting name="StorePassword" serializeAs="String">
+                <value>True</value>
+            </setting>
+            <setting name="Domain" serializeAs="String">
+                <value>AttendanceSystem</value>
+            </setting>
+            <setting name="Schema" serializeAs="String">
+                <value>PC</value>
+            </setting>
+            <setting name="ServerUrl" serializeAs="String">
+                <value>localhost:7099/bin/</value>
+            </setting>
+            <setting name="PropertiesBriefcaseFolder" serializeAs="String">
+                <value>.\\Resources\\Properties.daBriefcase</value>
+            </setting>
+            <setting name="OfflineFolder" serializeAs="String">
+                <value>.\\Resources\\OfflineData\\{0}</value>
+            </setting>
+            <setting name="PropertiesBriefcasePasswd" serializeAs="String">
+                <value>BRIEF_CASE_TEACHER_PASSWD</value>
+            </setting>
+            <setting name="PropertiesBriefCaseTeacherName" serializeAs="String">
+                <value>BRIEF_CASE_TEACHER_NAME</value>
+            </setting>
+            <setting name="PropertiesLastCheckin" serializeAs="String">
+                <value>BRIEF_CASE_LAST_CHECKIN</value>
+            </setting>
+            <setting name="PropertiesTotalStudentNumber" serializeAs="String">
+                <value>BRIEF_CASE_TOTAL_NUMBER</value>
+            </setting>
+        </AttendanceSystemAlpha.Properties.Settings>
+    </userSettings>
+</configuration>

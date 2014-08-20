@@ -889,6 +889,7 @@ namespace AttendanceSystemAlpha
             this.radButton4.TabIndex = 23;
             this.radButton4.Text = "<html><p>更改课程</p><p>/节次</p></html>";
             this.radButton4.ThemeName = "TelerikMetro";
+            this.radButton4.Click += new System.EventHandler(this.radButton4_Click);
             // 
             // radButton3
             // 

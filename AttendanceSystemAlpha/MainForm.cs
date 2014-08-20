@@ -91,7 +91,7 @@ namespace AttendanceSystemAlpha
                     }
                     break;
                 case "viewpageCall":
-                    if (System.IO.Directory.GetFiles(string.Format(Properties.Settings.Default.OfflineFolder , "")).Length == 0)
+                    if (!Directory.Exists(string.Format(Properties.Settings.Default.OfflineFolder , "")) || System.IO.Directory.GetFiles(string.Format(Properties.Settings.Default.OfflineFolder , "")).Length == 0)
                     {
                         MessageBox.Show("没有离线数据 请先下载离线数据");
                     }
@@ -105,7 +105,7 @@ namespace AttendanceSystemAlpha
                     }
                     break;
                 case "viewpageDataManagement":
-                    if (System.IO.Directory.GetFiles(string.Format(Properties.Settings.Default.OfflineFolder, "")).Length == 0)
+                    if (!Directory.Exists(string.Format(Properties.Settings.Default.OfflineFolder, "")) || System.IO.Directory.GetFiles(string.Format(Properties.Settings.Default.OfflineFolder, "")).Length == 0)
                     {
                         MessageBox.Show("没有离线数据 请先下载离线数据");
                     }
@@ -487,6 +487,12 @@ namespace AttendanceSystemAlpha
             }
             fDataModule.ApplyChanges();
             lbMngOfflineStatus.Text = "数据提交成功";
+        }
+
+        private void radButton4_Click(object sender, EventArgs e)
+        {
+            groupBox2.Enabled = false;
+            groupBox1.Enabled = true;
         }
     }
 }
