@@ -61,8 +61,11 @@ namespace AttendanceSystemAlpha
 
             foreach (KKTABLE_05 kktable05 in this.fDataModule.Context.KKTABLE_05)
             {
+                if (string.IsNullOrWhiteSpace(kktable05.KKNAME)) continue;
                 clboxClassnames.Items.Add(kktable05.KKNAME);
             }
+            //判断listbox是否为空
+            
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -130,14 +133,22 @@ namespace AttendanceSystemAlpha
             }
             if (!System.IO.File.Exists(Properties.Settings.Default.PropertiesBriefcaseFolder))
             {
-                Briefcase propertiesBriefcase = new FileBriefcase(".\\Resources\\Properties.daBriefcase");
-                DataTable bClistTable = new DataTable("PropertiesTable");
-                DataRow bflistRow = null;
-                bClistTable.Columns.Add("开课编号", type: Type.GetType("System.String"));
-                bClistTable.Columns.Add("教师姓名", type: Type.GetType("System.String"));
-                bClistTable.Columns.Add("开课名称", type: Type.GetType("System.String"));
-                propertiesBriefcase.AddTable(bClistTable);
-                propertiesBriefcase.WriteBriefcase();
+                try
+                {
+                    Briefcase propertiesBriefcase = new FileBriefcase(".\\Resources\\Properties.daBriefcase");
+                    DataTable bClistTable = new DataTable("PropertiesTable");
+                    DataRow bflistRow = null;
+                    bClistTable.Columns.Add("开课编号", type: Type.GetType("System.String"));
+                    bClistTable.Columns.Add("教师姓名", type: Type.GetType("System.String"));
+                    bClistTable.Columns.Add("开课名称", type: Type.GetType("System.String"));
+                    propertiesBriefcase.AddTable(bClistTable);
+                    propertiesBriefcase.WriteBriefcase();
+                }
+                catch (Exception exception)
+                {
+                    lbOfflineStatus.Text = ("下载数据失败 原因： \n" + exception.Message);
+                    return;
+                }
                 
             }
             if (fDataModule.ServerToBriefcase(tboxLoadpasswd.Text))
@@ -153,17 +164,12 @@ namespace AttendanceSystemAlpha
 
         private void rbtnStartcall_Click(object sender, EventArgs e)
         {
+            xsidTable.Clear();
             if (cbboxJieCi.SelectedValue.ToString() == "System.Data.DataRowView") return;
             dmTable = _chooseClassBriefcase.FindTable(cbboxJieCi.Text.ToString());
-            try
-            {
-                xsidTable.Columns.Add("学生学号");
-                xsidTable.Columns.Add("指纹识别号");
-            }
-            catch (Exception exception )
-            {
-                Console.WriteLine(exception.Message);
-            }
+            xsidTable.Columns.Add("学生学号");
+            xsidTable.Columns.Add("指纹识别号");
+
             DataRow xsidRow = xsidTable.NewRow();
             xkTable = _chooseClassBriefcase.FindTable("XKTABLE_VIEW1");
             while (axZKFPEngX1.InitEngine() != 0)
@@ -243,8 +249,9 @@ namespace AttendanceSystemAlpha
                 cbboxJieCi.ValueMember = "SKDATE";
                 cbboxJieCi.DataSource = xktTable;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
+                MessageBox.Show("出现一个错误.请将以下信息提供给管理员\n" + exception.Message);
                 return;
             }
         }
@@ -344,16 +351,16 @@ namespace AttendanceSystemAlpha
         /// <param name="dmTable">要传入的DMtable 从briefcase中获取</param>
         /// <param name="skno">上课编号 用于更新 sKTABLE</param>
         /// <param name="postmanno">提交人员编号</param>
-        public static void UploadData(DataModule fDataModule, DataTable dmTable, long skno, Decimal postmanno)
-        {
-            foreach (DMTABLE_08 dmtableRows in EnumerableExtension.ToList<DMTABLE_08>(dmTable))
-            {
-                dmtableRows.POSTDATE = DateTime.Now;
-                dmtableRows.POSTMANNO = postmanno;
-                fDataModule.UpdateDmtable(dmtableRows);
-            }
-            fDataModule.ApplyChanges();
-        }
+        //public static void UploadData(DataModule fDataModule, DataTable dmTable, long skno, Decimal postmanno)
+        //{
+        //    foreach (DMTABLE_08 dmtableRows in EnumerableExtension.ToList<DMTABLE_08>(dmTable))
+        //    {
+        //        dmtableRows.POSTDATE = DateTime.Now;
+        //        dmtableRows.POSTMANNO = postmanno;
+        //        fDataModule.UpdateDmtable(dmtableRows);
+        //    }
+        //    fDataModule.ApplyChanges();
+        //}
 
         private static int CountArriveSudentNumber(DataTable dmTable)
         {
@@ -427,8 +434,9 @@ namespace AttendanceSystemAlpha
                 cbboxMngJieCi.ValueMember = "SKDATE";
                 cbboxMngJieCi.DataSource = mngxkTable;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
+                MessageBox.Show("出现一个错误.请将以下信息提供给管理员\n" + exception.Message);
                 return;
             }
         }
@@ -472,21 +480,29 @@ namespace AttendanceSystemAlpha
 
         private void radButton2_Click(object sender, EventArgs e)
         {
-            
-            loginForm.ShowDialog();
-            foreach (DataRow dr in mngdmTable.Rows)
+
+            try
             {
-                dr["POSTDATE"] = DateTime.Now;
-                dr["POSTMANNO"] = Convert.ToDecimal(fDataModule.GetUserID());
+                loginForm.ShowDialog();
+                foreach (DataRow dr in mngdmTable.Rows)
+                {
+                    dr["POSTDATE"] = DateTime.Now;
+                    dr["POSTMANNO"] = Convert.ToDecimal(fDataModule.GetUserID());
+                }
+                var dmtableList = EnumerableExtension.ToList<DMTABLE_08>(mngdmTable);
+                mngchooseClassBriefcase.AddTable(OfflineHelper.TableListToDataTable(dmtableList,cbboxMngJieCi.Text));
+                foreach (var dmtable08 in dmtableList)
+                {
+                    fDataModule.UpdateDmtable(dmtable08);
+                }
+                fDataModule.ApplyChanges();
+                lbMngOfflineStatus.Text = "数据提交成功";
             }
-            var dmtableList = EnumerableExtension.ToList<DMTABLE_08>(mngdmTable);
-            mngchooseClassBriefcase.AddTable(OfflineHelper.TableListToDataTable(dmtableList,cbboxMngJieCi.Text));
-            foreach (var dmtable08 in dmtableList)
+            catch (Exception exception)
             {
-                fDataModule.UpdateDmtable(dmtable08);
+                lbMngOfflineStatus.Text = "数据提交失败 原因： " + exception.Message;
+                return;
             }
-            fDataModule.ApplyChanges();
-            lbMngOfflineStatus.Text = "数据提交成功";
         }
 
         private void radButton4_Click(object sender, EventArgs e)

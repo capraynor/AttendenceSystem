@@ -242,7 +242,7 @@ namespace AttendanceSystemAlpha
             // lbOfflineStatus
             // 
             this.lbOfflineStatus.AutoSize = true;
-            this.lbOfflineStatus.Location = new System.Drawing.Point(404, 336);
+            this.lbOfflineStatus.Location = new System.Drawing.Point(379, 319);
             this.lbOfflineStatus.Name = "lbOfflineStatus";
             this.lbOfflineStatus.Size = new System.Drawing.Size(290, 27);
             this.lbOfflineStatus.TabIndex = 9;
@@ -882,6 +882,7 @@ namespace AttendanceSystemAlpha
             // radButton4
             // 
             this.radButton4.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.radButton4.Enabled = false;
             this.radButton4.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radButton4.Location = new System.Drawing.Point(688, 193);
             this.radButton4.Name = "radButton4";
@@ -917,6 +918,7 @@ namespace AttendanceSystemAlpha
             // lbMngOfflineStatus
             // 
             this.lbMngOfflineStatus.AutoSize = true;
+            this.lbMngOfflineStatus.Enabled = false;
             this.lbMngOfflineStatus.Location = new System.Drawing.Point(632, 156);
             this.lbMngOfflineStatus.Name = "lbMngOfflineStatus";
             this.lbMngOfflineStatus.Size = new System.Drawing.Size(81, 27);
@@ -926,6 +928,7 @@ namespace AttendanceSystemAlpha
             // lbMngDkpercent
             // 
             this.lbMngDkpercent.AutoSize = true;
+            this.lbMngDkpercent.Enabled = false;
             this.lbMngDkpercent.Location = new System.Drawing.Point(632, 118);
             this.lbMngDkpercent.Name = "lbMngDkpercent";
             this.lbMngDkpercent.Size = new System.Drawing.Size(81, 27);
@@ -953,6 +956,7 @@ namespace AttendanceSystemAlpha
             // lbMngsdrs
             // 
             this.lbMngsdrs.AutoSize = true;
+            this.lbMngsdrs.Enabled = false;
             this.lbMngsdrs.Location = new System.Drawing.Point(632, 74);
             this.lbMngsdrs.Name = "lbMngsdrs";
             this.lbMngsdrs.Size = new System.Drawing.Size(81, 27);
@@ -962,6 +966,7 @@ namespace AttendanceSystemAlpha
             // lbMngStudentTotal
             // 
             this.lbMngStudentTotal.AutoSize = true;
+            this.lbMngStudentTotal.Enabled = false;
             this.lbMngStudentTotal.Location = new System.Drawing.Point(632, 30);
             this.lbMngStudentTotal.Name = "lbMngStudentTotal";
             this.lbMngStudentTotal.Size = new System.Drawing.Size(81, 27);
