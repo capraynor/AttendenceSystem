@@ -41,6 +41,7 @@ namespace AttendanceSystemAlpha
         private string mngCurrentPasswd;
         private Briefcase mngchooseClassBriefcase;
         private DataTable mngdmTable;
+        private DataTable mngSKtable;
         #endregion
 
         public MainForm()
@@ -326,7 +327,7 @@ namespace AttendanceSystemAlpha
                 lbStudentId.Text = XSID;
                 lbDcsj.Text = DateTime.Now.TimeOfDay.ToString();
                 lbYdrs.Text =  briefcase.Properties[Properties.Settings.Default.PropertiesTotalStudentNumber];
-                GBoxChooseLesson.Text = (sdrs/Convert.ToInt32(lbYdrs.Text)).ToString("0.00%");
+                lbDKPercent.Text = (Convert.ToDouble(sdrs) / Convert.ToDouble(lbYdrs.Text)).ToString("0.00%");
                 lbSdrs.Text = sdrs.ToString();
                 lbCdrs.Text = CountLateStudentNumber(dmTable).ToString();
             }
@@ -382,6 +383,7 @@ namespace AttendanceSystemAlpha
             mngTeacherName = _mngPropertiesTable.Select("开课编号 like '" + cbboxMngClassName.SelectedValue + "'").First()["教师姓名"].ToString();
             tbMngTeacherName.Text = mngTeacherName;//todo:离线密码验证
             mngchooseClassBriefcase = new FileBriefcase(string.Format(Properties.Settings.Default.OfflineFolder, cbboxMngClassName.SelectedValue), true);
+            mngSKtable = mngchooseClassBriefcase.FindTable("SKTABLE");
             mngCurrentPasswd = mngchooseClassBriefcase.Properties[Properties.Settings.Default.PropertiesBriefcasePasswd];
             if (MngChkPasswd())
             {
@@ -429,10 +431,10 @@ namespace AttendanceSystemAlpha
             if (!PnMngChooseLesson.Enabled) return;
             try
             {
-                DataTable mngxkTable = mngchooseClassBriefcase.FindTable("SKTABLE");
+               // DataTable mngxkTable = mngchooseClassBriefcase.FindTable("SKTABLE");
                 cbboxMngJieCi.DisplayMember = "SKNO";
                 cbboxMngJieCi.ValueMember = "SKDATE";
-                cbboxMngJieCi.DataSource = mngxkTable;
+                cbboxMngJieCi.DataSource = mngSKtable;
             }
             catch (Exception exception)
             {
@@ -495,7 +497,9 @@ namespace AttendanceSystemAlpha
                 {
                     fDataModule.UpdateDmtable(dmtable08);
                 }
+
                 fDataModule.ApplyChanges();
+                
                 lbMngOfflineStatus.Text = "数据提交成功";
             }
             catch (Exception exception)
@@ -509,6 +513,11 @@ namespace AttendanceSystemAlpha
         {
             groupBox2.Enabled = false;
             groupBox1.Enabled = true;
+        }
+
+        private void radButton3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

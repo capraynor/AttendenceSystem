@@ -199,25 +199,17 @@ namespace AttendenceSystem_Alp
             propertiesBriefcase.WriteBriefcase();
             return true;
         }
+
         /// <summary>
         /// 上传点名表中的一条记录
         /// </summary>
         /// <param name="dmRows">点名表中的一条记录</param>
         /// <returns>成功 返回true 否则 返回false</returns>
-        public bool UpdateDmtable(DMTABLE_08 dmRows)
+        public void UpdateDmtable(DMTABLE_08 dmRows)
         {
-            try
-            {
-                this.remoteDataAdapter.UpdateRow(dmRows);
-                return true;
-            }
-            catch (Exception exception)
-            {
-
-                MessageBox.Show(exception.Message);
-                return false;
-            }
+            remoteDataAdapter.UpdateRow(dmRows);
         }
+
         #endregion
         #region Constants
         private const String RelativityConnectionString = @"User Id=""{0}"";Password=""{1}"";Domain=""{2}"";Schema=""{3}""";
