@@ -30,6 +30,7 @@ namespace AttendanceSystemAlpha
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.telerikMetroTheme1 = new Telerik.WinControls.Themes.TelerikMetroTheme();
             this.pnHead = new System.Windows.Forms.Panel();
@@ -39,6 +40,8 @@ namespace AttendanceSystemAlpha
             this.pboxWelcome = new System.Windows.Forms.PictureBox();
             this.viewpageLoadData = new Telerik.WinControls.UI.RadPageViewPage();
             this.pnLoad = new System.Windows.Forms.Panel();
+            this.label27 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.lbOfflineStatus = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.lbTeacherName = new System.Windows.Forms.Label();
@@ -125,6 +128,7 @@ namespace AttendanceSystemAlpha
             this.tbMngOfflinePasswd = new System.Windows.Forms.TextBox();
             this.cbboxMngClassName = new System.Windows.Forms.ComboBox();
             this.label26 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainPageView)).BeginInit();
             this.mainPageView.SuspendLayout();
@@ -224,6 +228,8 @@ namespace AttendanceSystemAlpha
             // 
             // pnLoad
             // 
+            this.pnLoad.Controls.Add(this.label27);
+            this.pnLoad.Controls.Add(this.textBox1);
             this.pnLoad.Controls.Add(this.lbOfflineStatus);
             this.pnLoad.Controls.Add(this.label18);
             this.pnLoad.Controls.Add(this.lbTeacherName);
@@ -239,6 +245,22 @@ namespace AttendanceSystemAlpha
             this.pnLoad.Size = new System.Drawing.Size(794, 479);
             this.pnLoad.TabIndex = 0;
             // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(370, 183);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(92, 27);
+            this.label27.TabIndex = 11;
+            this.label27.Text = "确认密码";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(369, 213);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(300, 34);
+            this.textBox1.TabIndex = 10;
+            // 
             // lbOfflineStatus
             // 
             this.lbOfflineStatus.AutoSize = true;
@@ -246,16 +268,16 @@ namespace AttendanceSystemAlpha
             this.lbOfflineStatus.Name = "lbOfflineStatus";
             this.lbOfflineStatus.Size = new System.Drawing.Size(290, 27);
             this.lbOfflineStatus.TabIndex = 9;
-            this.lbOfflineStatus.Text = "输入离线密码并点击\"开始下载\"";
+            this.lbOfflineStatus.Text = "输入课程密码并点击\"开始下载\"";
             // 
             // label18
             // 
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(13, 91);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(172, 27);
+            this.label18.Size = new System.Drawing.Size(232, 27);
             this.label18.TabIndex = 8;
-            this.label18.Text = "需要离线的课程：";
+            this.label18.Text = "请勾选需要离线的课程：";
             // 
             // lbTeacherName
             // 
@@ -284,11 +306,11 @@ namespace AttendanceSystemAlpha
             // lbLoadpasswd
             // 
             this.lbLoadpasswd.AutoSize = true;
-            this.lbLoadpasswd.Location = new System.Drawing.Point(364, 81);
+            this.lbLoadpasswd.Location = new System.Drawing.Point(364, 113);
             this.lbLoadpasswd.Name = "lbLoadpasswd";
-            this.lbLoadpasswd.Size = new System.Drawing.Size(112, 27);
+            this.lbLoadpasswd.Size = new System.Drawing.Size(92, 27);
             this.lbLoadpasswd.TabIndex = 4;
-            this.lbLoadpasswd.Text = "离线密码：";
+            this.lbLoadpasswd.Text = "课程密码";
             // 
             // rbtnFinish
             // 
@@ -642,7 +664,7 @@ namespace AttendanceSystemAlpha
             // axZKFPEngX1
             // 
             this.axZKFPEngX1.Enabled = true;
-            this.axZKFPEngX1.Location = new System.Drawing.Point(605, 116);
+            this.axZKFPEngX1.Location = new System.Drawing.Point(646, 117);
             this.axZKFPEngX1.Name = "axZKFPEngX1";
             this.axZKFPEngX1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axZKFPEngX1.OcxState")));
             this.axZKFPEngX1.Size = new System.Drawing.Size(24, 24);
@@ -657,7 +679,7 @@ namespace AttendanceSystemAlpha
             this.cbboxCalltimes.FormattingEnabled = true;
             this.cbboxCalltimes.Items.AddRange(new object[] {
             "1"});
-            this.cbboxCalltimes.Location = new System.Drawing.Point(424, 104);
+            this.cbboxCalltimes.Location = new System.Drawing.Point(465, 105);
             this.cbboxCalltimes.Name = "cbboxCalltimes";
             this.cbboxCalltimes.Size = new System.Drawing.Size(131, 35);
             this.cbboxCalltimes.TabIndex = 26;
@@ -667,7 +689,7 @@ namespace AttendanceSystemAlpha
             this.label16.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label16.Location = new System.Drawing.Point(306, 112);
+            this.label16.Location = new System.Drawing.Point(347, 113);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(112, 27);
             this.label16.TabIndex = 25;
@@ -681,7 +703,7 @@ namespace AttendanceSystemAlpha
             this.cbboxCallWay.FormattingEnabled = true;
             this.cbboxCallWay.Items.AddRange(new object[] {
             "指纹点名"});
-            this.cbboxCallWay.Location = new System.Drawing.Point(424, 50);
+            this.cbboxCallWay.Location = new System.Drawing.Point(465, 51);
             this.cbboxCallWay.Name = "cbboxCallWay";
             this.cbboxCallWay.Size = new System.Drawing.Size(205, 35);
             this.cbboxCallWay.TabIndex = 24;
@@ -691,7 +713,7 @@ namespace AttendanceSystemAlpha
             this.label15.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label15.Location = new System.Drawing.Point(306, 58);
+            this.label15.Location = new System.Drawing.Point(347, 59);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(112, 27);
             this.label15.TabIndex = 23;
@@ -721,7 +743,7 @@ namespace AttendanceSystemAlpha
             // 
             this.rbtnStartcall.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.rbtnStartcall.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbtnStartcall.Location = new System.Drawing.Point(659, 112);
+            this.rbtnStartcall.Location = new System.Drawing.Point(685, 117);
             this.rbtnStartcall.Name = "rbtnStartcall";
             this.rbtnStartcall.Size = new System.Drawing.Size(89, 44);
             this.rbtnStartcall.TabIndex = 20;
@@ -753,9 +775,9 @@ namespace AttendanceSystemAlpha
             // 
             this.DateTimePicker1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.DateTimePicker1.CalendarFont = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.DateTimePicker1.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.DateTimePicker1.CustomFormat = "yyyy-MM-dd HH:mm";
             this.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.DateTimePicker1.Location = new System.Drawing.Point(424, 10);
+            this.DateTimePicker1.Location = new System.Drawing.Point(465, 11);
             this.DateTimePicker1.Name = "DateTimePicker1";
             this.DateTimePicker1.ShowUpDown = true;
             this.DateTimePicker1.Size = new System.Drawing.Size(225, 34);
@@ -766,7 +788,7 @@ namespace AttendanceSystemAlpha
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(306, 17);
+            this.label2.Location = new System.Drawing.Point(347, 18);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(112, 27);
             this.label2.TabIndex = 16;
@@ -780,7 +802,7 @@ namespace AttendanceSystemAlpha
             this.cbboxJieCi.FormattingEnabled = true;
             this.cbboxJieCi.Location = new System.Drawing.Point(129, 10);
             this.cbboxJieCi.Name = "cbboxJieCi";
-            this.cbboxJieCi.Size = new System.Drawing.Size(131, 35);
+            this.cbboxJieCi.Size = new System.Drawing.Size(212, 35);
             this.cbboxJieCi.TabIndex = 15;
             this.cbboxJieCi.SelectedIndexChanged += new System.EventHandler(this.cbboxJieCi_SelectedIndexChanged);
             // 
@@ -996,7 +1018,7 @@ namespace AttendanceSystemAlpha
             // 
             this.mngGridView.Location = new System.Drawing.Point(6, 33);
             // 
-            // mngGridView
+            // 
             // 
             this.mngGridView.MasterTemplate.AllowAddNewRow = false;
             this.mngGridView.MasterTemplate.AllowCellContextMenu = false;
@@ -1109,7 +1131,7 @@ namespace AttendanceSystemAlpha
             // 
             this.dateTimePicker2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.dateTimePicker2.CalendarFont = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.dateTimePicker2.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.dateTimePicker2.CustomFormat = "yyyy-MM-dd HH:mm";
             this.dateTimePicker2.Enabled = false;
             this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker2.Location = new System.Drawing.Point(424, 8);
@@ -1136,7 +1158,7 @@ namespace AttendanceSystemAlpha
             this.cbboxMngJieCi.FormattingEnabled = true;
             this.cbboxMngJieCi.Location = new System.Drawing.Point(129, 8);
             this.cbboxMngJieCi.Name = "cbboxMngJieCi";
-            this.cbboxMngJieCi.Size = new System.Drawing.Size(131, 35);
+            this.cbboxMngJieCi.Size = new System.Drawing.Size(171, 35);
             this.cbboxMngJieCi.TabIndex = 15;
             this.cbboxMngJieCi.SelectedIndexChanged += new System.EventHandler(this.cbboxMngJieCi_SelectedIndexChanged);
             // 
@@ -1361,6 +1383,9 @@ namespace AttendanceSystemAlpha
         private Telerik.WinControls.UI.RadButton radButton2;
         private Telerik.WinControls.UI.RadButton radButton3;
         private Telerik.WinControls.UI.RadButton radButton4;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 

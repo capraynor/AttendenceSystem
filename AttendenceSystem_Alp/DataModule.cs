@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.IO;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using AttendenceSystem_Alp.PC;
+using AttendenceSystem_Alp.Properties;
 using RemObjects.DataAbstract.Server;
 using RemObjects.InternetPack;
 using RemObjects.SDK;
@@ -64,7 +66,7 @@ namespace AttendenceSystem_Alp
             IQueryable<JSTABLE_03> jstable03S =
                 from c in
                     remoteDataAdapter.GetTable<JSTABLE_03>(new DataParameter[]
-                    {new DataParameter("JSID", Convert.ToInt64(Properties.Settings.Default.UserId)),})
+                    {new DataParameter("JSID", Convert.ToInt64(Settings.Default.UserId)),})
                 select c;
             this.Context.JSTABLE_03 = jstable03S.ToList();
             return true;
@@ -88,20 +90,27 @@ namespace AttendenceSystem_Alp
             }
             catch (Exception exception)
             {
-                MessageBox.Show("获取数据失败  请重新启动软件");
+                MessageBox.Show("获取数据失败  请重新启动软件 信息：\n" + exception.Message);
                 return false;//获取数据失败
             }
 
+        }
+
+        public void GetSktableQuery(long skno)
+        {
+            IQueryable<SKTABLE_07> sktable07S = from c in this.remoteDataAdapter.GetTable<SKTABLE_07>()
+                where c.SKNO == skno
+                select c;
+            this.Context.SKTABLE_07 = sktable07S.ToList();
         }
         /// <summary>
         /// 将服务器的数据离线至本地 
         /// todo:老版本函数 需要重点测试
         /// </summary>
         /// <param name="offlinePasswd"></param>
-        public Boolean ServerToBriefcase(string offlinePasswd)
+        public Boolean ServerToBriefcase(string offlinePasswd, ArrayList ckeckedList)
         {
-
-            foreach (var kktable05 in this.Context.KKTABLE_05)
+            foreach (var kktable05 in this.Context.KKTABLE_05.Where(kktable05 => ckeckedList.Contains(kktable05.KKNO)))
             {
                 if (!File.Exists(string.Format(GlobalParams.CurrentOfflineDataFile, kktable05.KKNO.ToString()) +
                                  ".daBriefcase"))
@@ -119,10 +128,10 @@ namespace AttendenceSystem_Alp
                         MessageBoxIcon.Question);
                     if (dr2 != DialogResult.OK) continue;
                     File.Delete(string.Format(GlobalParams.CurrentOfflineDataFile, kktable05.KKNO.ToString()) +
-                                 ".daBriefcase");
+                                ".daBriefcase");
                     StartDownloadData(kktable05, offlinePasswd);
                 }
-            } //foreach
+            }
             return true;
         }
 
@@ -133,10 +142,13 @@ namespace AttendenceSystem_Alp
             DataTable classRecordTable = null;
             DataRow classRecordRow = null;
             classRecordTable = new DataTable("ClassStatus");
-            classRecordTable.Columns.Add("Table编号", type: Type.GetType("System.String"));
-            classRecordTable.Columns.Add("课次", type: Type.GetType("System.String"));
-            classRecordTable.Columns.Add("签到情况", type: Type.GetType("System.String"));
-            classRecordTable.Columns.Add("离线数据提交情况", type: Type.GetType("System.String"));
+            if (!classRecordTable.Columns.Contains("Table编号"))
+            {
+                classRecordTable.Columns.Add("Table编号", type: Type.GetType("System.String"));
+                classRecordTable.Columns.Add("课次", type: Type.GetType("System.String"));
+                classRecordTable.Columns.Add("签到情况", type: Type.GetType("System.String"));
+                classRecordTable.Columns.Add("离线数据提交情况", type: Type.GetType("System.String"));
+            }
             newBriefcase.Properties.Add(GlobalParams.PropertiesLastModified, DateTime.Now.ToString());
             newBriefcase.Properties.Add(GlobalParams.PropertiesTeacherName, Properties.Settings.Default.UserName);
             newBriefcase.Properties.Add(GlobalParams.PropertiesTeacherID, Properties.Settings.Default.UserId);
@@ -208,6 +220,11 @@ namespace AttendenceSystem_Alp
         public void UpdateDmtable(DMTABLE_08 dmRows)
         {
             remoteDataAdapter.UpdateRow(dmRows);
+        }
+
+        public void UpdateSktable(SKTABLE_07 skRows)
+        {
+            remoteDataAdapter.UpdateRow(skRows);
         }
 
         #endregion

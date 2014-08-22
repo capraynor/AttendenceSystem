@@ -7,5 +7,5 @@
     <Name>RISETKT-PC</Name>
     <ServerUri>http://localhost:7099/bin</ServerUri>
   </Server>
-  <DataLogin>Data</DataLogin>
+  <DataLogin>5</DataLogin>
 </RelativityClient>

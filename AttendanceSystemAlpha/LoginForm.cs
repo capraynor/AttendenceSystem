@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Windows.Forms;
 using AttendenceSystem_Alp;
 
 namespace AttendanceSystemAlpha
@@ -33,19 +34,26 @@ namespace AttendanceSystemAlpha
 
         private void rbtnLogin_Click(object sender, EventArgs e)
         {
-            _fDataModule.SetUserID(tboxUsername.Text);
-            _fDataModule.SetPasswd(tboxPasswd.Text);
-            _fDataModule.SetUp(_fDataModule.GetServerUrl());
-            isLogin = _fDataModule.login();
-            if (isLogin)
+            try
             {
-                lbMsg.BackColor = Color.LightBlue;
-                Hide();
+                _fDataModule.SetUserID(tboxUsername.Text);
+                _fDataModule.SetPasswd(tboxPasswd.Text);
+                _fDataModule.SetUp(_fDataModule.GetServerUrl());
+                isLogin = _fDataModule.login();
+                if (isLogin)
+                {
+                    lbMsg.BackColor = Color.LightBlue;
+                    Hide();
+                }
+                else
+                {
+                    this.lbMsg.BackColor = Color.Red;
+                    lblStatus.Text = "用户名或密码错误";
+                }
             }
-            else
+            catch (Exception exception)
             {
-                this.lbMsg.BackColor = Color.Red;
-                lblStatus.Text = "用户名或密码错误";
+                MessageBox.Show("出现一个错误.请将以下信息提供给管理员\n" + exception.Message);
             }
         }
     }
