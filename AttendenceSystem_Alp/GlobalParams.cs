@@ -3,7 +3,7 @@
     class GlobalParams
     {
         public static string SqlitePath = "H:\\working\\软件学院实验室\\C#\\AttendenceSystem\\AttendenceSystem\\bin\\RollCallSystem.db";
-        public static string RelativityUrl = "localhost:7099/bin";
+        public static string RelativityUrl = "172.20.0.112:7099/bin";
         public static long Jsid = 0;
         public static string KKNO = "-1";
         public static string SKNO = "-1";

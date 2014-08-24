@@ -234,7 +234,7 @@ namespace AttendanceSystemAlpha
             this.mainPageView.Font = new System.Drawing.Font("微软雅黑", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.mainPageView.Location = new System.Drawing.Point(0, 0);
             this.mainPageView.Name = "mainPageView";
-            this.mainPageView.SelectedPage = this.viewpageLoadData;
+            this.mainPageView.SelectedPage = this.viewpageWelcome;
             this.mainPageView.Size = new System.Drawing.Size(999, 487);
             this.mainPageView.TabIndex = 0;
             this.mainPageView.ThemeName = "TelerikMetro";
@@ -253,6 +253,7 @@ namespace AttendanceSystemAlpha
             // pboxWelcome
             // 
             this.pboxWelcome.BackgroundImage = global::AttendanceSystemAlpha.Properties.Resources.background;
+            this.pboxWelcome.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pboxWelcome.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pboxWelcome.Location = new System.Drawing.Point(0, 0);
             this.pboxWelcome.Name = "pboxWelcome";
@@ -293,7 +294,7 @@ namespace AttendanceSystemAlpha
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(372, 282);
+            this.label27.Location = new System.Drawing.Point(361, 290);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(92, 27);
             this.label27.TabIndex = 11;
@@ -301,17 +302,18 @@ namespace AttendanceSystemAlpha
             // 
             // tboxRepeatPasswd
             // 
-            this.tboxRepeatPasswd.Location = new System.Drawing.Point(470, 279);
+            this.tboxRepeatPasswd.Location = new System.Drawing.Point(459, 287);
             this.tboxRepeatPasswd.Name = "tboxRepeatPasswd";
             this.tboxRepeatPasswd.PasswordChar = '*';
             this.tboxRepeatPasswd.Size = new System.Drawing.Size(300, 34);
             this.tboxRepeatPasswd.TabIndex = 10;
+            this.tboxRepeatPasswd.Text = "123456";
             this.tboxRepeatPasswd.TextChanged += new System.EventHandler(this.tboxRepeatPasswd_TextChanged);
             // 
             // lbOfflineStatus
             // 
             this.lbOfflineStatus.AutoSize = true;
-            this.lbOfflineStatus.Location = new System.Drawing.Point(457, 362);
+            this.lbOfflineStatus.Location = new System.Drawing.Point(446, 370);
             this.lbOfflineStatus.Name = "lbOfflineStatus";
             this.lbOfflineStatus.Size = new System.Drawing.Size(290, 27);
             this.lbOfflineStatus.TabIndex = 9;
@@ -345,17 +347,18 @@ namespace AttendanceSystemAlpha
             // 
             // tboxLoadpasswd
             // 
-            this.tboxLoadpasswd.Location = new System.Drawing.Point(470, 239);
+            this.tboxLoadpasswd.Location = new System.Drawing.Point(459, 247);
             this.tboxLoadpasswd.Name = "tboxLoadpasswd";
             this.tboxLoadpasswd.PasswordChar = '*';
             this.tboxLoadpasswd.Size = new System.Drawing.Size(300, 34);
             this.tboxLoadpasswd.TabIndex = 5;
+            this.tboxLoadpasswd.Text = "123456";
             this.tboxLoadpasswd.TextChanged += new System.EventHandler(this.tboxLoadpasswd_TextChanged);
             // 
             // lbLoadpasswd
             // 
             this.lbLoadpasswd.AutoSize = true;
-            this.lbLoadpasswd.Location = new System.Drawing.Point(372, 239);
+            this.lbLoadpasswd.Location = new System.Drawing.Point(361, 247);
             this.lbLoadpasswd.Name = "lbLoadpasswd";
             this.lbLoadpasswd.Size = new System.Drawing.Size(92, 27);
             this.lbLoadpasswd.TabIndex = 4;
@@ -364,7 +367,7 @@ namespace AttendanceSystemAlpha
             // rbtnFinish
             // 
             this.rbtnFinish.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbtnFinish.Location = new System.Drawing.Point(640, 319);
+            this.rbtnFinish.Location = new System.Drawing.Point(629, 327);
             this.rbtnFinish.Name = "rbtnFinish";
             this.rbtnFinish.Size = new System.Drawing.Size(107, 40);
             this.rbtnFinish.TabIndex = 3;
@@ -375,7 +378,7 @@ namespace AttendanceSystemAlpha
             // rbtnCancel
             // 
             this.rbtnCancel.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbtnCancel.Location = new System.Drawing.Point(453, 319);
+            this.rbtnCancel.Location = new System.Drawing.Point(442, 327);
             this.rbtnCancel.Name = "rbtnCancel";
             this.rbtnCancel.Size = new System.Drawing.Size(107, 40);
             this.rbtnCancel.TabIndex = 2;
@@ -893,6 +896,7 @@ namespace AttendanceSystemAlpha
             this.tboxPasswd.Name = "tboxPasswd";
             this.tboxPasswd.Size = new System.Drawing.Size(193, 34);
             this.tboxPasswd.TabIndex = 10;
+            this.tboxPasswd.Text = "123456";
             this.tboxPasswd.TextChanged += new System.EventHandler(this.tboxPasswd_TextChanged);
             // 
             // cbboxClassname
@@ -1247,8 +1251,10 @@ namespace AttendanceSystemAlpha
             this.tbMngOfflinePasswd.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tbMngOfflinePasswd.Location = new System.Drawing.Point(540, 34);
             this.tbMngOfflinePasswd.Name = "tbMngOfflinePasswd";
+            this.tbMngOfflinePasswd.PasswordChar = '*';
             this.tbMngOfflinePasswd.Size = new System.Drawing.Size(193, 34);
             this.tbMngOfflinePasswd.TabIndex = 10;
+            this.tbMngOfflinePasswd.Text = "123456";
             this.tbMngOfflinePasswd.TextChanged += new System.EventHandler(this.tbMngOfflinePasswd_TextChanged);
             // 
             // cbboxMngClassName
