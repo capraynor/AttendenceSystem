@@ -30,6 +30,7 @@
         {
             this.telerikMetroTheme1 = new Telerik.WinControls.Themes.TelerikMetroTheme();
             this.pnLogin = new System.Windows.Forms.Panel();
+            this.lblStatus = new System.Windows.Forms.Label();
             this.pnHead = new System.Windows.Forms.Panel();
             this.lbMsg = new System.Windows.Forms.Label();
             this.rbtnLogin = new Telerik.WinControls.UI.RadButton();
@@ -38,7 +39,6 @@
             this.tboxUsername = new System.Windows.Forms.TextBox();
             this.lbPasswd = new System.Windows.Forms.Label();
             this.lbUsername = new System.Windows.Forms.Label();
-            this.lblStatus = new System.Windows.Forms.Label();
             this.pnLogin.SuspendLayout();
             this.pnHead.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rbtnLogin)).BeginInit();
@@ -62,6 +62,14 @@
             this.pnLogin.Name = "pnLogin";
             this.pnLogin.Size = new System.Drawing.Size(491, 289);
             this.pnLogin.TabIndex = 0;
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(11, 60);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(0, 12);
+            this.lblStatus.TabIndex = 7;
             // 
             // pnHead
             // 
@@ -111,8 +119,10 @@
             this.tboxPasswd.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tboxPasswd.Location = new System.Drawing.Point(167, 156);
             this.tboxPasswd.Name = "tboxPasswd";
+            this.tboxPasswd.PasswordChar = '*';
             this.tboxPasswd.Size = new System.Drawing.Size(288, 39);
             this.tboxPasswd.TabIndex = 3;
+            this.tboxPasswd.Text = "Relativity";
             // 
             // tboxUsername
             // 
@@ -121,6 +131,7 @@
             this.tboxUsername.Name = "tboxUsername";
             this.tboxUsername.Size = new System.Drawing.Size(288, 39);
             this.tboxUsername.TabIndex = 2;
+            this.tboxUsername.Text = "5";
             // 
             // lbPasswd
             // 
@@ -141,14 +152,6 @@
             this.lbUsername.Size = new System.Drawing.Size(110, 31);
             this.lbUsername.TabIndex = 0;
             this.lbUsername.Text = "用户名：";
-            // 
-            // lblStatus
-            // 
-            this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(11, 60);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(0, 12);
-            this.lblStatus.TabIndex = 7;
             // 
             // LoginForm
             // 

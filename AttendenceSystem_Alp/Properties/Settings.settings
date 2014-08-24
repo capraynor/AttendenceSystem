@@ -3,10 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="UserId" Type="System.String" Scope="User">
-      <Value Profile="(Default)">5</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Password" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Relativity</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="StorePassword" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

@@ -61,17 +61,17 @@ namespace AttendanceSystemAlpha
 
             this.lbTeacherName.Text = fDataModule.getTeacherName();
             this.clboxClassnames.Items.Clear();
-            clboxClassnames.DataSource = fDataModule.Context.KKTABLE_05;
+            clboxClassnames.DataSource = fDataModule.Context.JSANDKKVIEW1;
             clboxClassnames.DisplayMember = "KKNAME";
             clboxClassnames.ValueMember = "KKNO";
-            
+            rbtnFinish.Enabled = false;
             //foreach (KKTABLE_05 kktable05 in this.fDataModule.Context.KKTABLE_05)
             //{
             //    if (string.IsNullOrWhiteSpace(kktable05.KKNAME)) continue;
             //    clboxClassnames.Items.Add(kktable05.KKNAME);
             //}
             //判断listbox是否为空
-            
+
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -157,15 +157,22 @@ namespace AttendanceSystemAlpha
                 }
                 catch (Exception exception)
                 {
-                    lbOfflineStatus.Text = ("下载数据失败 原因： \n" + exception.Message);
+                    MessageBox.Show("下载数据失败\n原因： " + exception.Message);
                     return;
                 }
                 
             }
-            if (fDataModule.ServerToBriefcase(tboxLoadpasswd.Text, ckeckedList))
+            int i = 0;
+            try
             {
-                lbOfflineStatus.Text = "操作完成";
+                i = fDataModule.ServerToBriefcase(tboxLoadpasswd.Text, ckeckedList);
             }
+            catch (Exception exception)
+            {
+                MessageBox.Show("下载数据时出现错误 原因：\n" + exception.Message);
+                return;
+            }
+            lbOfflineStatus.Text = string.Format("操作完成 , 【{0}】门课程被下载" , i.ToString());
         }
 
         private void rbtnCancel_Click(object sender, EventArgs e)
@@ -326,7 +333,7 @@ namespace AttendanceSystemAlpha
 
                 //dmTable.TableName = GlobalParams.SKNO;
 
-                dmTable = OfflineHelper.TableListToDataTable(Helpers.EnumerableExtension.ToList<DMTABLE_08>(dmTable),
+                dmTable = OfflineHelper.TableListToDataTable(Helpers.EnumerableExtension.ToList<DMTABLE_08_NOPIC_VIEW>(dmTable),
                     cbboxJieCi.SelectedValue.ToString());
                 briefcase.AddTable(dmTable);
                 briefcase.Properties[Properties.Settings.Default.PropertiesLastCheckin] = cbboxJieCi.SelectedValue.ToString();
@@ -563,7 +570,7 @@ namespace AttendanceSystemAlpha
                     dr["POSTDATE"] = DateTime.Now;
                     dr["POSTMANNO"] = Convert.ToDecimal(fDataModule.GetUserID());
                 }
-                var dmtableList = EnumerableExtension.ToList<DMTABLE_08>(mngdmTable);
+                var dmtableList = EnumerableExtension.ToList<DMTABLE_08_NOPIC_VIEW>(mngdmTable);
                 mngchooseClassBriefcase.AddTable(OfflineHelper.TableListToDataTable(dmtableList,cbboxMngJieCi.SelectedValue.ToString()));
                 foreach (var dmtable08 in dmtableList)
                 {
@@ -573,13 +580,13 @@ namespace AttendanceSystemAlpha
                 //mngSKtable = _chooseClassBriefcase.FindTable() // todo update sktable 点名方式 早退人数
                 long _skno = (long) this.cbboxMngJieCi.SelectedValue;
                 fDataModule.GetSktableQuery(_skno);
-                if (!fDataModule.Context.SKTABLE_07.Any()) // 选择 sktable需要上传的那一列
+                if (!fDataModule.Context.SKTABLE_07_VIEW.Any()) // 选择 sktable需要上传的那一列
                 {
                     throw new Exception("数据库异常 请重试");
                 }
 
                 //rowSktable07:需要上传的那一列
-                SKTABLE_07 rowSktable07 = fDataModule.Context.SKTABLE_07.First();
+                SKTABLE_07_VIEW rowSktable07 = fDataModule.Context.SKTABLE_07_VIEW.First();
                 //rowSktable07.EDITDATE = DateTime.Now;
                 //rowSktable07.DMFS = Convert.ToInt16(2);
                 //rowSktable07.EDITMANNO = Convert.ToDecimal(fDataModule.GetUserID());
@@ -637,6 +644,16 @@ namespace AttendanceSystemAlpha
         private void radButton3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void tboxLoadpasswd_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tboxRepeatPasswd_TextChanged(object sender, EventArgs e)
+        {
+            rbtnFinish.Enabled = string.Equals(tboxLoadpasswd.Text, tboxRepeatPasswd.Text);
         }
     }
 }

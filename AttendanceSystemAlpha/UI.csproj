@@ -7,7 +7,7 @@
     <ProjectGuid>{D6B71DBB-AA01-41C5-A1D7-1669A289D4B8}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ApplicationIcon>Properties\App.ico</ApplicationIcon>
+    <ApplicationIcon>attendance_list_icon.ico</ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
     <RootNamespace>AttendanceSystemAlpha</RootNamespace>
@@ -179,7 +179,15 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="attendance_list_icon.ico" />
     <Content Include="Properties\App.ico" />
+    <None Include="Resources\offlineBackground2.PNG" />
+    <None Include="Resources\background.PNG" />
+    <None Include="Resources\attendance_list_icon.jpg" />
+    <None Include="Resources\title.png" />
+    <None Include="Resources\学校标志.png" />
+    <None Include="Resources\文理学院标志1.jpg" />
+    <None Include="Resources\标志.jpg" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">

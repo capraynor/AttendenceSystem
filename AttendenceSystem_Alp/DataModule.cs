@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using AttendenceSystem_Alp.PC;
@@ -63,12 +64,12 @@ namespace AttendenceSystem_Alp
         
         public bool JstableQuery()
         {
-            IQueryable<JSTABLE_03> jstable03S =
+            IQueryable<JSTABLE_03_VIEW> jstable03S =
                 from c in
-                    remoteDataAdapter.GetTable<JSTABLE_03>(new DataParameter[]
+                    remoteDataAdapter.GetTable<JSTABLE_03_VIEW>(new DataParameter[]
                     {new DataParameter("JSID", Convert.ToInt64(Settings.Default.UserId)),})
                 select c;
-            this.Context.JSTABLE_03 = jstable03S.ToList();
+            this.Context.JSTABLE_03_VIEW = jstable03S.ToList();
             return true;
         }
         /// <summary>
@@ -80,12 +81,12 @@ namespace AttendenceSystem_Alp
         {
             try
             {
-                IQueryable<KKTABLE_05> kktable05S =
+                IQueryable<JSANDKKVIEW1 > kktable05S =
                     from c in
-                        this.remoteDataAdapter.GetTable<KKTABLE_05>
+                        this.remoteDataAdapter.GetTable<JSANDKKVIEW1>
                         (new DataParameter[] { new DataParameter("JSID", jsid), })
                     select c;
-                this.Context.KKTABLE_05 = kktable05S.ToList();
+                this.Context.JSANDKKVIEW1 = kktable05S.ToList();
                 return true; //获取数据成功
             }
             catch (Exception exception)
@@ -98,44 +99,46 @@ namespace AttendenceSystem_Alp
 
         public void GetSktableQuery(long skno)
         {
-            IQueryable<SKTABLE_07> sktable07S = from c in this.remoteDataAdapter.GetTable<SKTABLE_07>()
+            IQueryable<SKTABLE_07_VIEW> sktable07S = from c in this.remoteDataAdapter.GetTable<SKTABLE_07_VIEW>()
                 where c.SKNO == skno
                 select c;
-            this.Context.SKTABLE_07 = sktable07S.ToList();
+            this.Context.SKTABLE_07_VIEW = sktable07S.ToList();
         }
+
         /// <summary>
         /// 将服务器的数据离线至本地 
         /// todo:老版本函数 需要重点测试
         /// </summary>
         /// <param name="offlinePasswd"></param>
-        public Boolean ServerToBriefcase(string offlinePasswd, ArrayList ckeckedList)
+        /// <param name="ckeckedList"></param>
+        public int ServerToBriefcase(string offlinePasswd, ArrayList ckeckedList)
         {
-            foreach (var kktable05 in this.Context.KKTABLE_05.Where(kktable05 => ckeckedList.Contains(kktable05.KKNO)))
+            int i = 0;// 你懂的0,0
+            foreach (var jsandkktable05S in this.Context.JSANDKKVIEW1)
             {
-                if (!File.Exists(string.Format(GlobalParams.CurrentOfflineDataFile, kktable05.KKNO.ToString()) +
-                                 ".daBriefcase"))
+                if (ckeckedList.Contains(jsandkktable05S.KKNO))
                 {
-                    StartDownloadData(kktable05, offlinePasswd);
-                }
-                else
-                {
-                    DialogResult dr = MessageBox.Show("课程“" + kktable05.KKNAME + "”的离线数据存在，要刷新离线数据吗？\n未提交的更改将会被删除", "刷新本地离线数据"
-                        , MessageBoxButtons.OKCancel,
-                        MessageBoxIcon.Question);
-                    if (dr != DialogResult.OK) continue;
-                    DialogResult dr2 = MessageBox.Show("真的确定吗，未提交的数据将被永久删除", "刷新本地离线数据"
-                        , MessageBoxButtons.OKCancel,
-                        MessageBoxIcon.Question);
-                    if (dr2 != DialogResult.OK) continue;
-                    File.Delete(string.Format(GlobalParams.CurrentOfflineDataFile, kktable05.KKNO.ToString()) +
-                                ".daBriefcase");
-                    StartDownloadData(kktable05, offlinePasswd);
+                    if (!File.Exists(string.Format(GlobalParams.CurrentOfflineDataFile, jsandkktable05S.KKNO.ToString()) + ".daBriefcase"))
+                    {
+                        StartDownloadData(jsandkktable05S, offlinePasswd);
+                        i++;
+                    }
+                    else
+                    {
+                        DialogResult dr = MessageBox.Show("课程“" + jsandkktable05S.KKNAME + "”的离线数据存在，要刷新离线数据吗？\n未提交的更改将会被删除", "刷新本地离线数据", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                        if (dr != DialogResult.OK) continue;
+                        DialogResult dr2 = MessageBox.Show("真的确定吗，未提交的数据将被永久删除", "刷新本地离线数据", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                        if (dr2 != DialogResult.OK) continue;
+                        File.Delete(string.Format(GlobalParams.CurrentOfflineDataFile, jsandkktable05S.KKNO.ToString()) + ".daBriefcase");
+                        StartDownloadData(jsandkktable05S, offlinePasswd);
+                        i++;
+                    }
                 }
             }
-            return true;
+            return i;
         }
 
-        public bool StartDownloadData(KKTABLE_05 kktable05 , string offlinePasswd)
+        public bool StartDownloadData(JSANDKKVIEW1 kktable05, string offlinePasswd) // 一门开课课程
         {
             Briefcase newBriefcase = new FileBriefcase(string.Format(GlobalParams.CurrentOfflineDataFile, kktable05.KKNO.ToString()));
 
@@ -160,19 +163,20 @@ namespace AttendenceSystem_Alp
                 from c in
                     remoteDataAdapter.GetTable<XKTABLE_VIEW1>(new DataParameter[] { new DataParameter("KKNO", kktable05.KKNO), })
                 select c;
+
             newBriefcase.AddTable(OfflineHelper.TableListToDataTable(xktableView1s.ToList(), "XKTABLE_VIEW1")); // 将XKTABLE离线出来 带出学生信息
 
-            IQueryable<SKTABLE_VIEW1> sktableView1s =
+            IQueryable<SKTABLE_07_VIEW> sktableView1s =
                 from c in
-                    remoteDataAdapter.GetTable<SKTABLE_VIEW1>(new DataParameter[] { new DataParameter("KKNO", kktable05.KKNO), })
+                    remoteDataAdapter.GetTable<SKTABLE_07_VIEW>(new DataParameter[] { new DataParameter("KKNO", kktable05.KKNO), })
                 select c;
 
             newBriefcase.AddTable(OfflineHelper.TableListToDataTable(sktableView1s.ToList(), "SKTABLE"));  // 将SKTABLE离线出来 带出每节课的课程信息
             foreach (var sktableView1 in sktableView1s)
             {
-                IQueryable<DMTABLE_08> dmtable08S =
+                IQueryable<DMTABLE_08_NOPIC_VIEW> dmtable08S =
                     from c in
-                        remoteDataAdapter.GetTable<DMTABLE_08>(new DataParameter[] { new DataParameter("SKNO", sktableView1.SKNO), })
+                        remoteDataAdapter.GetTable<DMTABLE_08_NOPIC_VIEW>(new DataParameter[] { new DataParameter("SKNO", sktableView1.SKNO), })
                     select c;
                 newBriefcase.AddTable(OfflineHelper.TableListToDataTable(dmtable08S.ToList(), sktableView1.SKNO.ToString()));
                 classRecordRow = classRecordTable.NewRow();
@@ -217,12 +221,12 @@ namespace AttendenceSystem_Alp
         /// </summary>
         /// <param name="dmRows">点名表中的一条记录</param>
         /// <returns>成功 返回true 否则 返回false</returns>
-        public void UpdateDmtable(DMTABLE_08 dmRows)
+        public void UpdateDmtable(DMTABLE_08_NOPIC_VIEW dmRows)
         {
             remoteDataAdapter.UpdateRow(dmRows);
         }
 
-        public void UpdateSktable(SKTABLE_07 skRows)
+        public void UpdateSktable(SKTABLE_07_VIEW skRows)
         {
             remoteDataAdapter.UpdateRow(skRows);
         }
@@ -371,17 +375,14 @@ namespace AttendenceSystem_Alp
             {
                 return false;
             }
-            else
+            if (!JstableQuery())
             {
-                
-                if (!JstableQuery())
-                {
-                    MessageBox.Show("出现错误 请重新启动软件");
-                }
-                Properties.Settings.Default.UserName = this.Context.JSTABLE_03.First().JSNAME;
-                GetkkQueryTables(Convert.ToInt64(Properties.Settings.Default.UserId));
-                return true;
+                MessageBox.Show("出现错误 请重新启动软件");
+                return false;
             }
+            Properties.Settings.Default.UserName = this.Context.JSTABLE_03_VIEW.First().JSNAME;
+            GetkkQueryTables(Convert.ToInt64(Properties.Settings.Default.UserId));
+            return true;
         }
         public void ApplyChanges()
         {
