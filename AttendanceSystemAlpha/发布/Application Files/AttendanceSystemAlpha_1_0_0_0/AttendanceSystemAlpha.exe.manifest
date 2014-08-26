@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="AttendanceSystemAlpha.exe" version="1.0.0.0" publicKeyToken="1e7329d606084f48" language="neutral" processorArchitecture="x86" type="win32" />
+  <description asmv2:iconFile="attendance_list_icon.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="AttendanceSystemAlpha" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
+    <commandLine file="AttendanceSystemAlpha.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC 清单选项
+          如果要更改 Windows 用户帐户控制级别，请用以下节点之一替换
+          requestedExecutionLevel 节点。
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+          如果要利用文件和注册表虚拟化提供
+          向后兼容性，请删除 requestedExecutionLevel 节点。
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="RemObjects.DataAbstract" version="8.0.81.1131" publicKeyToken="3DF3CAD1B7AA5098" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="RemObjects.DataAbstract.Async" version="8.0.81.1131" publicKeyToken="3DF3CAD1B7AA5098" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="RemObjects.DataAbstract.Scripting" version="8.0.81.1131" publicKeyToken="3DF3CAD1B7AA5098" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="RemObjects.InternetPack" version="8.0.81.1131" publicKeyToken="3DF3CAD1B7AA5098" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="RemObjects.Script" version="2.0.77.1131" publicKeyToken="3DF3CAD1B7AA5098" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="RemObjects.SDK" version="8.0.81.1131" publicKeyToken="3DF3CAD1B7AA5098" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="RemObjects.SDK.ZLib" version="8.0.81.1131" publicKeyToken="3DF3CAD1B7AA5098" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Telerik.WinControls" version="2014.2.617.40" publicKeyToken="5BB2A467CBEC794E" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Telerik.WinControls.ChartView" version="2014.2.617.40" publicKeyToken="5BB2A467CBEC794E" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Telerik.WinControls.GridView" version="2014.2.617.40" publicKeyToken="5BB2A467CBEC794E" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Telerik.WinControls.Themes.TelerikMetro" version="2014.2.617.40" publicKeyToken="5BB2A467CBEC794E" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Telerik.WinControls.UI" version="2014.2.617.40" publicKeyToken="5BB2A467CBEC794E" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="TelerikCommon" version="2014.2.617.40" publicKeyToken="5BB2A467CBEC794E" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AttendanceSystemAlpha.exe" size="634880">
+      <assemblyIdentity name="AttendanceSystemAlpha" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>FIhvn8kmDCQDO/uSH2hhBO28wp4=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AttendenceSystem_Alp.exe" size="200704">
+      <assemblyIdentity name="AttendenceSystem_Alp" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>H+6gQOZMBs3uDjee7SkZOtAR43M=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AxInterop.ZKFPEngXControl.dll" size="32768">
+      <assemblyIdentity name="AxInterop.ZKFPEngXControl" version="3.5.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>U0dZ3zZutiF2aeSQ+HSr4+Pqbk8=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AxInterop.ZKFPEngXControl.dll" size="26624">
+      <assemblyIdentity name="AxInterop.ZKFPEngXControl" version="4.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>+wcLulnmApLcw4DhDukjsT2WgPk=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FingerprintHelper.dll" size="7168">
+      <assemblyIdentity name="FingerprintHelper" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>zW1O7VXFkzZdrH6OpHy25pxSVIM=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Helpers.dll" size="8704">
+      <assemblyIdentity name="Helpers" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>cGBT/eEyLTa5CL8oqzObQFJ/p6I=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Interop.ZKFPEngXControl.dll" size="27136">
+      <assemblyIdentity name="Interop.ZKFPEngXControl" version="4.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>WM4DNUHPa8PUoj1L39RWZ9JV8ys=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="attendance_list_icon.ico" size="894">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>tHDh79311duZZHP9gkpPVymErLs=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="AttendanceSystemAlpha.exe.config" size="2521">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>CPRpLVF1VFNcLpMkVOEPnYhCJ4A=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Properties\App.ico" size="106554">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>H3bpDTk9oNqz6XyP1w6GT6+5jpI=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=RISETKT-PC\天运" issuerKeyHash="ef7376055b96b059d9292c424e87f63c111a1a87" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>d2sI+S+gGb7cU+afU0/BAOBV9K0=</DigestValue></Reference></SignedInfo><SignatureValue>Kn9OsBTmfb+/TKDXYhEVocUSeU4adpgEf6nGzMpCNLER51hOLcjxMtYT3kzoqnMlva+iE1eayF/CMWNTNHhSvzEJOPnxKQIBUkpIq5qdk/60NHmJyrZYPmuvUilDySl0tEGu0r6L9etEfsD+RR+23XMujDq2mbLIW2gJbNF1rGM=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>iE0Gv3zVw6NgLq1Ap6k81rJPAynNbHmHlUvZGf0zEh7mnjYC/9wOpoB73vP5Y7H/biopBWADwp6joj0V/sa+tv22Ke5bBjsnvxxyA1vqrqZCd2l6qTA7XT6z27dpe7aAUjfdnKtnZlHb0MB/4wGFjZHuo57ImM5mxAgtufRdsfE=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="adf455e000c14f539fe653dcbe19a02ff9086b77" Description="" Url=""><as:assemblyIdentity name="AttendanceSystemAlpha.exe" version="1.0.0.0" publicKeyToken="1e7329d606084f48" language="neutral" processorArchitecture="x86" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=RISETKT-PC\天运</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>CZU+TyGGfyXCibAWYlsUOEwRhWw=</DigestValue></Reference></SignedInfo><SignatureValue>JBQRY8ObEFQwHnHLAoo+6V34jagSscrjUbBtxQa8vZvtqCt6jcq2DBwNC15vRL1Qy7zCLZfPH4msm7RhBXET0tNhZB3+PSkuUaJf+vZM3tohifcecvu1No+rUenCVhTtPNmOZs2eC1EK2pFIX5vek7WC3mzGcH7YRLKC1sDe6EA=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>iE0Gv3zVw6NgLq1Ap6k81rJPAynNbHmHlUvZGf0zEh7mnjYC/9wOpoB73vP5Y7H/biopBWADwp6joj0V/sa+tv22Ke5bBjsnvxxyA1vqrqZCd2l6qTA7XT6z27dpe7aAUjfdnKtnZlHb0MB/4wGFjZHuo57ImM5mxAgtufRdsfE=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIBzTCCATagAwIBAgIQOkfTZ558/pVATUvDNA7W+zANBgkqhkiG9w0BAQUFADAlMSMwIQYDVQQDHhoAUgBJAFMARQBUAEsAVAAtAFAAQwBcWSmP0DAeFw0xNDA4MjQxMDA2MDhaFw0xNTA4MjQxNjA2MDhaMCUxIzAhBgNVBAMeGgBSAEkAUwBFAFQASwBUAC0AUABDAFxZKY/QMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCITQa/fNXDo2AurUCnqTzWsk8DKc1seYeVS9kZ/TMSHuaeNgL/3A6mgHve8/ljsf9uKikFYAPCnqOiPRX+xr62/bYp7lsGOye/HHIDW+qupkJ3aXqpMDtdPrPbt2l7toBSN92cq2dmUdvQwH/jAYWNke6jnsiYzmbECC259F2x8QIDAQABMA0GCSqGSIb3DQEBBQUAA4GBAIL9nk6B7pbtuHxQMtVueaJp0OzS2Zq4y6Fy+LfnFwqnOO1fDNdSmttlN0yxy4sA5f7knKEKBsC6TZ1S0naIUX3z8jAGZjLrh9gvNFlRceN+lS+EXT1XxpUwVAMKsGTP/XEbD5bVu5/Jb12G/Qlias2pnvenN/FAaZpnJkcdusTC</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

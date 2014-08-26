@@ -12,7 +12,7 @@
     </AssemblyKeyContainerName>
     <RootNamespace>AttendenceSystem_Alp</RootNamespace>
     <AssemblyName>AttendenceSystem_Alp</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
@@ -40,9 +40,11 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\x86\Debug\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
@@ -62,6 +64,7 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -88,26 +91,32 @@
   <ItemGroup>
     <Reference Include="RemObjects.DataAbstract.Scripting, Version=8.0.81.1131, Culture=neutral, PublicKeyToken=3df3cad1b7aa5098, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
     </Reference>
     <Reference Include="RemObjects.InternetPack">
       <Name>RemObjects.InternetPack</Name>
       <HintPath>I:\RemObjects Software\RemObjects SDK for .NET\Bin\RemObjects.InternetPack</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="RemObjects.SDK">
       <Name>RemObjects.SDK</Name>
       <HintPath>I:\RemObjects Software\RemObjects SDK for .NET\Bin\RemObjects.SDK.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="RemObjects.SDK.ZLib">
       <Name>RemObjects.SDK.ZLib</Name>
       <HintPath>I:\RemObjects Software\RemObjects SDK for .NET\Bin\RemObjects.SDK.ZLib.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="RemObjects.DataAbstract">
       <Name>RemObjects.DataAbstract</Name>
       <HintPath>I:\RemObjects Software\Data Abstract for .NET\Bin\RemObjects.DataAbstract.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="RemObjects.DataAbstract.Async">
       <Name>RemObjects.DataAbstract.Async</Name>
       <HintPath>I:\RemObjects Software\Data Abstract for .NET\Bin\RemObjects.DataAbstract.Async.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -129,6 +138,7 @@
     <None Include="app.config" />
     <None Include="AttendenceSystem_Alp.relativityClient" />
     <None Include="DataModules.relativityClient" />
+    <None Include="DataModules1.relativityClient" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -155,6 +165,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="OfflineHelper.cs" />
+    <Compile Include="PC_TableDefinitions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -168,7 +179,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="TableDefinitions_PC.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DataModule.resx">

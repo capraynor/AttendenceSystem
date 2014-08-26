@@ -62,6 +62,7 @@
             this.pnLogin.Name = "pnLogin";
             this.pnLogin.Size = new System.Drawing.Size(491, 289);
             this.pnLogin.TabIndex = 0;
+            this.pnLogin.VisibleChanged += new System.EventHandler(this.pnLogin_VisibleChanged);
             // 
             // lblStatus
             // 

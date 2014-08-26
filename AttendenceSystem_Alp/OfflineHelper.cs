@@ -18,17 +18,17 @@ namespace AttendenceSystem_Alp
         /// <param name="list">需要转换的list</param>
         /// <param name="tableName">创建出来的table名称</param>
         /// <returns></returns>
-        public static DataTable XktableListToDataTable(List<XKTABLE_VIEW1> list, string tableName)
+        public static DataTable XktableListToDataTable(List<XKTABLE_VIEWRO> list, string tableName)
         {
             DataTable dt = new DataTable(tableName);
-            foreach (PropertyInfo info in typeof (XKTABLE_VIEW1).GetProperties())
+            foreach (PropertyInfo info in typeof (XKTABLE_VIEWRO).GetProperties())
             {
                 dt.Columns.Add(new DataColumn(info.Name, info.PropertyType));
             }
-            foreach (XKTABLE_VIEW1 t in list)
+            foreach (XKTABLE_VIEWRO t in list)
             {
                 DataRow row = dt.NewRow();
-                foreach (PropertyInfo info in typeof (XKTABLE_VIEW1).GetProperties())
+                foreach (PropertyInfo info in typeof (XKTABLE_VIEWRO).GetProperties())
                 {
                     row[info.Name] = info.GetValue(t, null);
                 }

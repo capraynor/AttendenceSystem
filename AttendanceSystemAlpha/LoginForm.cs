@@ -56,5 +56,11 @@ namespace AttendanceSystemAlpha
                 MessageBox.Show("出现一个错误.请将以下信息提供给管理员\n" + exception.Message);
             }
         }
+
+        private void pnLogin_VisibleChanged(object sender, EventArgs e)
+        {
+            this.Width = 491;
+            this.Height = 289;
+        }
     }
 }

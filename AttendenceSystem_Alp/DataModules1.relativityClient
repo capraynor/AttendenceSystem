@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RelativityClient>
-  <AdminLogin>Administrator</AdminLogin>
+  <AdminLogin />
   <Domain>AttendanceSystem</Domain>
   <Schema>PC</Schema>
   <Server>

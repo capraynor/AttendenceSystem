@@ -3,11 +3,13 @@ using System.Collections;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Text;
+using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using System.Linq;
 using System.Windows.Forms.PropertyGridInternal;
+using System.Windows.Forms.VisualStyles;
 using AttendenceSystem_Alp;
 using AttendenceSystem_Alp.PC;
 using RemObjects.DataAbstract;
@@ -60,8 +62,8 @@ namespace AttendanceSystemAlpha
             pnLoad.Visible = true;
 
             this.lbTeacherName.Text = fDataModule.getTeacherName();
-            this.clboxClassnames.Items.Clear();
-            clboxClassnames.DataSource = fDataModule.Context.JSANDKKVIEW1;
+            //this.clboxClassnames.Items.Clear();
+            clboxClassnames.DataSource = fDataModule.Context.JSANDKKVIEWRO;
             clboxClassnames.DisplayMember = "KKNAME";
             clboxClassnames.ValueMember = "KKNO";
             rbtnFinish.Enabled = false;
@@ -125,6 +127,7 @@ namespace AttendanceSystemAlpha
                         cbboxMngClassName.DataSource = _mngPropertiesTable;
                         cbboxMngClassName.DisplayMember = "开课名称";
                         cbboxMngClassName.ValueMember = "开课编号";
+                        
                     }
                     break;
             }
@@ -132,8 +135,9 @@ namespace AttendanceSystemAlpha
 
         private void rbtnFinish_Click(object sender, EventArgs e)
         {
-            ArrayList ckeckedList = new ArrayList();
-            ckeckedList.Add(clboxClassnames.SelectedValue);
+            
+            CheckedListBox.CheckedItemCollection ckeckedList = clboxClassnames.CheckedItems;
+            
             string offlineFolder = Properties.Settings.Default.OfflineFolder;
             if (!System.IO.Directory.Exists(string.Format(offlineFolder,"")))
             {
@@ -145,14 +149,17 @@ namespace AttendanceSystemAlpha
                 {
                     Briefcase propertiesBriefcase = new FileBriefcase(".\\Resources\\Properties.daBriefcase");
                     DataTable bClistTable = new DataTable("PropertiesTable");
-                    DataRow bflistRow = null;
+                    
+                    //DataRow bflistRow = null;
                     if (!bClistTable.Columns.Contains("开课编号"))
                     {
                         bClistTable.Columns.Add("开课编号", type: Type.GetType("System.String"));
                         bClistTable.Columns.Add("教师姓名", type: Type.GetType("System.String"));
                         bClistTable.Columns.Add("开课名称", type: Type.GetType("System.String"));
                     }
+                    
                     propertiesBriefcase.AddTable(bClistTable);
+                    
                     propertiesBriefcase.WriteBriefcase();
                 }
                 catch (Exception exception)
@@ -165,14 +172,14 @@ namespace AttendanceSystemAlpha
             int i = 0;
             try
             {
-                i = fDataModule.ServerToBriefcase(tboxLoadpasswd.Text, ckeckedList);
+                i = fDataModule.ServerToBriefcase(tboxLoadpasswd.Text, clboxClassnames.CheckedItems); // 开始下载离线数据
             }
             catch (Exception exception)
             {
                 MessageBox.Show("下载数据时出现错误 原因：\n" + exception.Message);
                 return;
             }
-            lbOfflineStatus.Text = string.Format("操作完成 , 【{0}】门课程被下载" , i.ToString());
+            lbOfflineStatus.Text = string.Format("操作完成 , 【{0}】门课程被下载" , i);
         }
 
         private void rbtnCancel_Click(object sender, EventArgs e)
@@ -185,7 +192,15 @@ namespace AttendanceSystemAlpha
             if (cbboxJieCi.SelectedValue.ToString() == "System.Data.DataRowView") return;
             
             dmTable = _chooseClassBriefcase.FindTable(cbboxJieCi.SelectedValue.ToString());
-           
+            DataTable sktable = _chooseClassBriefcase.FindTable("SKTABLE");
+            DataRow skRow = null;
+            skRow =  sktable.Select("SKNO = '" + cbboxJieCi.SelectedValue + "'").First();
+            skRow.BeginEdit();
+            skRow["SKDATE"] = DateTimePicker1.Value;
+            skRow.EndEdit();
+            _chooseClassBriefcase.AddTable(OfflineHelper.TableListToDataTable(EnumerableExtension.ToList<SKTABLE_07_VIEW>(sktable) , "SKTABLE"));
+            _chooseClassBriefcase.WriteBriefcase();
+
             if (!xsidTable.Columns.Contains("学生学号"))
             {
                 xsidTable.Columns.Add("学生学号");
@@ -209,7 +224,15 @@ namespace AttendanceSystemAlpha
                 FingerHelper.AddFingerprintTemplate(dataRows["ZW1"].ToString(), axZKFPEngX1, _buffDatabaseNum, fingerID);
                 xsidRow["学生学号"] = dataRows["XSID"].ToString();
                 xsidRow["指纹识别号"] = fingerID.ToString();
-                xsidTable.Rows.Add(xsidRow);
+                try
+                {
+                    xsidTable.Rows.Add(xsidRow);
+                }
+                catch (Exception)
+                {
+                    
+                    
+                }
             }
             gboxClassmsg.Enabled = false;
             gboxStudentMsg.Enabled = true;
@@ -273,6 +296,9 @@ namespace AttendanceSystemAlpha
                 cbboxJieCi.DisplayMember = "SKDATE";
                 cbboxJieCi.ValueMember = "SKNO";
                 cbboxJieCi.DataSource = skTable;
+                cbboxCallWay.Text = "指纹点名";
+                tboxClassplace.Text = "明德楼 D0505";
+                cbboxCalltimes.Text = "1";
             }
             catch (Exception exception)
             {
@@ -289,6 +315,7 @@ namespace AttendanceSystemAlpha
 
         private void axZKFPEngX1_OnCapture(object sender, AxZKFPEngXControl.IZKFPEngXEvents_OnCaptureEvent e)
         {
+            DataTable classTable = propertieBriefcase.FindTable("ClassNameTable"); // 班级表
             int sdrs = 0;
             int dkrs = 0;
             int similarity = 0;
@@ -303,7 +330,7 @@ namespace AttendanceSystemAlpha
             
             classTime = DateTimePicker1.Value;
             xsidRows = xsidTable.Select("指纹识别号 like '%" + fingerPrintID.ToString() + "%'");
-            if (xsidRows.Count() != 0 && similarity > 9)
+            if (xsidRows.Count() != 0 && similarity > 8)
             {
 
                 XSID = xsidRows.First()["学生学号"].ToString();
@@ -314,7 +341,13 @@ namespace AttendanceSystemAlpha
 
                 dmRows.First().BeginEdit();
                 //dmRows.First()["DMSJ1"] = DateTime.Now; //Convert.ToInt16(1);
-                if (Convert.ToDateTime(cbboxJieCi.Text) >  DateTime.Now)
+
+                if (dmRows.First()["DMSJ1"] == null || (Convert.ToDateTime(dmRows.First()["DMSJ1"]) > DateTime.Now))
+                {
+                    dmRows.First()["DMSJ1"] = DateTime.Now;
+                }
+
+                if (DateTimePicker1.Value > Convert.ToDateTime(dmRows.First()["DMSJ1"]))
                 {
                     dmRows.First()["DKZT"] = 0;
                     lbDczt.Text = "按时到课";
@@ -324,7 +357,6 @@ namespace AttendanceSystemAlpha
                     dmRows.First()["DKZT"] = 1;
                     lbDczt.Text = "迟到";
                 }
-                dmRows.First()["DMSJ1"] = DateTime.Now;
                 dmRows.First().EndEdit();
 
                 //briefcase.RemoveTable(GlobalParams.SKNO); //briefcase直接addtable 代表更新
@@ -338,10 +370,17 @@ namespace AttendanceSystemAlpha
                 briefcase.AddTable(dmTable);
                 briefcase.Properties[Properties.Settings.Default.PropertiesLastCheckin] = cbboxJieCi.SelectedValue.ToString();
                 briefcase.WriteBriefcase();//写入briefcase
-                sdrs = CountArriveSudentNumber(dmTable);
+                sdrs = CountArriveSudentNumber(dmTable)+CountLateStudentNumber(dmTable);
 
                 //显示信息
                 xkRows = xkTable.Select("XSID like '%" + XSID + "%'");
+                
+                DataRow bjRow = classTable.Select("BJID = '" + xkRows.First()["BJID"].ToString() + "'").First();
+
+                lbStudentClass.Text = "12级软件3班";
+                
+                lbStudentXy.Text = bjRow["XYNAME"].ToString();
+                lbStudentClass.Text = bjRow["BJNAME"].ToString();
                 xsName = xkRows.First()["XSNAME"].ToString();
                 xszpBytes = (byte[])xkRows.First()["XSZP"];
                 Stream ms = new MemoryStream(xszpBytes);
@@ -349,8 +388,10 @@ namespace AttendanceSystemAlpha
                 pboxPhoto.Image = Image.FromStream(ms);
                 lbStudentName.Text = xsName;
                 lbStudentId.Text = XSID;
-                lbDcsj.Text = DateTime.Now.TimeOfDay.ToString();
-                lbYdrs.Text =  briefcase.Properties[Properties.Settings.Default.PropertiesTotalStudentNumber];
+                lbDcsj.Text = Convert.ToDateTime(dmRows.First()["DMSJ1"]).ToString("t", DateTimeFormatInfo.InvariantInfo);
+                
+                //lbYdrs.Text =  briefcase.Properties[Properties.Settings.Default.PropertiesTotalStudentNumber];
+                lbYdrs.Text = dmTable.Rows.Count.ToString();
                 lbDKPercent.Text = (Convert.ToDouble(sdrs) / Convert.ToDouble(lbYdrs.Text)).ToString("0.00%");
                 lbSdrs.Text = sdrs.ToString();
                 lbCdrs.Text = CountLateStudentNumber(dmTable).ToString();
@@ -371,6 +412,17 @@ namespace AttendanceSystemAlpha
             {
                 
             }
+
+            DataTable ClassStatusTable = _chooseClassBriefcase.FindTable("ClassStatus");
+            DataRow mngClassStatusRow = ClassStatusTable.Select("Table编号 = '" + cbboxJieCi.SelectedValue + "'")
+                    .First();
+
+            mngClassStatusRow.BeginEdit();
+            mngClassStatusRow["点名情况"] = "已点名";
+            mngClassStatusRow.EndEdit();
+            mngchooseClassBriefcase.AddTable(ClassStatusTable);
+            mngchooseClassBriefcase.WriteBriefcase();
+
         }
         //todo:获取datatable并上传
         /// <summary>
@@ -439,6 +491,7 @@ namespace AttendanceSystemAlpha
                 HideMngInformations();
             }
             
+            
         }
 
         private Boolean MngChkPasswd()
@@ -501,7 +554,7 @@ namespace AttendanceSystemAlpha
             if (!dtResault.Columns.Contains("到课状态"))
             {
                 dtResault.Columns.Add("姓名", typeof (string));
-                dtResault.Columns.Add("到课状态", typeof (Int16));
+                dtResault.Columns.Add("到课状态", typeof (string));
                 dtResault.Columns.Add("学号", typeof (string));
             }
 
@@ -525,19 +578,43 @@ namespace AttendanceSystemAlpha
                 DataRow resaultRow = dtResault.NewRow();
                 resaultRow["学号"] = Convert.ToString(Row["XSID"]);
                 resaultRow["到课状态"] = Convert.ToString(Row["DKZT"]);
+                switch (Convert.ToString(Row["DKZT"]))
+                {
+                    case "0":
+                    {
+                        resaultRow["到课状态"] = "正常到课";
+                        break;
+                    }
+                    case "1":
+                    {
+                        resaultRow["到课状态"] = "迟到";
+                        break;
+                    }
+                    case "2":
+                    {
+                        resaultRow["到课状态"] = "早退";
+                        break;
+                    }
+                    case"3":
+                    {
+                        resaultRow["到课状态"] = "旷课";
+                        break;
+                    }
+                }
+                resaultRow["姓名"] = Row["XSNAME"].ToString();
                 dtResault.Rows.Add(resaultRow);
             }
 
-            foreach (DataRow resaultRow in dtResault.Rows)
-            {
-                DataRow[] xktableRows =  mngxkTable.Select("XSID like '%" + Convert.ToString(resaultRow["学号"]) + "%'");
-                if (xktableRows.Any())
-                {
-                    resaultRow.BeginEdit();
-                    resaultRow["姓名"] = xktableRows.First()["XSNAME"].ToString();
-                    resaultRow.EndEdit();
-                }
-            }
+            //foreach (DataRow resaultRow in dtResault.Rows)
+            //{
+            //    DataRow[] xktableRows =  mngxkTable.Select("XSID like '%" + Convert.ToString(resaultRow["学号"]) + "%'");
+            //    if (xktableRows.Any())
+            //    {
+            //        resaultRow.BeginEdit();
+            //        resaultRow["姓名"] = xktableRows.First()["XSNAME"].ToString();
+            //        resaultRow.EndEdit();
+            //    }
+            //}
             mngGridView.DataSource = dtResault;
             lbMngOfflineStatus.Text = "未提交";
 
@@ -560,8 +637,7 @@ namespace AttendanceSystemAlpha
         }
 
         private void radButton2_Click(object sender, EventArgs e)
-        {
-
+        {            
             try
             {
                 loginForm.ShowDialog();
@@ -579,33 +655,36 @@ namespace AttendanceSystemAlpha
                 
                 //mngSKtable = _chooseClassBriefcase.FindTable() // todo update sktable 点名方式 早退人数
                 long _skno = (long) this.cbboxMngJieCi.SelectedValue;
-                fDataModule.GetSktableQuery(_skno);
+                fDataModule.GetSktableQueryUpload(_skno);
                 if (!fDataModule.Context.SKTABLE_07_VIEW.Any()) // 选择 sktable需要上传的那一列
                 {
-                    throw new Exception("数据库异常 请重试");
+                    throw new Exception("数据库异常 找不到该教师的相关信息 \n请重试或者联系管理员");
                 }
 
                 //rowSktable07:需要上传的那一列
                 SKTABLE_07_VIEW rowSktable07 = fDataModule.Context.SKTABLE_07_VIEW.First();
-                //rowSktable07.EDITDATE = DateTime.Now;
+                rowSktable07.EDITDATE = DateTime.Now;
                 //rowSktable07.DMFS = Convert.ToInt16(2);
-                //rowSktable07.EDITMANNO = Convert.ToDecimal(fDataModule.GetUserID());
-                //rowSktable07.ZTRS = 0;
-                //rowSktable07.CDRS = Convert.ToInt16(CountLateStudentNumber(mngdmTable));
-                //rowSktable07.KKRS = Convert.ToInt16(CountAbsentStudent(mngdmTable));
-                //rowSktable07.ZCRS = Convert.ToInt16(CountArriveSudentNumber(mngdmTable));
-                //fDataModule.ApplyChanges();
+                rowSktable07.EDITMANNO = Convert.ToDecimal(fDataModule.GetUserID());
+                rowSktable07.ZTRS = 0;
+                rowSktable07.CDRS = Convert.ToInt16(CountLateStudentNumber(mngdmTable));
+                rowSktable07.KKRS = Convert.ToInt16(CountAbsentStudent(mngdmTable));
+                rowSktable07.ZCRS = Convert.ToInt16(CountArriveSudentNumber(mngdmTable));
+                fDataModule.ApplyChanges();
                // fDataModule.UpdateSktable(rowSktable07); // sktable 提交完成
                 //SKTABLE_07 rowSktable07 = new SKTABLE_07();
                 
                 rowSktable07.SKNO = Convert.ToInt64(cbboxMngJieCi.SelectedValue);
                 
                 //rowSktable07.EDITDATE = DateTime.Now;
-                //rowSktable07.DMFS = Convert.ToInt16(1); // 一次点名
-                //rowSktable07.RZFS = Convert.ToInt16(2); // 指纹认证
+                rowSktable07.DMFS = Convert.ToInt16(1); // 一次点名
+                rowSktable07.RZFS = Convert.ToInt16(2); // 指纹认证
                 //rowSktable07.EDITMANNO = Convert.ToInt64(fDataModule.GetUserID());
                 //rowSktable07.ZTRS = Convert.ToInt16(CountLeaveEarly(mngdmTable));
                 rowSktable07.CDRS = Convert.ToInt16(CountLateStudentNumber(mngdmTable));
+                rowSktable07.SKDATE =
+                    Convert.ToDateTime(
+                        mngSKtable.Select("SKNO = '" + rowSktable07.SKNO.ToString() + "'").First()["SKDATE"]);
                 //rowSktable07.ZCRS = Convert.ToInt16(CountArriveSudentNumber(mngdmTable));
                 //rowSktable07.KKRS = Convert.ToInt16(CountAbsentStudent(mngdmTable));
 
@@ -623,12 +702,27 @@ namespace AttendanceSystemAlpha
                 //}
                 
                 fDataModule.ApplyChanges();//提交更改
+
+                DataTable mngClassStatusTable = mngchooseClassBriefcase.FindTable("ClassStatus");
                 
+                        
+                
+                DataRow mngClassStatusRow = mngClassStatusTable.Select("Table编号 = '" + rowSktable07.SKNO + "'")
+                        .First();
+                    
+                mngClassStatusRow.BeginEdit();
+                mngClassStatusRow["离线数据提交情况"] = "已提交";
+                mngClassStatusRow.EndEdit();
+                mngchooseClassBriefcase.AddTable(mngClassStatusTable);
+                mngchooseClassBriefcase.WriteBriefcase();
+
                 lbMngOfflineStatus.Text = "数据提交成功";
+
+
             }
             catch (Exception exception)
             {
-                lbMngOfflineStatus.Text = "数据提交失败 ";
+                lbMngOfflineStatus.Text = "数据提交失败 请将以下信息提供给管理员：" +exception.Message;
                 MessageBox.Show(exception.Message);
                 
                 return;
@@ -655,5 +749,49 @@ namespace AttendanceSystemAlpha
         {
             rbtnFinish.Enabled = string.Equals(tboxLoadpasswd.Text, tboxRepeatPasswd.Text);
         }
+
+        private void cbboxMngClassName_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            
+        }
+
+        private void cbboxJieCi_DrawItem(object sender, DrawItemEventArgs e)
+        {
+
+        }
+
+        private void cbboxMngJieCi_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            //e.DrawBackground();
+
+            //try
+            //{
+
+            //    // Get the item text    
+            //    DataRow dr = (DataRow)((ComboBox)sender).Items[e.Index];
+                
+
+            //    // Determine the forecolor based on whether or not the item is selected    
+            //    Brush brush;
+            //    if (true)// compare  date with your list.  
+            //    {
+            //        brush = Brushes.Red;
+            //    }
+            //    else
+            //    {
+            //        brush = Brushes.Green;
+            //    }
+
+            //    // Draw the text    
+            //    e.Graphics.DrawString(dr["SKNO"].ToString(), ((Control)sender).Font, brush, e.Bounds.X, e.Bounds.Y);
+            //}
+            //catch (Exception)
+            //{
+
+            //    return;
+            //}
+        }
+
+        
     }
 }
