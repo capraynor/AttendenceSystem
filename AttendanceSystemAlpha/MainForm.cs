@@ -28,6 +28,7 @@ namespace AttendanceSystemAlpha
         private DataModule fDataModule;
         private DataTable _propertiesTable;
         private LoginForm loginForm;
+        private RadFrmShowClasses frmShowClasses;
         private string _teacherName = "";
         private string _currentPasswd = "AAC0A9DAA4185875786C9ED154F0DECE";
         private Briefcase _chooseClassBriefcase = null;
@@ -53,32 +54,43 @@ namespace AttendanceSystemAlpha
             this.InitializeComponent();
             this.xsidTable = new DataTable("学生信息");
             this.fDataModule = new DataModule();
+            if (System.IO.File.Exists(Properties.Settings.Default.PropertiesBriefcaseFolder)) return;
+            try
+            {
+                Briefcase propertiesBriefcase = new FileBriefcase(".\\Resources\\Properties.daBriefcase");
+                DataTable bClistTable = new DataTable("PropertiesTable");
+                    
+                //DataRow bflistRow = null;
+                if (!bClistTable.Columns.Contains("开课编号"))
+                {
+                    bClistTable.Columns.Add("开课编号", type: Type.GetType("System.String"));
+                    bClistTable.Columns.Add("教师姓名", type: Type.GetType("System.String"));
+                    bClistTable.Columns.Add("开课名称", type: Type.GetType("System.String"));
+                }
+                    
+                propertiesBriefcase.AddTable(bClistTable);
+                    
+                propertiesBriefcase.WriteBriefcase();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("出现错误： " + exception.Message);
+                return;
+            }
         }
         /// <summary>
         /// 显示信息
         /// </summary>
         private void DisplayOfflineInformations()
         {
-            pnLoad.Visible = true;
-
-            //this.lbTeacherName.Text = fDataModule.getTeacherName();
-            //this.clboxClassnames.Items.Clear();
             clboxClassnames.DataSource = fDataModule.Context.JSANDKKVIEWRO;
             clboxClassnames.DisplayMember = "KKNAME";
             clboxClassnames.ValueMember = "KKNO";
-            //rbtnFinish.Enabled = false;
-            //foreach (KKTABLE_05 kktable05 in this.fDataModule.Context.KKTABLE_05)
-            //{
-            //    if (string.IsNullOrWhiteSpace(kktable05.KKNAME)) continue;
-            //    clboxClassnames.Items.Add(kktable05.KKNAME);
-            //}
-            //判断listbox是否为空
-
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
             loginForm = new LoginForm(fDataModule);
-           // DateTimePicker1.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            frmShowClasses = new RadFrmShowClasses(fDataModule);
         }
 
         private void mainPageView_MouseUp(object sender, MouseEventArgs e)
@@ -86,20 +98,12 @@ namespace AttendanceSystemAlpha
             switch (mainPageView.SelectedPage.Name)
             {
                 case "viewpageLoadData":
-                    if (loginForm.IsLogin()) //todo :将kktablequery写出来
-                    {
-                        DisplayOfflineInformations();
-                    }
-                    else
-                    {
-                        pnLoad.Enabled = false;
-                        loginForm.ShowDialog();
-                        if (!loginForm.IsLogin()) return;
-                        pnLoad.Visible = true;
-                        DisplayOfflineInformations();
-                        pnLoad.Enabled = true;
-                        pnLoad.Refresh();
-                    }
+                    Briefcase ____briefcase = new FileBriefcase(Properties.Settings.Default.PropertiesBriefcaseFolder , true);
+                    DataTable ____datatable = ____briefcase.FindTable("PropertiesTable");
+                    this.clboxClassnames.DisplayMember = "开课名称";
+                    clboxClassnames.ValueMember = "开课编号";
+                    clboxClassnames.DataSource = ____datatable;
+
                     break;
                 case "viewpageCall":
                     if (!Directory.Exists(string.Format(Properties.Settings.Default.OfflineFolder , "")) || System.IO.Directory.GetFiles(string.Format(Properties.Settings.Default.OfflineFolder , "")).Length == 0)
@@ -547,7 +551,7 @@ namespace AttendanceSystemAlpha
             cbboxMngCheckinMethod.Text = "指纹点名";
         }
 
-        private void rbtnMngShowInformation_Click(object sender, EventArgs e)
+        private void ShowOfflineInformations()
         {
             DataTable mngxkTable = null;
             DataTable dtResault = new DataTable();
@@ -556,6 +560,8 @@ namespace AttendanceSystemAlpha
                 dtResault.Columns.Add("姓名", typeof (string));
                 dtResault.Columns.Add("到课状态", typeof (string));
                 dtResault.Columns.Add("学号", typeof (string));
+                dtResault.Columns.Add("到课时间", typeof (DateTime));
+
             }
 
             
@@ -602,6 +608,8 @@ namespace AttendanceSystemAlpha
                     }
                 }
                 resaultRow["姓名"] = Row["XSNAME"].ToString();
+                resaultRow["到课时间"] = Convert.ToDateTime(Row["DMSJ1"]);
+
                 dtResault.Rows.Add(resaultRow);
             }
 
@@ -685,21 +693,7 @@ namespace AttendanceSystemAlpha
                 rowSktable07.SKDATE =
                     Convert.ToDateTime(
                         mngSKtable.Select("SKNO = '" + rowSktable07.SKNO.ToString() + "'").First()["SKDATE"]);
-                //rowSktable07.ZCRS = Convert.ToInt16(CountArriveSudentNumber(mngdmTable));
-                //rowSktable07.KKRS = Convert.ToInt16(CountAbsentStudent(mngdmTable));
-
-                //rowSktable07.KKNO = fDataModule.Context.SKTABLE_07.First().KKNO;
-                //rowSktable07.SKDATE = fDataModule.Context.SKTABLE_07.First().SKDATE;
-                //rowSktable07.LSJS = fDataModule.Context.SKTABLE_07.First().LSJS;
-
-                //DataTable _tempSktable = null;
-                //_tempSktable = OfflineHelper.TableListToDataTable(fDataModule.Context.SKTABLE_07.ToList(),
-                //    "_SKTABLE_singleRow");
-                //var _sktablelist = Helpers.EnumerableExtension.ToList<SKTABLE_07>(_tempSktable);
-                //foreach (SKTABLE_07 sktableitem in _sktablelist)
-                //{
-                //    fDataModule.UpdateSktable(sktableitem);
-                //}
+                
                 
                 fDataModule.ApplyChanges();//提交更改
 
@@ -790,6 +784,15 @@ namespace AttendanceSystemAlpha
         private void chart1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void radButton5_Click(object sender, EventArgs e)
+        {
+            loginForm.ShowDialog();
+            if (loginForm.IsLogin())
+            {
+                
+            }
         }
 
         

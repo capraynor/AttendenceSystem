@@ -17,6 +17,7 @@ namespace AttendanceSystemAlpha
             if (!Properties.Settings.Default.SaveOfflinePasswd) return;
             tboxLoadpasswd.Text = Properties.Settings.Default.DownloadPasswd;
             tboxRepeatPasswd.Text = Properties.Settings.Default.DownloadPasswd;
+            this.Close();
         }
 
         private void rbtnFinish_Click(object sender, EventArgs e)

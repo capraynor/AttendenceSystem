@@ -48,7 +48,7 @@ namespace AttendanceSystemAlpha
                 else
                 {
                     this.lbMsg.BackColor = Color.Red;
-                    lblStatus.Text = "用户名或密码错误";
+                    MessageBox.Show("用户名或密码错误");
                 }
             }
             catch (Exception exception)

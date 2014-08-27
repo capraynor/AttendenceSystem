@@ -107,7 +107,7 @@
             // rbtnCancel
             // 
             this.rbtnCancel.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.rbtnCancel.Location = new System.Drawing.Point(32, 217);
+            this.rbtnCancel.Location = new System.Drawing.Point(139, 217);
             this.rbtnCancel.Name = "rbtnCancel";
             this.rbtnCancel.Size = new System.Drawing.Size(155, 54);
             this.rbtnCancel.TabIndex = 4;

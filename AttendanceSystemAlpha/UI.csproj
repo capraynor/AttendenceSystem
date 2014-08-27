@@ -252,6 +252,7 @@
   <ItemGroup>
     <Content Include="attendance_list_icon.ico" />
     <Content Include="Properties\App.ico" />
+    <None Include="Resources\BlueUnderline.png" />
     <None Include="Resources\TitleBorder.png" />
     <None Include="Resources\blue_border.png" />
     <None Include="Resources\offlineBackground.PNG" />
