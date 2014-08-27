@@ -61,12 +61,12 @@ namespace AttendanceSystemAlpha
         {
             pnLoad.Visible = true;
 
-            this.lbTeacherName.Text = fDataModule.getTeacherName();
+            //this.lbTeacherName.Text = fDataModule.getTeacherName();
             //this.clboxClassnames.Items.Clear();
             clboxClassnames.DataSource = fDataModule.Context.JSANDKKVIEWRO;
             clboxClassnames.DisplayMember = "KKNAME";
             clboxClassnames.ValueMember = "KKNO";
-            rbtnFinish.Enabled = false;
+            //rbtnFinish.Enabled = false;
             //foreach (KKTABLE_05 kktable05 in this.fDataModule.Context.KKTABLE_05)
             //{
             //    if (string.IsNullOrWhiteSpace(kktable05.KKNAME)) continue;
@@ -172,14 +172,14 @@ namespace AttendanceSystemAlpha
             int i = 0;
             try
             {
-                i = fDataModule.ServerToBriefcase(tboxLoadpasswd.Text, clboxClassnames.CheckedItems); // 开始下载离线数据
+                i = fDataModule.ServerToBriefcase(Properties.Settings.Default.CurrentDownloadPasswd, clboxClassnames.CheckedItems); // 开始下载离线数据
             }
             catch (Exception exception)
             {
                 MessageBox.Show("下载数据时出现错误 原因：\n" + exception.Message);
                 return;
             }
-            lbOfflineStatus.Text = string.Format("操作完成 , 【{0}】门课程被下载" , i);
+            toolStripOperationStatus.Text = string.Format("操作完成 , 【{0}】门课程被下载", i);
         }
 
         private void rbtnCancel_Click(object sender, EventArgs e)
@@ -740,16 +740,6 @@ namespace AttendanceSystemAlpha
 
         }
 
-        private void tboxLoadpasswd_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tboxRepeatPasswd_TextChanged(object sender, EventArgs e)
-        {
-            rbtnFinish.Enabled = string.Equals(tboxLoadpasswd.Text, tboxRepeatPasswd.Text);
-        }
-
         private void cbboxMngClassName_DrawItem(object sender, DrawItemEventArgs e)
         {
             
@@ -790,6 +780,11 @@ namespace AttendanceSystemAlpha
 
             //    return;
             //}
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            toolStripTimeLabel.Text = DateTime.Now.ToString();
         }
 
         

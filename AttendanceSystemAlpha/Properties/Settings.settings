@@ -3,13 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="UserId" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Data</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Password" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Relativity</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="StorePassword" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="Domain" Type="System.String" Scope="User">
       <Value Profile="(Default)">AttendanceSystem</Value>
@@ -37,6 +37,15 @@
     </Setting>
     <Setting Name="PropertiesTotalStudentNumber" Type="System.String" Scope="User">
       <Value Profile="(Default)">BRIEF_CASE_TOTAL_NUMBER</Value>
+    </Setting>
+    <Setting Name="SaveOfflinePasswd" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DownloadPasswd" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CurrentDownloadPasswd" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

@@ -167,6 +167,7 @@
     <Reference Include="Telerik.WinControls.Themes.TelerikMetro, Version=2014.2.617.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
+    <Reference Include="Telerik.WinControls.Themes.TelerikMetroTouch, Version=2014.2.617.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
     <Reference Include="Telerik.WinControls.UI, Version=2014.2.617.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
@@ -195,6 +196,12 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="OfflinePasswdForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OfflinePasswdForm.Designer.cs">
+      <DependentUpon>OfflinePasswdForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -215,6 +222,9 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="OfflinePasswdForm.resx">
+      <DependentUpon>OfflinePasswdForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -224,6 +234,8 @@
   <ItemGroup>
     <Content Include="attendance_list_icon.ico" />
     <Content Include="Properties\App.ico" />
+    <None Include="Resources\TitleBorder.png" />
+    <None Include="Resources\blue_border.png" />
     <None Include="Resources\offlineBackground.PNG" />
     <None Include="Resources\background.PNG" />
     <None Include="Resources\offlineBackground2.PNG" />

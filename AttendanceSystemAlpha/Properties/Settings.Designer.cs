@@ -25,7 +25,7 @@ namespace AttendanceSystemAlpha.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string UserId {
             get {
                 return ((string)(this["UserId"]));
@@ -37,7 +37,7 @@ namespace AttendanceSystemAlpha.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Relativity")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string Password {
             get {
                 return ((string)(this["Password"]));
@@ -49,7 +49,7 @@ namespace AttendanceSystemAlpha.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool StorePassword {
             get {
                 return ((bool)(this["StorePassword"]));
@@ -164,6 +164,42 @@ namespace AttendanceSystemAlpha.Properties {
             }
             set {
                 this["PropertiesTotalStudentNumber"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SaveOfflinePasswd {
+            get {
+                return ((bool)(this["SaveOfflinePasswd"]));
+            }
+            set {
+                this["SaveOfflinePasswd"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DownloadPasswd {
+            get {
+                return ((string)(this["DownloadPasswd"]));
+            }
+            set {
+                this["DownloadPasswd"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CurrentDownloadPasswd {
+            get {
+                return ((string)(this["CurrentDownloadPasswd"]));
+            }
+            set {
+                this["CurrentDownloadPasswd"] = value;
             }
         }
     }

@@ -83,6 +83,16 @@ namespace AttendanceSystemAlpha.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap blue_border {
+            get {
+                object obj = ResourceManager.GetObject("blue_border", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap offlineBackground {
             get {
                 object obj = ResourceManager.GetObject("offlineBackground", resourceCulture);
@@ -96,6 +106,16 @@ namespace AttendanceSystemAlpha.Properties {
         internal static System.Drawing.Bitmap title {
             get {
                 object obj = ResourceManager.GetObject("title", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap TitleBorder {
+            get {
+                object obj = ResourceManager.GetObject("TitleBorder", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
