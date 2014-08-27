@@ -10,7 +10,7 @@ namespace HDFingerPrintHelper
 {
     public static class Class1
     {
-        [DllImport ("fplib.dll")]
-        private  
+        //[DllImport ("fplib.dll")]
+        //private  
     }
 }

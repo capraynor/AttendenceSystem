@@ -279,17 +279,17 @@ namespace AttendanceSystemAlpha
 
         private void ShowClassInformations()
         {
-            GBoxChooseLesson.Enabled = true;
+            //GBoxChooseLesson.Enabled = true;
         }
 
         private void HideInformations()
         {
-            GBoxChooseLesson.Enabled = false;
+            //GBoxChooseLesson.Enabled = false;
         }
 
         private void pnClassmsg_EnabledChanged(object sender, EventArgs e)
         {
-            if (!GBoxChooseLesson.Enabled) return;
+          //  if (!GBoxChooseLesson.Enabled) return;
             try
             {
                 DataTable skTable = _chooseClassBriefcase.FindTable("SKTABLE");
@@ -500,12 +500,12 @@ namespace AttendanceSystemAlpha
         }
         private void ShowMngClassInformations()
         {
-            PnMngChooseLesson.Enabled = true;
+            //PnMngChooseLesson.Enabled = true;
         }
 
         private void HideMngInformations()
         {
-            PnMngChooseLesson.Enabled = false;
+            //PnMngChooseLesson.Enabled = false;
         }
 
         private void tbMngOfflinePasswd_TextChanged(object sender, EventArgs e)
@@ -524,7 +524,7 @@ namespace AttendanceSystemAlpha
 
         private void PnMngChooseLesson_EnabledChanged(object sender, EventArgs e)
         {
-            if (!PnMngChooseLesson.Enabled) return;
+            //if (!PnMngChooseLesson.Enabled) return;
             try
             {
                // DataTable mngxkTable = mngchooseClassBriefcase.FindTable("SKTABLE");
@@ -731,7 +731,7 @@ namespace AttendanceSystemAlpha
 
         private void radButton4_Click(object sender, EventArgs e)
         {
-            groupBox2.Enabled = false;
+            //groupBox2.Enabled = false;
             groupBox1.Enabled = true;
         }
 
@@ -785,6 +785,11 @@ namespace AttendanceSystemAlpha
         private void timer1_Tick(object sender, EventArgs e)
         {
             toolStripTimeLabel.Text = DateTime.Now.ToString();
+        }
+
+        private void chart1_Click(object sender, EventArgs e)
+        {
+
         }
 
         
