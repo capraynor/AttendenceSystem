@@ -103,6 +103,26 @@ namespace AttendanceSystemAlpha.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap Exig_mouse_off {
+            get {
+                object obj = ResourceManager.GetObject("Exig_mouse_off", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap Exit_mouse_on {
+            get {
+                object obj = ResourceManager.GetObject("Exit_mouse_on", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap offlineBackground {
             get {
                 object obj = ResourceManager.GetObject("offlineBackground", resourceCulture);

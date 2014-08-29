@@ -247,6 +247,7 @@ namespace AttendenceSystem_Alp
 
             propertiesBriefcase.AddTable(propertiesTable);
             propertiesBriefcase.WriteBriefcase();
+            MessageBox.Show(string.Format("操作成功 课程 【{0}】 已被下载 ", kktable05.KKNAME));
             return true;
         }
 

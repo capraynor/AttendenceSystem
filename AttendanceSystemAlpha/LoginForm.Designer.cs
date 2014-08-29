@@ -101,7 +101,6 @@
             this.rbtnLogin.Size = new System.Drawing.Size(155, 54);
             this.rbtnLogin.TabIndex = 5;
             this.rbtnLogin.Text = "登 录";
-            this.rbtnLogin.ThemeName = "TelerikMetro";
             this.rbtnLogin.Click += new System.EventHandler(this.rbtnLogin_Click);
             // 
             // rbtnCancel
@@ -112,7 +111,6 @@
             this.rbtnCancel.Size = new System.Drawing.Size(155, 54);
             this.rbtnCancel.TabIndex = 4;
             this.rbtnCancel.Text = "取 消";
-            this.rbtnCancel.ThemeName = "TelerikMetro";
             this.rbtnCancel.Click += new System.EventHandler(this.rbtnCancel_Click);
             // 
             // tboxPasswd

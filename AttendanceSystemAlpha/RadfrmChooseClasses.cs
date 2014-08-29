@@ -24,6 +24,7 @@ namespace AttendanceSystemAlpha
         public DateTime ClassDate = new DateTime();
         public string TeacherName = "";
         public DataTable DmTable = null;
+        public bool flag = false;
         public RadfrmChooseClasses()
         {
             
@@ -101,10 +102,11 @@ namespace AttendanceSystemAlpha
         {
             if (currentPasswd != textBox1.Text)
             {
-                MessageBox.Show("请输入正确而密码");
+                MessageBox.Show("请输入正确的密码");
                 return;
             }
             DmTable = _chooseClassBriefcase.FindTable(Jieci.ToString());
+            flag = true;
             this.Hide();
         }
 
@@ -112,6 +114,11 @@ namespace AttendanceSystemAlpha
         {
             ClassDate = Convert.ToDateTime(cbboxJieCi.Text);
             Jieci = Convert.ToInt64(cbboxJieCi.SelectedValue);
+        }
+
+        private void radButton2_Click(object sender, EventArgs e)
+        {
+            flag = false;
         }
     }
 }

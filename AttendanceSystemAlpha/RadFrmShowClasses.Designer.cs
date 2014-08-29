@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.radPanel1 = new Telerik.WinControls.UI.RadPanel();
             this.radPanel2 = new Telerik.WinControls.UI.RadPanel();
             this.radButton2 = new Telerik.WinControls.UI.RadButton();
             this.radButton1 = new Telerik.WinControls.UI.RadButton();
             this.radPanel3 = new Telerik.WinControls.UI.RadPanel();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.radPanel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radPanel2)).BeginInit();
             this.radPanel2.SuspendLayout();
@@ -44,25 +44,9 @@
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
-            // checkedListBox1
-            // 
-            this.checkedListBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.checkedListBox1.CheckOnClick = true;
-            this.checkedListBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkedListBox1.Font = new System.Drawing.Font("微软雅黑", 21.75F);
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Items.AddRange(new object[] {
-            "sfdsf"});
-            this.checkedListBox1.Location = new System.Drawing.Point(0, 0);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(754, 260);
-            this.checkedListBox1.TabIndex = 0;
-            this.checkedListBox1.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBox1_ItemCheck);
-            this.checkedListBox1.Click += new System.EventHandler(this.checkedListBox1_Click);
-            // 
             // radPanel1
             // 
-            this.radPanel1.BackColor = System.Drawing.Color.SteelBlue;
+            this.radPanel1.BackColor = System.Drawing.Color.LightSteelBlue;
             this.radPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.radPanel1.Font = new System.Drawing.Font("微软雅黑", 24F);
             this.radPanel1.Location = new System.Drawing.Point(0, 0);
@@ -90,8 +74,7 @@
             this.radButton2.Name = "radButton2";
             this.radButton2.Size = new System.Drawing.Size(157, 53);
             this.radButton2.TabIndex = 1;
-            this.radButton2.Text = "退出";
-            this.radButton2.ThemeName = "TelerikMetro";
+            this.radButton2.Text = "退    出";
             this.radButton2.Click += new System.EventHandler(this.radButton2_Click);
             // 
             // radButton1
@@ -102,18 +85,28 @@
             this.radButton1.Size = new System.Drawing.Size(157, 53);
             this.radButton1.TabIndex = 0;
             this.radButton1.Text = "下载课程";
-            this.radButton1.ThemeName = "TelerikMetro";
-            this.radButton1.Visible = false;
+            this.radButton1.Click += new System.EventHandler(this.radButton1_Click);
             // 
             // radPanel3
             // 
-            this.radPanel3.Controls.Add(this.checkedListBox1);
+            this.radPanel3.Controls.Add(this.listBox1);
             this.radPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.radPanel3.Location = new System.Drawing.Point(0, 57);
             this.radPanel3.Name = "radPanel3";
             this.radPanel3.Size = new System.Drawing.Size(754, 260);
             this.radPanel3.TabIndex = 3;
             this.radPanel3.Text = "radPanel3";
+            // 
+            // listBox1
+            // 
+            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBox1.Font = new System.Drawing.Font("微软雅黑", 21.75F);
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 38;
+            this.listBox1.Location = new System.Drawing.Point(0, 0);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(754, 260);
+            this.listBox1.TabIndex = 0;
             // 
             // RadFrmShowClasses
             // 
@@ -149,11 +142,11 @@
 
         #endregion
 
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
         private Telerik.WinControls.UI.RadPanel radPanel1;
         private Telerik.WinControls.UI.RadPanel radPanel2;
         private Telerik.WinControls.UI.RadButton radButton1;
         private Telerik.WinControls.UI.RadPanel radPanel3;
         private Telerik.WinControls.UI.RadButton radButton2;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }

@@ -64,14 +64,14 @@
             this.radGroupBox1.HeaderText = "";
             this.radGroupBox1.Location = new System.Drawing.Point(12, 6);
             this.radGroupBox1.Name = "radGroupBox1";
-            this.radGroupBox1.Size = new System.Drawing.Size(693, 191);
+            this.radGroupBox1.Size = new System.Drawing.Size(696, 191);
             this.radGroupBox1.TabIndex = 2;
             this.radGroupBox1.ThemeName = "TelerikMetro";
             // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.pictureBox1.Location = new System.Drawing.Point(646, 76);
+            this.pictureBox1.Location = new System.Drawing.Point(636, 78);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(37, 38);
             this.pictureBox1.TabIndex = 21;
@@ -81,7 +81,7 @@
             // 
             this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.textBox1.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox1.Location = new System.Drawing.Point(198, 69);
+            this.textBox1.Location = new System.Drawing.Point(188, 71);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(442, 50);
             this.textBox1.TabIndex = 20;
@@ -94,7 +94,7 @@
             this.cbboxJieCi.Enabled = false;
             this.cbboxJieCi.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbboxJieCi.FormattingEnabled = true;
-            this.cbboxJieCi.Location = new System.Drawing.Point(198, 125);
+            this.cbboxJieCi.Location = new System.Drawing.Point(188, 127);
             this.cbboxJieCi.Name = "cbboxJieCi";
             this.cbboxJieCi.Size = new System.Drawing.Size(485, 50);
             this.cbboxJieCi.TabIndex = 19;
@@ -107,7 +107,7 @@
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(198, 13);
+            this.comboBox1.Location = new System.Drawing.Point(188, 15);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(485, 50);
             this.comboBox1.TabIndex = 18;
@@ -118,7 +118,7 @@
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(30, 72);
+            this.label4.Location = new System.Drawing.Point(20, 74);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(162, 38);
             this.label4.TabIndex = 16;
@@ -129,7 +129,7 @@
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(30, 126);
+            this.label1.Location = new System.Drawing.Point(20, 128);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(162, 38);
             this.label1.TabIndex = 17;
@@ -140,7 +140,7 @@
             this.lbCname.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lbCname.AutoSize = true;
             this.lbCname.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbCname.Location = new System.Drawing.Point(30, 18);
+            this.lbCname.Location = new System.Drawing.Point(20, 20);
             this.lbCname.Name = "lbCname";
             this.lbCname.Size = new System.Drawing.Size(162, 38);
             this.lbCname.TabIndex = 15;
@@ -154,22 +154,22 @@
             this.radButton1.Size = new System.Drawing.Size(154, 49);
             this.radButton1.TabIndex = 3;
             this.radButton1.Text = "确    定";
-            this.radButton1.ThemeName = "TelerikMetro";
             this.radButton1.Click += new System.EventHandler(this.radButton1_Click);
             // 
             // radButton2
             // 
+            this.radButton2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.radButton2.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Bold);
             this.radButton2.Location = new System.Drawing.Point(554, 208);
             this.radButton2.Name = "radButton2";
             this.radButton2.Size = new System.Drawing.Size(154, 49);
             this.radButton2.TabIndex = 4;
             this.radButton2.Text = "取    消";
-            this.radButton2.ThemeName = "TelerikMetro";
+            this.radButton2.Click += new System.EventHandler(this.radButton2_Click);
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.panel1.BackColor = System.Drawing.Color.LightSteelBlue;
             this.panel1.Controls.Add(this.label2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -204,6 +204,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.radButton2;
             this.ClientSize = new System.Drawing.Size(719, 328);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);

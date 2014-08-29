@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Text;
@@ -42,7 +43,7 @@ namespace AttendanceSystemAlpha
         private DataTable _mngPropertiesTable;
         private Briefcase _mngPropertieBriefcase;
         private DateTime classTime;
-        private int sdrs = 0;
+        
         private string mngTeacherName;
         private string mngCurrentPasswd;
         private Briefcase mngchooseClassBriefcase;
@@ -89,31 +90,27 @@ namespace AttendanceSystemAlpha
         /// <summary>
         /// 显示信息
         /// </summary>
-        private void DisplayOfflineInformations()
-        {
-            clboxClassnames.DataSource = fDataModule.Context.JSANDKKVIEWRO;
-            clboxClassnames.DisplayMember = "KKNAME";
-            clboxClassnames.ValueMember = "KKNO";
-        }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             loginForm = new LoginForm(fDataModule);
             frmShowClasses = new RadFrmShowClasses(fDataModule);
             frmChooseClasses = new RadfrmChooseClasses();
             this.Width = 1280;
-            this.Height = 750;
+            this.Height = 775;
         }
 
         private void mainPageView_MouseUp(object sender, MouseEventArgs e)
         {
+          
             switch (mainPageView.SelectedPage.Name)
             {
                 case "viewpageLoadData":
                     Briefcase ____briefcase = new FileBriefcase(Properties.Settings.Default.PropertiesBriefcaseFolder , true);
                     DataTable ____datatable = ____briefcase.FindTable("PropertiesTable");
-                    clboxClassnames.DataSource = ____datatable;
-                    this.clboxClassnames.DisplayMember = "开课名称";
-                    clboxClassnames.ValueMember = "开课编号";
+                    lboxClassName.DataSource = ____datatable;
+                    this.lboxClassName.DisplayMember = "开课名称";
+                    lboxClassName.ValueMember = "开课编号";
                     
 
                     break;
@@ -130,58 +127,19 @@ namespace AttendanceSystemAlpha
                         _mngPropertieBriefcase = new FileBriefcase(Properties.Settings.Default.PropertiesBriefcaseFolder, true);
                         _mngPropertiesTable = _mngPropertieBriefcase.FindTable("PropertiesTable");
                     }
+                    //**********饼图*********//
+
+                    List<string> xData = new List<string>() { "实到", "未到" };
+                    List<int> yData = new List<int>() { 50, 50 };
+                    //chart1.Series[0]["PieLabelStyle"] = "Outside";//将文字移到外侧
+                    //chart1.Series[0]["PieLineColor"] = "Black";//绘制黑色的连线。
+                    chart2.Series[0].Points.DataBindXY(xData, yData);
+                    //***********饼图*********//
                     break;
             }
         }
 
-        private void rbtnFinish_Click(object sender, EventArgs e)
-        {
-            
-            CheckedListBox.CheckedItemCollection ckeckedList = clboxClassnames.CheckedItems;
-            
-            string offlineFolder = Properties.Settings.Default.OfflineFolder;
-            if (!System.IO.Directory.Exists(string.Format(offlineFolder,"")))
-            {
-                System.IO.Directory.CreateDirectory(string.Format(offlineFolder,""));
-            }
-            if (!System.IO.File.Exists(Properties.Settings.Default.PropertiesBriefcaseFolder))
-            {
-                try
-                {
-                    Briefcase propertiesBriefcase = new FileBriefcase(".\\Resources\\Properties.daBriefcase");
-                    DataTable bClistTable = new DataTable("PropertiesTable");
-                    
-                    //DataRow bflistRow = null;
-                    if (!bClistTable.Columns.Contains("开课编号"))
-                    {
-                        bClistTable.Columns.Add("开课编号", type: Type.GetType("System.String"));
-                        bClistTable.Columns.Add("教师姓名", type: Type.GetType("System.String"));
-                        bClistTable.Columns.Add("开课名称", type: Type.GetType("System.String"));
-                    }
-                    
-                    propertiesBriefcase.AddTable(bClistTable);
-                    
-                    propertiesBriefcase.WriteBriefcase();
-                }
-                catch (Exception exception)
-                {
-                    MessageBox.Show("下载数据失败\n原因： " + exception.Message);
-                    return;
-                }
-                
-            }
-            int i = 0;
-            try
-            {
-                //i = fDataModule.ServerToBriefcase(Properties.Settings.Default.CurrentDownloadPasswd, clboxClassnames.CheckedItems); // 开始下载离线数据
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show("下载数据时出现错误 原因：\n" + exception.Message);
-                return;
-            }
-            toolStripOperationStatus.Text = string.Format("操作完成 , 【{0}】门课程被下载", i);
-        }
+        
         private void axZKFPEngX1_OnCapture(object sender, AxZKFPEngXControl.IZKFPEngXEvents_OnCaptureEvent e)
         {
             DataTable classTable = propertieBriefcase.FindTable("ClassNameTable"); // 班级表
@@ -264,14 +222,26 @@ namespace AttendanceSystemAlpha
                 lbDKPercent.Text = (Convert.ToDouble(sdrs) / Convert.ToDouble(lbYdrs.Text)).ToString("0.00%");
                 lbSdrs.Text = sdrs.ToString();
                 lbCdrs.Text = CountLateStudentNumber(dmTable).ToString();
+                //**********饼图*********//
+
+                List<string> xData = new List<string>() { "实到", "未到" };
+                List<int> yData = new List<int>() { sdrs, Convert.ToInt32(lbYdrs.Text) };
+                //chart1.Series[0]["PieLabelStyle"] = "Outside";//将文字移到外侧
+                //chart1.Series[0]["PieLineColor"] = "Black";//绘制黑色的连线。
+                chart1.Series[0].Points.DataBindXY(xData, yData);
+                //***********饼图*********//
             }
             else
             {
-                pboxPhoto.Image = null;
+                
                 lbStudentClass.Text = "";
                 lbStudentId.Text = "";
                 lbStudentXy.Text = "";
                 lbStudentName.Text = "请重扫指纹";
+                lbDczt.Text = "";
+                lbDcsj.Text = "";
+                pboxPhoto.Image = Properties.Resources.attendance_list_icon;
+                
             }
         }
 
@@ -290,6 +260,16 @@ namespace AttendanceSystemAlpha
             mngClassStatusRow.EndEdit();
             frmChooseClasses._chooseClassBriefcase.AddTable(ClassStatusTable);
             frmChooseClasses._chooseClassBriefcase.WriteBriefcase();
+            DataTable sktable = frmChooseClasses._chooseClassBriefcase.FindTable("SKTABLE");
+            DataRow skRow = null;
+            skRow = sktable.Select("SKNO = '" + frmChooseClasses.Jieci.ToString() + "'").First();
+            skRow.BeginEdit();
+            skRow["SKDATE"] = DateTimePicker1.Value;
+            skRow.EndEdit();
+            frmChooseClasses._chooseClassBriefcase.AddTable(OfflineHelper.TableListToDataTable(EnumerableExtension.ToList<SKTABLE_07_VIEW>(sktable), "SKTABLE"));
+            frmChooseClasses._chooseClassBriefcase.WriteBriefcase();
+            radButton1.Enabled = false;
+            rbtnStartcall.Enabled = true;
 
         }
         //todo:获取datatable并上传
@@ -446,7 +426,14 @@ namespace AttendanceSystemAlpha
             //}
             mngGridView.DataSource = dtResault;
             lbMngOfflineStatus.Text = "未提交";
-
+            //**********饼图*********//
+            
+            List<string> xData = new List<string>() { "实到", "未到" };
+            List<int> yData = new List<int>() { _sdrs, _studentTotal-_sdrs };
+            //chart1.Series[0]["PieLabelStyle"] = "Outside";//将文字移到外侧
+            //chart1.Series[0]["PieLineColor"] = "Black";//绘制黑色的连线。
+            chart2.Series[0].Points.DataBindXY(xData, yData);
+            //***********饼图*********//
 
             
         }
@@ -521,6 +508,7 @@ namespace AttendanceSystemAlpha
                 mngchooseClassBriefcase.WriteBriefcase();
 
                 lbMngOfflineStatus.Text = "数据提交成功";
+                toolStripOperationStatus.Text = "数据提交成功";
 
 
             }
@@ -571,22 +559,16 @@ namespace AttendanceSystemAlpha
 
         private void rbtnStartcall_Click_1(object sender, EventArgs e)
         {
+            
             if (!Directory.Exists(string.Format(Properties.Settings.Default.OfflineFolder, "")) || System.IO.Directory.GetFiles(string.Format(Properties.Settings.Default.OfflineFolder, "")).Length == 0)
             {
                 MessageBox.Show("没有离线数据 请先下载离线数据");
                 return;
             }
             frmChooseClasses.ShowDialog(); // 获得各种信息
-
+            if (!frmChooseClasses.flag) return;
             dmTable = frmChooseClasses.DmTable;
-            DataTable sktable = frmChooseClasses._chooseClassBriefcase.FindTable("SKTABLE");
-            DataRow skRow = null;
-            skRow = sktable.Select("SKNO = '" + frmChooseClasses.Jieci.ToString() + "'").First();
-            skRow.BeginEdit();
-            skRow["SKDATE"] = DateTimePicker1.Value;
-            skRow.EndEdit();
-            frmChooseClasses._chooseClassBriefcase.AddTable(OfflineHelper.TableListToDataTable(EnumerableExtension.ToList<SKTABLE_07_VIEW>(sktable), "SKTABLE"));
-            frmChooseClasses._chooseClassBriefcase.WriteBriefcase();
+            
             propertieBriefcase = frmChooseClasses.propertieBriefcase;
             if (!xsidTable.Columns.Contains("学生学号"))
             {
@@ -626,11 +608,25 @@ namespace AttendanceSystemAlpha
             lbJieCi.Text = string.Format("第{0}节 " , JieCi =  frmChooseClasses.Jieci);
             lbClassName.Text = frmChooseClasses.ClassName;
             toolStripOperationStatus.Text = "开始点名";
+            rbtnStartcall.Enabled = false;
+            radButton1.Enabled = true;
+            //**********饼图*********//
+
+            List<string> xData = new List<string>() { "实到", "未到" };
+            List<int> yData = new List<int>() { 0, frmChooseClasses.DmTable.Rows.Count };
+            //chart1.Series[0]["PieLabelStyle"] = "Outside";//将文字移到外侧
+            //chart1.Series[0]["PieLineColor"] = "Black";//绘制黑色的连线。
+            chart1.Series[0].Points.DataBindXY(xData, yData);
+            //***********饼图*********//
+            this.lbYdrs.Text = frmChooseClasses.DmTable.Rows.Count.ToString();
+            this.lbSdrs.Text = "0";
+            this.lbMngDkpercent.Text = "0.00%";
         }
 
         private void rbtnMngShowInformation_Click(object sender, EventArgs e)
         {
             frmChooseClasses.ShowDialog();
+            if (!frmChooseClasses.flag) return;
             mngdmTable = frmChooseClasses.DmTable;
             mngTeacherName = frmChooseClasses.TeacherName;
             JieCi = frmChooseClasses.Jieci;
@@ -644,9 +640,61 @@ namespace AttendanceSystemAlpha
             lbMngTeacherName.Text = mngTeacherName;
             lbMngClassName.Text = mngClassName;
             lbMngjieci.Text = string.Format("第{0}节", frmChooseClasses.Jieci);
+            lbMngCallMethod.Text = "指纹点名";
             
+            radButton2.Enabled = true;
+            mngSKtable = mngchooseClassBriefcase.FindTable("SKTABLE");
+            
+        }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+           
+        }
 
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            mainViewpanel.Visible = false;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            int a = 10;
+            int b = 20;
+            List<string> xData = new List<string>() { "A", "B" };
+            List<int> yData = new List<int>() { a, b };
+            //chart1.Series[0]["PieLabelStyle"] = "Outside";//将文字移到外侧
+            //chart1.Series[0]["PieLineColor"] = "Black";//绘制黑色的连线。
+            chart1.Series[0].Points.DataBindXY(xData, yData);
+        }
+
+        private void pictureBox2_MouseDown(object sender, MouseEventArgs e)
+        {
+            pictureBox2.Image = Properties.Resources.Exig_mouse_off;
+            pictureBox2.BorderStyle = BorderStyle.Fixed3D;
+        }
+
+        private void pictureBox2_MouseEnter(object sender, EventArgs e)
+        {
+            pictureBox2.Image = Properties.Resources.Exit_mouse_on;
+        }
+
+        private void pictureBox2_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBox2.Image = Properties.Resources.Exig_mouse_off;
+            pictureBox2.BorderStyle = BorderStyle.None;
+        }
+
+        private void pictureBox2_MouseUp(object sender, MouseEventArgs e)
+        {
+            pictureBox2.Image = Properties.Resources.Exit_mouse_on;
+            pictureBox2.BorderStyle = BorderStyle.None;
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            Application.Exit();
         }
 
         

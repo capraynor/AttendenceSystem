@@ -137,7 +137,7 @@
             // rbtnFinish
             // 
             this.rbtnFinish.Font = new System.Drawing.Font("微软雅黑", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.rbtnFinish.Location = new System.Drawing.Point(383, 264);
+            this.rbtnFinish.Location = new System.Drawing.Point(383, 271);
             this.rbtnFinish.Name = "rbtnFinish";
             this.rbtnFinish.Size = new System.Drawing.Size(165, 63);
             this.rbtnFinish.TabIndex = 3;

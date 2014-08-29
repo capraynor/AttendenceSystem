@@ -148,4 +148,10 @@
   <data name="BlueUnderline" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BlueUnderline.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Exig_mouse_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Exig_mouse_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Exit_mouse_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Exit_mouse_on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
