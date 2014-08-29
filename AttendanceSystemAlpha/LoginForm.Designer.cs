@@ -90,7 +90,7 @@
             this.lbMsg.Name = "lbMsg";
             this.lbMsg.Size = new System.Drawing.Size(489, 57);
             this.lbMsg.TabIndex = 0;
-            this.lbMsg.Text = "请 登 录";
+            this.lbMsg.Text = "登录服务器";
             this.lbMsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // rbtnLogin

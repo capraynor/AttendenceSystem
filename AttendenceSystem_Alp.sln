@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FingerprintHelper", "Finger
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HDFingerPrintHelper", "HDFingerPrintHelper\HDFingerPrintHelper.csproj", "{4E2F2D82-5FDC-4EB0-8D7D-6D7A04EC7FE0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormTestProject!!!!!!!!!!!", "FormTestProject!!!!!!!!!!!\FormTestProject!!!!!!!!!!!.csproj", "{50917083-55D0-4C90-82D8-39209D9C42DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,16 @@ Global
 		{4E2F2D82-5FDC-4EB0-8D7D-6D7A04EC7FE0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{4E2F2D82-5FDC-4EB0-8D7D-6D7A04EC7FE0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{4E2F2D82-5FDC-4EB0-8D7D-6D7A04EC7FE0}.Release|Win32.ActiveCfg = Release|Any CPU
+		{50917083-55D0-4C90-82D8-39209D9C42DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50917083-55D0-4C90-82D8-39209D9C42DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50917083-55D0-4C90-82D8-39209D9C42DB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{50917083-55D0-4C90-82D8-39209D9C42DB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{50917083-55D0-4C90-82D8-39209D9C42DB}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{50917083-55D0-4C90-82D8-39209D9C42DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50917083-55D0-4C90-82D8-39209D9C42DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50917083-55D0-4C90-82D8-39209D9C42DB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{50917083-55D0-4C90-82D8-39209D9C42DB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{50917083-55D0-4C90-82D8-39209D9C42DB}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

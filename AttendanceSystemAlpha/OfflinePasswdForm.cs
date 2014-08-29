@@ -28,14 +28,18 @@ namespace AttendanceSystemAlpha
                 tboxRepeatPasswd.BackColor = Color.Orange;
                 return;
             }
+            Properties.Settings.Default.CurrentDownloadPasswd = tboxLoadpasswd.Text;
             lbOfflinePasswdStatus.Text = "           ";
             tboxRepeatPasswd.BackColor = Color.Green;
-            if (!checkBox1.Checked) return;
-            Properties.Settings.Default.DownloadPasswd = tboxLoadpasswd.Text;
-            Properties.Settings.Default.SaveOfflinePasswd = true;
+            if (checkBox1.Checked)
+            {
+                Properties.Settings.Default.DownloadPasswd = tboxLoadpasswd.Text;
+                Properties.Settings.Default.SaveOfflinePasswd = true;
+                
+            }
             this.tboxLoadpasswd.Text = "";
             this.tboxRepeatPasswd.Text = "";
-            Properties.Settings.Default.CurrentDownloadPasswd = tboxLoadpasswd.Text;
+            
             this.Close();
         }
 
@@ -43,19 +47,27 @@ namespace AttendanceSystemAlpha
         {
             if (tboxRepeatPasswd.Text == tboxLoadpasswd.Text)
             {
-                tboxRepeatPasswd.BackColor = Color.Green;
+                lbOfflinePasswdStatus.BackColor = Color.Green;
+                lbOfflinePasswdStatus.Text = "输入正确";
             }
             else
             {
-                tboxRepeatPasswd.BackColor = Color.Orange;
+                lbOfflinePasswdStatus.BackColor = Color.Orange;
+                lbOfflinePasswdStatus.Text = "两次密码\n需一致";
             }
         }
 
-        private void rbtnCancel_Click(object sender, EventArgs e)
+        private void OfflinePasswdForm_Load(object sender, EventArgs e)
         {
-            this.tboxLoadpasswd.Text = "";
-            this.tboxRepeatPasswd.Text = "";
-            this.Close();
+            this.Width = 671;
+            this.Height = 332;
+            if (Properties.Settings.Default.SaveOfflinePasswd)
+            {
+                tboxRepeatPasswd.Text = tboxLoadpasswd.Text = Properties.Settings.Default.DownloadPasswd;
+            }
+            tboxRepeatPasswd.BackColor = Color.White;
+            lbOfflinePasswdStatus.BackColor = Color.White;
+            lbOfflinePasswdStatus.Text = "          ";
         }
     }
 }

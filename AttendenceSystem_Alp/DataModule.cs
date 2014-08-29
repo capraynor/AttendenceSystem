@@ -126,7 +126,7 @@ namespace AttendenceSystem_Alp
         /// </summary>
         /// <param name="offlinePasswd"></param>
         /// <param name="checkedItem"></param>
-        public int ServerToBriefcase(string offlinePasswd, CheckedListBox.CheckedItemCollection checkedItem)
+        public int ServerToBriefcase(string offlinePasswd, CheckedListBox.SelectedObjectCollection checkedItem)
         {
            
             
@@ -155,9 +155,9 @@ namespace AttendenceSystem_Alp
                     i++;
                 }
             }
-            //判断班级表是否被下载 如果没下载 下载丫的 ！！
+            //判断班级表是否被下载 如果没下载 下载
             Briefcase propertiesBriefcase = new FileBriefcase(GlobalParams.PropertiesBriefcaseName, true);
-            DataTable classNameTable = propertiesBriefcase.FindTable("ClassNameTable");
+            DataTable classNameTable = null;
             
             
                 IQueryable<BJTABLE_09_VIEWRO> bjtable09Viewros =
