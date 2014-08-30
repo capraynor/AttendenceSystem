@@ -254,6 +254,9 @@
     <Content Include="agent.ico" />
     <Content Include="attendance_list_icon.ico" />
     <Content Include="Properties\App.ico" />
+    <None Include="Resources\BlueBackground.png" />
+    <None Include="Resources\title.png" />
+    <None Include="Resources\BlueBackground1.png" />
     <None Include="Resources\Exit_mouse_on.png" />
     <None Include="Resources\Exig_mouse_off.png" />
     <None Include="Resources\BlueUnderline.png" />
@@ -263,7 +266,6 @@
     <None Include="Resources\background.PNG" />
     <None Include="Resources\offlineBackground2.PNG" />
     <None Include="Resources\attendance_list_icon.jpg" />
-    <None Include="Resources\title.png" />
     <None Include="Resources\学校标志.png" />
     <None Include="Resources\文理学院标志1.jpg" />
     <None Include="Resources\标志.jpg" />

@@ -93,12 +93,35 @@ namespace AttendanceSystemAlpha
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            this.Visible = false;
             loginForm = new LoginForm(fDataModule);
             frmShowClasses = new RadFrmShowClasses(fDataModule);
             frmChooseClasses = new RadfrmChooseClasses();
             this.Width = 1280;
             this.Height = 775;
+            //**********饼图*********//
+
+            List<string> xData = new List<string>() { "实到", "未到" };
+            List<int> yData = new List<int>() {0 , 50 };
+            //chart1.Series[0]["PieLabelStyle"] = "Outside";//将文字移到外侧
+            //chart1.Series[0]["PieLineColor"] = "Black";//绘制黑色的连线。
+            chart1.Series[0].Points.DataBindXY(xData, yData);
+            chart2.Series[0].Points.DataBindXY(xData, yData);
+            //***********饼图*********//
+            
+            if (this.WindowState == FormWindowState.Maximized)
+              {        
+                 this.WindowState = FormWindowState.Normal;
+              }
+            else
+              {
+                 this.FormBorderStyle = FormBorderStyle.None;
+                 this.MaximumSize = new Size(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
+                 this.WindowState = FormWindowState.Maximized;
+              }
+            this.Visible = true;
         }
+
 
         private void mainPageView_MouseUp(object sender, MouseEventArgs e)
         {
@@ -127,14 +150,7 @@ namespace AttendanceSystemAlpha
                         _mngPropertieBriefcase = new FileBriefcase(Properties.Settings.Default.PropertiesBriefcaseFolder, true);
                         _mngPropertiesTable = _mngPropertieBriefcase.FindTable("PropertiesTable");
                     }
-                    //**********饼图*********//
-
-                    List<string> xData = new List<string>() { "实到", "未到" };
-                    List<int> yData = new List<int>() { 50, 50 };
-                    //chart1.Series[0]["PieLabelStyle"] = "Outside";//将文字移到外侧
-                    //chart1.Series[0]["PieLineColor"] = "Black";//绘制黑色的连线。
-                    chart2.Series[0].Points.DataBindXY(xData, yData);
-                    //***********饼图*********//
+                    
                     break;
             }
         }
@@ -654,18 +670,7 @@ namespace AttendanceSystemAlpha
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            mainViewpanel.Visible = false;
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            int a = 10;
-            int b = 20;
-            List<string> xData = new List<string>() { "A", "B" };
-            List<int> yData = new List<int>() { a, b };
-            //chart1.Series[0]["PieLabelStyle"] = "Outside";//将文字移到外侧
-            //chart1.Series[0]["PieLineColor"] = "Black";//绘制黑色的连线。
-            chart1.Series[0].Points.DataBindXY(xData, yData);
+            panel18.Visible = false;
         }
 
         private void pictureBox2_MouseDown(object sender, MouseEventArgs e)
@@ -693,6 +698,8 @@ namespace AttendanceSystemAlpha
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
+            DialogResult dr2 = MessageBox.Show("确定退出吗？", "退出", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (dr2 != DialogResult.OK) return;
             this.Close();
             Application.Exit();
         }

@@ -32,26 +32,17 @@ namespace AttendanceSystemAlpha
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.telerikMetroTheme1 = new Telerik.WinControls.Themes.TelerikMetroTheme();
             this.pnHead = new System.Windows.Forms.Panel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.lbTitle = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.mainViewpanel = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripTimeLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripOperationStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.panel10 = new System.Windows.Forms.Panel();
             this.mainPageView = new Telerik.WinControls.UI.RadPageView();
             this.viewpageLoadData = new Telerik.WinControls.UI.RadPageViewPage();
             this.pnLoad = new System.Windows.Forms.Panel();
@@ -141,17 +132,20 @@ namespace AttendanceSystemAlpha
             this.lbMngDkpercent = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripTimeLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripOperationStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.panel18 = new System.Windows.Forms.Panel();
             this.pnHead.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lbTitle)).BeginInit();
             this.panel1.SuspendLayout();
-            this.mainViewpanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.statusStrip1.SuspendLayout();
+            this.panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainPageView)).BeginInit();
             this.mainPageView.SuspendLayout();
             this.viewpageLoadData.SuspendLayout();
@@ -190,28 +184,29 @@ namespace AttendanceSystemAlpha
             this.groupBox2.SuspendLayout();
             this.panel17.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // pnHead
             // 
             this.pnHead.BackColor = System.Drawing.Color.White;
+            this.pnHead.BackgroundImage = global::AttendanceSystemAlpha.Properties.Resources.title;
             this.pnHead.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pnHead.Controls.Add(this.pictureBox2);
-            this.pnHead.Controls.Add(this.pictureBox4);
-            this.pnHead.Controls.Add(this.lbTitle);
             this.pnHead.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnHead.Location = new System.Drawing.Point(0, 0);
             this.pnHead.Name = "pnHead";
-            this.pnHead.Size = new System.Drawing.Size(1280, 77);
+            this.pnHead.Size = new System.Drawing.Size(1280, 125);
             this.pnHead.TabIndex = 0;
             // 
             // pictureBox2
             // 
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox2.Image = global::AttendanceSystemAlpha.Properties.Resources.Exig_mouse_off;
-            this.pictureBox2.Location = new System.Drawing.Point(1136, 12);
+            this.pictureBox2.Location = new System.Drawing.Point(1163, 22);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(65, 59);
+            this.pictureBox2.Size = new System.Drawing.Size(77, 85);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 3;
             this.pictureBox2.TabStop = false;
@@ -221,107 +216,26 @@ namespace AttendanceSystemAlpha
             this.pictureBox2.MouseLeave += new System.EventHandler(this.pictureBox2_MouseLeave);
             this.pictureBox2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseUp);
             // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Image = global::AttendanceSystemAlpha.Properties.Resources.attendance_list_icon;
-            this.pictureBox4.Location = new System.Drawing.Point(12, 6);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(64, 65);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox4.TabIndex = 2;
-            this.pictureBox4.TabStop = false;
-            // 
-            // lbTitle
-            // 
-            this.lbTitle.Image = global::AttendanceSystemAlpha.Properties.Resources.title;
-            this.lbTitle.Location = new System.Drawing.Point(80, 3);
-            this.lbTitle.Name = "lbTitle";
-            this.lbTitle.Size = new System.Drawing.Size(627, 68);
-            this.lbTitle.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.lbTitle.TabIndex = 1;
-            this.lbTitle.TabStop = false;
-            // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.mainViewpanel);
+            this.panel1.Controls.Add(this.panel10);
             this.panel1.Controls.Add(this.statusStrip1);
-            this.panel1.Controls.Add(this.mainPageView);
+            this.panel1.Controls.Add(this.pnHead);
             this.panel1.Controls.Add(this.panel4);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 77);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1280, 661);
+            this.panel1.Size = new System.Drawing.Size(1280, 738);
             this.panel1.TabIndex = 1;
             // 
-            // mainViewpanel
+            // panel10
             // 
-            this.mainViewpanel.Controls.Add(this.pictureBox1);
-            this.mainViewpanel.Location = new System.Drawing.Point(47, 229);
-            this.mainViewpanel.Name = "mainViewpanel";
-            this.mainViewpanel.Size = new System.Drawing.Size(246, 164);
-            this.mainViewpanel.TabIndex = 3;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(96, 57);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel2,
-            this.toolStripStatusLabel1,
-            this.toolStripTimeLabel,
-            this.toolStripStatusLabel3,
-            this.toolStripOperationStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 635);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1280, 26);
-            this.statusStrip1.TabIndex = 5;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(168, 21);
-            this.toolStripStatusLabel2.Text = "欢迎使用点名系统      ";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(90, 21);
-            this.toolStripStatusLabel1.Text = "当前时间：";
-            // 
-            // toolStripTimeLabel
-            // 
-            this.toolStripTimeLabel.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedOuter;
-            this.toolStripTimeLabel.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.toolStripTimeLabel.Name = "toolStripTimeLabel";
-            this.toolStripTimeLabel.Size = new System.Drawing.Size(37, 21);
-            this.toolStripTimeLabel.Text = "aaa";
-            // 
-            // toolStripStatusLabel3
-            // 
-            this.toolStripStatusLabel3.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedOuter;
-            this.toolStripStatusLabel3.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(130, 21);
-            this.toolStripStatusLabel3.Text = "        操作状态：";
-            // 
-            // toolStripOperationStatus
-            // 
-            this.toolStripOperationStatus.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedOuter;
-            this.toolStripOperationStatus.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.toolStripOperationStatus.Name = "toolStripOperationStatus";
-            this.toolStripOperationStatus.Size = new System.Drawing.Size(90, 21);
-            this.toolStripOperationStatus.Text = "未进行操作";
+            this.panel10.Controls.Add(this.mainPageView);
+            this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel10.Location = new System.Drawing.Point(0, 125);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(1280, 587);
+            this.panel10.TabIndex = 6;
             // 
             // mainPageView
             // 
@@ -330,10 +244,10 @@ namespace AttendanceSystemAlpha
             this.mainPageView.Controls.Add(this.viewpageDataManagement);
             this.mainPageView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPageView.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold);
-            this.mainPageView.Location = new System.Drawing.Point(0, 24);
+            this.mainPageView.Location = new System.Drawing.Point(0, 0);
             this.mainPageView.Name = "mainPageView";
-            this.mainPageView.SelectedPage = this.viewpageCall;
-            this.mainPageView.Size = new System.Drawing.Size(1280, 637);
+            this.mainPageView.SelectedPage = this.viewpageDataManagement;
+            this.mainPageView.Size = new System.Drawing.Size(1280, 587);
             this.mainPageView.TabIndex = 0;
             this.mainPageView.ThemeName = "TelerikMetro";
             this.mainPageView.ViewMode = Telerik.WinControls.UI.PageViewMode.Backstage;
@@ -346,7 +260,7 @@ namespace AttendanceSystemAlpha
             this.viewpageLoadData.ItemSize = new System.Drawing.SizeF(140F, 52F);
             this.viewpageLoadData.Location = new System.Drawing.Point(205, 4);
             this.viewpageLoadData.Name = "viewpageLoadData";
-            this.viewpageLoadData.Size = new System.Drawing.Size(1071, 629);
+            this.viewpageLoadData.Size = new System.Drawing.Size(1071, 579);
             this.viewpageLoadData.Text = "课程下载";
             // 
             // pnLoad
@@ -357,7 +271,7 @@ namespace AttendanceSystemAlpha
             this.pnLoad.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnLoad.Location = new System.Drawing.Point(0, 0);
             this.pnLoad.Name = "pnLoad";
-            this.pnLoad.Size = new System.Drawing.Size(1071, 629);
+            this.pnLoad.Size = new System.Drawing.Size(1071, 579);
             this.pnLoad.TabIndex = 0;
             // 
             // panel3
@@ -367,7 +281,7 @@ namespace AttendanceSystemAlpha
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 63);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1071, 566);
+            this.panel3.Size = new System.Drawing.Size(1071, 516);
             this.panel3.TabIndex = 10;
             // 
             // lboxClassName
@@ -378,14 +292,14 @@ namespace AttendanceSystemAlpha
             this.lboxClassName.ItemHeight = 38;
             this.lboxClassName.Location = new System.Drawing.Point(0, 0);
             this.lboxClassName.Name = "lboxClassName";
-            this.lboxClassName.Size = new System.Drawing.Size(1071, 455);
+            this.lboxClassName.Size = new System.Drawing.Size(1071, 405);
             this.lboxClassName.TabIndex = 3;
             // 
             // panel5
             // 
             this.panel5.Controls.Add(this.radButton5);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel5.Location = new System.Drawing.Point(0, 455);
+            this.panel5.Location = new System.Drawing.Point(0, 405);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(1071, 111);
             this.panel5.TabIndex = 2;
@@ -393,7 +307,7 @@ namespace AttendanceSystemAlpha
             // radButton5
             // 
             this.radButton5.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold);
-            this.radButton5.Location = new System.Drawing.Point(842, 0);
+            this.radButton5.Location = new System.Drawing.Point(844, 21);
             this.radButton5.Name = "radButton5";
             this.radButton5.Size = new System.Drawing.Size(209, 71);
             this.radButton5.TabIndex = 1;
@@ -427,7 +341,7 @@ namespace AttendanceSystemAlpha
             this.viewpageCall.ItemSize = new System.Drawing.SizeF(140F, 52F);
             this.viewpageCall.Location = new System.Drawing.Point(205, 4);
             this.viewpageCall.Name = "viewpageCall";
-            this.viewpageCall.Size = new System.Drawing.Size(1071, 629);
+            this.viewpageCall.Size = new System.Drawing.Size(1071, 579);
             this.viewpageCall.Text = "课堂点名";
             // 
             // pnMaincall
@@ -437,7 +351,7 @@ namespace AttendanceSystemAlpha
             this.pnMaincall.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnMaincall.Location = new System.Drawing.Point(0, 0);
             this.pnMaincall.Name = "pnMaincall";
-            this.pnMaincall.Size = new System.Drawing.Size(1071, 629);
+            this.pnMaincall.Size = new System.Drawing.Size(1071, 579);
             this.pnMaincall.TabIndex = 0;
             // 
             // panel15
@@ -445,9 +359,9 @@ namespace AttendanceSystemAlpha
             this.panel15.Controls.Add(this.panel12);
             this.panel15.Controls.Add(this.panel13);
             this.panel15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel15.Location = new System.Drawing.Point(0, 356);
+            this.panel15.Location = new System.Drawing.Point(0, 354);
             this.panel15.Name = "panel15";
-            this.panel15.Size = new System.Drawing.Size(1071, 273);
+            this.panel15.Size = new System.Drawing.Size(1071, 225);
             this.panel15.TabIndex = 28;
             // 
             // panel12
@@ -457,13 +371,13 @@ namespace AttendanceSystemAlpha
             this.panel12.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel12.Location = new System.Drawing.Point(865, 0);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(206, 273);
+            this.panel12.Size = new System.Drawing.Size(206, 225);
             this.panel12.TabIndex = 31;
             // 
             // rbtnStartcall
             // 
             this.rbtnStartcall.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.rbtnStartcall.Location = new System.Drawing.Point(27, 42);
+            this.rbtnStartcall.Location = new System.Drawing.Point(24, 20);
             this.rbtnStartcall.Name = "rbtnStartcall";
             this.rbtnStartcall.Size = new System.Drawing.Size(161, 89);
             this.rbtnStartcall.TabIndex = 20;
@@ -473,7 +387,7 @@ namespace AttendanceSystemAlpha
             // radButton1
             // 
             this.radButton1.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.radButton1.Location = new System.Drawing.Point(27, 141);
+            this.radButton1.Location = new System.Drawing.Point(24, 119);
             this.radButton1.Name = "radButton1";
             this.radButton1.Size = new System.Drawing.Size(161, 89);
             this.radButton1.TabIndex = 6;
@@ -486,7 +400,7 @@ namespace AttendanceSystemAlpha
             this.panel13.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel13.Location = new System.Drawing.Point(0, 0);
             this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(1071, 273);
+            this.panel13.Size = new System.Drawing.Size(1071, 225);
             this.panel13.TabIndex = 29;
             // 
             // gboxClassmsg
@@ -508,9 +422,9 @@ namespace AttendanceSystemAlpha
             this.gboxClassmsg.Controls.Add(this.label2);
             this.gboxClassmsg.Controls.Add(this.DateTimePicker1);
             this.gboxClassmsg.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.gboxClassmsg.Location = new System.Drawing.Point(24, 29);
+            this.gboxClassmsg.Location = new System.Drawing.Point(18, 17);
             this.gboxClassmsg.Name = "gboxClassmsg";
-            this.gboxClassmsg.Size = new System.Drawing.Size(831, 207);
+            this.gboxClassmsg.Size = new System.Drawing.Size(831, 194);
             this.gboxClassmsg.TabIndex = 0;
             this.gboxClassmsg.TabStop = false;
             this.gboxClassmsg.Text = "课程信息";
@@ -522,9 +436,9 @@ namespace AttendanceSystemAlpha
             this.lbClassLocation.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbClassLocation.Location = new System.Drawing.Point(160, 159);
             this.lbClassLocation.Name = "lbClassLocation";
-            this.lbClassLocation.Size = new System.Drawing.Size(72, 27);
+            this.lbClassLocation.Size = new System.Drawing.Size(120, 27);
             this.lbClassLocation.TabIndex = 33;
-            this.lbClassLocation.Text = "明德楼";
+            this.lbClassLocation.Text = "                  ";
             // 
             // lbTeacherName
             // 
@@ -533,9 +447,9 @@ namespace AttendanceSystemAlpha
             this.lbTeacherName.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbTeacherName.Location = new System.Drawing.Point(160, 117);
             this.lbTeacherName.Name = "lbTeacherName";
-            this.lbTeacherName.Size = new System.Drawing.Size(112, 27);
+            this.lbTeacherName.Size = new System.Drawing.Size(120, 27);
             this.lbTeacherName.TabIndex = 32;
-            this.lbTeacherName.Text = "授课教师：";
+            this.lbTeacherName.Text = "                  ";
             // 
             // lbCallTimes
             // 
@@ -566,9 +480,9 @@ namespace AttendanceSystemAlpha
             this.lbJieCi.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbJieCi.Location = new System.Drawing.Point(160, 75);
             this.lbJieCi.Name = "lbJieCi";
-            this.lbJieCi.Size = new System.Drawing.Size(72, 27);
+            this.lbJieCi.Size = new System.Drawing.Size(120, 27);
             this.lbJieCi.TabIndex = 29;
-            this.lbJieCi.Text = "节次：";
+            this.lbJieCi.Text = "                  ";
             // 
             // lbClassName
             // 
@@ -577,9 +491,9 @@ namespace AttendanceSystemAlpha
             this.lbClassName.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbClassName.Location = new System.Drawing.Point(160, 33);
             this.lbClassName.Name = "lbClassName";
-            this.lbClassName.Size = new System.Drawing.Size(112, 27);
+            this.lbClassName.Size = new System.Drawing.Size(120, 27);
             this.lbClassName.TabIndex = 28;
-            this.lbClassName.Text = "开课名称：";
+            this.lbClassName.Text = "                  ";
             // 
             // axZKFPEngX1
             // 
@@ -622,7 +536,7 @@ namespace AttendanceSystemAlpha
             this.lbCname.Name = "lbCname";
             this.lbCname.Size = new System.Drawing.Size(112, 27);
             this.lbCname.TabIndex = 1;
-            this.lbCname.Text = "开课名称：";
+            this.lbCname.Text = "课程名称：";
             // 
             // label11
             // 
@@ -687,7 +601,7 @@ namespace AttendanceSystemAlpha
             this.panel14.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel14.Location = new System.Drawing.Point(0, 0);
             this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(1071, 356);
+            this.panel14.Size = new System.Drawing.Size(1071, 354);
             this.panel14.TabIndex = 30;
             // 
             // gboxStudentMsg
@@ -968,20 +882,20 @@ namespace AttendanceSystemAlpha
             // 
             // chart1
             // 
-            chartArea5.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea5);
-            legend5.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            legend5.IsDockedInsideChartArea = false;
-            legend5.IsTextAutoFit = false;
-            legend5.Name = "Legend1";
-            this.chart1.Legends.Add(legend5);
+            chartArea3.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea3);
+            legend3.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            legend3.IsDockedInsideChartArea = false;
+            legend3.IsTextAutoFit = false;
+            legend3.Name = "Legend1";
+            this.chart1.Legends.Add(legend3);
             this.chart1.Location = new System.Drawing.Point(13, 33);
             this.chart1.Name = "chart1";
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series5.Legend = "Legend1";
-            series5.Name = "Series1";
-            this.chart1.Series.Add(series5);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chart1.Series.Add(series3);
             this.chart1.Size = new System.Drawing.Size(352, 203);
             this.chart1.TabIndex = 10;
             this.chart1.Text = "chart1";
@@ -995,7 +909,7 @@ namespace AttendanceSystemAlpha
             this.viewpageDataManagement.ItemSize = new System.Drawing.SizeF(140F, 52F);
             this.viewpageDataManagement.Location = new System.Drawing.Point(205, 4);
             this.viewpageDataManagement.Name = "viewpageDataManagement";
-            this.viewpageDataManagement.Size = new System.Drawing.Size(1071, 629);
+            this.viewpageDataManagement.Size = new System.Drawing.Size(1071, 579);
             this.viewpageDataManagement.Text = "数据管理";
             // 
             // panel8
@@ -1004,7 +918,7 @@ namespace AttendanceSystemAlpha
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel8.Location = new System.Drawing.Point(0, 377);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(1071, 252);
+            this.panel8.Size = new System.Drawing.Size(1071, 202);
             this.panel8.TabIndex = 6;
             // 
             // panel11
@@ -1013,7 +927,7 @@ namespace AttendanceSystemAlpha
             this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel11.Location = new System.Drawing.Point(0, 0);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(1071, 252);
+            this.panel11.Size = new System.Drawing.Size(1071, 202);
             this.panel11.TabIndex = 13;
             // 
             // panel16
@@ -1023,7 +937,7 @@ namespace AttendanceSystemAlpha
             this.panel16.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel16.Location = new System.Drawing.Point(0, 0);
             this.panel16.Name = "panel16";
-            this.panel16.Size = new System.Drawing.Size(1071, 252);
+            this.panel16.Size = new System.Drawing.Size(1071, 202);
             this.panel16.TabIndex = 5;
             // 
             // mngGridView
@@ -1033,7 +947,7 @@ namespace AttendanceSystemAlpha
             this.mngGridView.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.mngGridView.Location = new System.Drawing.Point(0, 0);
             // 
-            // 
+            // mngGridView
             // 
             this.mngGridView.MasterTemplate.AllowAddNewRow = false;
             this.mngGridView.MasterTemplate.AllowCellContextMenu = false;
@@ -1043,7 +957,7 @@ namespace AttendanceSystemAlpha
             this.mngGridView.MasterTemplate.AutoSizeColumnsMode = Telerik.WinControls.UI.GridViewAutoSizeColumnsMode.Fill;
             this.mngGridView.Name = "mngGridView";
             this.mngGridView.ShowCellErrors = false;
-            this.mngGridView.Size = new System.Drawing.Size(864, 252);
+            this.mngGridView.Size = new System.Drawing.Size(864, 202);
             this.mngGridView.TabIndex = 14;
             this.mngGridView.Text = "radGridView1";
             this.mngGridView.ThemeName = "ControlDefault";
@@ -1057,7 +971,7 @@ namespace AttendanceSystemAlpha
             this.panel7.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel7.Location = new System.Drawing.Point(864, 0);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(207, 252);
+            this.panel7.Size = new System.Drawing.Size(207, 202);
             this.panel7.TabIndex = 4;
             // 
             // radButton2
@@ -1075,7 +989,7 @@ namespace AttendanceSystemAlpha
             // 
             this.radButton3.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.radButton3.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold);
-            this.radButton3.Location = new System.Drawing.Point(-584, 87);
+            this.radButton3.Location = new System.Drawing.Point(-584, 62);
             this.radButton3.Name = "radButton3";
             this.radButton3.Size = new System.Drawing.Size(161, 89);
             this.radButton3.TabIndex = 22;
@@ -1336,29 +1250,81 @@ namespace AttendanceSystemAlpha
             // 
             // chart2
             // 
-            chartArea6.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea6);
-            legend6.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            legend6.IsTextAutoFit = false;
-            legend6.Name = "Legend1";
-            this.chart2.Legends.Add(legend6);
+            chartArea4.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea4);
+            legend4.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            legend4.IsTextAutoFit = false;
+            legend4.Name = "Legend1";
+            this.chart2.Legends.Add(legend4);
             this.chart2.Location = new System.Drawing.Point(14, 34);
             this.chart2.Name = "chart2";
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series6.IsValueShownAsLabel = true;
-            series6.Legend = "Legend1";
-            series6.Name = "Series1";
-            this.chart2.Series.Add(series6);
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series4.IsValueShownAsLabel = true;
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.chart2.Series.Add(series4);
             this.chart2.Size = new System.Drawing.Size(352, 203);
             this.chart2.TabIndex = 13;
             this.chart2.Text = "chart2";
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel2,
+            this.toolStripStatusLabel1,
+            this.toolStripTimeLabel,
+            this.toolStripStatusLabel3,
+            this.toolStripOperationStatus});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 712);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1280, 26);
+            this.statusStrip1.TabIndex = 5;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(168, 21);
+            this.toolStripStatusLabel2.Text = "欢迎使用点名系统      ";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(90, 21);
+            this.toolStripStatusLabel1.Text = "当前时间：";
+            // 
+            // toolStripTimeLabel
+            // 
+            this.toolStripTimeLabel.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedOuter;
+            this.toolStripTimeLabel.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.toolStripTimeLabel.Name = "toolStripTimeLabel";
+            this.toolStripTimeLabel.Size = new System.Drawing.Size(37, 21);
+            this.toolStripTimeLabel.Text = "aaa";
+            // 
+            // toolStripStatusLabel3
+            // 
+            this.toolStripStatusLabel3.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedOuter;
+            this.toolStripStatusLabel3.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(130, 21);
+            this.toolStripStatusLabel3.Text = "        操作状态：";
+            // 
+            // toolStripOperationStatus
+            // 
+            this.toolStripOperationStatus.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedOuter;
+            this.toolStripOperationStatus.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.toolStripOperationStatus.Name = "toolStripOperationStatus";
+            this.toolStripOperationStatus.Size = new System.Drawing.Size(90, 21);
+            this.toolStripOperationStatus.Text = "未进行操作";
+            // 
             // panel4
             // 
-            this.panel4.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.panel4.Location = new System.Drawing.Point(12, 106);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(1280, 24);
             this.panel4.TabIndex = 3;
@@ -1368,13 +1334,23 @@ namespace AttendanceSystemAlpha
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // panel18
+            // 
+            this.panel18.BackColor = System.Drawing.Color.Transparent;
+            this.panel18.BackgroundImage = global::AttendanceSystemAlpha.Properties.Resources.BlueBackground;
+            this.panel18.Location = new System.Drawing.Point(0, 0);
+            this.panel18.Name = "panel18";
+            this.panel18.Size = new System.Drawing.Size(292, 89);
+            this.panel18.TabIndex = 2;
+            this.panel18.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1280, 738);
+            this.Controls.Add(this.panel18);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.pnHead);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
@@ -1389,14 +1365,9 @@ namespace AttendanceSystemAlpha
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.pnHead.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lbTitle)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.mainViewpanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.panel10.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mainPageView)).EndInit();
             this.mainPageView.ResumeLayout(false);
             this.viewpageLoadData.ResumeLayout(false);
@@ -1441,6 +1412,8 @@ namespace AttendanceSystemAlpha
             this.panel17.ResumeLayout(false);
             this.panel17.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -1498,8 +1471,6 @@ namespace AttendanceSystemAlpha
         private System.Windows.Forms.Label lbDKPercent;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.PictureBox lbTitle;
-        private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
@@ -1550,10 +1521,10 @@ namespace AttendanceSystemAlpha
         private System.Windows.Forms.Label lbMngjieci;
         private System.Windows.Forms.Label lbMngClassName;
         private System.Windows.Forms.Label lbMngCallMethod;
-        private System.Windows.Forms.Panel mainViewpanel;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ListBox lboxClassName;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Panel panel18;
     }
 }
 

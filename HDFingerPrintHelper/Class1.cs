@@ -14,11 +14,11 @@ namespace HDFingerPrintHelper
 {
 
 
-    internal class FingerFunction
+    public class FingerFunction
     {
         private const int FP_OK = 0x00;
         protected FP_HANDLE m_hFpDrive;
-
+        
         [DllImport("fplib.dll")]
 
 /***********************************************************************************************************
