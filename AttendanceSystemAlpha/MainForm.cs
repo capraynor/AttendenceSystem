@@ -185,7 +185,7 @@ namespace AttendanceSystemAlpha
                 dmRows.First().BeginEdit();
                 //dmRows.First()["DMSJ1"] = DateTime.Now; //Convert.ToInt16(1);
 
-                if (dmRows.First()["DMSJ1"] == null || (Convert.ToDateTime(dmRows.First()["DMSJ1"]) > DateTime.Now))
+                if (dmRows.First()["DMSJ1"] == DBNull.Value || (Convert.ToDateTime(dmRows.First()["DMSJ1"]) > DateTime.Now))
                 {
                     dmRows.First()["DMSJ1"] = DateTime.Now;
                 }
@@ -595,7 +595,7 @@ namespace AttendanceSystemAlpha
                 xsidTable.Columns.Add("指纹识别号");
             }
 
-            DataRow xsidRow = xsidTable.NewRow();
+            
             xkTable = frmChooseClasses._chooseClassBriefcase.FindTable("XKTABLE_VIEW1");
             while (axZKFPEngX1.InitEngine() != 0) // 初始化指纹仪
             {
@@ -607,10 +607,12 @@ namespace AttendanceSystemAlpha
                 int fingerID =
                     Convert.ToInt32(dataRows["XSID"].ToString().Substring(dataRows["XSID"].ToString().Length - 6));
                 FingerHelper.AddFingerprintTemplate(dataRows["ZW1"].ToString(), axZKFPEngX1, _buffDatabaseNum, fingerID);
-                xsidRow["学生学号"] = dataRows["XSID"].ToString();
-                xsidRow["指纹识别号"] = fingerID.ToString();
+                
                 try
                 {
+                    DataRow xsidRow = xsidTable.NewRow();
+                    xsidRow["学生学号"] = dataRows["XSID"].ToString();
+                    xsidRow["指纹识别号"] = fingerID.ToString();
                     xsidTable.Rows.Add(xsidRow);
                 }
                 catch (Exception exception)

@@ -213,6 +213,9 @@ namespace FingerprintHelper
         public static bool AddFingerprintTemplate(string strFingerPrint, AxZKFPEngX fingerPrintDevice, int fpcHandle,
             int fingerPrintId)
         {
+            if(String.IsNullOrWhiteSpace(strFingerPrint))
+            return false;
+            MessageBox.Show(strFingerPrint);
             try
             {
                 var fRegTemplete = fingerPrintDevice.DecodeTemplate1(strFingerPrint);

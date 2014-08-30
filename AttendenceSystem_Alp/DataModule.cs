@@ -202,7 +202,7 @@ namespace AttendenceSystem_Alp
 
             IQueryable<SKTABLE_07_VIEW> sktableView1s =
                 from c in
-                    remoteDataAdapter.GetTable<SKTABLE_07_VIEW>(new DataParameter[] { new DataParameter("KKNO", kktable05.KKNO), })
+                    remoteDataAdapter.GetTable<SKTABLE_07_VIEW>() where  c.KKNO == kktable05.KKNO
                 select c;
 
             newBriefcase.AddTable(OfflineHelper.TableListToDataTable(sktableView1s.ToList(), "SKTABLE"));  // 将SKTABLE离线出来 带出每节课的课程信息

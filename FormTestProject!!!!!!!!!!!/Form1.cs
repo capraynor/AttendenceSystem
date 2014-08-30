@@ -21,10 +21,7 @@ namespace FormTestProject___________
 {
     public partial class Form1 : Form
     {
-        public Form1()
-        {
-            InitializeComponent();
-        }
+        
 
         
 
@@ -35,11 +32,11 @@ namespace FormTestProject___________
 
         private void button1_Click(object sender, EventArgs e)
         {
-            FpOpenUsb(0xFFFFFFFF, 0);
+            
         }
-        [DllImport("fplib.dll")]
+        
 
-        public extern FP_HANDLE ()FpOpenUsb(uint32_t nAddr, uint32_t timeout);
+        
         
     }
 }
