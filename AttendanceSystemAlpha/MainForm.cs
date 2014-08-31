@@ -129,11 +129,7 @@ namespace AttendanceSystemAlpha
             switch (mainPageView.SelectedPage.Name)
             {
                 case "viewpageLoadData":
-                    Briefcase ____briefcase = new FileBriefcase(Properties.Settings.Default.PropertiesBriefcaseFolder , true);
-                    DataTable ____datatable = ____briefcase.FindTable("PropertiesTable");
-                    lboxClassName.DataSource = ____datatable;
-                    this.lboxClassName.DisplayMember = "开课名称";
-                    lboxClassName.ValueMember = "开课编号";
+                    
                     
 
                     break;
@@ -268,7 +264,7 @@ namespace AttendanceSystemAlpha
 
             DataTable ClassStatusTable = frmChooseClasses._chooseClassBriefcase.FindTable("ClassStatus");
             // todo manangement
-             DataRow mngClassStatusRow = ClassStatusTable.Select("Table编号 = '" + JieCi.ToString() + "'")
+             DataRow mngClassStatusRow = ClassStatusTable.Select("Table编号 = '" + frmChooseClasses.Jieci.ToString() + "'")
                     .First();
 
             mngClassStatusRow.BeginEdit();
@@ -286,6 +282,13 @@ namespace AttendanceSystemAlpha
             frmChooseClasses._chooseClassBriefcase.WriteBriefcase();
             radButton1.Enabled = false;
             rbtnStartcall.Enabled = true;
+            lbStudentClass.Text = "";
+            lbStudentId.Text = "";
+            lbStudentXy.Text = "";
+            lbStudentName.Text = "";
+            lbDczt.Text = "";
+            lbDcsj.Text = "";
+            pboxPhoto.Image = Properties.Resources.attendance_list_icon;
 
         }
         //todo:获取datatable并上传
@@ -333,38 +336,6 @@ namespace AttendanceSystemAlpha
             DataRow[] dmRows;
             dmRows = dmTable.Select("DKZT = 3");
             return dmRows.Count();
-        }
-
-
-        private void cbboxMngClassName_SelectedIndexChanged(object sender, EventArgs e) // 管理
-        {
-            //if (_mngPropertiesTable.Select("开课编号 like '" + cbboxMngClassName.SelectedValue + "'").Length == 0) return;
-            //mngTeacherName = _mngPropertiesTable.Select("开课编号 like '" + cbboxMngClassName.SelectedValue + "'").First()["教师姓名"].ToString();
-            //lbMngTeacherName.Text = mngTeacherName;//todo:离线密码验证
-            //mngchooseClassBriefcase = new FileBriefcase(string.Format(Properties.Settings.Default.OfflineFolder, cbboxMngClassName.SelectedValue), true);
-            //mngSKtable = mngchooseClassBriefcase.FindTable("SKTABLE");
-            //mngCurrentPasswd = mngchooseClassBriefcase.Properties[Properties.Settings.Default.PropertiesBriefcasePasswd];
-            //if (MngChkPasswd())
-            //{
-            //    pictureBox1.BackColor = Color.LawnGreen;
-            //}
-            //else
-            //{
-            //    pictureBox1.BackColor = Color.OrangeRed;
-            //    HideMngInformations();
-            //}
-            
-            
-        }
-
-        
-        
-
-        
-
-        private void tbMngOfflinePasswd_TextChanged(object sender, EventArgs e)
-        {
-            
         }
         
 
@@ -623,7 +594,7 @@ namespace AttendanceSystemAlpha
             DateTimePicker1.Value = frmChooseClasses.ClassDate;
             lbTeacherName.Text = frmChooseClasses.TeacherName;
             lbClassName.Text = frmChooseClasses.ClassName;
-            lbJieCi.Text = string.Format("第{0}节 " , JieCi =  frmChooseClasses.Jieci);
+            preparedTime.Value = frmChooseClasses.ClassDate; 
             lbClassName.Text = frmChooseClasses.ClassName;
             toolStripOperationStatus.Text = "开始点名";
             rbtnStartcall.Enabled = false;
@@ -639,6 +610,7 @@ namespace AttendanceSystemAlpha
             this.lbYdrs.Text = frmChooseClasses.DmTable.Rows.Count.ToString();
             this.lbSdrs.Text = "0";
             this.lbMngDkpercent.Text = "0.00%";
+            DateTimePicker1.Enabled = true;
         }
 
         private void rbtnMngShowInformation_Click(object sender, EventArgs e)
@@ -662,7 +634,8 @@ namespace AttendanceSystemAlpha
             
             radButton2.Enabled = true;
             mngSKtable = mngchooseClassBriefcase.FindTable("SKTABLE");
-            
+            dateTimePicker2.Enabled = true;
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -704,6 +677,15 @@ namespace AttendanceSystemAlpha
             if (dr2 != DialogResult.OK) return;
             this.Close();
             Application.Exit();
+        }
+
+        private void panel18_Paint(object sender, PaintEventArgs e)
+        {
+            Briefcase ____briefcase = new FileBriefcase(Properties.Settings.Default.PropertiesBriefcaseFolder, true);
+            DataTable ____datatable = ____briefcase.FindTable("PropertiesTable");
+            lboxClassName.DataSource = ____datatable;
+            this.lboxClassName.DisplayMember = "开课名称";
+            lboxClassName.ValueMember = "开课编号";
         }
 
         

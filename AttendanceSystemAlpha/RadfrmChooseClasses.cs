@@ -74,7 +74,10 @@ namespace AttendanceSystemAlpha
             //开课名称
             ClassNumber = Convert.ToInt64(comboBox1.SelectedValue);
             //开课编号
-
+            DataTable skTable = _chooseClassBriefcase.FindTable("SKTABLE");
+            cbboxJieCi.DisplayMember = "SKDATE";
+            cbboxJieCi.ValueMember = "SKNO";
+            cbboxJieCi.DataSource = skTable;
 
         }
 
@@ -100,6 +103,8 @@ namespace AttendanceSystemAlpha
 
         private void radButton1_Click(object sender, EventArgs e)
         {
+            ClassDate = Convert.ToDateTime(cbboxJieCi.Text);
+            Jieci = Convert.ToInt64(cbboxJieCi.SelectedValue);
             if (currentPasswd != textBox1.Text)
             {
                 MessageBox.Show("请输入正确的密码");

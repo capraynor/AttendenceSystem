@@ -18,7 +18,7 @@
       <Value Profile="(Default)">PC</Value>
     </Setting>
     <Setting Name="ServerUrl" Type="System.String" Scope="User">
-      <Value Profile="(Default)">localhost:7099/bin/</Value>
+      <Value Profile="(Default)">http://172.16.120.106:7099/bin/</Value>
     </Setting>
     <Setting Name="PropertiesBriefcaseFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)">.\\Resources\\Properties.daBriefcase</Value>
