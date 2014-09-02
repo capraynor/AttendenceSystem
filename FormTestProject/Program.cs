@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace FormTestProject___________
+namespace FormTestProject
 {
     static class Program
     {

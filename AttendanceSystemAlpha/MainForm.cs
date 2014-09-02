@@ -221,10 +221,18 @@ namespace AttendanceSystemAlpha
                 lbStudentXy.Text = bjRow["XYNAME"].ToString();
                 lbStudentClass.Text = bjRow["BJNAME"].ToString();
                 xsName = xkRows.First()["XSNAME"].ToString();
-                xszpBytes = (byte[])xkRows.First()["XSZP"];
-                Stream ms = new MemoryStream(xszpBytes);
-                ms.Write(xszpBytes, 0, xszpBytes.Length);
-                pboxPhoto.Image = Image.FromStream(ms);
+                if (xkRows.First()["XSZP"] != DBNull.Value)
+                {
+                    xszpBytes = (byte[])xkRows.First()["XSZP"];
+                    Stream ms = new MemoryStream(xszpBytes);
+                    ms.Write(xszpBytes, 0, xszpBytes.Length);
+                    pboxPhoto.Image = Image.FromStream(ms);
+                }
+                else
+                {
+                    pboxPhoto.Image = Properties.Resources.attendance_list_icon;
+                }
+                
                 lbStudentName.Text = xsName;
                 lbStudentId.Text = XSID;
                 lbDcsj.Text = Convert.ToDateTime(dmRows.First()["DMSJ1"]).ToString("t", DateTimeFormatInfo.InvariantInfo);
@@ -577,6 +585,7 @@ namespace AttendanceSystemAlpha
             {
                 int fingerID =
                     Convert.ToInt32(dataRows["XSID"].ToString().Substring(dataRows["XSID"].ToString().Length - 6));
+                if (dataRows["ZW1"] == DBNull.Value) continue;
                 FingerHelper.AddFingerprintTemplate(dataRows["ZW1"].ToString(), axZKFPEngX1, _buffDatabaseNum, fingerID);
                 
                 try

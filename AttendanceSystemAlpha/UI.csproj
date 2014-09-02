@@ -102,9 +102,6 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MetroFramework">
-      <HintPath>..\..\RollCallingSystem\packages\ModernUI.1.1.0.1\lib\net45\MetroFramework.dll</HintPath>
-    </Reference>
     <Reference Include="RemObjects.DataAbstract.Scripting, Version=8.0.81.1131, Culture=neutral, PublicKeyToken=3df3cad1b7aa5098, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
