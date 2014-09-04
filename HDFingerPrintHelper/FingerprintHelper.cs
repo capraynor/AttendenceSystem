@@ -1,7 +1,6 @@
 ﻿using System;
+using System.IO;
 using System.Runtime.InteropServices;
-using System.Security.Cryptography;
-using System.Threading;
 using FP_HANDLE = System.IntPtr;
 using int8_t = System.Char;  
 using int16_t=System.Int16;
@@ -17,13 +16,13 @@ namespace HDFingerPrintHelper
 {
 
 
-    public class FingerprintHelper
+    public class HDFingerprintHelper
     {
         private const int FP_OK = 0x00;
         protected FP_HANDLE m_hFpDrive;
         
         [DllImport("fplib.dll")]
-        public static  extern FP_HANDLE FpOpenUsb(uint32_t nAddr, uint32_t timeout);
+        public static extern FP_HANDLE FpOpenUsb(uint32_t nAddr, uint32_t timeout); // naddr = 0xFFFFFFFF
 
 
 
@@ -83,8 +82,12 @@ namespace HDFingerPrintHelper
         [DllImport("fplib.dll")]
         public static extern int FpUpChar(FP_HANDLE fpHandle, uint8_t nBufferId, byte[] pBuf, int nBufSize,
             ref int pBytesReturned, uint32_t timeout);
+
         [DllImport("fplib.dll")]
-        public static extern int FpDownChar(FP_HANDLE fpHandlePtr , uint8_t nBufferId , byte[] pBuf , int nBufSize , uint32_t timeout)
+        public static extern int FpDownChar(FP_HANDLE fpHandlePtr, uint8_t nBufferId, byte[] pBuf, int nBufSize,
+            uint32_t timeout);
+
+
 
 
         
@@ -105,8 +108,20 @@ namespace HDFingerPrintHelper
                 stat = FpGetImage(fpHandlePtr, timeout);
             } while (stat != 0 && stat == 2);
             if (stat != 0) return stat;
-            FpUpBMPFile(fpHandlePtr, Filename, timeout);
-            if (stat != 0) return stat;
+
+            try
+            {
+                if (File.Exists(Filename))
+                {
+                    File.Delete(Filename);
+                }
+                stat =  FpUpBMPFile(fpHandlePtr, Filename, timeout);
+                if (stat != 0) return stat;
+            }
+            catch (Exception)
+            {
+                
+            }
             FpGenChar(fpHandlePtr, 1, timeout);
             return stat;
         }
@@ -125,8 +140,19 @@ namespace HDFingerPrintHelper
                 stat = FpGetImage(fpHandlePtr, timeout);
             } while (stat != 0 && stat  == 2);
             if (stat != 0) return stat;
-            stat = FpUpBMPFile(fpHandlePtr, Filename, timeout);
-            if (stat != 0) return stat;
+            try
+            {
+                if (File.Exists(Filename))
+                {
+                    File.Delete(Filename);
+                }
+                stat = FpUpBMPFile(fpHandlePtr, Filename, timeout);
+                if (stat != 0) return stat;
+            }
+            catch (Exception)
+            {
+
+            }
             FpGenChar(fpHandlePtr, 2, timeout);
             return stat;
         }
@@ -178,7 +204,30 @@ namespace HDFingerPrintHelper
             return stat;
         }
 
-
+        public static int StartVerify(FP_HANDLE fpHandlePtr, string filename, ref uint16_t FingerId,ref ushort score, uint32_t timeout = 0)
+        {
+            uint16_t  FingerprintNumbers = 0; // 指纹仪中的总数
+            int stat = 0;
+            do
+            {
+                stat = FpGetImage(fpHandlePtr, timeout);
+            } while (stat != 0 && stat == 2);
+            if (stat != 0) return stat;
+            stat =  FpValidTempleteNum(fpHandlePtr, ref FingerprintNumbers, timeout); // 获取总数
+            if (stat != 0) return stat;
+            
+           // stat = FpUpBMPFile(fpHandlePtr, filename, timeout); // 上传图片
+            if (stat != 0) return stat;
+            stat = FpGenChar(fpHandlePtr, 1, timeout);
+            if (stat != 0) return stat;
+            stat = FpSearch(fpHandlePtr, 1, 0, Convert.ToUInt16(FingerprintNumbers - 1), ref FingerId, ref  score, timeout);
+            //if (stat != 0 && stat != 9) return stat; // 错误码9：没有搜索到指纹
+            //else
+            //{
+            //    return 0;
+            //}
+            return stat;
+        }
         
     }
 }

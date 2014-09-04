@@ -297,6 +297,10 @@
       <Project>{3569a675-cbbd-4635-8957-69dbcf3c0290}</Project>
       <Name>FingerprintHelper</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HDFingerPrintHelper\HDFingerPrintHelper.csproj">
+      <Project>{4e2f2d82-5fdc-4eb0-8d7d-6d7a04ec7fe0}</Project>
+      <Name>HDFingerPrintHelper</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="AxZKFPEngXControl">
