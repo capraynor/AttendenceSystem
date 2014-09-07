@@ -12,6 +12,7 @@ using Telerik.WinControls;
 
 namespace AttendanceSystemAlpha
 {
+    
     public partial class RadfrmChooseClasses : Telerik.WinControls.UI.RadForm
     {
         public DataTable _propertiesTable;
@@ -37,6 +38,7 @@ namespace AttendanceSystemAlpha
             {
                 pictureBox1.BackColor = Color.OrangeRed;
                 cbboxJieCi.Enabled = false;
+                
 
             }
             else

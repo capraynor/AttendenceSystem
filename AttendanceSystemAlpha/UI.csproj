@@ -38,7 +38,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -111,6 +111,9 @@
       <HintPath>C:\Program Files\RemObjects Software\RemObjects SDK for .NET\Bin\RemObjects.InternetPack</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="RemObjects.Script, Version=2.0.77.1131, Culture=neutral, PublicKeyToken=3df3cad1b7aa5098, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="RemObjects.SDK">
       <Name>RemObjects.SDK</Name>
       <HintPath>C:\Program Files\RemObjects Software\RemObjects SDK for .NET\Bin\RemObjects.SDK.dll</HintPath>
@@ -159,13 +162,16 @@
     <Reference Include="Telerik.WinControls.GridView, Version=2014.2.617.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.WinControls.RichTextBox, Version=2014.2.617.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.WinControls.RichTextBox, Version=2014.2.617.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Telerik.WinControls.Themes.TelerikMetro, Version=2014.2.617.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.WinControls.Themes.TelerikMetroTouch, Version=2014.2.617.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
+    <Reference Include="Telerik.WinControls.Themes.Windows8, Version=2014.2.617.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL" />
     <Reference Include="Telerik.WinControls.UI, Version=2014.2.617.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
@@ -182,6 +188,12 @@
     <None Include="UI_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FrmChooseDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmChooseDate.Designer.cs">
+      <DependentUpon>FrmChooseDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -226,6 +238,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FrmChooseDate.resx">
+      <DependentUpon>FrmChooseDate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -293,42 +308,10 @@
       <Project>{452eba27-1542-43c2-9c3e-7e3d6a469de9}</Project>
       <Name>DatatableHelper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FingerprintHelper\FingerprintHelper.csproj">
-      <Project>{3569a675-cbbd-4635-8957-69dbcf3c0290}</Project>
-      <Name>FingerprintHelper</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HDFingerPrintHelper\HDFingerPrintHelper.csproj">
       <Project>{4e2f2d82-5fdc-4eb0-8d7d-6d7a04ec7fe0}</Project>
       <Name>HDFingerPrintHelper</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="AxZKFPEngXControl">
-      <Guid>{D95CB779-00CB-4B49-97B9-9F0B61CAB3C1}</Guid>
-      <VersionMajor>4</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>aximp</WrapperTool>
-      <Isolated>False</Isolated>
-    </COMReference>
-    <COMReference Include="stdole">
-      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="ZKFPEngXControl">
-      <Guid>{D95CB779-00CB-4B49-97B9-9F0B61CAB3C1}</Guid>
-      <VersionMajor>4</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\RemObjects Software\RemObjects SDK\RemObjects.SDK.targets" />

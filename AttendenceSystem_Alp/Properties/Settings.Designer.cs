@@ -97,7 +97,7 @@ namespace AttendenceSystem_Alp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://172.16.120.106:7099/bin/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:7099/bin/")]
         public string ServerUrl {
             get {
                 return ((string)(this["ServerUrl"]));

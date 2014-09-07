@@ -31,13 +31,13 @@ namespace AttendanceSystemAlpha
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea11 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend11 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea12 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend12 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.telerikMetroTheme1 = new Telerik.WinControls.Themes.TelerikMetroTheme();
             this.pnHead = new System.Windows.Forms.Panel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -66,7 +66,6 @@ namespace AttendanceSystemAlpha
             this.lbCallTimes = new System.Windows.Forms.Label();
             this.lbCallMethod = new System.Windows.Forms.Label();
             this.lbClassName = new System.Windows.Forms.Label();
-            this.axZKFPEngX1 = new AxZKFPEngXControl.AxZKFPEngX();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.lbCname = new System.Windows.Forms.Label();
@@ -163,7 +162,6 @@ namespace AttendanceSystemAlpha
             ((System.ComponentModel.ISupportInitialize)(this.radButton1)).BeginInit();
             this.panel13.SuspendLayout();
             this.gboxClassmsg.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.axZKFPEngX1)).BeginInit();
             this.panel14.SuspendLayout();
             this.gboxStudentMsg.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxPhoto)).BeginInit();
@@ -414,7 +412,6 @@ namespace AttendanceSystemAlpha
             this.gboxClassmsg.Controls.Add(this.lbCallTimes);
             this.gboxClassmsg.Controls.Add(this.lbCallMethod);
             this.gboxClassmsg.Controls.Add(this.lbClassName);
-            this.gboxClassmsg.Controls.Add(this.axZKFPEngX1);
             this.gboxClassmsg.Controls.Add(this.label16);
             this.gboxClassmsg.Controls.Add(this.label15);
             this.gboxClassmsg.Controls.Add(this.lbCname);
@@ -496,16 +493,6 @@ namespace AttendanceSystemAlpha
             this.lbClassName.Size = new System.Drawing.Size(120, 27);
             this.lbClassName.TabIndex = 28;
             this.lbClassName.Text = "                  ";
-            // 
-            // axZKFPEngX1
-            // 
-            this.axZKFPEngX1.Enabled = true;
-            this.axZKFPEngX1.Location = new System.Drawing.Point(22, 68);
-            this.axZKFPEngX1.Name = "axZKFPEngX1";
-            this.axZKFPEngX1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axZKFPEngX1.OcxState")));
-            this.axZKFPEngX1.Size = new System.Drawing.Size(24, 24);
-            this.axZKFPEngX1.TabIndex = 27;
-            this.axZKFPEngX1.OnCapture += new AxZKFPEngXControl.IZKFPEngXEvents_OnCaptureEventHandler(this.axZKFPEngX1_OnCapture);
             // 
             // label16
             // 
@@ -596,6 +583,7 @@ namespace AttendanceSystemAlpha
             this.DateTimePicker1.ShowUpDown = true;
             this.DateTimePicker1.Size = new System.Drawing.Size(216, 34);
             this.DateTimePicker1.TabIndex = 17;
+            this.DateTimePicker1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DateTimePicker1_MouseUp);
             // 
             // panel14
             // 
@@ -885,20 +873,20 @@ namespace AttendanceSystemAlpha
             // 
             // chart1
             // 
-            chartArea11.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea11);
-            legend11.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            legend11.IsDockedInsideChartArea = false;
-            legend11.IsTextAutoFit = false;
-            legend11.Name = "Legend1";
-            this.chart1.Legends.Add(legend11);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            legend1.IsDockedInsideChartArea = false;
+            legend1.IsTextAutoFit = false;
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(13, 33);
             this.chart1.Name = "chart1";
-            series11.ChartArea = "ChartArea1";
-            series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series11.Legend = "Legend1";
-            series11.Name = "Series1";
-            this.chart1.Series.Add(series11);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(352, 203);
             this.chart1.TabIndex = 10;
             this.chart1.Text = "chart1";
@@ -950,7 +938,7 @@ namespace AttendanceSystemAlpha
             this.mngGridView.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.mngGridView.Location = new System.Drawing.Point(0, 0);
             // 
-            // mngGridView
+            // 
             // 
             this.mngGridView.MasterTemplate.AllowAddNewRow = false;
             this.mngGridView.MasterTemplate.AllowCellContextMenu = false;
@@ -1255,20 +1243,20 @@ namespace AttendanceSystemAlpha
             // 
             // chart2
             // 
-            chartArea12.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea12);
-            legend12.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            legend12.IsTextAutoFit = false;
-            legend12.Name = "Legend1";
-            this.chart2.Legends.Add(legend12);
+            chartArea2.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea2);
+            legend2.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            legend2.IsTextAutoFit = false;
+            legend2.Name = "Legend1";
+            this.chart2.Legends.Add(legend2);
             this.chart2.Location = new System.Drawing.Point(14, 34);
             this.chart2.Name = "chart2";
-            series12.ChartArea = "ChartArea1";
-            series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series12.IsValueShownAsLabel = true;
-            series12.Legend = "Legend1";
-            series12.Name = "Series1";
-            this.chart2.Series.Add(series12);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series2.IsValueShownAsLabel = true;
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart2.Series.Add(series2);
             this.chart2.Size = new System.Drawing.Size(352, 203);
             this.chart2.TabIndex = 13;
             this.chart2.Text = "chart2";
@@ -1346,7 +1334,7 @@ namespace AttendanceSystemAlpha
             this.panel18.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel18.Location = new System.Drawing.Point(0, 0);
             this.panel18.Name = "panel18";
-            this.panel18.Size = new System.Drawing.Size(143, 54);
+            this.panel18.Size = new System.Drawing.Size(167, 100);
             this.panel18.TabIndex = 2;
             this.panel18.Click += new System.EventHandler(this.pictureBox1_Click);
             this.panel18.Paint += new System.Windows.Forms.PaintEventHandler(this.panel18_Paint);
@@ -1399,7 +1387,6 @@ namespace AttendanceSystemAlpha
             this.panel13.ResumeLayout(false);
             this.gboxClassmsg.ResumeLayout(false);
             this.gboxClassmsg.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.axZKFPEngX1)).EndInit();
             this.panel14.ResumeLayout(false);
             this.gboxStudentMsg.ResumeLayout(false);
             this.gboxStudentMsg.PerformLayout();
@@ -1473,7 +1460,6 @@ namespace AttendanceSystemAlpha
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label18;
-        private AxZKFPEngXControl.AxZKFPEngX axZKFPEngX1;
         private System.Windows.Forms.GroupBox panel234;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label22;

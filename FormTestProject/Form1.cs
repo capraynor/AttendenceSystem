@@ -33,7 +33,7 @@ namespace FormTestProject
         private volatile Boolean _ContinueGetImage = true;
         private int nRet = 0;
         private string FingerStrTest = "";
-        private delegate void SetControlPropertyThreadSafeDelegate(Control control, string propertyName, object propertyValue);
+        private delegate void SetControlPropertyThreadSafeDelegate(Control control, string propertyName, object[] propertyValue);
 
         public Form1()
         {
@@ -49,7 +49,9 @@ namespace FormTestProject
         private void button1_Click(object sender, EventArgs e)
         {
             FpHandle = HDFingerprintHelper.FpOpenUsb(0xFFFFFFFF, 0);
-            
+            MessageBox.Show(FpHandle.ToString());
+            HDFingerprintHelper.FpEmpty(FpHandle, 0);
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -129,11 +131,14 @@ namespace FormTestProject
 
         private void UpdateImage(Object Path)
         {
-            FileStream fs = new FileStream((string)Path , FileMode.Open , FileAccess.Read , FileShare.Read);
-            BinaryReader br = new BinaryReader(fs);
-            MemoryStream ms = new MemoryStream(br.ReadBytes((int)fs.Length));
-            this.pictureBox1.Image = Image.FromStream(ms);
-            fs.Close();
+            if (File.Exists((string) Path))
+            {
+                FileStream fs = new FileStream((string)Path, FileMode.Open, FileAccess.Read, FileShare.Read);
+                BinaryReader br = new BinaryReader(fs);
+                MemoryStream ms = new MemoryStream(br.ReadBytes((int)fs.Length));
+                this.pictureBox1.Image = Image.FromStream(ms);
+                fs.Close();
+            }
             
             //文件流 字节流 内存流 关闭文件流 释放文件 
         }
@@ -150,16 +155,17 @@ namespace FormTestProject
             string fingerStr = "";
             HDFingerprintHelper.Enroll_1st("finger.bmp", FpHandle);
             Invoke(new UiProcessFunction(UpdateImage), new object[] {"finger.bmp"});
-            SetControlPropertyThreadSafe(pictureBox1 , "Image" , null);
-            SetControlPropertyThreadSafe(pictureBox1, "Image", Image.FromFile("finger.bmp"));
+            SetControlPropertyThreadSafe(pictureBox1, "Image", new object[] { null });
+            SetControlPropertyThreadSafe(pictureBox1, "Image", new object[] { Image.FromFile("finger.bmp") });
             Invoke(new UiProcessFunction(UpdateLabel), new object[] { "请移开手指" });
             HDFingerprintHelper.LiftUrFinger(FpHandle);
             Invoke(new UiProcessFunction(UpdateLabel), new object[] { "继续按手指" });
             
-            HDFingerprintHelper.Enroll_2nd("finger.bmp", FpHandle);
-            SetControlPropertyThreadSafe(pictureBox1, "Image", Image.FromFile("finger.bmp"));
+            HDFingerprintHelper.Enroll_2nd("finger2.bmp", FpHandle);
+            SetControlPropertyThreadSafe(pictureBox1, "Image", new object[] { Image.FromFile("finger2.bmp") });
             HDFingerprintHelper.GenerateString(FpHandle, ref fingerStr);
             Invoke(new UiProcessFunction(UpdateLabel), new object[] { fingerStr });
+            SetControlPropertyThreadSafe(textBox1, "Text", new object[] { fingerStr });
             FingerStrTest = fingerStr;
         }
 
@@ -179,8 +185,8 @@ namespace FormTestProject
 
         private void UploadFingerPrintString()
         {
-            
-            int stat =  HDFingerprintHelper.Download1Fingerprint(FpHandle, FingerStrTest, 1);
+
+            int stat = HDFingerprintHelper.Download1Fingerprint(FpHandle,FingerStrTest , 1);
 
         }
 
@@ -196,7 +202,7 @@ namespace FormTestProject
             verifyThread.Start();
             MessageBox.Show("test");
         }
-        public static void SetControlPropertyThreadSafe(Control control, string propertyName, object propertyValue)
+        public static void SetControlPropertyThreadSafe(Control control, string propertyName, object[] propertyValue)
         {
             if (control.InvokeRequired)
             {
@@ -204,7 +210,7 @@ namespace FormTestProject
             }
             else
             {
-                control.GetType().InvokeMember(propertyName, BindingFlags.SetProperty, null, control, new object[] { propertyValue });
+                control.GetType().InvokeMember(propertyName, BindingFlags.SetProperty, null, control,  propertyValue);
             }
         }
     }

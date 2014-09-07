@@ -217,10 +217,10 @@ namespace HDFingerPrintHelper
             if (stat != 0) return stat;
             
            // stat = FpUpBMPFile(fpHandlePtr, filename, timeout); // 上传图片
-            if (stat != 0) return stat;
+            if (stat != 0) return stat; 
             stat = FpGenChar(fpHandlePtr, 1, timeout);
             if (stat != 0) return stat;
-            stat = FpSearch(fpHandlePtr, 1, 0, Convert.ToUInt16(FingerprintNumbers - 1), ref FingerId, ref  score, timeout);
+            stat = FpSearch(fpHandlePtr, 1, 0, Convert.ToUInt16(FingerprintNumbers), ref FingerId, ref  score, timeout);
             //if (stat != 0 && stat != 9) return stat; // 错误码9：没有搜索到指纹
             //else
             //{
