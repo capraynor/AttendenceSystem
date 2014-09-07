@@ -24,19 +24,6 @@ namespace AttendanceSystemAlpha
             InitializeComponent();
         }
 
-        private void checkedListBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        
-            
-            
-
-            //todo : 调出离线密码框 获得离线密码 下载数据。操作在此进行 
-            //todo： 点名：点击 开始点名 弹出提示框 返回选择的课程并开始点名 所有的操作在mainform中进行
-            //todo: 结束点名 新增 密码验证
-
         
 
         private void RadFrmShowClasses_Load(object sender, EventArgs e)

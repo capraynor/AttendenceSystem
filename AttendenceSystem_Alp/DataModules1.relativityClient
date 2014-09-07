@@ -4,8 +4,8 @@
   <Domain>AttendanceSystem</Domain>
   <Schema>PC</Schema>
   <Server>
-    <Name>RISETKT-PC</Name>
+    <Name>USER-98GQDEK4QP</Name>
     <ServerUri>http://localhost:7099/bin</ServerUri>
   </Server>
-  <DataLogin>5</DataLogin>
+  <DataLogin>1</DataLogin>
 </RelativityClient>

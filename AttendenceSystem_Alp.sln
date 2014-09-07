@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModules", "AttendenceSystem_Alp\DataModules.csproj", "{DEC7D794-1A33-4B4E-9175-9BB7622416A3}"
 EndProject
@@ -30,6 +30,7 @@ Global
 		{DEC7D794-1A33-4B4E-9175-9BB7622416A3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{DEC7D794-1A33-4B4E-9175-9BB7622416A3}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{DEC7D794-1A33-4B4E-9175-9BB7622416A3}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{DEC7D794-1A33-4B4E-9175-9BB7622416A3}.Debug|Win32.Build.0 = Debug|Any CPU
 		{DEC7D794-1A33-4B4E-9175-9BB7622416A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEC7D794-1A33-4B4E-9175-9BB7622416A3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DEC7D794-1A33-4B4E-9175-9BB7622416A3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
@@ -40,6 +41,7 @@ Global
 		{452EBA27-1542-43C2-9C3E-7E3D6A469DE9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{452EBA27-1542-43C2-9C3E-7E3D6A469DE9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{452EBA27-1542-43C2-9C3E-7E3D6A469DE9}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{452EBA27-1542-43C2-9C3E-7E3D6A469DE9}.Debug|Win32.Build.0 = Debug|Any CPU
 		{452EBA27-1542-43C2-9C3E-7E3D6A469DE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{452EBA27-1542-43C2-9C3E-7E3D6A469DE9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{452EBA27-1542-43C2-9C3E-7E3D6A469DE9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
@@ -50,6 +52,7 @@ Global
 		{D6B71DBB-AA01-41C5-A1D7-1669A289D4B8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{D6B71DBB-AA01-41C5-A1D7-1669A289D4B8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{D6B71DBB-AA01-41C5-A1D7-1669A289D4B8}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{D6B71DBB-AA01-41C5-A1D7-1669A289D4B8}.Debug|Win32.Build.0 = Debug|Any CPU
 		{D6B71DBB-AA01-41C5-A1D7-1669A289D4B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6B71DBB-AA01-41C5-A1D7-1669A289D4B8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D6B71DBB-AA01-41C5-A1D7-1669A289D4B8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
@@ -60,6 +63,7 @@ Global
 		{4E2F2D82-5FDC-4EB0-8D7D-6D7A04EC7FE0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{4E2F2D82-5FDC-4EB0-8D7D-6D7A04EC7FE0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{4E2F2D82-5FDC-4EB0-8D7D-6D7A04EC7FE0}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{4E2F2D82-5FDC-4EB0-8D7D-6D7A04EC7FE0}.Debug|Win32.Build.0 = Debug|Any CPU
 		{4E2F2D82-5FDC-4EB0-8D7D-6D7A04EC7FE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E2F2D82-5FDC-4EB0-8D7D-6D7A04EC7FE0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4E2F2D82-5FDC-4EB0-8D7D-6D7A04EC7FE0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
@@ -80,6 +84,7 @@ Global
 		{FE0DD822-EADB-4D23-B046-C4767F1411D0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{FE0DD822-EADB-4D23-B046-C4767F1411D0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{FE0DD822-EADB-4D23-B046-C4767F1411D0}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{FE0DD822-EADB-4D23-B046-C4767F1411D0}.Debug|Win32.Build.0 = Debug|Any CPU
 		{FE0DD822-EADB-4D23-B046-C4767F1411D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE0DD822-EADB-4D23-B046-C4767F1411D0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FE0DD822-EADB-4D23-B046-C4767F1411D0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU

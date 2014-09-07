@@ -121,7 +121,6 @@
             this.tboxPasswd.PasswordChar = '*';
             this.tboxPasswd.Size = new System.Drawing.Size(288, 39);
             this.tboxPasswd.TabIndex = 3;
-            this.tboxPasswd.Text = "Relativity";
             // 
             // tboxUsername
             // 
@@ -130,7 +129,6 @@
             this.tboxUsername.Name = "tboxUsername";
             this.tboxUsername.Size = new System.Drawing.Size(288, 39);
             this.tboxUsername.TabIndex = 2;
-            this.tboxUsername.Text = "5";
             // 
             // lbPasswd
             // 

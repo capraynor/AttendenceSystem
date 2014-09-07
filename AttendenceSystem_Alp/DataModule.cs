@@ -72,8 +72,7 @@ namespace AttendenceSystem_Alp
         {
             IQueryable<JSANDKKVIEWRO> jstable03S =
                 from c in
-                    remoteDataAdapter.GetTable<JSANDKKVIEWRO>(new DataParameter[]
-                    {new DataParameter("JSID", Convert.ToInt64(Settings.Default.UserId)),})
+                    remoteDataAdapter.GetTable<JSANDKKVIEWRO>() where c.JSID == Convert.ToInt64(Settings.Default.UserId)
                 select c;
             this.Context.JSANDKKVIEWRO = jstable03S.ToList();
             return true;
@@ -89,8 +88,8 @@ namespace AttendenceSystem_Alp
             {
                 IQueryable<JSANDKKVIEWRO > kktable05S =
                     from c in
-                        this.remoteDataAdapter.GetTable<JSANDKKVIEWRO>
-                        (new DataParameter[] { new DataParameter("JSID", jsid), })
+                        this.remoteDataAdapter.GetTable<JSANDKKVIEWRO>()
+                        where  c.JSID == jsid
                     select c;
                 this.Context.JSANDKKVIEWRO = kktable05S.ToList();
                 return true; //获取数据成功
@@ -195,7 +194,7 @@ namespace AttendenceSystem_Alp
             newBriefcase.Properties.Add(GlobalParams.PropertiesTotalStudentNumber, kktable05.XXRS.ToString());
             IQueryable<XKTABLE_VIEWRO> xktableView1s =
                 from c in
-                    remoteDataAdapter.GetTable<XKTABLE_VIEWRO>(new DataParameter[] { new DataParameter("KKNO", kktable05.KKNO), })
+                    remoteDataAdapter.GetTable<XKTABLE_VIEWRO>() where c.KKNO == kktable05.KKNO
                 select c;
 
             newBriefcase.AddTable(OfflineHelper.TableListToDataTable(xktableView1s.ToList(), "XKTABLE_VIEW1")); // 将XKTABLE离线出来 带出学生信息
@@ -210,7 +209,7 @@ namespace AttendenceSystem_Alp
             {
                 IQueryable<DMTABLE_08_NOPIC_VIEW> dmtable08S =
                     from c in
-                        remoteDataAdapter.GetTable<DMTABLE_08_NOPIC_VIEW>(new DataParameter[] { new DataParameter("SKNO", sktableView1.SKNO), })
+                        remoteDataAdapter.GetTable<DMTABLE_08_NOPIC_VIEW>()where  c.SKNO == sktableView1.SKNO
                     select c;
                 newBriefcase.AddTable(OfflineHelper.TableListToDataTable(dmtable08S.ToList(), sktableView1.SKNO.ToString()));
                 classRecordRow = classRecordTable.NewRow();

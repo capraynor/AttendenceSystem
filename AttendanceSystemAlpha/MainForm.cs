@@ -83,7 +83,7 @@ namespace AttendanceSystemAlpha
             if (System.IO.File.Exists(Properties.Settings.Default.PropertiesBriefcaseFolder)) return;
             try
             {
-                if (!Directory.Exists(string.Format(Properties.Settings.Default.OfflineFolder, " ")));
+                if (!Directory.Exists(string.Format(Properties.Settings.Default.OfflineFolder, " ")))
                 Directory.CreateDirectory(string.Format(Properties.Settings.Default.OfflineFolder, " "));
                 Briefcase propertiesBriefcase = new FileBriefcase(".\\Resources\\Properties.daBriefcase");
                 DataTable bClistTable = new DataTable("PropertiesTable");
@@ -356,6 +356,7 @@ namespace AttendanceSystemAlpha
                 {
                     fDataModule.UpdateDmtable(dmtable08); // dmtable update完成
                 }
+                fDataModule.ApplyChanges(); // ceshi
                 
                 //mngSKtable = _chooseClassBriefcase.FindTable() // todo update sktable 点名方式 早退人数
                 long _skno = JieCi;
@@ -374,8 +375,9 @@ namespace AttendanceSystemAlpha
                 rowSktable07.CDRS = Convert.ToInt16(CountLateStudentNumber(mngdmTable));
                 rowSktable07.KKRS = Convert.ToInt16(CountAbsentStudent(mngdmTable));
                 rowSktable07.ZCRS = Convert.ToInt16(CountArriveSudentNumber(mngdmTable));
-                fDataModule.ApplyChanges();
-               // fDataModule.UpdateSktable(rowSktable07); // sktable 提交完成
+                
+                
+                
                 //SKTABLE_07 rowSktable07 = new SKTABLE_07();
                 
                 rowSktable07.SKNO = JieCi;
@@ -389,8 +391,8 @@ namespace AttendanceSystemAlpha
                 rowSktable07.SKDATE =
                     Convert.ToDateTime(
                         mngSKtable.Select("SKNO = '" + rowSktable07.SKNO.ToString() + "'").First()["SKDATE"]);
-                
-                
+
+                fDataModule.UpdateSktable(rowSktable07); // sktable 提交完成
                 fDataModule.ApplyChanges();//提交更改
 
                 DataTable mngClassStatusTable = mngchooseClassBriefcase.FindTable("ClassStatus");
