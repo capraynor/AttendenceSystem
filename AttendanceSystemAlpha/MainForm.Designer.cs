@@ -938,7 +938,7 @@ namespace AttendanceSystemAlpha
             this.mngGridView.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.mngGridView.Location = new System.Drawing.Point(0, 0);
             // 
-            // 
+            // mngGridView
             // 
             this.mngGridView.MasterTemplate.AllowAddNewRow = false;
             this.mngGridView.MasterTemplate.AllowCellContextMenu = false;
@@ -1096,7 +1096,7 @@ namespace AttendanceSystemAlpha
             this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker2.Location = new System.Drawing.Point(167, 152);
             this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(225, 39);
+            this.dateTimePicker2.Size = new System.Drawing.Size(296, 39);
             this.dateTimePicker2.TabIndex = 17;
             // 
             // label23
@@ -1332,9 +1332,10 @@ namespace AttendanceSystemAlpha
             this.panel18.BackColor = System.Drawing.Color.Transparent;
             this.panel18.BackgroundImage = global::AttendanceSystemAlpha.Properties.Resources.BlueBackground;
             this.panel18.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel18.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel18.Location = new System.Drawing.Point(0, 0);
             this.panel18.Name = "panel18";
-            this.panel18.Size = new System.Drawing.Size(167, 100);
+            this.panel18.Size = new System.Drawing.Size(1280, 728);
             this.panel18.TabIndex = 2;
             this.panel18.Click += new System.EventHandler(this.pictureBox1_Click);
             this.panel18.Paint += new System.Windows.Forms.PaintEventHandler(this.panel18_Paint);

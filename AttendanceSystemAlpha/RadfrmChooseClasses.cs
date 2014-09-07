@@ -60,6 +60,7 @@ namespace AttendanceSystemAlpha
             comboBox1.ValueMember = "开课编号";
             this.Height = 328;
             this.Width = 719;
+            
 
         }
 

@@ -78,6 +78,7 @@
             this.radDateTimePicker1.Text = "2014-09-07 13:53";
             this.radDateTimePicker1.ThemeName = "TelerikMetroTouch";
             this.radDateTimePicker1.Value = new System.DateTime(2014, 9, 7, 13, 53, 30, 7);
+            ((Telerik.WinControls.UI.RadDateTimePickerElement)(this.radDateTimePicker1.GetChildAt(0))).CalendarSize = new System.Drawing.Size(300, 300);
             ((Telerik.WinControls.UI.RadDateTimePickerElement)(this.radDateTimePicker1.GetChildAt(0))).Font = new System.Drawing.Font("微软雅黑", 35F);
             // 
             // radButton1
@@ -116,6 +117,7 @@
             // 
             // 
             this.RootElement.ApplyShapeToControl = true;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmChooseDate";
             this.ThemeName = "TelerikMetroTouch";
             this.panel1.ResumeLayout(false);
