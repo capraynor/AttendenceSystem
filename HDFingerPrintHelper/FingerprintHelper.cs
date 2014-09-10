@@ -212,6 +212,7 @@ namespace HDFingerPrintHelper
             {
                 stat = FpGetImage(fpHandlePtr, timeout);
             } while (stat != 0 && stat == 2);
+            FpUpBMPFile(fpHandlePtr, filename, timeout);
             if (stat != 0) return stat;
             stat =  FpValidTempleteNum(fpHandlePtr, ref FingerprintNumbers, timeout); // 获取总数
             if (stat != 0) return stat;

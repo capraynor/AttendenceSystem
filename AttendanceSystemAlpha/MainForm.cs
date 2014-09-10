@@ -141,6 +141,7 @@ namespace AttendanceSystemAlpha
             //  }
             this.Visible = true;
             SetMngControlInvisible();
+            panel19.Visible = panel22.Visible = false;
         }
 
 
@@ -173,7 +174,12 @@ namespace AttendanceSystemAlpha
 
         private void radButton1_Click(object sender, EventArgs e)
         {
-            toolStripOperationStatus.Text = "已结束点名";
+            if (DateTime.Compare(dateTimePicker2.Value, DateTime.Now.AddMinutes(15)) <= 0)
+            {
+                toolStripOperationStatus.Text = "未做任何更改";
+            }
+
+            
 
             DataTable ClassStatusTable = frmChooseClasses._chooseClassBriefcase.FindTable("ClassStatus");
             // todo manangement
@@ -205,6 +211,7 @@ namespace AttendanceSystemAlpha
             ContinueOpration = false;
             HDFingerprintHelper.FpCloseUsb(FpHandle);
             lbStudentName.Text = "已结束点名";
+            panel19.Visible = panel22.Visible = false;
 
         }
         //todo:获取datatable并上传
@@ -502,6 +509,7 @@ namespace AttendanceSystemAlpha
             toolStripOperationStatus.Text = "开始点名";
             rbtnStartcall.Enabled = false;
             radButton1.Enabled = true;
+            panel19.Visible = panel22.Visible = true; // 设置信息区域可见
             //**********饼图*********//
 
             List<string> xData = new List<string>() { "实到", "未到" };
@@ -513,7 +521,6 @@ namespace AttendanceSystemAlpha
             this.lbYdrs.Text = frmChooseClasses.DmTable.Rows.Count.ToString();
             this.lbSdrs.Text = "0";
             this.lbMngDkpercent.Text = "0.00%";
-            DateTimePicker1.Enabled = true;
             ContinueOpration = true;
             //选择上课时间
             FrmChooseDate frmChooseDate = new FrmChooseDate(preparedTime.Value);
@@ -609,8 +616,6 @@ namespace AttendanceSystemAlpha
         {
             while (ContinueOpration)
             {
-               
-
                 DataTable classTable = propertieBriefcase.FindTable("ClassNameTable"); // 班级表
                 int sdrs = 0;
                 int dkrs = 0;
@@ -619,9 +624,10 @@ namespace AttendanceSystemAlpha
                 string XSID = "";
                 string xsName = "";
                 byte[] xszpBytes = null;
-                if (DateTime.Compare(dateTimePicker2.Value, DateTime.Now.AddMinutes(15)) <= 0) continue;
+                
                 nRet =  HDFingerprintHelper.StartVerify(FpHandle, "fingerprint.bmp", ref  FingerprinterVerifyID, ref  FingerprinterScore,
                    3000); // 新的指纹仪验证语句 如果没有检测到指纹 返回值为9 即没有搜索到指纹
+                if (File.Exists("fingerprint.bmp")) SetControlPropertyThreadSafe(pboxPhoto, "Image", new object[] { Image.FromFile("fingerprint.bmp") });
                 DataRow[] xsidRows;
                 DataRow[] dmRows;
                 DataRow[] xkRows;
@@ -640,6 +646,14 @@ namespace AttendanceSystemAlpha
                     dmRows.First().BeginEdit();
                     //dmRows.First()["DMSJ1"] = DateTime.Now; //Convert.ToInt16(1);
 
+                    
+                    if (DateTime.Compare(dateTimePicker2.Value, DateTime.Now.AddMinutes(15)) <= 0)
+                    {
+                        dmRows.First().EndEdit();
+                        SetControlPropertyThreadSafe(lbStudentName , "Text" , new object[]{"还未到点名时间"});
+                        continue;
+                        
+                    }
                     if (dmRows.First()["DMSJ1"] == DBNull.Value || (Convert.ToDateTime(dmRows.First()["DMSJ1"]) > DateTime.Now))
                     {
                         dmRows.First()["DMSJ1"] = DateTime.Now;
@@ -657,7 +671,6 @@ namespace AttendanceSystemAlpha
                         //lbDczt.Text = "迟到";
                         SetControlPropertyThreadSafe(lbDczt, "Text", new object[] { "迟到" });
                     }
-                    
                     dmRows.First().EndEdit();
 
                     //briefcase.RemoveTable(GlobalParams.SKNO); //briefcase直接addtable 代表更新
@@ -764,7 +777,7 @@ namespace AttendanceSystemAlpha
                     //lbDcsj.Text = "";
                     SetControlPropertyThreadSafe(lbDcsj, "Text", new object[] { "" });
                     //pboxPhoto.Image = Properties.Resources.attendance_list_icon;
-                    SetControlPropertyThreadSafe(pboxPhoto, "Image", new object[] { Properties.Resources.attendance_list_icon });
+                    //SetControlPropertyThreadSafe(pboxPhoto, "Image", new object[] { Properties.Resources.attendance_list_icon });
                 }
             }
             SetControlPropertyThreadSafe(lbStudentName, "Text", new object[] { "已结束点名" });
