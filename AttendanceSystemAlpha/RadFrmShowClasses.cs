@@ -50,7 +50,8 @@ namespace AttendanceSystemAlpha
         {
             offlinePasswd.ShowDialog(); //获得离线密码
             ListBox.SelectedObjectCollection checkedToDownload = listBox1.SelectedItems;
-            ____fDataModule.ServerToBriefcase(Properties.Settings.Default.CurrentDownloadPasswd, checkedToDownload);
+            ____fDataModule.ServerToBrief
+                (Properties.Settings.Default.CurrentDownloadPasswd, checkedToDownload);
         }
     }
 }

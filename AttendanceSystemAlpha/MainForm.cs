@@ -129,17 +129,18 @@ namespace AttendanceSystemAlpha
             chart2.Series[0].Points.DataBindXY(xData, yData);
             //***********饼图*********//
             
-            if (this.WindowState == FormWindowState.Maximized)
-              {        
-                 this.WindowState = FormWindowState.Normal;
-              }
-            else
-              {
-                 this.FormBorderStyle = FormBorderStyle.None;
-                 this.MaximumSize = new Size(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
-                 this.WindowState = FormWindowState.Maximized;
-              }
+            //if (this.WindowState == FormWindowState.Maximized)
+            //  {        
+            //     this.WindowState = FormWindowState.Normal;
+            //  }
+            //else
+            //  {
+            //     this.FormBorderStyle = FormBorderStyle.None;
+            //     this.MaximumSize = new Size(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
+            //     this.WindowState = FormWindowState.Maximized;
+            //  }
             this.Visible = true;
+            SetMngControlInvisible();
         }
 
 
@@ -163,6 +164,7 @@ namespace AttendanceSystemAlpha
                     {
                         _mngPropertieBriefcase = new FileBriefcase(Properties.Settings.Default.PropertiesBriefcaseFolder, true);
                         _mngPropertiesTable = _mngPropertieBriefcase.FindTable("PropertiesTable");
+                        
                     }
                     
                     break;
@@ -202,6 +204,7 @@ namespace AttendanceSystemAlpha
             pboxPhoto.Image = Properties.Resources.attendance_list_icon;
             ContinueOpration = false;
             HDFingerprintHelper.FpCloseUsb(FpHandle);
+            lbStudentName.Text = "已结束点名";
 
         }
         //todo:获取datatable并上传
@@ -361,13 +364,13 @@ namespace AttendanceSystemAlpha
                 //mngSKtable = _chooseClassBriefcase.FindTable() // todo update sktable 点名方式 早退人数
                 long _skno = JieCi;
                 fDataModule.GetSktableQueryUpload(_skno);
-                if (!fDataModule.Context.SKTABLE_07_VIEW.Any()) // 选择 sktable需要上传的那一列
+                if (!fDataModule.Context.SKTABLE_07.Any()) // 选择 sktable需要上传的那一列
                 {
                     throw new Exception("数据库异常 找不到该教师的相关信息 \n请重试或者联系管理员");
                 }
 
                 //rowSktable07:需要上传的那一列
-                SKTABLE_07_VIEW rowSktable07 = fDataModule.Context.SKTABLE_07_VIEW.First();
+                SKTABLE_07 rowSktable07 = fDataModule.Context.SKTABLE_07.First();
                 rowSktable07.EDITDATE = DateTime.Now;
                 //rowSktable07.DMFS = Convert.ToInt16(2);
                 rowSktable07.EDITMANNO = Convert.ToDecimal(fDataModule.GetUserID());
@@ -397,8 +400,6 @@ namespace AttendanceSystemAlpha
 
                 DataTable mngClassStatusTable = mngchooseClassBriefcase.FindTable("ClassStatus");
                 
-                        
-                
                 DataRow mngClassStatusRow = mngClassStatusTable.Select("Table编号 = '" + rowSktable07.SKNO + "'")
                         .First();
                     
@@ -410,7 +411,6 @@ namespace AttendanceSystemAlpha
 
                 lbMngOfflineStatus.Text = "数据提交成功";
                 toolStripOperationStatus.Text = "数据提交成功";
-
 
             }
             catch (Exception exception)
@@ -442,7 +442,7 @@ namespace AttendanceSystemAlpha
 
         private void rbtnStartcall_Click_1(object sender, EventArgs e)
         {
-            
+            toolStripOperationStatus.Text = "开始点名";
             if (!Directory.Exists(string.Format(Properties.Settings.Default.OfflineFolder, "")) || System.IO.Directory.GetFiles(string.Format(Properties.Settings.Default.OfflineFolder, "")).Length == 0)
             {
                 MessageBox.Show("没有离线数据 请先下载离线数据");
@@ -478,7 +478,7 @@ namespace AttendanceSystemAlpha
             foreach (DataRow dataRows in xkTable.Rows.Cast<DataRow>().Where(dataRows => dataRows["ZW2"] != DBNull.Value))
             {
                 //FingerHelper.AddFingerprintTemplate(dataRows["ZW1"].ToString(), axZKFPEngX1, _buffDatabaseNum, fingerID);
-                MessageBox.Show(dataRows["ZW2"].ToString());
+                //MessageBox.Show(dataRows["ZW2"].ToString());
                 HDFingerprintHelper.Download1Fingerprint(FpHandle, dataRows["ZW2"].ToString(), fingerId); // 下载一条指纹字符串到指纹仪中
 
                 try
@@ -515,6 +515,19 @@ namespace AttendanceSystemAlpha
             this.lbMngDkpercent.Text = "0.00%";
             DateTimePicker1.Enabled = true;
             ContinueOpration = true;
+            //选择上课时间
+            FrmChooseDate frmChooseDate = new FrmChooseDate(preparedTime.Value);
+            frmChooseDate.ShowDialog();
+            if (frmChooseDate.isChanged)
+            {
+                DateTimePicker1.Value = frmChooseDate.dt;
+                frmChooseDate.Close();
+            }
+            else
+            {
+                frmChooseDate.Close();
+            }
+            //选择上课时间
             Thread verifyThread = new Thread(VerifyFingerprint);
             verifyThread.IsBackground = true;
             verifyThread.Start();
@@ -541,7 +554,8 @@ namespace AttendanceSystemAlpha
             
             radButton2.Enabled = true;
             mngSKtable = mngchooseClassBriefcase.FindTable("SKTABLE");
-            dateTimePicker2.Enabled = true;
+            
+            SetMngControlVisible();
         }
 
         
@@ -605,7 +619,7 @@ namespace AttendanceSystemAlpha
                 string XSID = "";
                 string xsName = "";
                 byte[] xszpBytes = null;
-                
+                if (DateTime.Compare(dateTimePicker2.Value, DateTime.Now.AddMinutes(15)) <= 0) continue;
                 nRet =  HDFingerprintHelper.StartVerify(FpHandle, "fingerprint.bmp", ref  FingerprinterVerifyID, ref  FingerprinterScore,
                    3000); // 新的指纹仪验证语句 如果没有检测到指纹 返回值为9 即没有搜索到指纹
                 DataRow[] xsidRows;
@@ -613,12 +627,12 @@ namespace AttendanceSystemAlpha
                 DataRow[] xkRows;
 
                 classTime = DateTimePicker1.Value;
-                 xsidRows = xsidTable.Select("指纹识别号 like '%" + FingerprinterVerifyID.ToString() + "%'");
+                 xsidRows = xsidTable.Select("指纹识别号 = '" + FingerprinterVerifyID.ToString() + "'");
                 if (nRet == 0 )
                 {
 
                     XSID = xsidRows.First()["学生学号"].ToString();
-                    dmRows = dmTable.Select("XSID like '%" + XSID + "%'");
+                    dmRows = dmTable.Select("XSID = '" + XSID + "'");
 
                     // Briefcase briefcase =
                     // new FileBriefcase(string.Format(Properties.Settings.Default.OfflineFolder, cbboxClassname.SelectedValue), true);
@@ -643,6 +657,7 @@ namespace AttendanceSystemAlpha
                         //lbDczt.Text = "迟到";
                         SetControlPropertyThreadSafe(lbDczt, "Text", new object[] { "迟到" });
                     }
+                    
                     dmRows.First().EndEdit();
 
                     //briefcase.RemoveTable(GlobalParams.SKNO); //briefcase直接addtable 代表更新
@@ -659,7 +674,7 @@ namespace AttendanceSystemAlpha
                     sdrs = CountArriveSudentNumber(dmTable) + CountLateStudentNumber(dmTable);
 
                     //显示信息
-                    xkRows = xkTable.Select("XSID like '%" + XSID + "%'");
+                    xkRows = xkTable.Select("XSID = '" + XSID + "'");
 
                     DataRow bjRow = classTable.Select("BJID = '" + xkRows.First()["BJID"].ToString() + "'").First();
 
@@ -712,7 +727,7 @@ namespace AttendanceSystemAlpha
                     //chart1.Series[0].Points.DataBindXY(xData, yData);
                     //SetControlPropertyThreadSafe(chart1, "Series[0].Points.DataBindXY"  , new object[]{xData , yData} );
                     chart1.Invoke((MethodInvoker) delegate { chart1.Series[0].Points.DataBindXY(xData, yData); });
-
+                    HDFingerprintHelper.LiftUrFinger(FpHandle , 5000);
                     //***********饼图*********//
                 }
                 else if (nRet == 9)
@@ -752,6 +767,7 @@ namespace AttendanceSystemAlpha
                     SetControlPropertyThreadSafe(pboxPhoto, "Image", new object[] { Properties.Resources.attendance_list_icon });
                 }
             }
+            SetControlPropertyThreadSafe(lbStudentName, "Text", new object[] { "已结束点名" });
         }
         public static void SetControlPropertyThreadSafe(Control control, string propertyName, object[] propertyValue)
         {
@@ -773,17 +789,30 @@ namespace AttendanceSystemAlpha
 
         private void DateTimePicker1_MouseUp(object sender, MouseEventArgs e)
         {
-            FrmChooseDate frmChooseDate = new FrmChooseDate();
-            frmChooseDate.ShowDialog();
-            if (frmChooseDate.isChanged)
-            {
-                DateTimePicker1.Value = frmChooseDate.dt;
-                frmChooseDate.Close();
-            }
-            else
-            {
-                frmChooseDate.Close();
-            }
+            
+        }
+
+        /// <summary>
+        /// 将数据管理控件设置为不可见
+        /// </summary>
+        private void SetMngControlInvisible()
+        {
+            lbMngDkpercent.Text = "";
+            PnMngClassInfo.Visible = false;
+            mngGridView.Visible = false;
+        }
+        /// <summary>
+        /// 将数据管理控件设置为可见
+        /// </summary>
+        private void SetMngControlVisible()
+        {
+            PnMngClassInfo.Visible = true;
+            mngGridView.Visible = true;
+        }
+
+        private void SetRollCallControlInvisible()
+        {
+
         }
     }
 }

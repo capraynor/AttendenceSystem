@@ -66,8 +66,8 @@ namespace AttendanceSystemAlpha
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_propertiesTable.Select("开课编号 like '" + comboBox1.SelectedValue + "'").Length == 0) return;
-            TeacherName = _propertiesTable.Select("开课编号 like '" + comboBox1.SelectedValue + "'").First()["教师姓名"].ToString();
+            if (_propertiesTable.Select("开课编号 = '" + comboBox1.SelectedValue + "'").Length == 0) return;
+            TeacherName = _propertiesTable.Select("开课编号 = '" + comboBox1.SelectedValue + "'").First()["教师姓名"].ToString();
             //教师姓名
             _chooseClassBriefcase = new FileBriefcase(string.Format(Properties.Settings.Default.OfflineFolder, comboBox1.SelectedValue), true);
 

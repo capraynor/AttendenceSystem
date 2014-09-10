@@ -34,10 +34,14 @@
             this.radDateTimePicker1 = new Telerik.WinControls.UI.RadDateTimePicker();
             this.radButton1 = new Telerik.WinControls.UI.RadButton();
             this.radButton2 = new Telerik.WinControls.UI.RadButton();
+            this.radDateTimePicker2 = new Telerik.WinControls.UI.RadDateTimePicker();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radDateTimePicker1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButton2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radDateTimePicker2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,7 +53,7 @@
             this.panel1.Font = new System.Drawing.Font("微软雅黑", 21.75F);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(560, 77);
+            this.panel1.Size = new System.Drawing.Size(792, 77);
             this.panel1.TabIndex = 0;
             // 
             // label2
@@ -57,7 +61,7 @@
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("微软雅黑", 30F);
-            this.label2.Location = new System.Drawing.Point(161, 14);
+            this.label2.Location = new System.Drawing.Point(277, 14);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(223, 52);
             this.label2.TabIndex = 17;
@@ -69,10 +73,10 @@
             this.radDateTimePicker1.CustomFormat = "yyyy-MM-dd HH:mm";
             this.radDateTimePicker1.Font = new System.Drawing.Font("宋体", 15F);
             this.radDateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.radDateTimePicker1.Location = new System.Drawing.Point(35, 122);
+            this.radDateTimePicker1.Location = new System.Drawing.Point(292, 220);
             this.radDateTimePicker1.Name = "radDateTimePicker1";
             this.radDateTimePicker1.ShowUpDown = true;
-            this.radDateTimePicker1.Size = new System.Drawing.Size(494, 72);
+            this.radDateTimePicker1.Size = new System.Drawing.Size(477, 72);
             this.radDateTimePicker1.TabIndex = 19;
             this.radDateTimePicker1.TabStop = false;
             this.radDateTimePicker1.Text = "2014-09-07 13:53";
@@ -84,7 +88,7 @@
             // radButton1
             // 
             this.radButton1.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Bold);
-            this.radButton1.Location = new System.Drawing.Point(212, 218);
+            this.radButton1.Location = new System.Drawing.Point(447, 322);
             this.radButton1.Name = "radButton1";
             this.radButton1.Size = new System.Drawing.Size(154, 49);
             this.radButton1.TabIndex = 20;
@@ -95,18 +99,62 @@
             // 
             this.radButton2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.radButton2.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Bold);
-            this.radButton2.Location = new System.Drawing.Point(380, 218);
+            this.radButton2.Location = new System.Drawing.Point(615, 322);
             this.radButton2.Name = "radButton2";
             this.radButton2.Size = new System.Drawing.Size(154, 49);
             this.radButton2.TabIndex = 21;
             this.radButton2.Text = "取    消";
             this.radButton2.Click += new System.EventHandler(this.radButton2_Click);
             // 
+            // radDateTimePicker2
+            // 
+            this.radDateTimePicker2.CalendarSize = new System.Drawing.Size(300, 300);
+            this.radDateTimePicker2.CustomFormat = "yyyy-MM-dd HH:mm";
+            this.radDateTimePicker2.Enabled = false;
+            this.radDateTimePicker2.Font = new System.Drawing.Font("宋体", 15F);
+            this.radDateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.radDateTimePicker2.Location = new System.Drawing.Point(292, 111);
+            this.radDateTimePicker2.Name = "radDateTimePicker2";
+            this.radDateTimePicker2.ShowUpDown = true;
+            this.radDateTimePicker2.Size = new System.Drawing.Size(477, 72);
+            this.radDateTimePicker2.TabIndex = 22;
+            this.radDateTimePicker2.TabStop = false;
+            this.radDateTimePicker2.Text = "2014-09-07 13:53";
+            this.radDateTimePicker2.ThemeName = "TelerikMetroTouch";
+            this.radDateTimePicker2.Value = new System.DateTime(2014, 9, 7, 13, 53, 30, 7);
+            ((Telerik.WinControls.UI.RadDateTimePickerElement)(this.radDateTimePicker2.GetChildAt(0))).CalendarSize = new System.Drawing.Size(300, 300);
+            ((Telerik.WinControls.UI.RadDateTimePickerElement)(this.radDateTimePicker2.GetChildAt(0))).Font = new System.Drawing.Font("微软雅黑", 35F);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("微软雅黑", 30F);
+            this.label1.Location = new System.Drawing.Point(18, 119);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(263, 52);
+            this.label1.TabIndex = 23;
+            this.label1.Text = "预定上课时间";
+            // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("微软雅黑", 30F);
+            this.label3.Location = new System.Drawing.Point(18, 228);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(263, 52);
+            this.label3.TabIndex = 24;
+            this.label3.Text = "实际上课时间";
+            // 
             // FrmChooseDate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(560, 309);
+            this.ClientSize = new System.Drawing.Size(792, 412);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.radDateTimePicker2);
             this.Controls.Add(this.radButton1);
             this.Controls.Add(this.radButton2);
             this.Controls.Add(this.radDateTimePicker1);
@@ -120,11 +168,13 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmChooseDate";
             this.ThemeName = "TelerikMetroTouch";
+            this.Load += new System.EventHandler(this.FrmChooseDate_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radDateTimePicker1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButton1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButton2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radDateTimePicker2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -139,5 +189,8 @@
         private Telerik.WinControls.UI.RadDateTimePicker radDateTimePicker1;
         private Telerik.WinControls.UI.RadButton radButton1;
         private Telerik.WinControls.UI.RadButton radButton2;
+        private Telerik.WinControls.UI.RadDateTimePicker radDateTimePicker2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label3;
     }
 }

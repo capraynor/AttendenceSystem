@@ -104,11 +104,11 @@ namespace AttendenceSystem_Alp
 
         public void GetSktableQueryUpload(long skno)
         {
-            IQueryable<SKTABLE_07_VIEW> sktable07S =
+            IQueryable<SKTABLE_07> sktable07S =
                 from c in
-                    this.remoteDataAdapter.GetTable<SKTABLE_07_VIEW>()where c.SKNO == skno
+                    this.remoteDataAdapter.GetTable<SKTABLE_07>()where c.SKNO == skno
                 select c;
-            this.Context.SKTABLE_07_VIEW = sktable07S.ToList();
+            this.Context.SKTABLE_07 = sktable07S.ToList();
         }
         public void GetSktableQuery(long kkno)
         {
@@ -125,7 +125,14 @@ namespace AttendenceSystem_Alp
         /// </summary>
         /// <param name="offlinePasswd"></param>
         /// <param name="checkedItem"></param>
-        public int ServerToBriefcase(string offlinePasswd, CheckedListBox.SelectedObjectCollection checkedItem)
+        public int ServerToBrief
+            
+            
+            
+            
+            
+            
+            (string offlinePasswd, CheckedListBox.SelectedObjectCollection checkedItem)
         {
            
             
@@ -260,7 +267,7 @@ namespace AttendenceSystem_Alp
             remoteDataAdapter.UpdateRow(dmRows);
         }
 
-        public void UpdateSktable(SKTABLE_07_VIEW skRows)
+        public void UpdateSktable(SKTABLE_07 skRows)
         {
             remoteDataAdapter.UpdateRow(skRows);
         }
@@ -420,7 +427,7 @@ namespace AttendenceSystem_Alp
         }
         public void ApplyChanges()
         {
-            this.remoteDataAdapter.ApplyChanges();
+            remoteDataAdapter.ApplyChanges();
         }
     }
 }
