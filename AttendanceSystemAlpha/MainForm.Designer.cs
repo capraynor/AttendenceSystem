@@ -60,12 +60,15 @@ namespace AttendanceSystemAlpha
             this.radButton1 = new Telerik.WinControls.UI.RadButton();
             this.panel13 = new System.Windows.Forms.Panel();
             this.gboxClassmsg = new System.Windows.Forms.GroupBox();
+            this.panel22 = new System.Windows.Forms.Panel();
             this.preparedTime = new System.Windows.Forms.DateTimePicker();
-            this.lbClassLocation = new System.Windows.Forms.Label();
-            this.lbTeacherName = new System.Windows.Forms.Label();
-            this.lbCallTimes = new System.Windows.Forms.Label();
-            this.lbCallMethod = new System.Windows.Forms.Label();
             this.lbClassName = new System.Windows.Forms.Label();
+            this.lbTeacherName = new System.Windows.Forms.Label();
+            this.lbClassLocation = new System.Windows.Forms.Label();
+            this.panel19 = new System.Windows.Forms.Panel();
+            this.DateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.lbCallMethod = new System.Windows.Forms.Label();
+            this.lbCallTimes = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.lbCname = new System.Windows.Forms.Label();
@@ -73,7 +76,6 @@ namespace AttendanceSystemAlpha
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.DateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.panel14 = new System.Windows.Forms.Panel();
             this.gboxStudentMsg = new System.Windows.Forms.GroupBox();
             this.lbDcsj = new System.Windows.Forms.Label();
@@ -145,8 +147,6 @@ namespace AttendanceSystemAlpha
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel18 = new System.Windows.Forms.Panel();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.panel19 = new System.Windows.Forms.Panel();
-            this.panel22 = new System.Windows.Forms.Panel();
             this.pnHead.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -167,6 +167,8 @@ namespace AttendanceSystemAlpha
             ((System.ComponentModel.ISupportInitialize)(this.radButton1)).BeginInit();
             this.panel13.SuspendLayout();
             this.gboxClassmsg.SuspendLayout();
+            this.panel22.SuspendLayout();
+            this.panel19.SuspendLayout();
             this.panel14.SuspendLayout();
             this.gboxStudentMsg.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxPhoto)).BeginInit();
@@ -192,8 +194,6 @@ namespace AttendanceSystemAlpha
             this.panel17.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.statusStrip1.SuspendLayout();
-            this.panel19.SuspendLayout();
-            this.panel22.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -399,6 +399,7 @@ namespace AttendanceSystemAlpha
             // radButton1
             // 
             this.radButton1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.radButton1.Enabled = false;
             this.radButton1.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.radButton1.Location = new System.Drawing.Point(24, 119);
             this.radButton1.Name = "radButton1";
@@ -436,6 +437,17 @@ namespace AttendanceSystemAlpha
             this.gboxClassmsg.TabStop = false;
             this.gboxClassmsg.Text = "课程信息";
             // 
+            // panel22
+            // 
+            this.panel22.Controls.Add(this.preparedTime);
+            this.panel22.Controls.Add(this.lbClassName);
+            this.panel22.Controls.Add(this.lbTeacherName);
+            this.panel22.Controls.Add(this.lbClassLocation);
+            this.panel22.Location = new System.Drawing.Point(154, 26);
+            this.panel22.Name = "panel22";
+            this.panel22.Size = new System.Drawing.Size(275, 169);
+            this.panel22.TabIndex = 36;
+            // 
             // preparedTime
             // 
             this.preparedTime.CustomFormat = "yyyy-MM-dd HH:mm";
@@ -447,16 +459,16 @@ namespace AttendanceSystemAlpha
             this.preparedTime.Size = new System.Drawing.Size(212, 34);
             this.preparedTime.TabIndex = 34;
             // 
-            // lbClassLocation
+            // lbClassName
             // 
-            this.lbClassLocation.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lbClassLocation.AutoSize = true;
-            this.lbClassLocation.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbClassLocation.Location = new System.Drawing.Point(8, 131);
-            this.lbClassLocation.Name = "lbClassLocation";
-            this.lbClassLocation.Size = new System.Drawing.Size(120, 27);
-            this.lbClassLocation.TabIndex = 33;
-            this.lbClassLocation.Text = "                  ";
+            this.lbClassName.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbClassName.AutoSize = true;
+            this.lbClassName.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbClassName.Location = new System.Drawing.Point(8, 7);
+            this.lbClassName.Name = "lbClassName";
+            this.lbClassName.Size = new System.Drawing.Size(120, 27);
+            this.lbClassName.TabIndex = 28;
+            this.lbClassName.Text = "                  ";
             // 
             // lbTeacherName
             // 
@@ -469,16 +481,40 @@ namespace AttendanceSystemAlpha
             this.lbTeacherName.TabIndex = 32;
             this.lbTeacherName.Text = "                  ";
             // 
-            // lbCallTimes
+            // lbClassLocation
             // 
-            this.lbCallTimes.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lbCallTimes.AutoSize = true;
-            this.lbCallTimes.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbCallTimes.Location = new System.Drawing.Point(3, 132);
-            this.lbCallTimes.Name = "lbCallTimes";
-            this.lbCallTimes.Size = new System.Drawing.Size(24, 27);
-            this.lbCallTimes.TabIndex = 31;
-            this.lbCallTimes.Text = "1";
+            this.lbClassLocation.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbClassLocation.AutoSize = true;
+            this.lbClassLocation.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbClassLocation.Location = new System.Drawing.Point(8, 131);
+            this.lbClassLocation.Name = "lbClassLocation";
+            this.lbClassLocation.Size = new System.Drawing.Size(120, 27);
+            this.lbClassLocation.TabIndex = 33;
+            this.lbClassLocation.Text = "                  ";
+            // 
+            // panel19
+            // 
+            this.panel19.Controls.Add(this.DateTimePicker1);
+            this.panel19.Controls.Add(this.lbCallMethod);
+            this.panel19.Controls.Add(this.lbCallTimes);
+            this.panel19.Location = new System.Drawing.Point(599, 30);
+            this.panel19.Name = "panel19";
+            this.panel19.Size = new System.Drawing.Size(232, 172);
+            this.panel19.TabIndex = 35;
+            // 
+            // DateTimePicker1
+            // 
+            this.DateTimePicker1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.DateTimePicker1.CalendarFont = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.DateTimePicker1.CustomFormat = "yyyy-MM-dd HH:mm";
+            this.DateTimePicker1.Enabled = false;
+            this.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.DateTimePicker1.Location = new System.Drawing.Point(3, 42);
+            this.DateTimePicker1.Name = "DateTimePicker1";
+            this.DateTimePicker1.ShowUpDown = true;
+            this.DateTimePicker1.Size = new System.Drawing.Size(216, 34);
+            this.DateTimePicker1.TabIndex = 17;
+            this.DateTimePicker1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DateTimePicker1_MouseUp);
             // 
             // lbCallMethod
             // 
@@ -491,16 +527,16 @@ namespace AttendanceSystemAlpha
             this.lbCallMethod.TabIndex = 30;
             this.lbCallMethod.Text = "指纹点名";
             // 
-            // lbClassName
+            // lbCallTimes
             // 
-            this.lbClassName.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lbClassName.AutoSize = true;
-            this.lbClassName.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbClassName.Location = new System.Drawing.Point(8, 7);
-            this.lbClassName.Name = "lbClassName";
-            this.lbClassName.Size = new System.Drawing.Size(120, 27);
-            this.lbClassName.TabIndex = 28;
-            this.lbClassName.Text = "                  ";
+            this.lbCallTimes.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbCallTimes.AutoSize = true;
+            this.lbCallTimes.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbCallTimes.Location = new System.Drawing.Point(3, 132);
+            this.lbCallTimes.Name = "lbCallTimes";
+            this.lbCallTimes.Size = new System.Drawing.Size(24, 27);
+            this.lbCallTimes.TabIndex = 31;
+            this.lbCallTimes.Text = "1";
             // 
             // label16
             // 
@@ -578,20 +614,6 @@ namespace AttendanceSystemAlpha
             this.label2.Size = new System.Drawing.Size(152, 27);
             this.label2.TabIndex = 16;
             this.label2.Text = "实际授课时间：";
-            // 
-            // DateTimePicker1
-            // 
-            this.DateTimePicker1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.DateTimePicker1.CalendarFont = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.DateTimePicker1.CustomFormat = "yyyy-MM-dd HH:mm";
-            this.DateTimePicker1.Enabled = false;
-            this.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.DateTimePicker1.Location = new System.Drawing.Point(3, 42);
-            this.DateTimePicker1.Name = "DateTimePicker1";
-            this.DateTimePicker1.ShowUpDown = true;
-            this.DateTimePicker1.Size = new System.Drawing.Size(216, 34);
-            this.DateTimePicker1.TabIndex = 17;
-            this.DateTimePicker1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DateTimePicker1_MouseUp);
             // 
             // panel14
             // 
@@ -949,7 +971,7 @@ namespace AttendanceSystemAlpha
             this.mngGridView.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.mngGridView.Location = new System.Drawing.Point(0, 0);
             // 
-            // mngGridView
+            // 
             // 
             this.mngGridView.MasterTemplate.AllowAddNewRow = false;
             this.mngGridView.MasterTemplate.AllowCellContextMenu = false;
@@ -1372,7 +1394,7 @@ namespace AttendanceSystemAlpha
             this.panel18.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel18.Location = new System.Drawing.Point(0, 0);
             this.panel18.Name = "panel18";
-            this.panel18.Size = new System.Drawing.Size(389, 100);
+            this.panel18.Size = new System.Drawing.Size(561, 162);
             this.panel18.TabIndex = 2;
             this.panel18.Click += new System.EventHandler(this.pictureBox1_Click);
             this.panel18.Paint += new System.Windows.Forms.PaintEventHandler(this.panel18_Paint);
@@ -1382,27 +1404,6 @@ namespace AttendanceSystemAlpha
             this.backgroundWorker1.WorkerReportsProgress = true;
             this.backgroundWorker1.WorkerSupportsCancellation = true;
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            // 
-            // panel19
-            // 
-            this.panel19.Controls.Add(this.DateTimePicker1);
-            this.panel19.Controls.Add(this.lbCallMethod);
-            this.panel19.Controls.Add(this.lbCallTimes);
-            this.panel19.Location = new System.Drawing.Point(599, 30);
-            this.panel19.Name = "panel19";
-            this.panel19.Size = new System.Drawing.Size(232, 172);
-            this.panel19.TabIndex = 35;
-            // 
-            // panel22
-            // 
-            this.panel22.Controls.Add(this.preparedTime);
-            this.panel22.Controls.Add(this.lbClassName);
-            this.panel22.Controls.Add(this.lbTeacherName);
-            this.panel22.Controls.Add(this.lbClassLocation);
-            this.panel22.Location = new System.Drawing.Point(154, 26);
-            this.panel22.Name = "panel22";
-            this.panel22.Size = new System.Drawing.Size(275, 169);
-            this.panel22.TabIndex = 36;
             // 
             // MainForm
             // 
@@ -1446,6 +1447,10 @@ namespace AttendanceSystemAlpha
             this.panel13.ResumeLayout(false);
             this.gboxClassmsg.ResumeLayout(false);
             this.gboxClassmsg.PerformLayout();
+            this.panel22.ResumeLayout(false);
+            this.panel22.PerformLayout();
+            this.panel19.ResumeLayout(false);
+            this.panel19.PerformLayout();
             this.panel14.ResumeLayout(false);
             this.gboxStudentMsg.ResumeLayout(false);
             this.gboxStudentMsg.PerformLayout();
@@ -1477,10 +1482,6 @@ namespace AttendanceSystemAlpha
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.panel19.ResumeLayout(false);
-            this.panel19.PerformLayout();
-            this.panel22.ResumeLayout(false);
-            this.panel22.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 

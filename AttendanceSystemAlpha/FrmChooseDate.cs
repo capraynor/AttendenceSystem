@@ -18,6 +18,7 @@ namespace AttendanceSystemAlpha
         {
             InitializeComponent();
             _pDateTime = preparedTime;
+            radDateTimePicker1.Value = DateTime.Now;
         }
 
         private void radButton1_Click(object sender, EventArgs e)

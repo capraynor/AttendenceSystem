@@ -267,6 +267,8 @@
     <Content Include="agent.ico" />
     <Content Include="attendance_list_icon.ico" />
     <Content Include="Properties\App.ico" />
+    <None Include="Resources\beepSuccess.wav" />
+    <None Include="Resources\beepFail.wav" />
     <None Include="Resources\BlueBackground.png" />
     <None Include="Resources\title.png" />
     <None Include="Resources\BlueBackground1.png" />
