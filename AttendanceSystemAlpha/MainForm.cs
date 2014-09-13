@@ -351,31 +351,43 @@ namespace AttendanceSystemAlpha
         {            
             try
             {
+                
                 loginForm.ShowDialog();
                 if (!loginForm.IsLogin()) return;
+                ProgressHelper.StartProgressThread();
+                int __count = mngdmTable.Rows.Count;
+                int i = 0;
                 foreach (DataRow dr in mngdmTable.Rows)
                 {
+                    dr.BeginEdit();
                     dr["POSTDATE"] = DateTime.Now;
                     dr["POSTMANNO"] = Convert.ToDecimal(fDataModule.GetUserID());
+                    dr.EndEdit();
+                    
+                    
+                    ProgressHelper.SetProgress((int) (20*(++i/__count)));
                 }
+                ProgressHelper.SetProgress(20);//progress:  0-20
                 var dmtableList = EnumerableExtension.ToList<DMTABLE_08_NOPIC_VIEW>(mngdmTable);
                 mngchooseClassBriefcase.AddTable(OfflineHelper.TableListToDataTable(dmtableList,JieCi.ToString()));
+                i = 0;
                 foreach (var dmtable08 in dmtableList)
                 {
                     fDataModule.UpdateDmtable(dmtable08); // dmtable update完成
+                    ProgressHelper.SetProgress(20+ (int) (70*(++i/__count)));
                 }
                 fDataModule.ApplyChanges(); // ceshi
-                
+                ProgressHelper.SetProgress(90);
                 //mngSKtable = _chooseClassBriefcase.FindTable() // todo update sktable 点名方式 早退人数
                 long _skno = JieCi;
                 fDataModule.GetSktableQueryUpload(_skno);
-                if (!fDataModule.Context.SKTABLE_07.Any()) // 选择 sktable需要上传的那一列
+                if (!fDataModule.Context.SKTABLE_07_VIEW.Any()) // 选择 sktable需要上传的那一列
                 {
                     throw new Exception("数据库异常 找不到该教师的相关信息 \n请重试或者联系管理员");
                 }
 
                 //rowSktable07:需要上传的那一列
-                SKTABLE_07 rowSktable07 = fDataModule.Context.SKTABLE_07.First();
+                SKTABLE_07_VIEW rowSktable07 = fDataModule.Context.SKTABLE_07_VIEW.First();
                 rowSktable07.EDITDATE = DateTime.Now;
                 //rowSktable07.DMFS = Convert.ToInt16(2);
                 rowSktable07.EDITMANNO = Convert.ToDecimal(fDataModule.GetUserID());
@@ -401,6 +413,7 @@ namespace AttendanceSystemAlpha
                         mngSKtable.Select("SKNO = '" + rowSktable07.SKNO.ToString() + "'").First()["SKDATE"]);
 
                 fDataModule.UpdateSktable(rowSktable07); // sktable 提交完成
+                ProgressHelper.SetProgress(95);
                 fDataModule.ApplyChanges();//提交更改
 
                 DataTable mngClassStatusTable = mngchooseClassBriefcase.FindTable("ClassStatus");
@@ -413,7 +426,9 @@ namespace AttendanceSystemAlpha
                 mngClassStatusRow.EndEdit();
                 mngchooseClassBriefcase.AddTable(mngClassStatusTable);
                 mngchooseClassBriefcase.WriteBriefcase();
-
+                ProgressHelper.SetProgress(100);
+                ProgressHelper.StopProgressThread();
+                ProgressHelper.SetProgress(0);
                 lbMngOfflineStatus.Text = "数据提交成功";
                 toolStripOperationStatus.Text = "数据提交成功";
                 MessageBox.Show("数据提交成功");
@@ -421,6 +436,8 @@ namespace AttendanceSystemAlpha
             }
             catch (Exception exception)
             {
+                ProgressHelper.StopProgressThread();
+                ProgressHelper.SetProgress(0);
                 lbMngOfflineStatus.Text = "数据提交失败 请将以下信息提供给管理员：" +exception.Message;
                 MessageBox.Show(exception.Message);
                 return;
@@ -444,6 +461,13 @@ namespace AttendanceSystemAlpha
             {
                 frmShowClasses.ShowDialog();
             }
+            if (!File.Exists(Properties.Settings.Default.PropertiesBriefcaseFolder)) return;
+            Briefcase ____briefcase = new FileBriefcase(Properties.Settings.Default.PropertiesBriefcaseFolder, true);
+            DataTable ____datatable = ____briefcase.FindTable("PropertiesTable");
+            lboxClassName.DataSource = ____datatable;
+            this.lboxClassName.DisplayMember = "开课名称";
+            lboxClassName.ValueMember = "开课编号";
+            
         }
 
         private void rbtnStartcall_Click_1(object sender, EventArgs e)
@@ -611,6 +635,7 @@ namespace AttendanceSystemAlpha
 
         private void panel18_Paint(object sender, PaintEventArgs e)
         {
+            if (!File.Exists(Properties.Settings.Default.PropertiesBriefcaseFolder)) return;
             Briefcase ____briefcase = new FileBriefcase(Properties.Settings.Default.PropertiesBriefcaseFolder, true);
             DataTable ____datatable = ____briefcase.FindTable("PropertiesTable");
             lboxClassName.DataSource = ____datatable;

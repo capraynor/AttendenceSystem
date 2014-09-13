@@ -4,7 +4,7 @@
   <Domain>AttendanceSystem</Domain>
   <Schema>PC</Schema>
   <Server>
-    <Name>USER-98GQDEK4QP</Name>
+    <Name>RISETKT-PC</Name>
     <ServerUri>http://localhost:7099/bin</ServerUri>
   </Server>
   <DataLogin>1</DataLogin>

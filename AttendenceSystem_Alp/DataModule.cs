@@ -104,11 +104,12 @@ namespace AttendenceSystem_Alp
 
         public void GetSktableQueryUpload(long skno)
         {
-            IQueryable<SKTABLE_07> sktable07S =
+            IQueryable<SKTABLE_07_VIEW> sktable07S =
                 from c in
-                    this.remoteDataAdapter.GetTable<SKTABLE_07>()where c.SKNO == skno
+                    this.remoteDataAdapter.GetTable<SKTABLE_07_VIEW>()
+                where c.SKNO == skno
                 select c;
-            this.Context.SKTABLE_07 = sktable07S.ToList();
+            this.Context.SKTABLE_07_VIEW = sktable07S.ToList();
         }
         public void GetSktableQuery(long kkno)
         {
@@ -125,40 +126,56 @@ namespace AttendenceSystem_Alp
         /// </summary>
         /// <param name="offlinePasswd"></param>
         /// <param name="checkedItem"></param>
-        public int ServerToBrief
-            
-            
-            
-            
-            
-            
+        public int ServerToBriefcase
             (string offlinePasswd, CheckedListBox.SelectedObjectCollection checkedItem)
         {
            
             
             int i = 0;// 你懂的0,0
+            
             foreach (var jsandkktable05S in this.Context.JSANDKKVIEWRO)
             {
-                bool flag = false;
-                foreach (JSANDKKVIEWRO jsandkkItem in checkedItem)
+                try
                 {
-                    flag = (jsandkktable05S.KKNO == jsandkkItem.KKNO);
+                    bool flag = false;
+                    foreach (JSANDKKVIEWRO jsandkkItem in checkedItem)
+                    {
+                        flag = (jsandkktable05S.KKNO == jsandkkItem.KKNO);
+                    }
+                    if (!flag) continue; // 判断该课程是否选中
+                    if (
+                        !File.Exists(
+                            string.Format(GlobalParams.CurrentOfflineDataFile, jsandkktable05S.KKNO.ToString()) +
+                            ".daBriefcase"))
+                    {
+                        StartDownloadData(jsandkktable05S, offlinePasswd);
+                        i++;
+                    }
+                    else
+                    {
+                        DialogResult dr =
+                            MessageBox.Show("课程“" + jsandkktable05S.KKNAME + "”的离线数据存在，要刷新离线数据吗？\n未提交的更改将会被删除",
+                                "刷新本地离线数据", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                        if (dr != DialogResult.OK) continue;
+                        DialogResult dr2 = MessageBox.Show("真的确定吗，未提交的数据将被永久删除", "刷新本地离线数据", MessageBoxButtons.OKCancel,
+                            MessageBoxIcon.Question);
+                        if (dr2 != DialogResult.OK) continue;
+                        File.Delete(
+                            string.Format(GlobalParams.CurrentOfflineDataFile, jsandkktable05S.KKNO.ToString()) +
+                            ".daBriefcase");
+                        StartDownloadData(jsandkktable05S, offlinePasswd);
+                        i++;
+                    }
                 }
-                if (!flag) continue; // 判断该课程是否选中
-                if (!File.Exists(string.Format(GlobalParams.CurrentOfflineDataFile, jsandkktable05S.KKNO.ToString()) + ".daBriefcase"))
+                catch (Exception exception)
                 {
-                    StartDownloadData(jsandkktable05S, offlinePasswd);
-                    i++;
+                    ProgressHelper.StopProgressThread();
+                    ProgressHelper.SetProgress(0);
+                    MessageBox.Show(exception.Message);
                 }
-                else
+                finally
                 {
-                    DialogResult dr = MessageBox.Show("课程“" + jsandkktable05S.KKNAME + "”的离线数据存在，要刷新离线数据吗？\n未提交的更改将会被删除", "刷新本地离线数据", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-                    if (dr != DialogResult.OK) continue;
-                    DialogResult dr2 = MessageBox.Show("真的确定吗，未提交的数据将被永久删除", "刷新本地离线数据", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-                    if (dr2 != DialogResult.OK) continue;
-                    File.Delete(string.Format(GlobalParams.CurrentOfflineDataFile, jsandkktable05S.KKNO.ToString()) + ".daBriefcase");
-                    StartDownloadData(jsandkktable05S, offlinePasswd);
-                    i++;
+                    ProgressHelper.StopProgressThread();
                 }
             }
             //判断班级表是否被下载 如果没下载 下载
@@ -180,6 +197,7 @@ namespace AttendenceSystem_Alp
 
         public bool StartDownloadData(JSANDKKVIEWRO kktable05, string offlinePasswd) // 一门开课课程
         {
+            ProgressHelper.StartProgressThread();
             Briefcase newBriefcase = new FileBriefcase(string.Format(GlobalParams.CurrentOfflineDataFile, kktable05.KKNO.ToString()));
 
             DataTable classRecordTable = null;
@@ -212,8 +230,12 @@ namespace AttendenceSystem_Alp
                 select c;
 
             newBriefcase.AddTable(OfflineHelper.TableListToDataTable(sktableView1s.ToList(), "SKTABLE"));  // 将SKTABLE离线出来 带出每节课的课程信息
+            //百分之五
+            ProgressHelper.SetProgress(20);
+            
             foreach (var sktableView1 in sktableView1s)
             {
+                Properties.Settings.Default.ProgressValue += 2;
                 IQueryable<DMTABLE_08_NOPIC_VIEW> dmtable08S =
                     from c in
                         remoteDataAdapter.GetTable<DMTABLE_08_NOPIC_VIEW>()where  c.SKNO == sktableView1.SKNO
@@ -226,6 +248,7 @@ namespace AttendenceSystem_Alp
                 classRecordRow[3] = GlobalParams.NotSubmitYet;
                 classRecordTable.Rows.Add(classRecordRow);
             }
+            ProgressHelper.SetProgress(80);
             newBriefcase.AddTable(classRecordTable); // briefcase里有几个table
             newBriefcase.WriteBriefcase();
             Briefcase propertiesBriefcase = new FileBriefcase(GlobalParams.PropertiesBriefcaseName, true);
@@ -249,10 +272,14 @@ namespace AttendenceSystem_Alp
             {
                 propertiesTable.Rows.Add(propertiesRow);
             }
+            ProgressHelper.SetProgress(90);
             propertiesBriefcase.RemoveTable("PropertiesTable");
 
             propertiesBriefcase.AddTable(propertiesTable);
             propertiesBriefcase.WriteBriefcase();
+            ProgressHelper.SetProgress(100);
+            ProgressHelper.StopProgressThread();
+            ProgressHelper.SetProgress(0);
             MessageBox.Show(string.Format("操作成功 课程 【{0}】 已被下载 ", kktable05.KKNAME));
             return true;
         }
@@ -267,7 +294,7 @@ namespace AttendenceSystem_Alp
             remoteDataAdapter.UpdateRow(dmRows);
         }
 
-        public void UpdateSktable(SKTABLE_07 skRows)
+        public void UpdateSktable(SKTABLE_07_VIEW skRows)
         {
             remoteDataAdapter.UpdateRow(skRows);
         }

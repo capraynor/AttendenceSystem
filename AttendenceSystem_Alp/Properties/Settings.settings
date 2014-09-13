@@ -23,5 +23,8 @@
     <Setting Name="ServerUrl" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://172.16.120.87:7099/bin/</Value>
     </Setting>
+    <Setting Name="ProgressValue" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

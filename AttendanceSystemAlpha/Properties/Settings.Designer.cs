@@ -202,5 +202,14 @@ namespace AttendanceSystemAlpha.Properties {
                 this["CurrentDownloadPasswd"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int OperationProgess {
+            get {
+                return ((int)(this["OperationProgess"]));
+            }
+        }
     }
 }

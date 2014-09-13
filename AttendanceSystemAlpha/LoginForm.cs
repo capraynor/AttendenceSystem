@@ -44,6 +44,7 @@ namespace AttendanceSystemAlpha
                 {
                     lbMsg.BackColor = Color.LightBlue;
                     Hide();
+                    
                 }
                 else
                 {
