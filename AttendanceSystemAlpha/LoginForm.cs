@@ -38,7 +38,7 @@ namespace AttendanceSystemAlpha
             {
                 _fDataModule.SetUserID(tboxUsername.Text);
                 _fDataModule.SetPasswd(tboxPasswd.Text);
-                _fDataModule.SetUp(_fDataModule.GetServerUrl());
+                _fDataModule.SetUp(Properties.Settings.Default.ServerUrl);
                 isLogin = _fDataModule.login();
                 if (isLogin)
                 {

@@ -256,7 +256,7 @@ namespace AttendanceSystemAlpha
             this.mainPageView.Font = new System.Drawing.Font("微软雅黑", 27.75F, System.Drawing.FontStyle.Bold);
             this.mainPageView.Location = new System.Drawing.Point(0, 0);
             this.mainPageView.Name = "mainPageView";
-            this.mainPageView.SelectedPage = this.viewpageCall;
+            this.mainPageView.SelectedPage = this.viewpageLoadData;
             this.mainPageView.Size = new System.Drawing.Size(1280, 577);
             this.mainPageView.TabIndex = 0;
             this.mainPageView.ThemeName = "TelerikMetro";
@@ -1392,9 +1392,10 @@ namespace AttendanceSystemAlpha
             this.panel18.BackColor = System.Drawing.Color.Transparent;
             this.panel18.BackgroundImage = global::AttendanceSystemAlpha.Properties.Resources.BlueBackground;
             this.panel18.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel18.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel18.Location = new System.Drawing.Point(0, 0);
             this.panel18.Name = "panel18";
-            this.panel18.Size = new System.Drawing.Size(561, 162);
+            this.panel18.Size = new System.Drawing.Size(1280, 728);
             this.panel18.TabIndex = 2;
             this.panel18.Click += new System.EventHandler(this.pictureBox1_Click);
             this.panel18.Paint += new System.Windows.Forms.PaintEventHandler(this.panel18_Paint);
