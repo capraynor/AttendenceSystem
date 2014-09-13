@@ -472,12 +472,14 @@ namespace AttendanceSystemAlpha
 
         private void rbtnStartcall_Click_1(object sender, EventArgs e)
         {
-            toolStripOperationStatus.Text = "开始点名";
+            
             if (!Directory.Exists(string.Format(Properties.Settings.Default.OfflineFolder, "")) || System.IO.Directory.GetFiles(string.Format(Properties.Settings.Default.OfflineFolder, "")).Length == 0)
             {
                 MessageBox.Show("没有离线数据 请先下载离线数据");
                 return;
             }
+            toolStripOperationStatus.Text = "开始点名";
+            lbStudentName.Text = "开始点名";
             frmChooseClasses.ShowDialog(); // 获得各种信息 弹窗 
             if (!frmChooseClasses.flag) return;
             dmTable = frmChooseClasses.DmTable;
@@ -512,17 +514,23 @@ namespace AttendanceSystemAlpha
             }
             //选择上课时间
             xkTable = frmChooseClasses._chooseClassBriefcase.FindTable("XKTABLE_VIEW1");
+            ProgressHelper.StartProgressThread();
             while ((FpHandle = HDFingerprintHelper.FpOpenUsb(0xFFFFFFFF, 1000)) == IntPtr.Zero)
             {
                 
             }// 初始化指纹仪
+            
             uint16_t fingerId = 0;
             nRet =  HDFingerprintHelper.FpEmpty(FpHandle, 0); // 清空指纹仪
             if (nRet != 0)
             {
+                ProgressHelper.StopProgressThread();
                 MessageBox.Show("指纹仪初始化失败 错误代码:" + nRet.ToString());
                 return;
             }
+            ProgressHelper.SetProgress(10);
+            int __count = xkTable.Rows.Count;
+            int i = 0;
             foreach (DataRow dataRows in xkTable.Rows.Cast<DataRow>().Where(dataRows => dataRows["ZW2"] != DBNull.Value))
             {
                 //FingerHelper.AddFingerprintTemplate(dataRows["ZW1"].ToString(), axZKFPEngX1, _buffDatabaseNum, fingerID);
@@ -541,6 +549,7 @@ namespace AttendanceSystemAlpha
                 {
                     MessageBox.Show(exception.Message);
                 }
+                ProgressHelper.SetProgress((int)(80 * (++i / __count)));
             }
             lbTeacherName.Text = frmChooseClasses.TeacherName;
             lbClassName.Text = frmChooseClasses.ClassName;
@@ -566,8 +575,11 @@ namespace AttendanceSystemAlpha
             Thread verifyThread = new Thread(VerifyFingerprint);
             verifyThread.IsBackground = true;
             verifyThread.Start();
+            ProgressHelper.SetProgress(100);
+            
             radButton1.Enabled = true;
             rbtnStartcall.Enabled = false;
+            ProgressHelper.StopProgressThread();
         }
 
         private void rbtnMngShowInformation_Click(object sender, EventArgs e)
@@ -658,7 +670,7 @@ namespace AttendanceSystemAlpha
                 
                 nRet =  HDFingerprintHelper.StartVerify(FpHandle, "fingerprint.bmp", ref  FingerprinterVerifyID, ref  FingerprinterScore,
                    3000); // 新的指纹仪验证语句 如果没有检测到指纹 返回值为9 即没有搜索到指纹
-
+                
                 if (File.Exists("fingerprint.bmp"))
                 {
                     FileStream fs = new FileStream("fingerprint.bmp", FileMode.Open, FileAccess.Read, FileShare.Read);
@@ -884,11 +896,6 @@ namespace AttendanceSystemAlpha
         {
             PnMngClassInfo.Visible = true;
             mngGridView.Visible = true;
-        }
-
-        private void SetRollCallControlInvisible()
-        {
-
         }
     }
 }

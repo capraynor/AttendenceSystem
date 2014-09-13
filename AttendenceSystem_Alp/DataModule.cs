@@ -199,7 +199,7 @@ namespace AttendenceSystem_Alp
         {
             ProgressHelper.StartProgressThread();
             Briefcase newBriefcase = new FileBriefcase(string.Format(GlobalParams.CurrentOfflineDataFile, kktable05.KKNO.ToString()));
-
+            ProgressHelper.SetProgress(5); // 进度 百分之5
             DataTable classRecordTable = null;
             DataRow classRecordRow = null;
             classRecordTable = new DataTable("ClassStatus");
@@ -212,15 +212,18 @@ namespace AttendenceSystem_Alp
             }
             newBriefcase.Properties.Add(GlobalParams.PropertiesLastModified, DateTime.Now.ToString());
             newBriefcase.Properties.Add(GlobalParams.PropertiesTeacherName, Properties.Settings.Default.UserName);
+            ProgressHelper.SetProgress(6); // 进度 百分之6
             newBriefcase.Properties.Add(GlobalParams.PropertiesTeacherID, Properties.Settings.Default.UserId);
             newBriefcase.Properties.Add(GlobalParams.PropertiesPasswd, offlinePasswd);
             newBriefcase.Properties.Add(GlobalParams.PropertiesClassName, kktable05.KKNAME);
             newBriefcase.Properties.Add(GlobalParams.PropertiesLastCheckin, "1");
+            ProgressHelper.SetProgress(10); //进度 百分之10
             newBriefcase.Properties.Add(GlobalParams.PropertiesTotalStudentNumber, kktable05.XXRS.ToString());
             IQueryable<XKTABLE_VIEWRO> xktableView1s =
                 from c in
                     remoteDataAdapter.GetTable<XKTABLE_VIEWRO>() where c.KKNO == kktable05.KKNO
                 select c;
+            ProgressHelper.SetProgress(20);//进度 百分之15
 
             newBriefcase.AddTable(OfflineHelper.TableListToDataTable(xktableView1s.ToList(), "XKTABLE_VIEW1")); // 将XKTABLE离线出来 带出学生信息
 
@@ -228,9 +231,9 @@ namespace AttendenceSystem_Alp
                 from c in
                     remoteDataAdapter.GetTable<SKTABLE_07_VIEW>() where  c.KKNO == kktable05.KKNO
                 select c;
-
+            //进度 百分之二十
             newBriefcase.AddTable(OfflineHelper.TableListToDataTable(sktableView1s.ToList(), "SKTABLE"));  // 将SKTABLE离线出来 带出每节课的课程信息
-            //百分之五
+            //百分之20
             ProgressHelper.SetProgress(20);
             
             foreach (var sktableView1 in sktableView1s)
