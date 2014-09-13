@@ -51,12 +51,6 @@ namespace AttendenceSystem_Alp
         {
             return Properties.Settings.Default.ServerUrl;
         }
-
-        public void SetUrl(string serverUrl)
-        {
-            Properties.Settings.Default.ServerUrl = serverUrl;
-        }
-
         public string getTeacherName()
         {
             return Properties.Settings.Default.UserName;

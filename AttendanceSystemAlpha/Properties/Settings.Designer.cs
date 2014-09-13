@@ -23,63 +23,48 @@ namespace AttendanceSystemAlpha.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string UserId {
             get {
                 return ((string)(this["UserId"]));
             }
-            set {
-                this["UserId"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string Password {
             get {
                 return ((string)(this["Password"]));
             }
-            set {
-                this["Password"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool StorePassword {
             get {
                 return ((bool)(this["StorePassword"]));
             }
-            set {
-                this["StorePassword"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("AttendanceSystem")]
         public string Domain {
             get {
                 return ((string)(this["Domain"]));
             }
-            set {
-                this["Domain"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("PC")]
         public string Schema {
             get {
                 return ((string)(this["Schema"]));
-            }
-            set {
-                this["Schema"] = value;
             }
         }
         
@@ -203,12 +188,15 @@ namespace AttendanceSystemAlpha.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int OperationProgess {
             get {
                 return ((int)(this["OperationProgess"]));
+            }
+            set {
+                this["OperationProgess"] = value;
             }
         }
     }

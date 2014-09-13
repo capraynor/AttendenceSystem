@@ -113,8 +113,25 @@ namespace AttendanceSystemAlpha
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+           
             this.Visible = false;
-            fDataModule.setServerURL(Properties.Settings.Default.ServerUrl);
+            //平板和笔记本的区别
+            //if (this.WindowState == FormWindowState.Maximized)
+            //{
+            //    this.WindowState = FormWindowState.Normal;
+            //}
+            //else
+            //{
+            //    this.FormBorderStyle = FormBorderStyle.None;
+            //    this.MaximumSize = new Size(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
+            //    this.WindowState = FormWindowState.Maximized;
+            //}
+            //平板和笔记本的区别
+
+            string __serverUrl = File.ReadAllText(@"ServerUrl.txt");
+            
+            fDataModule.setServerURL(__serverUrl);
+            Properties.Settings.Default.ServerUrl = __serverUrl;
             loginForm = new LoginForm(fDataModule);
             frmShowClasses = new RadFrmShowClasses(fDataModule);
             frmChooseClasses = new RadfrmChooseClasses();
@@ -143,7 +160,6 @@ namespace AttendanceSystemAlpha
             this.Visible = true;
             SetMngControlInvisible();
             panel19.Visible = panel22.Visible = false;
-            fDataModule.setServerURL(Properties.Settings.Default.ServerUrl);
         }
 
 

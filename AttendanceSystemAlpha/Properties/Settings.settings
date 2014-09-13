@@ -2,19 +2,19 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AttendanceSystemAlpha.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="UserId" Type="System.String" Scope="User">
+    <Setting Name="UserId" Type="System.String" Scope="Application">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="Password" Type="System.String" Scope="User">
+    <Setting Name="Password" Type="System.String" Scope="Application">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="StorePassword" Type="System.Boolean" Scope="User">
+    <Setting Name="StorePassword" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="Domain" Type="System.String" Scope="User">
+    <Setting Name="Domain" Type="System.String" Scope="Application">
       <Value Profile="(Default)">AttendanceSystem</Value>
     </Setting>
-    <Setting Name="Schema" Type="System.String" Scope="User">
+    <Setting Name="Schema" Type="System.String" Scope="Application">
       <Value Profile="(Default)">PC</Value>
     </Setting>
     <Setting Name="ServerUrl" Type="System.String" Scope="User">
@@ -47,7 +47,7 @@
     <Setting Name="CurrentDownloadPasswd" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="OperationProgess" Type="System.Int32" Scope="Application">
+    <Setting Name="OperationProgess" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
