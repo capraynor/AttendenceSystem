@@ -122,6 +122,7 @@ namespace AttendanceSystemAlpha
         {
             ClassDate = Convert.ToDateTime(cbboxJieCi.Text);
             Jieci = Convert.ToInt64(cbboxJieCi.SelectedValue);
+            radButton1.Enabled = true;
         }
 
         private void radButton2_Click(object sender, EventArgs e)

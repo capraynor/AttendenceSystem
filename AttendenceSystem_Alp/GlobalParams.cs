@@ -1,6 +1,6 @@
 ﻿namespace AttendenceSystem_Alp
 {
-    class GlobalParams
+    public class GlobalParams
     {
         public static string SqlitePath = "H:\\working\\软件学院实验室\\C#\\AttendenceSystem\\AttendenceSystem\\bin\\RollCallSystem.db";
         public static string RelativityUrl = "172.20.0.112:7099/bin";

@@ -13,10 +13,20 @@ namespace AttendanceSystemAlpha
         {
             return isLogin;
         }
-        public LoginForm(DataModule fDataModule)
+        public LoginForm(DataModule fDataModule , string username = "NotSpecificatedYet")
         {
             InitializeComponent();
-            this._fDataModule = fDataModule;
+            _fDataModule = fDataModule;
+            if ("NotSpecificatedYet" != username)
+            {
+                tboxUsername.Text = username;
+                tboxUsername.Enabled = false;
+            }
+            else
+            {
+                tboxUsername.Enabled = true;
+            }
+
         }
 
         private void rbtnCancel_Click(object sender, EventArgs e)
@@ -25,6 +35,8 @@ namespace AttendanceSystemAlpha
             tboxPasswd.Text = "";
             tboxUsername.Text = "";
             lbMsg.BackColor = Color.LightBlue;
+            
+            
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
@@ -40,21 +52,24 @@ namespace AttendanceSystemAlpha
                 _fDataModule.SetPasswd(tboxPasswd.Text);
                 _fDataModule.SetUp(Properties.Settings.Default.ServerUrl);
                 isLogin = _fDataModule.login();
-                if (isLogin)
-                {
-                    lbMsg.BackColor = Color.LightBlue;
-                    Hide();
-                    
-                }
-                else
-                {
-                    this.lbMsg.BackColor = Color.Red;
-                    MessageBox.Show("用户名或密码错误");
-                }
+                
             }
             catch (Exception exception)
             {
                 MessageBox.Show("出现一个错误.请将以下信息提供给管理员\n" + exception.Message);
+                return;
+            }
+
+
+            if (isLogin)
+            {
+                lbMsg.BackColor = Color.LightBlue;
+                Hide();
+            }
+            else
+            {
+                this.lbMsg.BackColor = Color.Red;
+                MessageBox.Show("用户名或密码错误");
             }
         }
 

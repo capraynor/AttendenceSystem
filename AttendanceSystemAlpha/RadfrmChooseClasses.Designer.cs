@@ -152,6 +152,7 @@
             // 
             // radButton1
             // 
+            this.radButton1.Enabled = false;
             this.radButton1.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Bold);
             this.radButton1.Location = new System.Drawing.Point(386, 208);
             this.radButton1.Name = "radButton1";

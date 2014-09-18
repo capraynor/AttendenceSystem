@@ -19,6 +19,7 @@ using HDFingerPrintHelper;
 using RemObjects.DataAbstract;
 using RemObjects.DataAbstract.Linq;
 using Helpers;
+using RemObjects.Script.EcmaScript;
 using Telerik.WinControls.UI;
 //数据类型 C#-> C++
 using FP_HANDLE = System.IntPtr;
@@ -55,6 +56,7 @@ namespace AttendanceSystemAlpha
         private DataTable _mngPropertiesTable;
         private Briefcase _mngPropertieBriefcase;
         private DateTime classTime;
+        private string jsid = "";
         
         private string mngTeacherName;
         private string mngCurrentPasswd;
@@ -132,7 +134,7 @@ namespace AttendanceSystemAlpha
             
             fDataModule.setServerURL(__serverUrl);
             Properties.Settings.Default.ServerUrl = __serverUrl;
-            loginForm = new LoginForm(fDataModule);
+            
             frmShowClasses = new RadFrmShowClasses(fDataModule);
             frmChooseClasses = new RadfrmChooseClasses();
             this.Width = 1280;
@@ -226,27 +228,8 @@ namespace AttendanceSystemAlpha
             panel19.Visible = panel22.Visible = false;
             radButton1.Enabled = false;
             rbtnStartcall.Enabled = true;
-
+            
         }
-        //todo:获取datatable并上传
-        /// <summary>
-        /// 上传数据
-        /// </summary>
-        /// <param name="fDataModule">datamodule</param>
-        /// <param name="dmTable">要传入的DMtable 从briefcase中获取</param>
-        /// <param name="skno">上课编号 用于更新 sKTABLE</param>
-        /// <param name="postmanno">提交人员编号</param>
-        //public static void UploadData(DataModule fDataModule, DataTable dmTable, long skno, Decimal postmanno)
-        //{
-        //    foreach (DMTABLE_08 dmtableRows in EnumerableExtension.ToList<DMTABLE_08>(dmTable))
-        //    {
-        //        dmtableRows.POSTDATE = DateTime.Now;
-        //        dmtableRows.POSTMANNO = postmanno;
-        //        fDataModule.UpdateDmtable(dmtableRows);
-        //    }
-        //    fDataModule.ApplyChanges();
-        //}
-
         private static int CountArriveSudentNumber(DataTable dmTable)
         {
             DataRow[] dmRows;
@@ -278,7 +261,7 @@ namespace AttendanceSystemAlpha
 
         private void ShowOfflineInformations()
         {
-            DataTable mngxkTable = null;
+            //DataTable mngxkTable = null;
             DataTable dtResault = new DataTable();
             if (!dtResault.Columns.Contains("到课状态"))
             {
@@ -287,8 +270,8 @@ namespace AttendanceSystemAlpha
                 dtResault.Columns.Add("学号", typeof (string));
                 dtResault.Columns.Add("到课时间", typeof (DateTime));
             }
-           
-            mngxkTable = mngchooseClassBriefcase.FindTable("XKTABLE_VIEW1");//从briefcase中将选课表拉出来
+
+            //mngxkTable = mngchooseClassBriefcase.FindTable("XKTABLE_VIEW1");//从briefcase中将选课表拉出来
             //mngGridView.DataSource = mngdmTable;
             int _studentTotal = 0;
             int _sdrs = 0;
@@ -337,17 +320,7 @@ namespace AttendanceSystemAlpha
 
                 dtResault.Rows.Add(resaultRow);
             }
-
-            //foreach (DataRow resaultRow in dtResault.Rows)
-            //{
-            //    DataRow[] xktableRows =  mngxkTable.Select("XSID like '%" + Convert.ToString(resaultRow["学号"]) + "%'");
-            //    if (xktableRows.Any())
-            //    {
-            //        resaultRow.BeginEdit();
-            //        resaultRow["姓名"] = xktableRows.First()["XSNAME"].ToString();
-            //        resaultRow.EndEdit();
-            //    }
-            //}
+           
             mngGridView.DataSource = dtResault;
             lbMngOfflineStatus.Text = "未提交";
             //**********饼图*********//
@@ -367,7 +340,7 @@ namespace AttendanceSystemAlpha
         {            
             try
             {
-                
+                loginForm = new LoginForm(fDataModule , jsid); // todo get userID
                 loginForm.ShowDialog();
                 if (!loginForm.IsLogin()) return;
                 ProgressHelper.StartProgressThread();
@@ -448,6 +421,8 @@ namespace AttendanceSystemAlpha
                 lbMngOfflineStatus.Text = "数据提交成功";
                 toolStripOperationStatus.Text = "数据提交成功";
                 MessageBox.Show("数据提交成功");
+                jsid = "";
+                loginForm.Close();
 
             }
             catch (Exception exception)
@@ -472,6 +447,7 @@ namespace AttendanceSystemAlpha
 
         private void radButton5_Click(object sender, EventArgs e)
         {
+            loginForm = new LoginForm(fDataModule);
             loginForm.ShowDialog(); // 登录
             if (loginForm.IsLogin())   // 判断登录结果
             {
@@ -483,6 +459,7 @@ namespace AttendanceSystemAlpha
             lboxClassName.DataSource = ____datatable;
             this.lboxClassName.DisplayMember = "开课名称";
             lboxClassName.ValueMember = "开课编号";
+            loginForm.Close();
             
         }
 
@@ -608,7 +585,8 @@ namespace AttendanceSystemAlpha
             mngClassName = frmChooseClasses.ClassName;
             dateTimePicker2.Value = frmChooseClasses.ClassDate;
             mngchooseClassBriefcase = frmChooseClasses._chooseClassBriefcase;
-            ShowOfflineInformations();
+            jsid = mngchooseClassBriefcase.Properties[GlobalParams.PropertiesTeacherID]; // 获取教师工号 用于上传登录
+            ShowOfflineInformations(); // 离线数据显示
             mngGridView.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;
             mngGridView.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;
             //*********以上测试良好 ****************//
@@ -912,6 +890,7 @@ namespace AttendanceSystemAlpha
         {
             PnMngClassInfo.Visible = true;
             mngGridView.Visible = true;
+            
         }
     }
 }
