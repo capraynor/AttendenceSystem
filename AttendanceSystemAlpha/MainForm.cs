@@ -589,6 +589,7 @@ namespace AttendanceSystemAlpha
             ShowOfflineInformations(); // 离线数据显示
             mngGridView.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;
             mngGridView.AutoSizeColumnsMode = GridViewAutoSizeColumnsMode.Fill;
+            mngGridView.Columns["到课时间"].Width = 75;
             //*********以上测试良好 ****************//
             lbMngTeacherName.Text = mngTeacherName;
             lbMngClassName.Text = mngClassName;
