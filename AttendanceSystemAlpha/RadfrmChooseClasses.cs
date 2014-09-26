@@ -92,6 +92,17 @@ namespace AttendanceSystemAlpha
                 cbboxJieCi.DisplayMember = "SKDATE";
                 cbboxJieCi.ValueMember = "SKNO";
                 cbboxJieCi.DataSource = skTable;
+                DateTime __NearestDate = DateTime.MinValue;
+                TimeSpan classSpan = TimeSpan.MaxValue;
+                foreach (System.Data.DataRowView itemsRow in cbboxJieCi.Items)
+                {
+                    if (classSpan > ((DateTime)itemsRow["SKDATE"] - DateTime.Now) && ((DateTime)itemsRow["SKDATE"]).Date == DateTime.Now.Date)
+                    {
+                        classSpan = (DateTime) itemsRow["SKDATE"] - DateTime.Now;
+                        cbboxJieCi.SelectedItem = itemsRow;
+                    }
+                }
+                classSpan = TimeSpan.MaxValue;
                 
                 //cbboxCallWay.Text = "指纹点名";
                 //tboxClassplace.Text = "明德楼 D0505";

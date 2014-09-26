@@ -147,6 +147,7 @@ namespace AttendanceSystemAlpha
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel18 = new System.Windows.Forms.Panel();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.radButton4 = new Telerik.WinControls.UI.RadButton();
             this.pnHead.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -194,6 +195,7 @@ namespace AttendanceSystemAlpha
             this.panel17.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radButton4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -377,6 +379,7 @@ namespace AttendanceSystemAlpha
             // 
             // panel12
             // 
+            this.panel12.Controls.Add(this.radButton4);
             this.panel12.Controls.Add(this.rbtnStartcall);
             this.panel12.Controls.Add(this.radButton1);
             this.panel12.Dock = System.Windows.Forms.DockStyle.Right;
@@ -391,7 +394,7 @@ namespace AttendanceSystemAlpha
             this.rbtnStartcall.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.rbtnStartcall.Location = new System.Drawing.Point(24, 21);
             this.rbtnStartcall.Name = "rbtnStartcall";
-            this.rbtnStartcall.Size = new System.Drawing.Size(161, 89);
+            this.rbtnStartcall.Size = new System.Drawing.Size(161, 56);
             this.rbtnStartcall.TabIndex = 20;
             this.rbtnStartcall.Text = "开始点名";
             this.rbtnStartcall.Click += new System.EventHandler(this.rbtnStartcall_Click_1);
@@ -401,9 +404,9 @@ namespace AttendanceSystemAlpha
             this.radButton1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.radButton1.Enabled = false;
             this.radButton1.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.radButton1.Location = new System.Drawing.Point(24, 120);
+            this.radButton1.Location = new System.Drawing.Point(24, 92);
             this.radButton1.Name = "radButton1";
-            this.radButton1.Size = new System.Drawing.Size(161, 89);
+            this.radButton1.Size = new System.Drawing.Size(161, 56);
             this.radButton1.TabIndex = 6;
             this.radButton1.Text = "结束点名";
             this.radButton1.Click += new System.EventHandler(this.radButton1_Click);
@@ -968,7 +971,7 @@ namespace AttendanceSystemAlpha
             // 
             this.mngGridView.AutoSizeRows = true;
             this.mngGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mngGridView.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mngGridView.Font = new System.Drawing.Font("微软雅黑", 10F);
             this.mngGridView.Location = new System.Drawing.Point(0, 0);
             // 
             // mngGridView
@@ -1392,10 +1395,9 @@ namespace AttendanceSystemAlpha
             this.panel18.BackColor = System.Drawing.Color.Transparent;
             this.panel18.BackgroundImage = global::AttendanceSystemAlpha.Properties.Resources.BlueBackground;
             this.panel18.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel18.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel18.Location = new System.Drawing.Point(0, 0);
             this.panel18.Name = "panel18";
-            this.panel18.Size = new System.Drawing.Size(1281, 730);
+            this.panel18.Size = new System.Drawing.Size(1099, 172);
             this.panel18.TabIndex = 2;
             this.panel18.Click += new System.EventHandler(this.pictureBox1_Click);
             this.panel18.Paint += new System.Windows.Forms.PaintEventHandler(this.panel18_Paint);
@@ -1405,6 +1407,17 @@ namespace AttendanceSystemAlpha
             this.backgroundWorker1.WorkerReportsProgress = true;
             this.backgroundWorker1.WorkerSupportsCancellation = true;
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            // 
+            // radButton4
+            // 
+            this.radButton4.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.radButton4.Enabled = false;
+            this.radButton4.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.radButton4.Location = new System.Drawing.Point(24, 156);
+            this.radButton4.Name = "radButton4";
+            this.radButton4.Size = new System.Drawing.Size(161, 56);
+            this.radButton4.TabIndex = 21;
+            this.radButton4.Text = "手动签到";
             // 
             // MainForm
             // 
@@ -1483,6 +1496,7 @@ namespace AttendanceSystemAlpha
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radButton4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -1599,6 +1613,7 @@ namespace AttendanceSystemAlpha
         private System.Windows.Forms.Panel panel20;
         private System.Windows.Forms.Panel panel22;
         private System.Windows.Forms.Panel panel19;
+        private Telerik.WinControls.UI.RadButton radButton4;
     }
 }
 

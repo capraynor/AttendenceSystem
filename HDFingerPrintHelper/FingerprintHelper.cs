@@ -200,7 +200,7 @@ namespace HDFingerPrintHelper
             byte[] fingerPrintRawData = Convert.FromBase64String(FingerprintString);
             stat =  FpDownChar(fpHandlePtr, 1, fingerPrintRawData, 512, timeout);
             if (stat != 0) return stat;
-            stat =  FpStoreChar(fpHandlePtr, 1, id, timeout);
+            stat =  FpStoreChar(fpHandlePtr, 1, id, 3000);
             return stat;
         }
 

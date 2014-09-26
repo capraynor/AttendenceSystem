@@ -177,7 +177,7 @@ namespace AttendanceSystemAlpha
                     
                     break;
                 case "viewpageDataManagement":
-                    if (!Directory.Exists(string.Format(Properties.Settings.Default.OfflineFolder, "")) || System.IO.Directory.GetFiles(string.Format(Properties.Settings.Default.OfflineFolder, "")).Length == 0)
+                    if (!Directory.Exists(string.Format(Properties.Settings.Default.OfflineFolder, "")) || Directory.GetFiles(string.Format(Properties.Settings.Default.OfflineFolder, "")).Length == 0)
                     {
                         MessageBox.Show("没有离线数据 请先下载离线数据");
                     }
@@ -799,7 +799,7 @@ namespace AttendanceSystemAlpha
 
                     List<string> xData = new List<string>() { "实到", "未到" };
 
-                    List<int> yData = new List<int>() { sdrs, Convert.ToInt32(lbYdrs.Text) };
+                    List<int> yData = new List<int>() { sdrs, Convert.ToInt32(lbYdrs.Text)-sdrs };
                     //chart1.Series[0]["PieLabelStyle"] = "Outside";//将文字移到外侧
                     //chart1.Series[0]["PieLineColor"] = "Black";//绘制黑色的连线。
                     //chart1.Series[0].Points.DataBindXY(xData, yData);
