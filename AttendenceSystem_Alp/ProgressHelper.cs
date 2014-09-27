@@ -34,5 +34,7 @@ namespace AttendenceSystem_Alp
         {
             Properties.Settings.Default.ProgressValue = Value;
         }
+
+        
     }
 }

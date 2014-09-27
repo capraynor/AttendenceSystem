@@ -210,6 +210,12 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ManualRollCall.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManualRollCall.Designer.cs">
+      <DependentUpon>ManualRollCall.cs</DependentUpon>
+    </Compile>
     <Compile Include="OfflinePasswdForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -250,6 +256,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManualRollCall.resx">
+      <DependentUpon>ManualRollCall.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OfflinePasswdForm.resx">
       <DependentUpon>OfflinePasswdForm.cs</DependentUpon>

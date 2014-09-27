@@ -199,5 +199,17 @@ namespace AttendanceSystemAlpha.Properties {
                 this["OperationProgess"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BriefcaseIsBusy {
+            get {
+                return ((bool)(this["BriefcaseIsBusy"]));
+            }
+            set {
+                this["BriefcaseIsBusy"] = value;
+            }
+        }
     }
 }
