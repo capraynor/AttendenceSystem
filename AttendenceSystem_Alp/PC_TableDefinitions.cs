@@ -10,7 +10,7 @@
 
 // #DA Schema Name:"PC"
 // #DA Schema Source:"DataModules1.relativityClient"
-// #DA Skipped Tables:"BJTABLE_09_VIEW,DMTABLE_08_VIEW,DSS_E1_BAS009,DSS_E1_SYS01,DSS_E1_SYS100,DSS_E1_SYS101,DSS_E1_SYS102,DSS_E1_SYS103,DSS_E1_SYS104,DSS_E1_SYS105,DSS_E1_SYS106,DSS_E1_SYS107,DSS_E1_TMP100,JSTABLE_03_VIEW,KCTABLE_04,KKTABLE_05_VIEW,RLSBGROUP_10,RLSBGROUPSTUDENT_11,SKTABLE_07,SKTABLE_07_VIEWRO,XKTABLE_06_VIEW,XSTABLE_01_VIEW,XYTABLE_02"
+// #DA Skipped Tables:"BJTABLE_09_VIEW,DMTABLE_08_VIEW,DSS_E1_BAS009,DSS_E1_SYS01,DSS_E1_SYS100,DSS_E1_SYS101,DSS_E1_SYS102,DSS_E1_SYS103,DSS_E1_SYS104,DSS_E1_SYS105,DSS_E1_SYS106,DSS_E1_SYS107,DSS_E1_TMP100,JSTABLE_03_VIEW,KCTABLE_04,KKTABLE_05_VIEW,RLSBGROUP_10,RLSBGROUPSTUDENT_11,SKTABLE_07_VIEWRO,XKTABLE_06_VIEW,XSTABLE_01_VIEW,XYTABLE_02"
 namespace AttendenceSystem_Alp.PC {
     
     [RemObjects.DataAbstract.Linq.TableName("BJTABLE_09_VIEWRO")]
@@ -1299,11 +1299,12 @@ namespace AttendenceSystem_Alp.PC {
         private System.Nullable<short> f____KKRS;
         private System.Nullable<short> f____ZCRS;
         private System.Nullable<System.DateTime> f____EDITDATE;
-        private System.Nullable<decimal> f____EDITMANNO;
+        private System.Nullable<long> f____EDITMANNO;
         private System.Nullable<System.DateTime> f____XKDATE;
         private System.Nullable<System.DateTime> f____YDSKDATE;
         private System.Nullable<System.DateTime> f____YDXKDATE;
         private string f____DMPASSWORD;
+        private System.Nullable<short> f____SKZT;
         [RemObjects.DataAbstract.Linq.FieldName("SKNO")]
         [RemObjects.DataAbstract.Linq.DataType(RemObjects.DataAbstract.Schema.DataType.LargeInt)]
         [RemObjects.DataAbstract.Linq.PrimaryKey()]
@@ -1482,14 +1483,14 @@ namespace AttendenceSystem_Alp.PC {
             }
         }
         [RemObjects.DataAbstract.Linq.FieldName("EDITMANNO")]
-        [RemObjects.DataAbstract.Linq.DataType(RemObjects.DataAbstract.Schema.DataType.Decimal)]
+        [RemObjects.DataAbstract.Linq.DataType(RemObjects.DataAbstract.Schema.DataType.LargeInt)]
         [RemObjects.DataAbstract.Linq.LogChanges()]
-        public virtual System.Nullable<decimal> EDITMANNO {
+        public virtual System.Nullable<long> EDITMANNO {
             get {
                 return f____EDITMANNO;
             }
             set {
-                if ((System.Collections.Generic.Comparer<System.Nullable<decimal>>.Default.Compare(this.f____EDITMANNO, value) != 0)) {
+                if ((System.Collections.Generic.Comparer<System.Nullable<long>>.Default.Compare(this.f____EDITMANNO, value) != 0)) {
                     this.OnPropertyChanging("EDITMANNO");
                     f____EDITMANNO = value;
                     this.OnPropertyChanged("EDITMANNO");
@@ -1556,6 +1557,21 @@ namespace AttendenceSystem_Alp.PC {
                 }
             }
         }
+        [RemObjects.DataAbstract.Linq.FieldName("SKZT")]
+        [RemObjects.DataAbstract.Linq.DataType(RemObjects.DataAbstract.Schema.DataType.SmallInt)]
+        [RemObjects.DataAbstract.Linq.LogChanges()]
+        public virtual System.Nullable<short> SKZT {
+            get {
+                return f____SKZT;
+            }
+            set {
+                if ((System.Collections.Generic.Comparer<System.Nullable<short>>.Default.Compare(this.f____SKZT, value) != 0)) {
+                    this.OnPropertyChanging("SKZT");
+                    f____SKZT = value;
+                    this.OnPropertyChanged("SKZT");
+                }
+            }
+        }
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
         object System.ICloneable.Clone() {
@@ -1577,6 +1593,7 @@ namespace AttendenceSystem_Alp.PC {
             v____new.f____YDSKDATE = this.f____YDSKDATE;
             v____new.f____YDXKDATE = this.f____YDXKDATE;
             v____new.f____DMPASSWORD = this.f____DMPASSWORD;
+            v____new.f____SKZT = this.f____SKZT;
             return v____new;
         }
         public virtual void BeginUpdate() {
@@ -1584,191 +1601,6 @@ namespace AttendenceSystem_Alp.PC {
         }
         public virtual void EndUpdate(RemObjects.DataAbstract.Linq.LinqDataAdapter dataAdapter) {
             dataAdapter.UpdateRow<SKTABLE_07_VIEW>(this.m____OldValues, this);
-            this.m____OldValues = null;
-        }
-        public virtual void CancelUpdate() {
-            this.m____OldValues = null;
-        }
-        protected virtual void OnPropertyChanging(string parameterName) {
-            if ((this.PropertyChanging != null)) {
-                this.PropertyChanging(this, new System.ComponentModel.PropertyChangingEventArgs(parameterName));
-            }
-        }
-        protected virtual void OnPropertyChanged(string parameterName) {
-            if (((this.PropertyChanged != null) 
-                        && (this.m____OldValues == null))) {
-                this.PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(parameterName));
-            }
-        }
-    }
-    [RemObjects.DataAbstract.Linq.TableName("XSTABLE_01")]
-    public partial class XSTABLE_01 : System.ICloneable, System.ComponentModel.INotifyPropertyChanged, System.ComponentModel.INotifyPropertyChanging {
-        protected XSTABLE_01 m____OldValues;
-        private string f____XSSEX;
-        private System.Nullable<long> f____XYID;
-        private byte[] f____XSZP;
-        private string f____ZW1;
-        private string f____ZW2;
-        private System.Nullable<long> f____BJID;
-        private string f____XSID;
-        private string f____XSNAME;
-        private byte[] f____VOICE;
-        [RemObjects.DataAbstract.Linq.FieldName("XSSEX")]
-        [RemObjects.DataAbstract.Linq.DataType(RemObjects.DataAbstract.Schema.DataType.WideString)]
-        [RemObjects.DataAbstract.Linq.LogChanges()]
-        public virtual string XSSEX {
-            get {
-                return f____XSSEX;
-            }
-            set {
-                if ((System.Collections.Generic.Comparer<string>.Default.Compare(this.f____XSSEX, value) != 0)) {
-                    this.OnPropertyChanging("XSSEX");
-                    f____XSSEX = value;
-                    this.OnPropertyChanged("XSSEX");
-                }
-            }
-        }
-        [RemObjects.DataAbstract.Linq.FieldName("XYID")]
-        [RemObjects.DataAbstract.Linq.DataType(RemObjects.DataAbstract.Schema.DataType.LargeInt)]
-        [RemObjects.DataAbstract.Linq.LogChanges()]
-        public virtual System.Nullable<long> XYID {
-            get {
-                return f____XYID;
-            }
-            set {
-                if ((System.Collections.Generic.Comparer<System.Nullable<long>>.Default.Compare(this.f____XYID, value) != 0)) {
-                    this.OnPropertyChanging("XYID");
-                    f____XYID = value;
-                    this.OnPropertyChanged("XYID");
-                }
-            }
-        }
-        [RemObjects.DataAbstract.Linq.FieldName("XSZP")]
-        [RemObjects.DataAbstract.Linq.DataType(RemObjects.DataAbstract.Schema.DataType.Blob)]
-        [RemObjects.DataAbstract.Linq.LogChanges()]
-        public virtual byte[] XSZP {
-            get {
-                return f____XSZP;
-            }
-            set {
-                if ((RemObjects.DataAbstract.Linq.LinqDataAdapter.CompareBytes(this.f____XSZP, value) != true)) {
-                    this.OnPropertyChanging("XSZP");
-                    f____XSZP = value;
-                    this.OnPropertyChanged("XSZP");
-                }
-            }
-        }
-        [RemObjects.DataAbstract.Linq.FieldName("ZW1")]
-        [RemObjects.DataAbstract.Linq.DataType(RemObjects.DataAbstract.Schema.DataType.WideString)]
-        [RemObjects.DataAbstract.Linq.LogChanges()]
-        public virtual string ZW1 {
-            get {
-                return f____ZW1;
-            }
-            set {
-                if ((System.Collections.Generic.Comparer<string>.Default.Compare(this.f____ZW1, value) != 0)) {
-                    this.OnPropertyChanging("ZW1");
-                    f____ZW1 = value;
-                    this.OnPropertyChanged("ZW1");
-                }
-            }
-        }
-        [RemObjects.DataAbstract.Linq.FieldName("ZW2")]
-        [RemObjects.DataAbstract.Linq.DataType(RemObjects.DataAbstract.Schema.DataType.WideString)]
-        [RemObjects.DataAbstract.Linq.LogChanges()]
-        public virtual string ZW2 {
-            get {
-                return f____ZW2;
-            }
-            set {
-                if ((System.Collections.Generic.Comparer<string>.Default.Compare(this.f____ZW2, value) != 0)) {
-                    this.OnPropertyChanging("ZW2");
-                    f____ZW2 = value;
-                    this.OnPropertyChanged("ZW2");
-                }
-            }
-        }
-        [RemObjects.DataAbstract.Linq.FieldName("BJID")]
-        [RemObjects.DataAbstract.Linq.DataType(RemObjects.DataAbstract.Schema.DataType.LargeInt)]
-        [RemObjects.DataAbstract.Linq.LogChanges()]
-        public virtual System.Nullable<long> BJID {
-            get {
-                return f____BJID;
-            }
-            set {
-                if ((System.Collections.Generic.Comparer<System.Nullable<long>>.Default.Compare(this.f____BJID, value) != 0)) {
-                    this.OnPropertyChanging("BJID");
-                    f____BJID = value;
-                    this.OnPropertyChanged("BJID");
-                }
-            }
-        }
-        [RemObjects.DataAbstract.Linq.FieldName("XSID")]
-        [RemObjects.DataAbstract.Linq.DataType(RemObjects.DataAbstract.Schema.DataType.WideString)]
-        [RemObjects.DataAbstract.Linq.PrimaryKey()]
-        [RemObjects.DataAbstract.Linq.LogChanges()]
-        public virtual string XSID {
-            get {
-                return f____XSID;
-            }
-            set {
-                if ((System.Collections.Generic.Comparer<string>.Default.Compare(this.f____XSID, value) != 0)) {
-                    this.OnPropertyChanging("XSID");
-                    f____XSID = value;
-                    this.OnPropertyChanged("XSID");
-                }
-            }
-        }
-        [RemObjects.DataAbstract.Linq.FieldName("XSNAME")]
-        [RemObjects.DataAbstract.Linq.DataType(RemObjects.DataAbstract.Schema.DataType.WideString)]
-        [RemObjects.DataAbstract.Linq.LogChanges()]
-        public virtual string XSNAME {
-            get {
-                return f____XSNAME;
-            }
-            set {
-                if ((System.Collections.Generic.Comparer<string>.Default.Compare(this.f____XSNAME, value) != 0)) {
-                    this.OnPropertyChanging("XSNAME");
-                    f____XSNAME = value;
-                    this.OnPropertyChanged("XSNAME");
-                }
-            }
-        }
-        [RemObjects.DataAbstract.Linq.FieldName("VOICE")]
-        [RemObjects.DataAbstract.Linq.DataType(RemObjects.DataAbstract.Schema.DataType.Blob)]
-        [RemObjects.DataAbstract.Linq.LogChanges()]
-        public virtual byte[] VOICE {
-            get {
-                return f____VOICE;
-            }
-            set {
-                if ((RemObjects.DataAbstract.Linq.LinqDataAdapter.CompareBytes(this.f____VOICE, value) != true)) {
-                    this.OnPropertyChanging("VOICE");
-                    f____VOICE = value;
-                    this.OnPropertyChanged("VOICE");
-                }
-            }
-        }
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
-        object System.ICloneable.Clone() {
-            XSTABLE_01 v____new = new XSTABLE_01();
-            v____new.f____XSSEX = this.f____XSSEX;
-            v____new.f____XYID = this.f____XYID;
-            v____new.f____XSZP = this.f____XSZP;
-            v____new.f____ZW1 = this.f____ZW1;
-            v____new.f____ZW2 = this.f____ZW2;
-            v____new.f____BJID = this.f____BJID;
-            v____new.f____XSID = this.f____XSID;
-            v____new.f____XSNAME = this.f____XSNAME;
-            v____new.f____VOICE = this.f____VOICE;
-            return v____new;
-        }
-        public virtual void BeginUpdate() {
-            this.m____OldValues = ((XSTABLE_01)(((System.ICloneable)(this)).Clone()));
-        }
-        public virtual void EndUpdate(RemObjects.DataAbstract.Linq.LinqDataAdapter dataAdapter) {
-            dataAdapter.UpdateRow<XSTABLE_01>(this.m____OldValues, this);
             this.m____OldValues = null;
         }
         public virtual void CancelUpdate() {
@@ -1794,7 +1626,6 @@ namespace AttendenceSystem_Alp.PC {
         private System.Collections.Generic.IEnumerable<XKTABLE_VIEWRO> f____XKTABLE_VIEWRO;
         private System.Collections.Generic.IEnumerable<XYTABLE_02RO> f____XYTABLE_02RO;
         private System.Collections.Generic.IEnumerable<SKTABLE_07_VIEW> f____SKTABLE_07_VIEW;
-        private System.Collections.Generic.IEnumerable<XSTABLE_01> f____XSTABLE_01;
         public DataContext() {
         }
         public virtual System.Collections.Generic.IEnumerable<BJTABLE_09_VIEWRO> BJTABLE_09_VIEWRO {
@@ -1851,14 +1682,6 @@ namespace AttendenceSystem_Alp.PC {
             }
             set {
                 f____SKTABLE_07_VIEW = value;
-            }
-        }
-        public virtual System.Collections.Generic.IEnumerable<XSTABLE_01> XSTABLE_01 {
-            get {
-                return f____XSTABLE_01;
-            }
-            set {
-                f____XSTABLE_01 = value;
             }
         }
     }

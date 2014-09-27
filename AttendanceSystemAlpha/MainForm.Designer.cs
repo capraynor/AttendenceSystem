@@ -56,6 +56,7 @@ namespace AttendanceSystemAlpha
             this.pnMaincall = new System.Windows.Forms.Panel();
             this.panel15 = new System.Windows.Forms.Panel();
             this.panel12 = new System.Windows.Forms.Panel();
+            this.radButton4 = new Telerik.WinControls.UI.RadButton();
             this.rbtnStartcall = new Telerik.WinControls.UI.RadButton();
             this.radButton1 = new Telerik.WinControls.UI.RadButton();
             this.panel13 = new System.Windows.Forms.Panel();
@@ -147,7 +148,6 @@ namespace AttendanceSystemAlpha
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel18 = new System.Windows.Forms.Panel();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.radButton4 = new Telerik.WinControls.UI.RadButton();
             this.pnHead.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -164,6 +164,7 @@ namespace AttendanceSystemAlpha
             this.pnMaincall.SuspendLayout();
             this.panel15.SuspendLayout();
             this.panel12.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radButton4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rbtnStartcall)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButton1)).BeginInit();
             this.panel13.SuspendLayout();
@@ -195,7 +196,6 @@ namespace AttendanceSystemAlpha
             this.panel17.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radButton4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -237,7 +237,7 @@ namespace AttendanceSystemAlpha
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1281, 730);
+            this.panel1.Size = new System.Drawing.Size(1281, 728);
             this.panel1.TabIndex = 1;
             // 
             // panel10
@@ -246,7 +246,7 @@ namespace AttendanceSystemAlpha
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel10.Location = new System.Drawing.Point(0, 125);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(1281, 579);
+            this.panel10.Size = new System.Drawing.Size(1281, 577);
             this.panel10.TabIndex = 6;
             // 
             // mainPageView
@@ -259,7 +259,7 @@ namespace AttendanceSystemAlpha
             this.mainPageView.Location = new System.Drawing.Point(0, 0);
             this.mainPageView.Name = "mainPageView";
             this.mainPageView.SelectedPage = this.viewpageCall;
-            this.mainPageView.Size = new System.Drawing.Size(1281, 579);
+            this.mainPageView.Size = new System.Drawing.Size(1281, 577);
             this.mainPageView.TabIndex = 0;
             this.mainPageView.ThemeName = "TelerikMetro";
             this.mainPageView.ViewMode = Telerik.WinControls.UI.PageViewMode.Backstage;
@@ -354,7 +354,7 @@ namespace AttendanceSystemAlpha
             this.viewpageCall.ItemSize = new System.Drawing.SizeF(175F, 63F);
             this.viewpageCall.Location = new System.Drawing.Point(205, 4);
             this.viewpageCall.Name = "viewpageCall";
-            this.viewpageCall.Size = new System.Drawing.Size(1072, 571);
+            this.viewpageCall.Size = new System.Drawing.Size(1072, 569);
             this.viewpageCall.Text = "课堂点名";
             // 
             // pnMaincall
@@ -364,7 +364,7 @@ namespace AttendanceSystemAlpha
             this.pnMaincall.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnMaincall.Location = new System.Drawing.Point(0, 0);
             this.pnMaincall.Name = "pnMaincall";
-            this.pnMaincall.Size = new System.Drawing.Size(1072, 571);
+            this.pnMaincall.Size = new System.Drawing.Size(1072, 569);
             this.pnMaincall.TabIndex = 0;
             // 
             // panel15
@@ -374,7 +374,7 @@ namespace AttendanceSystemAlpha
             this.panel15.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel15.Location = new System.Drawing.Point(0, 354);
             this.panel15.Name = "panel15";
-            this.panel15.Size = new System.Drawing.Size(1072, 217);
+            this.panel15.Size = new System.Drawing.Size(1072, 215);
             this.panel15.TabIndex = 28;
             // 
             // panel12
@@ -385,14 +385,25 @@ namespace AttendanceSystemAlpha
             this.panel12.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel12.Location = new System.Drawing.Point(866, 0);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(206, 217);
+            this.panel12.Size = new System.Drawing.Size(206, 215);
             this.panel12.TabIndex = 31;
+            // 
+            // radButton4
+            // 
+            this.radButton4.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.radButton4.Enabled = false;
+            this.radButton4.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.radButton4.Location = new System.Drawing.Point(24, 155);
+            this.radButton4.Name = "radButton4";
+            this.radButton4.Size = new System.Drawing.Size(161, 56);
+            this.radButton4.TabIndex = 21;
+            this.radButton4.Text = "手动签到";
             // 
             // rbtnStartcall
             // 
             this.rbtnStartcall.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.rbtnStartcall.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.rbtnStartcall.Location = new System.Drawing.Point(24, 21);
+            this.rbtnStartcall.Location = new System.Drawing.Point(24, 20);
             this.rbtnStartcall.Name = "rbtnStartcall";
             this.rbtnStartcall.Size = new System.Drawing.Size(161, 56);
             this.rbtnStartcall.TabIndex = 20;
@@ -404,7 +415,7 @@ namespace AttendanceSystemAlpha
             this.radButton1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.radButton1.Enabled = false;
             this.radButton1.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.radButton1.Location = new System.Drawing.Point(24, 92);
+            this.radButton1.Location = new System.Drawing.Point(24, 91);
             this.radButton1.Name = "radButton1";
             this.radButton1.Size = new System.Drawing.Size(161, 56);
             this.radButton1.TabIndex = 6;
@@ -417,7 +428,7 @@ namespace AttendanceSystemAlpha
             this.panel13.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel13.Location = new System.Drawing.Point(0, 0);
             this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(1072, 217);
+            this.panel13.Size = new System.Drawing.Size(1072, 215);
             this.panel13.TabIndex = 29;
             // 
             // gboxClassmsg
@@ -935,7 +946,7 @@ namespace AttendanceSystemAlpha
             this.viewpageDataManagement.ItemSize = new System.Drawing.SizeF(175F, 63F);
             this.viewpageDataManagement.Location = new System.Drawing.Point(205, 4);
             this.viewpageDataManagement.Name = "viewpageDataManagement";
-            this.viewpageDataManagement.Size = new System.Drawing.Size(1072, 571);
+            this.viewpageDataManagement.Size = new System.Drawing.Size(1072, 569);
             this.viewpageDataManagement.Text = "数据管理";
             // 
             // panel8
@@ -944,7 +955,7 @@ namespace AttendanceSystemAlpha
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel8.Location = new System.Drawing.Point(0, 377);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(1072, 194);
+            this.panel8.Size = new System.Drawing.Size(1072, 192);
             this.panel8.TabIndex = 6;
             // 
             // panel11
@@ -953,7 +964,7 @@ namespace AttendanceSystemAlpha
             this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel11.Location = new System.Drawing.Point(0, 0);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(1072, 194);
+            this.panel11.Size = new System.Drawing.Size(1072, 192);
             this.panel11.TabIndex = 13;
             // 
             // panel16
@@ -964,7 +975,7 @@ namespace AttendanceSystemAlpha
             this.panel16.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel16.Location = new System.Drawing.Point(0, 0);
             this.panel16.Name = "panel16";
-            this.panel16.Size = new System.Drawing.Size(1072, 194);
+            this.panel16.Size = new System.Drawing.Size(1072, 192);
             this.panel16.TabIndex = 5;
             // 
             // mngGridView
@@ -984,7 +995,7 @@ namespace AttendanceSystemAlpha
             this.mngGridView.MasterTemplate.AutoSizeColumnsMode = Telerik.WinControls.UI.GridViewAutoSizeColumnsMode.Fill;
             this.mngGridView.Name = "mngGridView";
             this.mngGridView.ShowCellErrors = false;
-            this.mngGridView.Size = new System.Drawing.Size(863, 192);
+            this.mngGridView.Size = new System.Drawing.Size(863, 190);
             this.mngGridView.TabIndex = 14;
             this.mngGridView.Text = "radGridView1";
             this.mngGridView.ThemeName = "ControlDefault";
@@ -998,7 +1009,7 @@ namespace AttendanceSystemAlpha
             this.panel7.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel7.Location = new System.Drawing.Point(863, 0);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(207, 192);
+            this.panel7.Size = new System.Drawing.Size(207, 190);
             this.panel7.TabIndex = 4;
             // 
             // radButton2
@@ -1016,7 +1027,7 @@ namespace AttendanceSystemAlpha
             // 
             this.radButton3.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.radButton3.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold);
-            this.radButton3.Location = new System.Drawing.Point(-584, 57);
+            this.radButton3.Location = new System.Drawing.Point(-584, 56);
             this.radButton3.Name = "radButton3";
             this.radButton3.Size = new System.Drawing.Size(161, 89);
             this.radButton3.TabIndex = 22;
@@ -1333,7 +1344,7 @@ namespace AttendanceSystemAlpha
             this.toolStripTimeLabel,
             this.toolStripStatusLabel3,
             this.toolStripOperationStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 704);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 702);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1281, 26);
             this.statusStrip1.TabIndex = 5;
@@ -1408,22 +1419,11 @@ namespace AttendanceSystemAlpha
             this.backgroundWorker1.WorkerSupportsCancellation = true;
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             // 
-            // radButton4
-            // 
-            this.radButton4.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.radButton4.Enabled = false;
-            this.radButton4.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.radButton4.Location = new System.Drawing.Point(24, 156);
-            this.radButton4.Name = "radButton4";
-            this.radButton4.Size = new System.Drawing.Size(161, 56);
-            this.radButton4.TabIndex = 21;
-            this.radButton4.Text = "手动签到";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1281, 730);
+            this.ClientSize = new System.Drawing.Size(1281, 728);
             this.Controls.Add(this.panel18);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -1456,6 +1456,7 @@ namespace AttendanceSystemAlpha
             this.pnMaincall.ResumeLayout(false);
             this.panel15.ResumeLayout(false);
             this.panel12.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.radButton4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rbtnStartcall)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButton1)).EndInit();
             this.panel13.ResumeLayout(false);
@@ -1496,7 +1497,6 @@ namespace AttendanceSystemAlpha
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radButton4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 

@@ -229,6 +229,7 @@ namespace AttendanceSystemAlpha
             radButton1.Enabled = false;
             rbtnStartcall.Enabled = true;
             
+            
         }
         private static int CountArriveSudentNumber(DataTable dmTable)
         {
@@ -379,8 +380,8 @@ namespace AttendanceSystemAlpha
                 SKTABLE_07_VIEW rowSktable07 = fDataModule.Context.SKTABLE_07_VIEW.First();
                 rowSktable07.EDITDATE = DateTime.Now;
                 //rowSktable07.DMFS = Convert.ToInt16(2);
-                rowSktable07.EDITMANNO = Convert.ToDecimal(fDataModule.GetUserID());
-                rowSktable07.ZTRS = 0;
+                rowSktable07.EDITMANNO = Convert.ToInt64(fDataModule.GetUserID());
+                
                 rowSktable07.CDRS = Convert.ToInt16(CountLateStudentNumber(mngdmTable));
                 rowSktable07.KKRS = Convert.ToInt16(CountAbsentStudent(mngdmTable));
                 rowSktable07.ZCRS = Convert.ToInt16(CountArriveSudentNumber(mngdmTable));
@@ -389,17 +390,19 @@ namespace AttendanceSystemAlpha
                 
                 //SKTABLE_07 rowSktable07 = new SKTABLE_07();
                 
-                rowSktable07.SKNO = JieCi;
+                rowSktable07.SKNO = _skno;
                 
                 //rowSktable07.EDITDATE = DateTime.Now;
                 rowSktable07.DMFS = Convert.ToInt16(1); // 一次点名
                 rowSktable07.RZFS = Convert.ToInt16(2); // 指纹认证
                 //rowSktable07.EDITMANNO = Convert.ToInt64(fDataModule.GetUserID());
+                rowSktable07.ZTRS = 0;
                 //rowSktable07.ZTRS = Convert.ToInt16(CountLeaveEarly(mngdmTable));
                 rowSktable07.CDRS = Convert.ToInt16(CountLateStudentNumber(mngdmTable));
                 rowSktable07.SKDATE =
                     Convert.ToDateTime(
                         mngSKtable.Select("SKNO = '" + rowSktable07.SKNO.ToString() + "'").First()["SKDATE"]);
+                rowSktable07.SKZT = 1;
 
                 fDataModule.UpdateSktable(rowSktable07); // sktable 提交完成
                 ProgressHelper.SetProgress(95);
@@ -507,6 +510,7 @@ namespace AttendanceSystemAlpha
             }
             //选择上课时间
             xkTable = frmChooseClasses._chooseClassBriefcase.FindTable("XKTABLE_VIEW1");
+            
             ProgressHelper.StartProgressThread();
             while ((FpHandle = HDFingerprintHelper.FpOpenUsb(0xFFFFFFFF, 1000)) == IntPtr.Zero)
             {
@@ -542,7 +546,9 @@ namespace AttendanceSystemAlpha
                 {
                     MessageBox.Show(exception.Message);
                 }
-                ProgressHelper.SetProgress((int)(80 * (++i / __count)));
+                //ProgressHelper.SetProgress((int)(80 * (++i / __count)));
+                ProgressHelper.SetProgress((int)Math.Ceiling((20.0 + 80.0 * ((double)i / (double)__count))));
+                i += 1;
             }
             lbTeacherName.Text = frmChooseClasses.TeacherName;
             lbClassName.Text = frmChooseClasses.ClassName;
@@ -828,8 +834,8 @@ namespace AttendanceSystemAlpha
                     //pboxPhoto.Image = Properties.Resources.attendance_list_icon;
                     //SetControlPropertyThreadSafe(pboxPhoto, "Image", new object[] { Properties.Resources.attendance_list_icon });
 
-                }
-                else
+                }                
+                else if (!ContinueOpration)
                 {
                     player = new System.Media.SoundPlayer(Properties.Resources.beepFail);
                     player.Play();//播放声音
@@ -841,7 +847,7 @@ namespace AttendanceSystemAlpha
                     //lbStudentXy.Text = "";
                     SetControlPropertyThreadSafe(lbStudentXy, "Text", new object[] { "" });
                     //lbStudentName.Text = "请重扫指纹";
-                    SetControlPropertyThreadSafe(lbStudentName, "Text", new object[] { "请重扫指纹" });
+                    SetControlPropertyThreadSafe(lbStudentName, "Text", new object[] { "已结束点名" });
                     //lbDczt.Text = "";
                     SetControlPropertyThreadSafe(lbDczt, "Text", new object[] { "" });
                     //lbDcsj.Text = "";
@@ -849,8 +855,23 @@ namespace AttendanceSystemAlpha
                     //pboxPhoto.Image = Properties.Resources.attendance_list_icon;
                     //SetControlPropertyThreadSafe(pboxPhoto, "Image", new object[] { Properties.Resources.attendance_list_icon });
                 }
+                else
+                {
+                    MessageBox.Show("指纹仪未连接 请重新插入指纹仪 并点击确定 错误代码" + nRet.ToString()+FpHandle.ToString());
+                    FpHandle = IntPtr.Zero;
+                    while (FpHandle == IntPtr.Zero)
+                    {
+                        FpHandle = HDFingerprintHelper.FpOpenUsb(0xFFFFFFFF, 1000);
+                        if (FpHandle == IntPtr.Zero)
+                        {
+                            MessageBox.Show("指纹仪初始化失败，请重新插入指纹仪");
+                        }
+                    }
+                    MessageBox.Show("指纹仪初始化成功");
+                }
             }
-            SetControlPropertyThreadSafe(lbStudentName, "Text", new object[] { "已结束点名" });
+            
+            //if (nRet == 512)
         }
         public static void SetControlPropertyThreadSafe(Control control, string propertyName, object[] propertyValue)
         {
