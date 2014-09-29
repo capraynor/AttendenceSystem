@@ -148,6 +148,7 @@ namespace AttendanceSystemAlpha
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel18 = new System.Windows.Forms.Panel();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.radButton6 = new Telerik.WinControls.UI.RadButton();
             this.pnHead.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -196,6 +197,7 @@ namespace AttendanceSystemAlpha
             this.panel17.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radButton6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -272,7 +274,7 @@ namespace AttendanceSystemAlpha
             this.viewpageLoadData.ItemSize = new System.Drawing.SizeF(175F, 63F);
             this.viewpageLoadData.Location = new System.Drawing.Point(205, 4);
             this.viewpageLoadData.Name = "viewpageLoadData";
-            this.viewpageLoadData.Size = new System.Drawing.Size(1071, 569);
+            this.viewpageLoadData.Size = new System.Drawing.Size(1072, 569);
             this.viewpageLoadData.Text = "课程下载";
             // 
             // pnLoad
@@ -283,7 +285,7 @@ namespace AttendanceSystemAlpha
             this.pnLoad.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnLoad.Location = new System.Drawing.Point(0, 0);
             this.pnLoad.Name = "pnLoad";
-            this.pnLoad.Size = new System.Drawing.Size(1071, 569);
+            this.pnLoad.Size = new System.Drawing.Size(1072, 569);
             this.pnLoad.TabIndex = 0;
             // 
             // panel3
@@ -293,7 +295,7 @@ namespace AttendanceSystemAlpha
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 63);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1071, 506);
+            this.panel3.Size = new System.Drawing.Size(1072, 506);
             this.panel3.TabIndex = 10;
             // 
             // lboxClassName
@@ -304,23 +306,24 @@ namespace AttendanceSystemAlpha
             this.lboxClassName.ItemHeight = 38;
             this.lboxClassName.Location = new System.Drawing.Point(0, 0);
             this.lboxClassName.Name = "lboxClassName";
-            this.lboxClassName.Size = new System.Drawing.Size(1071, 395);
+            this.lboxClassName.Size = new System.Drawing.Size(1072, 395);
             this.lboxClassName.TabIndex = 3;
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.radButton6);
             this.panel5.Controls.Add(this.radButton5);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel5.Location = new System.Drawing.Point(0, 395);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1071, 111);
+            this.panel5.Size = new System.Drawing.Size(1072, 111);
             this.panel5.TabIndex = 2;
             // 
             // radButton5
             // 
             this.radButton5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.radButton5.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold);
-            this.radButton5.Location = new System.Drawing.Point(844, 21);
+            this.radButton5.Location = new System.Drawing.Point(845, 21);
             this.radButton5.Name = "radButton5";
             this.radButton5.Size = new System.Drawing.Size(209, 71);
             this.radButton5.TabIndex = 1;
@@ -334,7 +337,7 @@ namespace AttendanceSystemAlpha
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1071, 63);
+            this.panel2.Size = new System.Drawing.Size(1072, 63);
             this.panel2.TabIndex = 9;
             // 
             // label18
@@ -1419,6 +1422,17 @@ namespace AttendanceSystemAlpha
             this.backgroundWorker1.WorkerSupportsCancellation = true;
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             // 
+            // radButton6
+            // 
+            this.radButton6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.radButton6.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold);
+            this.radButton6.Location = new System.Drawing.Point(630, 21);
+            this.radButton6.Name = "radButton6";
+            this.radButton6.Size = new System.Drawing.Size(209, 71);
+            this.radButton6.TabIndex = 2;
+            this.radButton6.Text = "更新指纹信息";
+            this.radButton6.Click += new System.EventHandler(this.radButton6_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1497,6 +1511,7 @@ namespace AttendanceSystemAlpha
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radButton6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -1614,6 +1629,7 @@ namespace AttendanceSystemAlpha
         private System.Windows.Forms.Panel panel22;
         private System.Windows.Forms.Panel panel19;
         private Telerik.WinControls.UI.RadButton radButton4;
+        private Telerik.WinControls.UI.RadButton radButton6;
     }
 }
 
