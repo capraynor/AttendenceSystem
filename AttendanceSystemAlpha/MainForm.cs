@@ -11,17 +11,12 @@ using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using System.Linq;
-using System.Windows.Forms.DataVisualization.Charting;
-using System.Windows.Forms.PropertyGridInternal;
-using System.Windows.Forms.VisualStyles;
 using AttendanceSystemAlpha.Properties;
 using AttendenceSystem_Alp;
 using AttendenceSystem_Alp.PC;
 using HDFingerPrintHelper;
 using RemObjects.DataAbstract;
-using RemObjects.DataAbstract.Linq;
 using Helpers;
-using RemObjects.Script.EcmaScript;
 using Telerik.WinControls.UI;
 //数据类型 C#-> C++
 using FP_HANDLE = System.IntPtr;
@@ -111,10 +106,6 @@ namespace AttendanceSystemAlpha
             }
             
         }
-        /// <summary>
-        /// 显示信息
-        /// </summary>
-
         private void MainForm_Load(object sender, EventArgs e)
         {
            
@@ -838,7 +829,7 @@ namespace AttendanceSystemAlpha
                     }                
                     else if (!ContinueOpration)
                     {
-                        player = new SoundPlayer(Resources.beepFail);
+                        player = new SoundPlayer(Resources.beepSuccess);
                         player.Play();//播放声音
                         player.Dispose();
                         //lbStudentClass.Text = "";
