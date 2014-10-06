@@ -19,6 +19,7 @@ namespace AttendenceSystem_Alp
 {
     public partial class DataModule : Component
     {
+        
         #region FuncDefinition
 
         /// <summary>

@@ -70,6 +70,7 @@ namespace AttendanceSystemAlpha
         private int nRet = 0;
         private ushort FingerprinterVerifyID = 0;
         private ushort FingerprinterScore = 0;
+        private ManualRollCall frmmanualRollCall;
         #endregion
 
         public MainForm()
@@ -111,18 +112,20 @@ namespace AttendanceSystemAlpha
            
             this.Visible = false;
             //平板和笔记本的区别
-            if (this.WindowState == FormWindowState.Maximized)
-            {
-                this.WindowState = FormWindowState.Normal;
-            }
-            else
-            {
-                this.FormBorderStyle = FormBorderStyle.None;
-                this.MaximumSize = new Size(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
-                this.WindowState = FormWindowState.Maximized;
-            }
+            //if (this.WindowState == FormWindowState.Maximized)
+            //{
+            //    this.WindowState = FormWindowState.Normal;
+            //}
+            //else
+            //{
+            //    this.FormBorderStyle = FormBorderStyle.None;
+            //    this.MaximumSize = new Size(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
+            //    this.WindowState = FormWindowState.Maximized;
+            //}
+            
             //平板和笔记本的区别
-
+            this.Width = 1280;
+            this.Height = 775;
             string __serverUrl = File.ReadAllText(@"ServerUrl.txt");
             
             fDataModule.setServerURL(__serverUrl);
@@ -130,8 +133,7 @@ namespace AttendanceSystemAlpha
             
             frmShowClasses = new RadFrmShowClasses(fDataModule);
             frmChooseClasses = new RadfrmChooseClasses();
-            this.Width = 1280;
-            this.Height = 775;
+            
             //**********饼图*********//
 
             List<string> xData = new List<string>() { "实到", "未到" };
@@ -206,6 +208,7 @@ namespace AttendanceSystemAlpha
             skRow.EndEdit();
             frmChooseClasses._chooseClassBriefcase.AddTable(OfflineHelper.TableListToDataTable(EnumerableExtension.ToList<SKTABLE_07_VIEW>(sktable), "SKTABLE"));
             frmChooseClasses._chooseClassBriefcase.WriteBriefcase();
+            
             radButton1.Enabled = false;
             rbtnStartcall.Enabled = true;
             lbStudentClass.Text = "";
@@ -564,10 +567,13 @@ namespace AttendanceSystemAlpha
             Thread verifyThread = new Thread(VerifyFingerprint);
             verifyThread.IsBackground = true;
             verifyThread.Start();
+            Briefcase manualRollCallBriefcase = frmChooseClasses._chooseClassBriefcase;
+            frmmanualRollCall = new ManualRollCall(manualRollCallBriefcase, frmChooseClasses.Jieci, ref dmTable, DateTimePicker1.Value);
             ProgressHelper.SetProgress(100);
             
             radButton1.Enabled = true;
             rbtnStartcall.Enabled = false;
+            BtnManualRollCall.Enabled = true;
             ProgressHelper.StopProgressThread();
         }
 
@@ -688,178 +694,173 @@ namespace AttendanceSystemAlpha
                 System.Media.SoundPlayer player; // 声音 player 声明
                 try
                 {
-                    if (nRet == 0 )
+                    switch (nRet)
                     {
-                    
-                        XSID = xsidRows.First()["学生学号"].ToString();
-                        dmRows = dmTable.Select("XSID = '" + XSID + "'");
-
-                        // Briefcase briefcase =
-                        // new FileBriefcase(string.Format(Properties.Settings.Default.OfflineFolder, cbboxClassname.SelectedValue), true);
-
-                        dmRows.First().BeginEdit();
-                        //dmRows.First()["DMSJ1"] = DateTime.Now; //Convert.ToInt16(1);
-
-
-                        if ((DateTime.Compare(DateTimePicker1.Value, DateTime.Now.AddMinutes(15)) > 0) || (DateTime.Compare(DateTimePicker1.Value.AddHours(2), DateTime.Now) < 0))
+                        case 0: // 这个分支被lock了 lock对象：ThreadLocker.CallingBriefcaseLocker
                         {
-                            dmRows.First().EndEdit();
-                            SetControlPropertyThreadSafe(lbStudentName , "Text" , new object[]{"还未到点名时间"});
 
+                            lock (ThreadLocker.CallingBriefcaseLocker)
+                            {
+                                XSID = xsidRows.First()["学生学号"].ToString();
+                                dmRows = dmTable.Select("XSID = '" + XSID + "'");
+
+                                // Briefcase briefcase =
+                                // new FileBriefcase(string.Format(Properties.Settings.Default.OfflineFolder, cbboxClassname.SelectedValue), true);
+
+                                dmRows.First().BeginEdit();
+                                //dmRows.First()["DMSJ1"] = DateTime.Now; //Convert.ToInt16(1);
+
+
+                                if ((DateTime.Compare(DateTimePicker1.Value, DateTime.Now.AddMinutes(15)) > 0) || (DateTime.Compare(DateTimePicker1.Value.AddHours(2), DateTime.Now) < 0))
+                                {
+                                    dmRows.First().EndEdit();
+                                    SetControlPropertyThreadSafe(lbStudentName , "Text" , new object[]{"还未到点名时间"});
+                                    player = new SoundPlayer(Resources.beepFail);
+                                    player.Play();//播放声音
+                                    player.Dispose();
+                                    continue;
+                        
+                                }
+
+
+                                player = new SoundPlayer(Resources.beepSuccess);
+                                player.Play(); // 播放声音
+                                player.Dispose();
+                    
+                                if (dmRows.First()["DMSJ1"] == DBNull.Value || (Convert.ToDateTime(dmRows.First()["DMSJ1"]) > DateTime.Now)) // 判断是否在点名时间范围内
+                                {
+                                    dmRows.First()["DMSJ1"] = DateTime.Now;
+                                }
+
+                                if (DateTimePicker1.Value > Convert.ToDateTime(dmRows.First()["DMSJ1"]))
+                                {
+                                    dmRows.First()["DKZT"] = 0;
+                                    //lbDczt.Text = "按时到课";
+                                    SetControlPropertyThreadSafe(lbDczt, "Text", new object[] { "按时到课" });
+                                }
+                                else
+                                {
+                                    dmRows.First()["DKZT"] = 1;
+                                    //lbDczt.Text = "迟到";
+                                    SetControlPropertyThreadSafe(lbDczt, "Text", new object[] { "迟到" });
+                                }
+                                dmRows.First().EndEdit();
+
+                                //briefcase.RemoveTable(GlobalParams.SKNO); //briefcase直接addtable 代表更新
+                                //briefcase.WriteBriefcase();
+
+
+                                //dmTable.TableName = GlobalParams.SKNO;
+                                dmTable = OfflineHelper.TableListToDataTable(EnumerableExtension.ToList<DMTABLE_08_NOPIC_VIEW>(dmTable),
+                                    frmChooseClasses.Jieci.ToString());
+                                frmChooseClasses._chooseClassBriefcase.AddTable(dmTable);
+                                frmChooseClasses._chooseClassBriefcase.Properties[Settings.Default.PropertiesLastCheckin] = frmChooseClasses.Jieci.ToString();
+                                frmChooseClasses._chooseClassBriefcase.WriteBriefcase();//写入briefcase
+                                sdrs = CountArriveSudentNumber(dmTable) + CountLateStudentNumber(dmTable);
+                                //显示信息
+                                xkRows = xkTable.Select("XSID = '" + XSID + "'");
+
+                                DataRow bjRow = classTable.Select("BJID = '" + xkRows.First()["BJID"].ToString() + "'").First();
+
+                                //lbStudentXy.Text = bjRow["XYNAME"].ToString();
+                                SetControlPropertyThreadSafe(lbStudentXy, "Text", new object[] { bjRow["XYNAME"].ToString() });
+                                //lbStudentClass.Text = bjRow["BJNAME"].ToString();
+                                SetControlPropertyThreadSafe(lbStudentClass, "Text", new object[] { bjRow["BJNAME"].ToString() });
+
+                                xsName = xkRows.First()["XSNAME"].ToString();
+                                if (xkRows.First()["XSZP"] != DBNull.Value)
+                                {
+                                    xszpBytes = (byte[])xkRows.First()["XSZP"];
+                                    Stream ms = new MemoryStream(xszpBytes);
+                                    ms.Write(xszpBytes, 0, xszpBytes.Length);
+                                    //pboxPhoto.Image = Image.FromStream(ms);
+                                    SetControlPropertyThreadSafe(pboxPhoto, "Image", new object[] { Image.FromStream(ms) });
+                                }
+                                else
+                                {
+                                    //pboxPhoto.Image = Properties.Resources.attendance_list_icon;
+                                    SetControlPropertyThreadSafe(pboxPhoto, "Image", new object[] { Resources.attendance_list_icon });
+                                }
+
+                                //lbStudentName.Text = xsName;
+                                SetControlPropertyThreadSafe(lbStudentName, "Text", new object[] { xsName });
+                                //lbStudentId.Text = XSID;
+                                SetControlPropertyThreadSafe(lbStudentId, "Text", new object[] { XSID });
+                                //lbDcsj.Text = Convert.ToDateTime(dmRows.First()["DMSJ1"]).ToString("t", DateTimeFormatInfo.InvariantInfo);
+                                SetControlPropertyThreadSafe(lbDcsj, "Text", new object[] { Convert.ToDateTime(dmRows.First()["DMSJ1"]).ToString("t", DateTimeFormatInfo.InvariantInfo) });
+
+                                //lbYdrs.Text =  briefcase.Properties[Properties.Settings.Default.PropertiesTotalStudentNumber];
+                                //lbYdrs.Text = dmTable.Rows.Count.ToString();
+                                SetControlPropertyThreadSafe(lbYdrs, "Text", new object[] { dmTable.Rows.Count.ToString() });
+                                //lbDKPercent.Text = (Convert.ToDouble(sdrs) / Convert.ToDouble(lbYdrs.Text)).ToString("0.00%");
+                                SetControlPropertyThreadSafe(lbDKPercent, "Text", new object[] { (Convert.ToDouble(sdrs) / Convert.ToDouble(lbYdrs.Text)).ToString("0.00%") });
+                                //lbSdrs.Text = sdrs.ToString();
+                                SetControlPropertyThreadSafe(lbSdrs, "Text", new object[] { sdrs.ToString() });
+
+                                //lbCdrs.Text = CountLateStudentNumber(dmTable).ToString();
+                                SetControlPropertyThreadSafe(lbCdrs, "Text", new object[] { CountLateStudentNumber(dmTable).ToString() });
+                                //**********饼图*********//
+
+                                List<string> xData = new List<string>() { "实到", "未到" };
+
+                                List<int> yData = new List<int>() { sdrs, Convert.ToInt32(lbYdrs.Text)-sdrs };
+                                //chart1.Series[0]["PieLabelStyle"] = "Outside";//将文字移到外侧
+                                //chart1.Series[0]["PieLineColor"] = "Black";//绘制黑色的连线。
+                                //chart1.Series[0].Points.DataBindXY(xData, yData);
+                                //SetControlPropertyThreadSafe(chart1, "Series[0].Points.DataBindXY"  , new object[]{xData , yData} );
+                                chart1.Invoke((MethodInvoker) delegate { chart1.Series[0].Points.DataBindXY(xData, yData); });
+                                HDFingerprintHelper.LiftUrFinger(FpHandle , 5000);
+                                //***********饼图*********//
+                            }//Locker:ThreadLocker.CallingBriefcaseLocker
+                        }
+                            break;
+                        case 9:
                             player = new SoundPlayer(Resources.beepFail);
                             player.Play();//播放声音
                             player.Dispose();
-
-                            continue;
-                        
-                        }
-
-
-                        player = new SoundPlayer(Resources.beepSuccess);
-                        player.Play(); // 播放声音
-                        player.Dispose();
-                    
-                        if (dmRows.First()["DMSJ1"] == DBNull.Value || (Convert.ToDateTime(dmRows.First()["DMSJ1"]) > DateTime.Now))
-                        {
-                            dmRows.First()["DMSJ1"] = DateTime.Now;
-                        }
-
-                        if (DateTimePicker1.Value > Convert.ToDateTime(dmRows.First()["DMSJ1"]))
-                        {
-                            dmRows.First()["DKZT"] = 0;
-                            //lbDczt.Text = "按时到课";
-                            SetControlPropertyThreadSafe(lbDczt, "Text", new object[] { "按时到课" });
-                        }
-                        else
-                        {
-                            dmRows.First()["DKZT"] = 1;
-                            //lbDczt.Text = "迟到";
-                            SetControlPropertyThreadSafe(lbDczt, "Text", new object[] { "迟到" });
-                        }
-                        dmRows.First().EndEdit();
-
-                        //briefcase.RemoveTable(GlobalParams.SKNO); //briefcase直接addtable 代表更新
-                        //briefcase.WriteBriefcase();
-
-
-                        //dmTable.TableName = GlobalParams.SKNO;
-
-                        dmTable = OfflineHelper.TableListToDataTable(EnumerableExtension.ToList<DMTABLE_08_NOPIC_VIEW>(dmTable),
-                            frmChooseClasses.Jieci.ToString());
-                        frmChooseClasses._chooseClassBriefcase.AddTable(dmTable);
-                        frmChooseClasses._chooseClassBriefcase.Properties[Settings.Default.PropertiesLastCheckin] = frmChooseClasses.Jieci.ToString();
-                        frmChooseClasses._chooseClassBriefcase.WriteBriefcase();//写入briefcase
-                        sdrs = CountArriveSudentNumber(dmTable) + CountLateStudentNumber(dmTable);
-
-                        //显示信息
-                        xkRows = xkTable.Select("XSID = '" + XSID + "'");
-
-                        DataRow bjRow = classTable.Select("BJID = '" + xkRows.First()["BJID"].ToString() + "'").First();
-
-                        //lbStudentXy.Text = bjRow["XYNAME"].ToString();
-                        SetControlPropertyThreadSafe(lbStudentXy, "Text", new object[] { bjRow["XYNAME"].ToString() });
-                        //lbStudentClass.Text = bjRow["BJNAME"].ToString();
-                        SetControlPropertyThreadSafe(lbStudentClass, "Text", new object[] { bjRow["BJNAME"].ToString() });
-
-                        xsName = xkRows.First()["XSNAME"].ToString();
-                        if (xkRows.First()["XSZP"] != DBNull.Value)
-                        {
-                            xszpBytes = (byte[])xkRows.First()["XSZP"];
-                            Stream ms = new MemoryStream(xszpBytes);
-                            ms.Write(xszpBytes, 0, xszpBytes.Length);
-                            //pboxPhoto.Image = Image.FromStream(ms);
-                            SetControlPropertyThreadSafe(pboxPhoto, "Image", new object[] { Image.FromStream(ms) });
-                        }
-                        else
-                        {
-                            //pboxPhoto.Image = Properties.Resources.attendance_list_icon;
-                            SetControlPropertyThreadSafe(pboxPhoto, "Image", new object[] { Resources.attendance_list_icon });
-                        }
-
-                        //lbStudentName.Text = xsName;
-                        SetControlPropertyThreadSafe(lbStudentName, "Text", new object[] { xsName });
-                        //lbStudentId.Text = XSID;
-                        SetControlPropertyThreadSafe(lbStudentId, "Text", new object[] { XSID });
-                        //lbDcsj.Text = Convert.ToDateTime(dmRows.First()["DMSJ1"]).ToString("t", DateTimeFormatInfo.InvariantInfo);
-                        SetControlPropertyThreadSafe(lbDcsj, "Text", new object[] { Convert.ToDateTime(dmRows.First()["DMSJ1"]).ToString("t", DateTimeFormatInfo.InvariantInfo) });
-
-                        //lbYdrs.Text =  briefcase.Properties[Properties.Settings.Default.PropertiesTotalStudentNumber];
-                        //lbYdrs.Text = dmTable.Rows.Count.ToString();
-                        SetControlPropertyThreadSafe(lbYdrs, "Text", new object[] { dmTable.Rows.Count.ToString() });
-                        //lbDKPercent.Text = (Convert.ToDouble(sdrs) / Convert.ToDouble(lbYdrs.Text)).ToString("0.00%");
-                        SetControlPropertyThreadSafe(lbDKPercent, "Text", new object[] { (Convert.ToDouble(sdrs) / Convert.ToDouble(lbYdrs.Text)).ToString("0.00%") });
-                        //lbSdrs.Text = sdrs.ToString();
-                        SetControlPropertyThreadSafe(lbSdrs, "Text", new object[] { sdrs.ToString() });
-
-                        //lbCdrs.Text = CountLateStudentNumber(dmTable).ToString();
-                        SetControlPropertyThreadSafe(lbCdrs, "Text", new object[] { CountLateStudentNumber(dmTable).ToString() });
-                        //**********饼图*********//
-
-                        List<string> xData = new List<string>() { "实到", "未到" };
-
-                        List<int> yData = new List<int>() { sdrs, Convert.ToInt32(lbYdrs.Text)-sdrs };
-                        //chart1.Series[0]["PieLabelStyle"] = "Outside";//将文字移到外侧
-                        //chart1.Series[0]["PieLineColor"] = "Black";//绘制黑色的连线。
-                        //chart1.Series[0].Points.DataBindXY(xData, yData);
-                        //SetControlPropertyThreadSafe(chart1, "Series[0].Points.DataBindXY"  , new object[]{xData , yData} );
-                        chart1.Invoke((MethodInvoker) delegate { chart1.Series[0].Points.DataBindXY(xData, yData); });
-                        HDFingerprintHelper.LiftUrFinger(FpHandle , 5000);
-                        //***********饼图*********//
-                    }
-                    else if (nRet == 9)
-                    {
-                        player = new SoundPlayer(Resources.beepFail);
-                        player.Play();//播放声音
-                        player.Dispose();
-                        //lbStudentClass.Text = "";
-                        SetControlPropertyThreadSafe(lbStudentClass, "Text", new object[] { "" });
-                        //lbStudentId.Text = "";
-                        SetControlPropertyThreadSafe(lbStudentId, "Text", new object[] { "" });
-                        //lbStudentXy.Text = "";
-                        SetControlPropertyThreadSafe(lbStudentXy, "Text", new object[] { "" });
-                        //lbStudentName.Text = "请重扫指纹";
-                        SetControlPropertyThreadSafe(lbStudentName, "Text", new object[] { "请重扫指纹" });
-                        //lbDczt.Text = "";
-                        SetControlPropertyThreadSafe(lbDczt, "Text", new object[] { "" });
-                        //lbDcsj.Text = "";
-                        SetControlPropertyThreadSafe(lbDcsj, "Text", new object[] { "" });
-                        //pboxPhoto.Image = Properties.Resources.attendance_list_icon;
-                        //SetControlPropertyThreadSafe(pboxPhoto, "Image", new object[] { Properties.Resources.attendance_list_icon });
-
-                    }                
-                    else if (!ContinueOpration)
-                    {
-                        player = new SoundPlayer(Resources.beepSuccess);
-                        player.Play();//播放声音
-                        player.Dispose();
-                        //lbStudentClass.Text = "";
-                        SetControlPropertyThreadSafe(lbStudentClass, "Text", new object[] { "" });
-                        //lbStudentId.Text = "";
-                        SetControlPropertyThreadSafe(lbStudentId, "Text", new object[] { "" });
-                        //lbStudentXy.Text = "";
-                        SetControlPropertyThreadSafe(lbStudentXy, "Text", new object[] { "" });
-                        //lbStudentName.Text = "请重扫指纹";
-                        SetControlPropertyThreadSafe(lbStudentName, "Text", new object[] { "已结束点名" });
-                        //lbDczt.Text = "";
-                        SetControlPropertyThreadSafe(lbDczt, "Text", new object[] { "" });
-                        //lbDcsj.Text = "";
-                        SetControlPropertyThreadSafe(lbDcsj, "Text", new object[] { "" });
-                        //pboxPhoto.Image = Properties.Resources.attendance_list_icon;
-                        //SetControlPropertyThreadSafe(pboxPhoto, "Image", new object[] { Properties.Resources.attendance_list_icon });
-                    }
-                    else
-                    {
-                        MessageBox.Show("指纹仪被拔出或未连接 请重新插入指纹仪 并点击确定 错误代码" + nRet.ToString()+FpHandle.ToString());
-                        FpHandle = IntPtr.Zero;
-                        while (FpHandle == IntPtr.Zero)
-                        {
-                            FpHandle = HDFingerprintHelper.FpOpenUsb(0xFFFFFFFF, 1000);
-                            if (FpHandle == IntPtr.Zero)
+                            SetControlPropertyThreadSafe(lbStudentClass, "Text", new object[] { "" });
+                            SetControlPropertyThreadSafe(lbStudentId, "Text", new object[] { "" });
+                            SetControlPropertyThreadSafe(lbStudentXy, "Text", new object[] { "" });
+                            SetControlPropertyThreadSafe(lbStudentName, "Text", new object[] { "请重扫指纹" });
+                            SetControlPropertyThreadSafe(lbDczt, "Text", new object[] { "" });
+                            SetControlPropertyThreadSafe(lbDcsj, "Text", new object[] { "" });
+                            break;
+                        default:
+                            if (!ContinueOpration)
                             {
-                                MessageBox.Show("指纹仪初始化失败，请重新插入指纹仪");
+                                player = new SoundPlayer(Resources.beepSuccess);
+                                player.Play();//播放声音
+                                player.Dispose();
+                                //lbStudentClass.Text = "";
+                                SetControlPropertyThreadSafe(lbStudentClass, "Text", new object[] { "" });
+                                //lbStudentId.Text = "";
+                                SetControlPropertyThreadSafe(lbStudentId, "Text", new object[] { "" });
+                                //lbStudentXy.Text = "";
+                                SetControlPropertyThreadSafe(lbStudentXy, "Text", new object[] { "" });
+                                //lbStudentName.Text = "请重扫指纹";
+                                SetControlPropertyThreadSafe(lbStudentName, "Text", new object[] { "已结束点名" });
+                                //lbDczt.Text = "";
+                                SetControlPropertyThreadSafe(lbDczt, "Text", new object[] { "" });
+                                //lbDcsj.Text = "";
+                                SetControlPropertyThreadSafe(lbDcsj, "Text", new object[] { "" });
+                                //pboxPhoto.Image = Properties.Resources.attendance_list_icon;
+                                //SetControlPropertyThreadSafe(pboxPhoto, "Image", new object[] { Properties.Resources.attendance_list_icon });
                             }
-                        }
-                        MessageBox.Show("指纹仪初始化成功");
+                            else
+                            {
+                                MessageBox.Show("指纹仪被拔出或未连接 请重新插入指纹仪 并点击确定 错误代码" + nRet.ToString()+FpHandle.ToString());
+                                FpHandle = IntPtr.Zero;
+                                while (FpHandle == IntPtr.Zero)
+                                {
+                                    FpHandle = HDFingerprintHelper.FpOpenUsb(0xFFFFFFFF, 1000);
+                                    if (FpHandle == IntPtr.Zero)
+                                    {
+                                        MessageBox.Show("指纹仪初始化失败，请重新插入指纹仪");
+                                    }
+                                }
+                                MessageBox.Show("指纹仪初始化成功");
+                            }
+                            break;
                     }
                 }
                 catch (Exception e)
@@ -921,9 +922,9 @@ namespace AttendanceSystemAlpha
             }
         }
         //手动签到部分->>
-        public static void ChangeOnedmtableRecord(long xsid, Int16 dkzt)
+        private void BtnManualRollCall_Click(object sender, EventArgs e)
         {
-            
+            frmmanualRollCall.ShowDialog();
         }
         //<<-手动签到部分
     }

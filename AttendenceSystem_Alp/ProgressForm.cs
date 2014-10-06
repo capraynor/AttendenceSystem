@@ -19,11 +19,18 @@ namespace AttendenceSystem_Alp
         private void Form1_Load(object sender, EventArgs e)
         {
             timer1.Enabled = true;
+            this.TopMost = true;
+
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             this.progressBar1.Value = Properties.Settings.Default.ProgressValue;
+        }
+
+        private void ProgressForm_Deactivate(object sender, EventArgs e)
+        {
+            
         }
 
         

@@ -246,6 +246,7 @@
     <Compile Include="RadFrmShowClasses.Designer.cs">
       <DependentUpon>RadFrmShowClasses.cs</DependentUpon>
     </Compile>
+    <Compile Include="ThreadLocker.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="FrmChooseDate.resx">
