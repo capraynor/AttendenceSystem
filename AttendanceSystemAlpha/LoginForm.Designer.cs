@@ -32,13 +32,13 @@
             this.pnLogin = new System.Windows.Forms.Panel();
             this.lblStatus = new System.Windows.Forms.Label();
             this.pnHead = new System.Windows.Forms.Panel();
-            this.lbMsg = new System.Windows.Forms.Label();
             this.rbtnLogin = new Telerik.WinControls.UI.RadButton();
             this.rbtnCancel = new Telerik.WinControls.UI.RadButton();
             this.tboxPasswd = new System.Windows.Forms.TextBox();
             this.tboxUsername = new System.Windows.Forms.TextBox();
             this.lbPasswd = new System.Windows.Forms.Label();
             this.lbUsername = new System.Windows.Forms.Label();
+            this.lbMsg = new System.Windows.Forms.Label();
             this.pnLogin.SuspendLayout();
             this.pnHead.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rbtnLogin)).BeginInit();
@@ -60,7 +60,7 @@
             this.pnLogin.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnLogin.Location = new System.Drawing.Point(0, 0);
             this.pnLogin.Name = "pnLogin";
-            this.pnLogin.Size = new System.Drawing.Size(491, 289);
+            this.pnLogin.Size = new System.Drawing.Size(488, 309);
             this.pnLogin.TabIndex = 0;
             this.pnLogin.VisibleChanged += new System.EventHandler(this.pnLogin_VisibleChanged);
             // 
@@ -79,24 +79,13 @@
             this.pnHead.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnHead.Location = new System.Drawing.Point(0, 0);
             this.pnHead.Name = "pnHead";
-            this.pnHead.Size = new System.Drawing.Size(489, 57);
+            this.pnHead.Size = new System.Drawing.Size(486, 86);
             this.pnHead.TabIndex = 6;
-            // 
-            // lbMsg
-            // 
-            this.lbMsg.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbMsg.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbMsg.Location = new System.Drawing.Point(0, 0);
-            this.lbMsg.Name = "lbMsg";
-            this.lbMsg.Size = new System.Drawing.Size(489, 57);
-            this.lbMsg.TabIndex = 0;
-            this.lbMsg.Text = "登录服务器";
-            this.lbMsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // rbtnLogin
             // 
-            this.rbtnLogin.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.rbtnLogin.Location = new System.Drawing.Point(300, 217);
+            this.rbtnLogin.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rbtnLogin.Location = new System.Drawing.Point(299, 240);
             this.rbtnLogin.Name = "rbtnLogin";
             this.rbtnLogin.Size = new System.Drawing.Size(155, 54);
             this.rbtnLogin.TabIndex = 5;
@@ -105,8 +94,8 @@
             // 
             // rbtnCancel
             // 
-            this.rbtnCancel.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.rbtnCancel.Location = new System.Drawing.Point(139, 217);
+            this.rbtnCancel.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rbtnCancel.Location = new System.Drawing.Point(138, 240);
             this.rbtnCancel.Name = "rbtnCancel";
             this.rbtnCancel.Size = new System.Drawing.Size(155, 54);
             this.rbtnCancel.TabIndex = 4;
@@ -116,7 +105,7 @@
             // tboxPasswd
             // 
             this.tboxPasswd.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tboxPasswd.Location = new System.Drawing.Point(167, 156);
+            this.tboxPasswd.Location = new System.Drawing.Point(166, 179);
             this.tboxPasswd.Name = "tboxPasswd";
             this.tboxPasswd.PasswordChar = '*';
             this.tboxPasswd.Size = new System.Drawing.Size(288, 39);
@@ -125,7 +114,7 @@
             // tboxUsername
             // 
             this.tboxUsername.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tboxUsername.Location = new System.Drawing.Point(167, 84);
+            this.tboxUsername.Location = new System.Drawing.Point(166, 107);
             this.tboxUsername.Name = "tboxUsername";
             this.tboxUsername.Size = new System.Drawing.Size(288, 39);
             this.tboxUsername.TabIndex = 2;
@@ -134,7 +123,7 @@
             // 
             this.lbPasswd.AutoSize = true;
             this.lbPasswd.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbPasswd.Location = new System.Drawing.Point(26, 159);
+            this.lbPasswd.Location = new System.Drawing.Point(25, 182);
             this.lbPasswd.Name = "lbPasswd";
             this.lbPasswd.Size = new System.Drawing.Size(93, 31);
             this.lbPasswd.TabIndex = 1;
@@ -144,17 +133,28 @@
             // 
             this.lbUsername.AutoSize = true;
             this.lbUsername.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbUsername.Location = new System.Drawing.Point(26, 87);
+            this.lbUsername.Location = new System.Drawing.Point(25, 110);
             this.lbUsername.Name = "lbUsername";
             this.lbUsername.Size = new System.Drawing.Size(110, 31);
             this.lbUsername.TabIndex = 0;
             this.lbUsername.Text = "用户名：";
             // 
+            // lbMsg
+            // 
+            this.lbMsg.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbMsg.Font = new System.Drawing.Font("微软雅黑", 30F);
+            this.lbMsg.Location = new System.Drawing.Point(0, 0);
+            this.lbMsg.Name = "lbMsg";
+            this.lbMsg.Size = new System.Drawing.Size(486, 86);
+            this.lbMsg.TabIndex = 0;
+            this.lbMsg.Text = "登录服务器";
+            this.lbMsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(491, 289);
+            this.ClientSize = new System.Drawing.Size(488, 309);
             this.Controls.Add(this.pnLogin);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "LoginForm";
@@ -181,7 +181,6 @@
         private Telerik.WinControls.Themes.TelerikMetroTheme telerikMetroTheme1;
         private System.Windows.Forms.Panel pnLogin;
         private System.Windows.Forms.Panel pnHead;
-        private System.Windows.Forms.Label lbMsg;
         private Telerik.WinControls.UI.RadButton rbtnLogin;
         private Telerik.WinControls.UI.RadButton rbtnCancel;
         private System.Windows.Forms.TextBox tboxPasswd;
@@ -189,5 +188,6 @@
         private System.Windows.Forms.Label lbPasswd;
         private System.Windows.Forms.Label lbUsername;
         private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.Label lbMsg;
     }
 }

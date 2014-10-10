@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
+            this.radButton1 = new Telerik.WinControls.UI.RadButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.lbOfflinePasswdStatus = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.lbLoadpasswd = new System.Windows.Forms.Label();
             this.tboxLoadpasswd = new System.Windows.Forms.TextBox();
@@ -39,7 +39,9 @@
             this.rbtnFinish = new Telerik.WinControls.UI.RadButton();
             this.telerikMetroTouchTheme1 = new Telerik.WinControls.Themes.TelerikMetroTouchTheme();
             this.lbMsg = new System.Windows.Forms.Label();
+            this.lbOfflinePasswdStatus = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radButton1)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rbtnFinish)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
@@ -48,13 +50,24 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.radButton1);
             this.panel2.Controls.Add(this.groupBox3);
             this.panel2.Controls.Add(this.rbtnFinish);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, -7);
+            this.panel2.Location = new System.Drawing.Point(0, 18);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(671, 339);
+            this.panel2.Size = new System.Drawing.Size(644, 339);
             this.panel2.TabIndex = 13;
+            // 
+            // radButton1
+            // 
+            this.radButton1.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold);
+            this.radButton1.Location = new System.Drawing.Point(232, 272);
+            this.radButton1.Name = "radButton1";
+            this.radButton1.Size = new System.Drawing.Size(155, 54);
+            this.radButton1.TabIndex = 14;
+            this.radButton1.Text = "取    消";
+            this.radButton1.Click += new System.EventHandler(this.radButton1_Click);
             // 
             // groupBox3
             // 
@@ -67,19 +80,9 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(669, 258);
+            this.groupBox3.Size = new System.Drawing.Size(642, 258);
             this.groupBox3.TabIndex = 13;
             this.groupBox3.TabStop = false;
-            // 
-            // lbOfflinePasswdStatus
-            // 
-            this.lbOfflinePasswdStatus.AutoSize = true;
-            this.lbOfflinePasswdStatus.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbOfflinePasswdStatus.Location = new System.Drawing.Point(554, 148);
-            this.lbOfflinePasswdStatus.Name = "lbOfflinePasswdStatus";
-            this.lbOfflinePasswdStatus.Size = new System.Drawing.Size(60, 54);
-            this.lbOfflinePasswdStatus.TabIndex = 14;
-            this.lbOfflinePasswdStatus.Text = "        \r\n        ";
             // 
             // checkBox1
             // 
@@ -93,6 +96,7 @@
             this.checkBox1.TabIndex = 13;
             this.checkBox1.Text = "本次会话记住密码";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.Visible = false;
             // 
             // lbLoadpasswd
             // 
@@ -136,32 +140,41 @@
             // 
             // rbtnFinish
             // 
-            this.rbtnFinish.Font = new System.Drawing.Font("微软雅黑", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.rbtnFinish.Location = new System.Drawing.Point(383, 271);
+            this.rbtnFinish.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold);
+            this.rbtnFinish.Location = new System.Drawing.Point(393, 272);
             this.rbtnFinish.Name = "rbtnFinish";
-            this.rbtnFinish.Size = new System.Drawing.Size(165, 63);
+            this.rbtnFinish.Size = new System.Drawing.Size(155, 54);
             this.rbtnFinish.TabIndex = 3;
             this.rbtnFinish.Text = "开始下载";
-            this.rbtnFinish.ThemeName = "TelerikMetro";
             this.rbtnFinish.Click += new System.EventHandler(this.rbtnFinish_Click);
             // 
             // lbMsg
             // 
-            this.lbMsg.BackColor = System.Drawing.Color.SteelBlue;
+            this.lbMsg.BackColor = System.Drawing.Color.LightBlue;
             this.lbMsg.Dock = System.Windows.Forms.DockStyle.Top;
             this.lbMsg.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbMsg.Location = new System.Drawing.Point(0, 0);
             this.lbMsg.Name = "lbMsg";
-            this.lbMsg.Size = new System.Drawing.Size(671, 59);
+            this.lbMsg.Size = new System.Drawing.Size(644, 86);
             this.lbMsg.TabIndex = 14;
             this.lbMsg.Text = "请输入课程密码";
             this.lbMsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbOfflinePasswdStatus
+            // 
+            this.lbOfflinePasswdStatus.AutoSize = true;
+            this.lbOfflinePasswdStatus.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbOfflinePasswdStatus.Location = new System.Drawing.Point(554, 148);
+            this.lbOfflinePasswdStatus.Name = "lbOfflinePasswdStatus";
+            this.lbOfflinePasswdStatus.Size = new System.Drawing.Size(60, 54);
+            this.lbOfflinePasswdStatus.TabIndex = 14;
+            this.lbOfflinePasswdStatus.Text = "        \r\n        ";
             // 
             // OfflinePasswdForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(671, 332);
+            this.ClientSize = new System.Drawing.Size(644, 357);
             this.ControlBox = false;
             this.Controls.Add(this.lbMsg);
             this.Controls.Add(this.panel2);
@@ -176,6 +189,7 @@
             this.ThemeName = "TelerikMetro";
             this.Load += new System.EventHandler(this.OfflinePasswdForm_Load);
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.radButton1)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rbtnFinish)).EndInit();
@@ -194,8 +208,9 @@
         private System.Windows.Forms.TextBox tboxRepeatPasswd;
         private Telerik.WinControls.UI.RadButton rbtnFinish;
         private Telerik.WinControls.Themes.TelerikMetroTouchTheme telerikMetroTouchTheme1;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label lbMsg;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private Telerik.WinControls.UI.RadButton radButton1;
         private System.Windows.Forms.Label lbOfflinePasswdStatus;
 
     }

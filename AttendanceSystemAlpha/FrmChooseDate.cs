@@ -14,11 +14,12 @@ namespace AttendanceSystemAlpha
         public DateTime dt = DateTime.Now;
         public Boolean isChanged = false;
         private DateTime _pDateTime = DateTime.Now;
-        public FrmChooseDate(DateTime preparedTime)
+        public FrmChooseDate(DateTime YdSkSj , DateTime SjSksj)
         {
             InitializeComponent();
-            _pDateTime = preparedTime;
-            radDateTimePicker1.Value = DateTime.Now;
+            _pDateTime = YdSkSj;
+            radDateTimePicker2.Value = YdSkSj;
+            radDateTimePicker1.Value = SjSksj;
         }
 
         private void radButton1_Click(object sender, EventArgs e)
@@ -36,7 +37,7 @@ namespace AttendanceSystemAlpha
 
         private void FrmChooseDate_Load(object sender, EventArgs e)
         {
-            radDateTimePicker2.Value = _pDateTime;
+
         }
     }
 }

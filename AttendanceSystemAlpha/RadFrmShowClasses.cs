@@ -28,8 +28,8 @@ namespace AttendanceSystemAlpha
 
         private void RadFrmShowClasses_Load(object sender, EventArgs e)
         {
-            this.Width = 754;
-            this.Height = 390;
+            this.Width = 854;
+            this.Height = 416;
             listBox1.DataSource = ____fDataModule.Context.JSANDKKVIEWRO;
             listBox1.DisplayMember = "KKNAME";
             listBox1.ValueMember = "KKNO";
@@ -48,7 +48,12 @@ namespace AttendanceSystemAlpha
 
         private void radButton1_Click(object sender, EventArgs e)
         {
+            offlinePasswd = new OfflinePasswdForm();
             offlinePasswd.ShowDialog(); //获得离线密码
+            if (offlinePasswd.DialogResult == DialogResult.Cancel)
+            {
+                return;
+            }
             ListBox.SelectedObjectCollection checkedToDownload = listBox1.SelectedItems;
             ____fDataModule.ServerToBriefcase
                 (Properties.Settings.Default.CurrentDownloadPasswd, checkedToDownload);

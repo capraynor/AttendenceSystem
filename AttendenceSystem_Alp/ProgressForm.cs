@@ -25,6 +25,10 @@ namespace AttendenceSystem_Alp
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            if (Properties.Settings.Default.ProgressValue >= 100)
+            {
+                Properties.Settings.Default.ProgressValue = 100;
+            }
             this.progressBar1.Value = Properties.Settings.Default.ProgressValue;
         }
 

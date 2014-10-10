@@ -75,8 +75,8 @@ namespace AttendanceSystemAlpha
 
         private void pnLogin_VisibleChanged(object sender, EventArgs e)
         {
-            this.Width = 491;
-            this.Height = 289;
+            this.Width = 488;
+            this.Height = 309;
         }
     }
 }

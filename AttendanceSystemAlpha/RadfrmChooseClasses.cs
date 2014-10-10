@@ -22,7 +22,10 @@ namespace AttendanceSystemAlpha
         public long ClassNumber = 0;
         public string ClassName = "";
         public long Jieci = 0;
-        public DateTime ClassDate = new DateTime();
+        public DateTime SjSkdate;
+        public DateTime YdSkdate;
+        public DateTime YdXkdate;
+        public DateTime SjXkdate;
         public string TeacherName = "";
         public DataTable DmTable = null;
         public bool flag = false;
@@ -34,34 +37,19 @@ namespace AttendanceSystemAlpha
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if (currentPasswd != textBox1.Text)
-            {
-                pictureBox1.BackColor = Color.OrangeRed;
-                cbboxJieCi.Enabled = false;
-                
-
-            }
-            else
-            {
-                pictureBox1.BackColor = Color.LawnGreen;
-                cbboxJieCi.Enabled = true;
-            }
+            
         }
 
         private void RadfrmChooseClasses_Load(object sender, EventArgs e)
         {
             this.textBox1.Text = "";
-            this.pictureBox1.BackColor = Color.White;
-
             propertieBriefcase = new FileBriefcase(Properties.Settings.Default.PropertiesBriefcaseFolder, true);
             _propertiesTable = propertieBriefcase.FindTable("PropertiesTable");
             comboBox1.DataSource = _propertiesTable;
             comboBox1.DisplayMember = "开课名称";
             comboBox1.ValueMember = "开课编号";
-            this.Height = 328;
-            this.Width = 719;
-            
-
+            this.Height = 354;
+            this.Width = 725;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -81,14 +69,8 @@ namespace AttendanceSystemAlpha
             cbboxJieCi.DisplayMember = "SKDATE";
             cbboxJieCi.ValueMember = "SKNO";
             cbboxJieCi.DataSource = skTable;
-
-        }
-
-        private void comboBox2_EnabledChanged(object sender, EventArgs e)
-        {
             try
             {
-                DataTable skTable = _chooseClassBriefcase.FindTable("SKTABLE");
                 cbboxJieCi.DisplayMember = "SKDATE";
                 cbboxJieCi.ValueMember = "SKNO";
                 cbboxJieCi.DataSource = skTable;
@@ -98,30 +80,40 @@ namespace AttendanceSystemAlpha
                 {
                     if (classSpan > ((DateTime)itemsRow["SKDATE"] - DateTime.Now) && ((DateTime)itemsRow["SKDATE"]).Date == DateTime.Now.Date)
                     {
-                        classSpan = (DateTime) itemsRow["SKDATE"] - DateTime.Now;
+                        classSpan = (DateTime)itemsRow["SKDATE"] - DateTime.Now;
                         cbboxJieCi.SelectedItem = itemsRow;
                     }
                 }
                 classSpan = TimeSpan.MaxValue;
-                
-                //cbboxCallWay.Text = "指纹点名";
-                //tboxClassplace.Text = "明德楼 D0505";
-                //cbboxCalltimes.Text = "1";
             }
             catch (Exception exception)
             {
                 MessageBox.Show("出现一个错误.请将以下信息提供给管理员\n" + exception.Message);
                 return;
             }
+
+        }
+
+        private void comboBox2_EnabledChanged(object sender, EventArgs e)
+        {
+            
         }
 
         private void radButton1_Click(object sender, EventArgs e)
         {
-            ClassDate = Convert.ToDateTime(cbboxJieCi.Text);
             Jieci = Convert.ToInt64(cbboxJieCi.SelectedValue);
+            DataRowView __tempDRV = (DataRowView) cbboxJieCi.SelectedItem;
+            DataRow __tempDr = __tempDRV.Row;
+            YdSkdate = (DateTime) __tempDr["YDSKDATE"];
+            YdXkdate = (DateTime) __tempDr["YDXKDATE"];
+            SjSkdate = (DateTime) __tempDr["SKDATE"];
+            SjXkdate = (DateTime) __tempDr["XKDATE"];
+            Jieci = (long) __tempDr["SKNO"];
             if (currentPasswd != textBox1.Text)
             {
                 MessageBox.Show("请输入正确的密码");
+                textBox1.Focus();
+                textBox1.SelectAll();
                 return;
             }
             DmTable = _chooseClassBriefcase.FindTable(Jieci.ToString());
@@ -131,7 +123,7 @@ namespace AttendanceSystemAlpha
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ClassDate = Convert.ToDateTime(cbboxJieCi.Text);
+            SjSkdate = Convert.ToDateTime(cbboxJieCi.Text);
             Jieci = Convert.ToInt64(cbboxJieCi.SelectedValue);
             radButton1.Enabled = true;
         }

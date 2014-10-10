@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using Telerik.WinControls;
 
 namespace AttendanceSystemAlpha
@@ -31,36 +32,36 @@ namespace AttendanceSystemAlpha
             Properties.Settings.Default.CurrentDownloadPasswd = tboxLoadpasswd.Text;
             lbOfflinePasswdStatus.Text = "           ";
             tboxRepeatPasswd.BackColor = Color.Green;
-            if (checkBox1.Checked)
-            {
-                Properties.Settings.Default.DownloadPasswd = tboxLoadpasswd.Text;
-                Properties.Settings.Default.SaveOfflinePasswd = true;
+            //if (checkBox1.Checked)
+            //{
+            //    Properties.Settings.Default.DownloadPasswd = tboxLoadpasswd.Text;
+            //    Properties.Settings.Default.SaveOfflinePasswd = true;
                 
-            }
+            //}
             this.tboxLoadpasswd.Text = "";
             this.tboxRepeatPasswd.Text = "";
-            
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
         private void tboxRepeatPasswd_TextChanged(object sender, EventArgs e)
         {
-            if (tboxRepeatPasswd.Text == tboxLoadpasswd.Text)
-            {
-                lbOfflinePasswdStatus.BackColor = Color.Green;
-                lbOfflinePasswdStatus.Text = "输入正确";
-            }
-            else
-            {
-                lbOfflinePasswdStatus.BackColor = Color.Orange;
-                lbOfflinePasswdStatus.Text = "两次密码\n需一致";
-            }
+            //if (tboxRepeatPasswd.Text == tboxLoadpasswd.Text)
+            //{
+            //    lbOfflinePasswdStatus.BackColor = Color.Green;
+            //    lbOfflinePasswdStatus.Text = "输入正确";
+            //}
+            //else
+            //{
+            //    lbOfflinePasswdStatus.BackColor = Color.Orange;
+            //    lbOfflinePasswdStatus.Text = "两次密码\n需一致";
+            //}
         }
 
         private void OfflinePasswdForm_Load(object sender, EventArgs e)
         {
-            this.Width = 671;
-            this.Height = 332;
+            this.Width = 644;
+            this.Height = 357;
             if (Properties.Settings.Default.SaveOfflinePasswd)
             {
                 tboxRepeatPasswd.Text = tboxLoadpasswd.Text = Properties.Settings.Default.DownloadPasswd;
@@ -68,6 +69,13 @@ namespace AttendanceSystemAlpha
             tboxRepeatPasswd.BackColor = Color.White;
             lbOfflinePasswdStatus.BackColor = Color.White;
             lbOfflinePasswdStatus.Text = "          ";
+
+        }
+
+        private void radButton1_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
     }
 }

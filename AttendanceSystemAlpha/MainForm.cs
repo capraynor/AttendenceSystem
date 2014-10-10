@@ -136,24 +136,13 @@ namespace AttendanceSystemAlpha
             
             //**********饼图*********//
 
-            List<string> xData = new List<string>() { "实到", "未到" };
+            List<string> xData = new List<string>() { "实到：0", "未到:50" };
             List<int> yData = new List<int>() {0 , 50 };
             //chart1.Series[0]["PieLabelStyle"] = "Outside";//将文字移到外侧
             //chart1.Series[0]["PieLineColor"] = "Black";//绘制黑色的连线。
             chart1.Series[0].Points.DataBindXY(xData, yData);
             chart2.Series[0].Points.DataBindXY(xData, yData);
             //***********饼图*********//
-            
-            //if (this.WindowState == FormWindowState.Maximized)
-            //  {        
-            //     this.WindowState = FormWindowState.Normal;
-            //  }
-            //else
-            //  {
-            //     this.FormBorderStyle = FormBorderStyle.None;
-            //     this.MaximumSize = new Size(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
-            //     this.WindowState = FormWindowState.Maximized;
-            //  }
             this.Visible = true;
             SetMngControlInvisible();
             panel19.Visible = panel22.Visible = false;
@@ -220,12 +209,11 @@ namespace AttendanceSystemAlpha
             pboxPhoto.Image = Properties.Resources.attendance_list_icon;
             ContinueOpration = false;
             HDFingerprintHelper.FpCloseUsb(FpHandle);
-            lbStudentName.Text = "已结束点名";
+            lbStudentName.Text = "学生姓名";
             panel19.Visible = panel22.Visible = false;
             radButton1.Enabled = false;
             rbtnStartcall.Enabled = true;
-            
-            
+            BtnManualRollCall.Enabled = false;
         }
         private static int CountArriveSudentNumber(DataTable dmTable)
         {
@@ -251,7 +239,7 @@ namespace AttendanceSystemAlpha
         private static int CountAbsentStudent(DataTable dmTable)
         {
             DataRow[] dmRows;
-            dmRows = dmTable.Select("DKZT = 3");
+            dmRows = dmTable.Select("DKZT = 3 or DKZT = 5");
             return dmRows.Count();
         }
         
@@ -273,13 +261,14 @@ namespace AttendanceSystemAlpha
             int _studentTotal = 0;
             int _sdrs = 0;
             double _dkpercent = 0.0;
-            _studentTotal = (CountArriveSudentNumber(mngdmTable) + CountLateStudentNumber(mngdmTable) +
-                            CountLeaveEarly(mngdmTable) + CountAbsentStudent(mngdmTable));
+            _studentTotal = mngdmTable.Rows.Count;
+            //_studentTotal = (CountArriveSudentNumber(mngdmTable) + CountLateStudentNumber(mngdmTable) +
+            //                CountLeaveEarly(mngdmTable) + CountAbsentStudent(mngdmTable));//todo: 直接数人数
             _sdrs = (CountArriveSudentNumber(mngdmTable) + CountLateStudentNumber(mngdmTable));
             _dkpercent = (_sdrs / Convert.ToDouble(_studentTotal));
-            lbMngStudentTotal.Text = _studentTotal.ToString();
-            lbMngsdrs.Text = _sdrs.ToString();
-            lbMngDkpercent.Text = string.Format("{0:P}", _dkpercent);
+            //lbMngStudentTotal.Text = _studentTotal.ToString();
+            //lbMngsdrs.Text = _sdrs.ToString();
+            //lbMngDkpercent.Text = string.Format("{0:P}", _dkpercent);
             foreach (DataRow Row in mngdmTable.Rows)
             {
                 DataRow resaultRow = dtResault.NewRow();
@@ -307,6 +296,16 @@ namespace AttendanceSystemAlpha
                         resaultRow["到课状态"] = "旷课";
                         break;
                     }
+                    case "4":
+                    {
+                        resaultRow["到课状态"] = "请假";
+                        break;
+                    }
+                    case "5":
+                    {
+                        resaultRow["到课状态"] = "未签到";
+                        break;
+                    }
                 }
                 resaultRow["姓名"] = Row["XSNAME"].ToString();
                 //resaultRow["到课时间"] = Convert.ToDateTime(Row["DMSJ1"]);\
@@ -319,10 +318,10 @@ namespace AttendanceSystemAlpha
             }
            
             mngGridView.DataSource = dtResault;
-            lbMngOfflineStatus.Text = "未提交";
+            //lbMngOfflineStatus.Text = "未提交";
             //**********饼图*********//
-            
-            List<string> xData = new List<string>() { "实到", "未到" };
+
+            List<string> xData = new List<string>() { "实到：" + _sdrs + "人", "未到" + (_studentTotal - _sdrs) + "人" };
             List<int> yData = new List<int>() { _sdrs, _studentTotal-_sdrs };
             //chart1.Series[0]["PieLabelStyle"] = "Outside";//将文字移到外侧
             //chart1.Series[0]["PieLineColor"] = "Black";//绘制黑色的连线。
@@ -348,9 +347,11 @@ namespace AttendanceSystemAlpha
                     dr.BeginEdit();
                     dr["POSTDATE"] = DateTime.Now;
                     dr["POSTMANNO"] = Convert.ToDecimal(fDataModule.GetUserID());
+                    if ((Int16) dr["DKZT"] == 5)
+                    {
+                        dr["DKZT"] = (Int16)3;
+                    }
                     dr.EndEdit();
-                    
-                    
                     ProgressHelper.SetProgress((int) (20*(++i/__count)));
                 }
                 ProgressHelper.SetProgress(20);//progress:  0-20
@@ -362,7 +363,7 @@ namespace AttendanceSystemAlpha
                     fDataModule.UpdateDmtable(dmtable08); // dmtable update完成
                     ProgressHelper.SetProgress(20+ (int) (70*(++i/__count)));
                 }
-                fDataModule.ApplyChanges(); // ceshi
+                fDataModule.ApplyChanges(); 
                 ProgressHelper.SetProgress(90);
                 //mngSKtable = _chooseClassBriefcase.FindTable() // todo update sktable 点名方式 早退人数
                 long _skno = JieCi;
@@ -414,7 +415,7 @@ namespace AttendanceSystemAlpha
                 ProgressHelper.SetProgress(100);
                 ProgressHelper.StopProgressThread();
                 ProgressHelper.SetProgress(0);
-                lbMngOfflineStatus.Text = "数据提交成功";
+                //lbMngOfflineStatus.Text = "数据提交成功";
                 toolStripOperationStatus.Text = "数据提交成功";
                 MessageBox.Show("数据提交成功");
                 jsid = "";
@@ -425,8 +426,8 @@ namespace AttendanceSystemAlpha
             {
                 ProgressHelper.StopProgressThread();
                 ProgressHelper.SetProgress(0);
-                lbMngOfflineStatus.Text = "数据提交失败 请将以下信息提供给管理员：" +exception.Message;
-                MessageBox.Show(exception.Message);
+                //lbMngOfflineStatus.Text = "数据提交失败 请将以下信息提供给管理员：" +exception.Message;
+                MessageBox.Show("数据提交失败 请将以下信息提供给管理员：" + exception.Message);
                 return;
             }
         }
@@ -461,6 +462,7 @@ namespace AttendanceSystemAlpha
 
         private void rbtnStartcall_Click_1(object sender, EventArgs e)
         {
+            xsidTable = new DataTable("学生信息");
             
             if (!Directory.Exists(string.Format(Properties.Settings.Default.OfflineFolder, "")) || System.IO.Directory.GetFiles(string.Format(Properties.Settings.Default.OfflineFolder, "")).Length == 0)
             {
@@ -468,7 +470,6 @@ namespace AttendanceSystemAlpha
                 return;
             }
             toolStripOperationStatus.Text = "开始点名";
-            lbStudentName.Text = "开始点名";
             frmChooseClasses.ShowDialog(); // 获得各种信息 弹窗 
             if (!frmChooseClasses.flag) return;
             dmTable = frmChooseClasses.DmTable;
@@ -484,7 +485,7 @@ namespace AttendanceSystemAlpha
             }
 
             //选择上课时间
-            FrmChooseDate frmChooseDate = new FrmChooseDate(frmChooseClasses.ClassDate);
+            FrmChooseDate frmChooseDate = new FrmChooseDate(frmChooseClasses.SjSkdate , frmChooseClasses.YdSkdate);
             frmChooseDate.ShowDialog();
             if (frmChooseDate.isChanged)
             {
@@ -545,30 +546,29 @@ namespace AttendanceSystemAlpha
             }
             lbTeacherName.Text = frmChooseClasses.TeacherName;
             lbClassName.Text = frmChooseClasses.ClassName;
-            preparedTime.Value = frmChooseClasses.ClassDate; 
+            preparedTime.Value = frmChooseClasses.SjSkdate; 
             lbClassName.Text = frmChooseClasses.ClassName;
-            toolStripOperationStatus.Text = "开始点名";
             rbtnStartcall.Enabled = false;
             radButton1.Enabled = true;
             panel19.Visible = panel22.Visible = true; // 设置信息区域可见
             //**********饼图*********//
 
-            List<string> xData = new List<string>() { "实到", "未到" };
+            List<string> xData = new List<string>() { "实到：0 人", "未到：" + frmChooseClasses.DmTable.Rows.Count+"人" };
             List<int> yData = new List<int>() { 0, frmChooseClasses.DmTable.Rows.Count };
             //chart1.Series[0]["PieLabelStyle"] = "Outside";//将文字移到外侧
             //chart1.Series[0]["PieLineColor"] = "Black";//绘制黑色的连线。
             chart1.Series[0].Points.DataBindXY(xData, yData);
             //***********饼图*********//
-            this.lbYdrs.Text = frmChooseClasses.DmTable.Rows.Count.ToString();
-            this.lbSdrs.Text = "0";
-            this.lbMngDkpercent.Text = "0.00%";
+            //this.lbYdrs.Text = frmChooseClasses.DmTable.Rows.Count.ToString();
+            //this.lbSdrs.Text = "0";
+            //this.lbMngDkpercent.Text = "0.00%"; // 这段代码是用来初始化label显示的。
             ContinueOpration = true;
             
             Thread verifyThread = new Thread(VerifyFingerprint);
             verifyThread.IsBackground = true;
             verifyThread.Start();
-            Briefcase manualRollCallBriefcase = frmChooseClasses._chooseClassBriefcase;
-            frmmanualRollCall = new ManualRollCall(manualRollCallBriefcase, frmChooseClasses.Jieci, ref dmTable, DateTimePicker1.Value);
+           
+            
             ProgressHelper.SetProgress(100);
             
             radButton1.Enabled = true;
@@ -585,7 +585,7 @@ namespace AttendanceSystemAlpha
             mngTeacherName = frmChooseClasses.TeacherName;
             JieCi = frmChooseClasses.Jieci;
             mngClassName = frmChooseClasses.ClassName;
-            dateTimePicker2.Value = frmChooseClasses.ClassDate;
+            dateTimePicker2.Value = frmChooseClasses.SjSkdate;
             mngchooseClassBriefcase = frmChooseClasses._chooseClassBriefcase;
             jsid = mngchooseClassBriefcase.Properties[GlobalParams.PropertiesTeacherID]; // 获取教师工号 用于上传登录
             ShowOfflineInformations(); // 离线数据显示
@@ -791,19 +791,21 @@ namespace AttendanceSystemAlpha
 
                                 //lbYdrs.Text =  briefcase.Properties[Properties.Settings.Default.PropertiesTotalStudentNumber];
                                 //lbYdrs.Text = dmTable.Rows.Count.ToString();
-                                SetControlPropertyThreadSafe(lbYdrs, "Text", new object[] { dmTable.Rows.Count.ToString() });
-                                //lbDKPercent.Text = (Convert.ToDouble(sdrs) / Convert.ToDouble(lbYdrs.Text)).ToString("0.00%");
-                                SetControlPropertyThreadSafe(lbDKPercent, "Text", new object[] { (Convert.ToDouble(sdrs) / Convert.ToDouble(lbYdrs.Text)).ToString("0.00%") });
-                                //lbSdrs.Text = sdrs.ToString();
-                                SetControlPropertyThreadSafe(lbSdrs, "Text", new object[] { sdrs.ToString() });
+                                //***********************更新label显示**********************************
+                                //SetControlPropertyThreadSafe(lbYdrs, "Text", new object[] { dmTable.Rows.Count.ToString() });
+                                ////lbDKPercent.Text = (Convert.ToDouble(sdrs) / Convert.ToDouble(lbYdrs.Text)).ToString("0.00%");
+                                //SetControlPropertyThreadSafe(lbDKPercent, "Text", new object[] { (Convert.ToDouble(sdrs) / Convert.ToDouble(lbYdrs.Text)).ToString("0.00%") });
+                                ////lbSdrs.Text = sdrs.ToString();
+                                //SetControlPropertyThreadSafe(lbSdrs, "Text", new object[] { sdrs.ToString() });
 
-                                //lbCdrs.Text = CountLateStudentNumber(dmTable).ToString();
-                                SetControlPropertyThreadSafe(lbCdrs, "Text", new object[] { CountLateStudentNumber(dmTable).ToString() });
+                                ////lbCdrs.Text = CountLateStudentNumber(dmTable).ToString();
+                                //SetControlPropertyThreadSafe(lbCdrs, "Text", new object[] { CountLateStudentNumber(dmTable).ToString() });
+                                //***********************更新label显示**********************************
                                 //**********饼图*********//
 
-                                List<string> xData = new List<string>() { "实到", "未到" };
+                                List<string> xData = new List<string>() { "实到:" + sdrs + "人", "未到" + (dmTable.Rows.Count-sdrs) + "人" };
 
-                                List<int> yData = new List<int>() { sdrs, Convert.ToInt32(lbYdrs.Text)-sdrs };
+                                List<int> yData = new List<int>() { sdrs, dmTable.Rows.Count - sdrs };
                                 //chart1.Series[0]["PieLabelStyle"] = "Outside";//将文字移到外侧
                                 //chart1.Series[0]["PieLineColor"] = "Black";//绘制黑色的连线。
                                 //chart1.Series[0].Points.DataBindXY(xData, yData);
@@ -838,7 +840,7 @@ namespace AttendanceSystemAlpha
                                 //lbStudentXy.Text = "";
                                 SetControlPropertyThreadSafe(lbStudentXy, "Text", new object[] { "" });
                                 //lbStudentName.Text = "请重扫指纹";
-                                SetControlPropertyThreadSafe(lbStudentName, "Text", new object[] { "已结束点名" });
+                                SetControlPropertyThreadSafe(lbStudentName, "Text", new object[] { "学生姓名" });
                                 //lbDczt.Text = "";
                                 SetControlPropertyThreadSafe(lbDczt, "Text", new object[] { "" });
                                 //lbDcsj.Text = "";
@@ -899,7 +901,6 @@ namespace AttendanceSystemAlpha
         /// </summary>
         private void SetMngControlInvisible()
         {
-            lbMngDkpercent.Text = "";
             PnMngClassInfo.Visible = false;
             mngGridView.Visible = false;
         }
@@ -924,7 +925,26 @@ namespace AttendanceSystemAlpha
         //手动签到部分->>
         private void BtnManualRollCall_Click(object sender, EventArgs e)
         {
+            
+            lock (ThreadLocker.CallingBriefcaseLocker)
+            {
+                Briefcase manualRollCallBriefcase = frmChooseClasses._chooseClassBriefcase;
+                frmmanualRollCall = new ManualRollCall(manualRollCallBriefcase, frmChooseClasses.Jieci, ref dmTable, DateTimePicker1.Value);
+            }
             frmmanualRollCall.ShowDialog();
+            lock (ThreadLocker.CallingBriefcaseLocker)
+            {
+                dmTable = frmChooseClasses._chooseClassBriefcase.FindTable(frmChooseClasses.Jieci.ToString());
+                int sdrs = CountArriveSudentNumber(dmTable) + CountLateStudentNumber(dmTable);
+                List<string> xData = new List<string>() { "实到:" + sdrs + "人", "未到" + (dmTable.Rows.Count - sdrs) + "人" };
+
+                List<int> yData = new List<int>() { sdrs, dmTable.Rows.Count - sdrs };
+                //chart1.Series[0]["PieLabelStyle"] = "Outside";//将文字移到外侧
+                //chart1.Series[0]["PieLineColor"] = "Black";//绘制黑色的连线。
+                //chart1.Series[0].Points.DataBindXY(xData, yData);
+                //SetControlPropertyThreadSafe(chart1, "Series[0].Points.DataBindXY"  , new object[]{xData , yData} );
+                chart1.Invoke((MethodInvoker)delegate { chart1.Series[0].Points.DataBindXY(xData, yData); });
+            }
         }
         //<<-手动签到部分
     }

@@ -47,25 +47,24 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.panel1.BackColor = System.Drawing.Color.LightBlue;
             this.panel1.Controls.Add(this.label2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Font = new System.Drawing.Font("微软雅黑", 21.75F);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(792, 77);
+            this.panel1.Size = new System.Drawing.Size(784, 86);
             this.panel1.TabIndex = 0;
             // 
             // label2
             // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("微软雅黑", 30F);
-            this.label2.Location = new System.Drawing.Point(277, 14);
+            this.label2.Location = new System.Drawing.Point(231, 19);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(223, 52);
+            this.label2.Size = new System.Drawing.Size(303, 52);
             this.label2.TabIndex = 17;
-            this.label2.Text = "请选择时间";
+            this.label2.Text = "请选择授课时间";
             // 
             // radDateTimePicker1
             // 
@@ -87,10 +86,10 @@
             // 
             // radButton1
             // 
-            this.radButton1.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Bold);
+            this.radButton1.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold);
             this.radButton1.Location = new System.Drawing.Point(615, 322);
             this.radButton1.Name = "radButton1";
-            this.radButton1.Size = new System.Drawing.Size(154, 49);
+            this.radButton1.Size = new System.Drawing.Size(155, 54);
             this.radButton1.TabIndex = 20;
             this.radButton1.Text = "确    定";
             this.radButton1.Click += new System.EventHandler(this.radButton1_Click);
@@ -98,10 +97,10 @@
             // radButton2
             // 
             this.radButton2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.radButton2.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Bold);
+            this.radButton2.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold);
             this.radButton2.Location = new System.Drawing.Point(455, 322);
             this.radButton2.Name = "radButton2";
-            this.radButton2.Size = new System.Drawing.Size(154, 49);
+            this.radButton2.Size = new System.Drawing.Size(155, 54);
             this.radButton2.TabIndex = 21;
             this.radButton2.Text = "取    消";
             this.radButton2.Click += new System.EventHandler(this.radButton2_Click);
@@ -130,28 +129,28 @@
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("微软雅黑", 30F);
-            this.label1.Location = new System.Drawing.Point(18, 119);
+            this.label1.Location = new System.Drawing.Point(14, 119);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(263, 52);
             this.label1.TabIndex = 23;
-            this.label1.Text = "预定上课时间";
+            this.label1.Text = "计划授课时间";
             // 
             // label3
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("微软雅黑", 30F);
-            this.label3.Location = new System.Drawing.Point(18, 228);
+            this.label3.Location = new System.Drawing.Point(14, 228);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(263, 52);
             this.label3.TabIndex = 24;
-            this.label3.Text = "实际上课时间";
+            this.label3.Text = "实际授课时间";
             // 
             // FrmChooseDate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(792, 412);
+            this.ClientSize = new System.Drawing.Size(784, 386);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.radDateTimePicker2);
@@ -184,7 +183,6 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label2;
         private Telerik.WinControls.Themes.TelerikMetroTouchTheme telerikMetroTouchTheme1;
         private Telerik.WinControls.UI.RadDateTimePicker radDateTimePicker1;
         private Telerik.WinControls.UI.RadButton radButton1;
@@ -192,5 +190,6 @@
         private Telerik.WinControls.UI.RadDateTimePicker radDateTimePicker2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
     }
 }
