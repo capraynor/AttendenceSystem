@@ -198,6 +198,12 @@
     <Compile Include="FrmChooseDate.Designer.cs">
       <DependentUpon>FrmChooseDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmVerifyOfflinePasswd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmVerifyOfflinePasswd.Designer.cs">
+      <DependentUpon>frmVerifyOfflinePasswd.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -251,6 +257,9 @@
   <ItemGroup>
     <EmbeddedResource Include="FrmChooseDate.resx">
       <DependentUpon>FrmChooseDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmVerifyOfflinePasswd.resx">
+      <DependentUpon>frmVerifyOfflinePasswd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>

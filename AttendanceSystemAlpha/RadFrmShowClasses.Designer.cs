@@ -69,7 +69,7 @@
             // 
             this.radButton2.BackColor = System.Drawing.Color.White;
             this.radButton2.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold);
-            this.radButton2.Location = new System.Drawing.Point(526, 12);
+            this.radButton2.Location = new System.Drawing.Point(687, 12);
             this.radButton2.Name = "radButton2";
             this.radButton2.Size = new System.Drawing.Size(155, 54);
             this.radButton2.TabIndex = 1;
@@ -79,7 +79,7 @@
             // radButton1
             // 
             this.radButton1.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold);
-            this.radButton1.Location = new System.Drawing.Point(687, 12);
+            this.radButton1.Location = new System.Drawing.Point(526, 12);
             this.radButton1.Name = "radButton1";
             this.radButton1.Size = new System.Drawing.Size(155, 54);
             this.radButton1.TabIndex = 0;
@@ -88,22 +88,23 @@
             // 
             // listBox1
             // 
+            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listBox1.Font = new System.Drawing.Font("微软雅黑", 21.75F);
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 38;
             this.listBox1.Location = new System.Drawing.Point(0, 0);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(829, 253);
+            this.listBox1.Size = new System.Drawing.Size(831, 253);
             this.listBox1.TabIndex = 0;
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.listBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(25, 85);
+            this.panel1.Location = new System.Drawing.Point(23, 85);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(829, 253);
+            this.panel1.Size = new System.Drawing.Size(831, 253);
             this.panel1.TabIndex = 3;
             // 
             // RadFrmShowClasses

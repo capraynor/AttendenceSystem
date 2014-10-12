@@ -87,7 +87,7 @@
             // radButton1
             // 
             this.radButton1.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold);
-            this.radButton1.Location = new System.Drawing.Point(615, 322);
+            this.radButton1.Location = new System.Drawing.Point(453, 320);
             this.radButton1.Name = "radButton1";
             this.radButton1.Size = new System.Drawing.Size(155, 54);
             this.radButton1.TabIndex = 20;
@@ -98,7 +98,7 @@
             // 
             this.radButton2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.radButton2.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold);
-            this.radButton2.Location = new System.Drawing.Point(455, 322);
+            this.radButton2.Location = new System.Drawing.Point(614, 320);
             this.radButton2.Name = "radButton2";
             this.radButton2.Size = new System.Drawing.Size(155, 54);
             this.radButton2.TabIndex = 21;

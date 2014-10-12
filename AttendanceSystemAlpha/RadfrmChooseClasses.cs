@@ -117,6 +117,7 @@ namespace AttendanceSystemAlpha
                 return;
             }
             DmTable = _chooseClassBriefcase.FindTable(Jieci.ToString());
+            Properties.Settings.Default.CurrentRollCallClassNO = comboBox1.SelectedValue.ToString();
             flag = true;
             this.Hide();
         }

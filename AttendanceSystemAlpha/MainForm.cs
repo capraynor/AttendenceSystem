@@ -176,6 +176,12 @@ namespace AttendanceSystemAlpha
             }
         }
 
+
+        /// <summary>
+        /// 结束点名按钮函数
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void radButton1_Click(object sender, EventArgs e)
         {
 
@@ -457,7 +463,6 @@ namespace AttendanceSystemAlpha
             this.lboxClassName.DisplayMember = "开课名称";
             lboxClassName.ValueMember = "开课编号";
             loginForm.Close();
-            
         }
 
         private void rbtnStartcall_Click_1(object sender, EventArgs e)
@@ -494,10 +499,8 @@ namespace AttendanceSystemAlpha
             }
             else
             {
+
                 frmChooseDate.Close();
-            }
-            if (frmChooseDate.isChanged == false)
-            {
                 MessageBox.Show("您取消了操作");
                 toolStripOperationStatus.Text = "您取消了点名操作";
                 return;
@@ -524,8 +527,6 @@ namespace AttendanceSystemAlpha
             int i = 0;
             foreach (DataRow dataRows in xkTable.Rows.Cast<DataRow>().Where(dataRows => dataRows["ZW2"] != DBNull.Value))
             {
-                //FingerHelper.AddFingerprintTemplate(dataRows["ZW1"].ToString(), axZKFPEngX1, _buffDatabaseNum, fingerID);
-                //MessageBox.Show(dataRows["ZW2"].ToString());
                 HDFingerprintHelper.Download1Fingerprint(FpHandle, dataRows["ZW2"].ToString(), fingerId); // 下载一条指纹字符串到指纹仪中
 
                 try
@@ -719,7 +720,12 @@ namespace AttendanceSystemAlpha
                                     player.Play();//播放声音
                                     player.Dispose();
                                     continue;
-                        
+                                }
+
+                                Boolean errFlag = dmTable.Rows.Cast<DataRow>().Any(dr => dr["DMSJ1"] != DBNull.Value && DateTime.Compare((DateTime) dr["DMSJ1"], DateTime.Now) > 0); // 判断当前时间是否在数据库最大的时间之前。如果是，该变量应为true
+                                if (errFlag)
+                                { // 如果为false，跳出循环
+                                    continue;
                                 }
 
 
@@ -925,7 +931,15 @@ namespace AttendanceSystemAlpha
         //手动签到部分->>
         private void BtnManualRollCall_Click(object sender, EventArgs e)
         {
-            
+            Briefcase classBriefcase = new FileBriefcase(string.Format(Properties.Settings.Default.OfflineFolder,Properties.Settings.Default.CurrentRollCallClassNO), true); // 根据properties中的CurrentRollCallClassNO选中课程 并提取密码
+
+            string currentPasswd = classBriefcase.Properties[Properties.Settings.Default.PropertiesBriefcasePasswd];
+            frmVerifyOfflinePasswd frmVerifyOfflinePasswd = new frmVerifyOfflinePasswd(currentPasswd);
+            frmVerifyOfflinePasswd.ShowDialog();
+            if (frmVerifyOfflinePasswd.DialogResult == DialogResult.Cancel)
+            {
+                return;
+            }
             lock (ThreadLocker.CallingBriefcaseLocker)
             {
                 Briefcase manualRollCallBriefcase = frmChooseClasses._chooseClassBriefcase;

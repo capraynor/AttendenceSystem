@@ -33,20 +33,20 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.cbboxJieCi = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lbCname = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lbCname = new System.Windows.Forms.Label();
+            this.cbboxJieCi = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.radButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButton2)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -104,6 +104,16 @@
             this.panel2.Size = new System.Drawing.Size(725, 268);
             this.panel2.TabIndex = 6;
             // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.radButton1);
+            this.panel4.Controls.Add(this.radButton2);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel4.Location = new System.Drawing.Point(0, 205);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(723, 61);
+            this.panel4.TabIndex = 6;
+            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.textBox1);
@@ -118,17 +128,25 @@
             this.panel3.Size = new System.Drawing.Size(723, 266);
             this.panel3.TabIndex = 5;
             // 
-            // comboBox1
+            // textBox1
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.IntegralHeight = false;
-            this.comboBox1.Location = new System.Drawing.Point(201, 25);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(485, 50);
-            this.comboBox1.TabIndex = 18;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.textBox1.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox1.Location = new System.Drawing.Point(201, 81);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.PasswordChar = '*';
+            this.textBox1.Size = new System.Drawing.Size(485, 50);
+            this.textBox1.TabIndex = 20;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // lbCname
+            // 
+            this.lbCname.AutoSize = true;
+            this.lbCname.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbCname.Location = new System.Drawing.Point(33, 30);
+            this.lbCname.Name = "lbCname";
+            this.lbCname.Size = new System.Drawing.Size(162, 38);
+            this.lbCname.TabIndex = 15;
+            this.lbCname.Text = "开课名称：";
             // 
             // cbboxJieCi
             // 
@@ -144,16 +162,6 @@
             this.cbboxJieCi.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             this.cbboxJieCi.EnabledChanged += new System.EventHandler(this.comboBox2_EnabledChanged);
             // 
-            // textBox1
-            // 
-            this.textBox1.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox1.Location = new System.Drawing.Point(201, 81);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.PasswordChar = '*';
-            this.textBox1.Size = new System.Drawing.Size(485, 50);
-            this.textBox1.TabIndex = 20;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -164,6 +172,18 @@
             this.label1.TabIndex = 17;
             this.label1.Text = "上课节次：";
             // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.IntegralHeight = false;
+            this.comboBox1.Location = new System.Drawing.Point(201, 25);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(485, 50);
+            this.comboBox1.TabIndex = 18;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -173,26 +193,6 @@
             this.label4.Size = new System.Drawing.Size(162, 38);
             this.label4.TabIndex = 16;
             this.label4.Text = "课程密码：";
-            // 
-            // lbCname
-            // 
-            this.lbCname.AutoSize = true;
-            this.lbCname.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbCname.Location = new System.Drawing.Point(33, 30);
-            this.lbCname.Name = "lbCname";
-            this.lbCname.Size = new System.Drawing.Size(162, 38);
-            this.lbCname.TabIndex = 15;
-            this.lbCname.Text = "开课名称：";
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.radButton1);
-            this.panel4.Controls.Add(this.radButton2);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(0, 205);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(723, 61);
-            this.panel4.TabIndex = 6;
             // 
             // RadfrmChooseClasses
             // 
@@ -217,9 +217,9 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 

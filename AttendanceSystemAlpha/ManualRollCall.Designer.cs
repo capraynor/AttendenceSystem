@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.pn0_0 = new System.Windows.Forms.Panel();
             this.pn1_2 = new System.Windows.Forms.Panel();
             this.GridStudentName = new Telerik.WinControls.UI.RadGridView();
@@ -54,6 +54,7 @@
             this.pn0_1 = new System.Windows.Forms.Panel();
             this.pnChart = new System.Windows.Forms.Panel();
             this.pnButton = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pn0_0.SuspendLayout();
             this.pn1_2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GridStudentName)).BeginInit();
@@ -71,6 +72,7 @@
             this.pn0_1.SuspendLayout();
             this.pnChart.SuspendLayout();
             this.pnButton.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -117,9 +119,9 @@
             // 
             // pn1_1
             // 
+            this.pn1_1.Controls.Add(this.tableLayoutPanel1);
             this.pn1_1.Controls.Add(this.lbDczt);
             this.pn1_1.Controls.Add(this.label10);
-            this.pn1_1.Controls.Add(this.lbStudentClass);
             this.pn1_1.Controls.Add(this.lbStudentId);
             this.pn1_1.Controls.Add(this.label7);
             this.pn1_1.Controls.Add(this.label6);
@@ -136,7 +138,7 @@
             this.lbDczt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbDczt.AutoSize = true;
             this.lbDczt.Font = new System.Drawing.Font("微软雅黑", 20F);
-            this.lbDczt.Location = new System.Drawing.Point(349, 209);
+            this.lbDczt.Location = new System.Drawing.Point(345, 232);
             this.lbDczt.Name = "lbDczt";
             this.lbDczt.Size = new System.Drawing.Size(151, 35);
             this.lbDczt.TabIndex = 16;
@@ -147,7 +149,7 @@
             this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("微软雅黑", 20F);
-            this.label10.Location = new System.Drawing.Point(206, 209);
+            this.label10.Location = new System.Drawing.Point(202, 232);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(150, 35);
             this.label10.TabIndex = 15;
@@ -155,21 +157,21 @@
             // 
             // lbStudentClass
             // 
-            this.lbStudentClass.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lbStudentClass.AutoSize = true;
-            this.lbStudentClass.Font = new System.Drawing.Font("微软雅黑", 20F);
-            this.lbStudentClass.Location = new System.Drawing.Point(348, 131);
+            this.lbStudentClass.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbStudentClass.Font = new System.Drawing.Font("微软雅黑", 17F);
+            this.lbStudentClass.Location = new System.Drawing.Point(3, 0);
             this.lbStudentClass.Name = "lbStudentClass";
-            this.lbStudentClass.Size = new System.Drawing.Size(151, 35);
+            this.lbStudentClass.Size = new System.Drawing.Size(147, 70);
             this.lbStudentClass.TabIndex = 14;
-            this.lbStudentClass.Text = "                 ";
+            this.lbStudentClass.Tag = "";
+            this.lbStudentClass.Text = "                      ";
             // 
             // lbStudentId
             // 
             this.lbStudentId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbStudentId.AutoSize = true;
             this.lbStudentId.Font = new System.Drawing.Font("微软雅黑", 20F);
-            this.lbStudentId.Location = new System.Drawing.Point(348, 170);
+            this.lbStudentId.Location = new System.Drawing.Point(344, 182);
             this.lbStudentId.Name = "lbStudentId";
             this.lbStudentId.Size = new System.Drawing.Size(151, 35);
             this.lbStudentId.TabIndex = 13;
@@ -180,7 +182,7 @@
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("微软雅黑", 20F);
-            this.label7.Location = new System.Drawing.Point(206, 170);
+            this.label7.Location = new System.Drawing.Point(202, 182);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(150, 35);
             this.label7.TabIndex = 12;
@@ -191,7 +193,7 @@
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("微软雅黑", 20F);
-            this.label6.Location = new System.Drawing.Point(206, 131);
+            this.label6.Location = new System.Drawing.Point(206, 126);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(150, 35);
             this.label6.TabIndex = 11;
@@ -275,21 +277,21 @@
             // 
             // chart1
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea3);
+            chartArea7.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea7);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend3.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            legend3.IsDockedInsideChartArea = false;
-            legend3.IsTextAutoFit = false;
-            legend3.Name = "Legend1";
-            this.chart1.Legends.Add(legend3);
+            legend7.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            legend7.IsDockedInsideChartArea = false;
+            legend7.IsTextAutoFit = false;
+            legend7.Name = "Legend1";
+            this.chart1.Legends.Add(legend7);
             this.chart1.Location = new System.Drawing.Point(0, 0);
             this.chart1.Name = "chart1";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.chart1.Series.Add(series3);
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series7.Legend = "Legend1";
+            series7.Name = "Series1";
+            this.chart1.Series.Add(series7);
             this.chart1.Size = new System.Drawing.Size(372, 382);
             this.chart1.TabIndex = 11;
             this.chart1.Text = "chart1";
@@ -348,6 +350,20 @@
             this.pnButton.Size = new System.Drawing.Size(372, 655);
             this.pnButton.TabIndex = 13;
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.lbStudentClass, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(342, 112);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(153, 70);
+            this.tableLayoutPanel1.TabIndex = 17;
+            // 
             // ManualRollCall
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -385,6 +401,7 @@
             this.pn0_1.ResumeLayout(false);
             this.pnChart.ResumeLayout(false);
             this.pnButton.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -415,5 +432,6 @@
         private System.Windows.Forms.Panel pn0_1;
         private System.Windows.Forms.Panel pnChart;
         private System.Windows.Forms.Panel pnButton;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

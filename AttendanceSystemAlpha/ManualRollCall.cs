@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web.Script.Services;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using AttendanceSystemAlpha.Properties;
 using AttendenceSystem_Alp;
 using AttendenceSystem_Alp.PC;
 using RemObjects.DataAbstract;
@@ -23,6 +25,8 @@ namespace AttendanceSystemAlpha
         private DateTime _rollCallTime;
         private DataTable displayTable;
         private int currentLine = 0;
+        private DataTable xkTable;
+        private DataTable bjTable;
         public ManualRollCall(Briefcase _classBriefcase , long _jieci ,ref DataTable dmTable , DateTime RollcallTime)
         {
             InitializeComponent();
@@ -30,6 +34,8 @@ namespace AttendanceSystemAlpha
             this.jieci = _jieci;
             _dmTable = dmTable;
             _rollCallTime = RollcallTime;
+            Briefcase propertieBriefcase = new FileBriefcase(Properties.Settings.Default.PropertiesBriefcaseFolder, true);
+            bjTable = propertieBriefcase.FindTable("ClassNameTable");
         }
 
         private void ManualRollCall_Load(object sender, EventArgs e)
@@ -97,6 +103,8 @@ namespace AttendanceSystemAlpha
             {
                 btnChangeState.Text = (string)GridStudentName.CurrentRow.Cells[2].Value;
             }
+            refreshChart();
+            xkTable = classBriefcase.FindTable("XKTABLE_VIEW1");
 
         }
         /// <summary>
@@ -171,13 +179,35 @@ namespace AttendanceSystemAlpha
                         Helpers.EnumerableExtension.ToList<DMTABLE_08_NOPIC_VIEW>(_dmTable), _dmTable.TableName);
                 classBriefcase.AddTable(_dmTable);
                 classBriefcase.WriteBriefcase();
-                
             }
         }
 
-        private void RefreshDisplay()
+        /// <summary>
+        /// 显示照片等项目
+        /// </summary>
+        /// <param name="xkTable">选课表</param>
+        /// <param name="bjTable">班级表</param>
+        /// <param name="XSID">学生学号</param>
+        private void RefreshDisplay(DataTable xkTable ,DataTable bjTable, string XSID)
         {
+            lbDczt.Text = btnChangeState.Text;
+            lbStudentId.Text = XSID;
+            DataRow[] xkRows = xkTable.Select("XSID='" + XSID + "'");
             
+            string bjid = xkRows.First()["BJID"].ToString();
+            lbStudentClass.Text =  bjTable.Select("BJID = '" + bjid + "'").First()["BJNAME"].ToString();
+            if (xkRows.First()["XSZP"] != DBNull.Value)
+            {
+                byte[] xszpBytes;
+                xszpBytes = (byte[])xkRows.First()["XSZP"];
+                Stream ms = new MemoryStream(xszpBytes);
+                ms.Write(xszpBytes, 0, xszpBytes.Length);
+                pictureBox1.Image = Image.FromStream(ms);
+            }
+            else
+            {
+                pictureBox1.Image = Resources.attendance_list_icon;
+            }
         }
 
         private void radButton4_Click(object sender, EventArgs e)
@@ -191,6 +221,7 @@ namespace AttendanceSystemAlpha
                 if (GridStudentName.SelectedRows.Any() && GridStudentName.CurrentRow.Cells[0].Value != DBNull.Value)
                 {
                     lbStudentName.Text = (string)GridStudentName.CurrentRow.Cells[0].Value;
+                    lbDczt.Text = (string) GridStudentName.CurrentRow.Cells[2].Value;
                     btnChangeState.Text = (string)GridStudentName.CurrentRow.Cells[2].Value;
                 }
                 
@@ -254,6 +285,7 @@ namespace AttendanceSystemAlpha
                     btnChangeState.Text = (string)GridStudentName.CurrentRow.Cells[2].Value;
                 }
             }
+            refreshChart();
 
             
         }
@@ -282,13 +314,13 @@ namespace AttendanceSystemAlpha
             {
                 currentLine++;
             }
-            GridStudentName.Rows[currentLine].IsSelected = true;
             GridStudentName.CurrentRow = GridStudentName.Rows[currentLine];
             if (GridStudentName.SelectedRows.Any() && GridStudentName.CurrentRow.Cells[0].Value != DBNull.Value)
             {
                 lbStudentName.Text = (string)GridStudentName.CurrentRow.Cells[0].Value;
                 btnChangeState.Text = (string)GridStudentName.CurrentRow.Cells[2].Value;
             }
+            RefreshDisplay(xkTable, bjTable, GridStudentName.CurrentRow.Cells[1].Value.ToString());
         }
 
         private void radButton2_Click(object sender, EventArgs e)
@@ -301,13 +333,13 @@ namespace AttendanceSystemAlpha
             {
                 currentLine--;
             }
-            GridStudentName.Rows[currentLine].IsSelected = true;
             GridStudentName.CurrentRow = GridStudentName.Rows[currentLine];
             if (GridStudentName.SelectedRows.Any() && GridStudentName.CurrentRow.Cells[0].Value != DBNull.Value)
             {
                 lbStudentName.Text = (string)GridStudentName.CurrentRow.Cells[0].Value;
                 btnChangeState.Text = (string)GridStudentName.CurrentRow.Cells[2].Value;
             }
+            RefreshDisplay(xkTable, bjTable, GridStudentName.CurrentRow.Cells[1].Value.ToString());
         }
 
         private void radButton5_Click(object sender, EventArgs e)
@@ -379,6 +411,30 @@ namespace AttendanceSystemAlpha
             GridStudentName.DataSource = displayTable;
 
             currentLine = GridStudentName.CurrentRow.Index;
+        }
+        /// <summary>
+        /// 刷新饼图的显示
+        /// </summary>
+        private void refreshChart()
+        {
+            int sdrs;
+            sdrs = CountArriveSudentNumber(_dmTable) + CountLateStudentNumber(_dmTable);
+            List<string> xData = new List<string>() { "实到:" + sdrs + "人", "未到" + (_dmTable.Rows.Count - sdrs) + "人" };
+
+            List<int> yData = new List<int>() { sdrs, _dmTable.Rows.Count - sdrs };
+            chart1.Series[0].Points.DataBindXY(xData, yData);
+        }
+        private static int CountArriveSudentNumber(DataTable dmTable)
+        {
+            DataRow[] dmRows;
+            dmRows = dmTable.Select("DKZT = '0'");
+            return dmRows.Count();
+        }
+        private static int CountLateStudentNumber(DataTable dmTable)
+        {
+            DataRow[] dmRows;
+            dmRows = dmTable.Select("DKZT = '1'");
+            return dmRows.Count();
         }
 
     }
