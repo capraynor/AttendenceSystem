@@ -190,6 +190,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="UI_TemporaryKey.pfx" />
+    <None Include="Version_V0.02">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FrmChooseDate.cs">

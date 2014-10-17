@@ -190,7 +190,7 @@ namespace AttendenceSystem_Alp
             return i;
         }
 
-        public bool StartDownloadData(JSANDKKVIEWRO kktable05, string offlinePasswd) // 一门开课课程
+        private bool StartDownloadData(JSANDKKVIEWRO kktable05, string offlinePasswd) // 一门开课课程
         {
             ProgressHelper.StartProgressThread();
             Briefcase newBriefcase = new FileBriefcase(string.Format(GlobalParams.CurrentOfflineDataFile, kktable05.KKNO.ToString()));
@@ -453,6 +453,20 @@ namespace AttendenceSystem_Alp
         public void ApplyChanges()
         {
             remoteDataAdapter.ApplyChanges();
+        }
+
+        public void RefreshStudentInformation(long kkno ,Briefcase ClassBriefcase)
+        {
+            IQueryable<XKTABLE_VIEWRO> xktableView1s =
+               from c in
+                   remoteDataAdapter.GetTable<XKTABLE_VIEWRO>()
+               where c.KKNO == kkno
+               select c;
+            ProgressHelper.SetProgress(20);//进度 百分之15
+
+            ClassBriefcase.AddTable(OfflineHelper.TableListToDataTable(xktableView1s.ToList(), "XKTABLE_VIEW1")); // 将XKTABLE离线出来 带出学生信息
+            ClassBriefcase.WriteBriefcase();
+            
         }
     }
 }

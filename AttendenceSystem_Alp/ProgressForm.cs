@@ -29,7 +29,7 @@ namespace AttendenceSystem_Alp
             {
                 Properties.Settings.Default.ProgressValue = 100;
             }
-            this.progressBar1.Value = Properties.Settings.Default.ProgressValue;
+            progressBar1.Value = Properties.Settings.Default.ProgressValue;
         }
 
         private void ProgressForm_Deactivate(object sender, EventArgs e)

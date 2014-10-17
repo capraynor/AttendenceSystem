@@ -74,7 +74,6 @@ namespace AttendanceSystemAlpha
                 cbboxJieCi.DisplayMember = "SKDATE";
                 cbboxJieCi.ValueMember = "SKNO";
                 cbboxJieCi.DataSource = skTable;
-                DateTime __NearestDate = DateTime.MinValue;
                 TimeSpan classSpan = TimeSpan.MaxValue;
                 foreach (System.Data.DataRowView itemsRow in cbboxJieCi.Items)
                 {
@@ -84,7 +83,6 @@ namespace AttendanceSystemAlpha
                         cbboxJieCi.SelectedItem = itemsRow;
                     }
                 }
-                classSpan = TimeSpan.MaxValue;
             }
             catch (Exception exception)
             {
@@ -109,7 +107,7 @@ namespace AttendanceSystemAlpha
             SjSkdate = (DateTime) __tempDr["SKDATE"];
             SjXkdate = (DateTime) __tempDr["XKDATE"];
             Jieci = (long) __tempDr["SKNO"];
-            if (currentPasswd != textBox1.Text)
+            if (currentPasswd != textBox1.Text || string.IsNullOrEmpty(textBox1.Text))
             {
                 MessageBox.Show("请输入正确的密码");
                 textBox1.Focus();

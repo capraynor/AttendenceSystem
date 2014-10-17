@@ -28,41 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.radPanel1 = new Telerik.WinControls.UI.RadPanel();
             this.radPanel2 = new Telerik.WinControls.UI.RadPanel();
             this.radButton2 = new Telerik.WinControls.UI.RadButton();
             this.radButton1 = new Telerik.WinControls.UI.RadButton();
+            this.BorderPanel = new System.Windows.Forms.Panel();
+            this.radPanel1 = new Telerik.WinControls.UI.RadPanel();
+            this.pnListBox = new System.Windows.Forms.Panel();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.radPanel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radPanel2)).BeginInit();
             this.radPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radButton2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButton1)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.BorderPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radPanel1)).BeginInit();
+            this.pnListBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
-            // 
-            // radPanel1
-            // 
-            this.radPanel1.BackColor = System.Drawing.Color.LightBlue;
-            this.radPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.radPanel1.Font = new System.Drawing.Font("微软雅黑", 30F);
-            this.radPanel1.Location = new System.Drawing.Point(0, 0);
-            this.radPanel1.Name = "radPanel1";
-            this.radPanel1.Size = new System.Drawing.Size(854, 85);
-            this.radPanel1.TabIndex = 1;
-            this.radPanel1.Text = "请选择需要下载的课程";
-            this.radPanel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // radPanel2
             // 
             this.radPanel2.Controls.Add(this.radButton2);
             this.radPanel2.Controls.Add(this.radButton1);
             this.radPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.radPanel2.Location = new System.Drawing.Point(0, 338);
+            this.radPanel2.Location = new System.Drawing.Point(0, 336);
             this.radPanel2.Name = "radPanel2";
-            this.radPanel2.Size = new System.Drawing.Size(854, 78);
+            this.radPanel2.Size = new System.Drawing.Size(852, 78);
             this.radPanel2.TabIndex = 2;
             // 
             // radButton2
@@ -86,6 +76,39 @@
             this.radButton1.Text = "下载课程";
             this.radButton1.Click += new System.EventHandler(this.radButton1_Click);
             // 
+            // BorderPanel
+            // 
+            this.BorderPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.BorderPanel.Controls.Add(this.pnListBox);
+            this.BorderPanel.Controls.Add(this.radPanel1);
+            this.BorderPanel.Controls.Add(this.radPanel2);
+            this.BorderPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BorderPanel.Location = new System.Drawing.Point(0, 0);
+            this.BorderPanel.Name = "BorderPanel";
+            this.BorderPanel.Size = new System.Drawing.Size(854, 416);
+            this.BorderPanel.TabIndex = 4;
+            // 
+            // radPanel1
+            // 
+            this.radPanel1.BackColor = System.Drawing.Color.LightBlue;
+            this.radPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.radPanel1.Font = new System.Drawing.Font("微软雅黑", 30F);
+            this.radPanel1.Location = new System.Drawing.Point(0, 0);
+            this.radPanel1.Name = "radPanel1";
+            this.radPanel1.Size = new System.Drawing.Size(852, 85);
+            this.radPanel1.TabIndex = 4;
+            this.radPanel1.Text = "请选择需要下载的课程";
+            this.radPanel1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pnListBox
+            // 
+            this.pnListBox.Controls.Add(this.listBox1);
+            this.pnListBox.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pnListBox.Location = new System.Drawing.Point(52, 85);
+            this.pnListBox.Name = "pnListBox";
+            this.pnListBox.Size = new System.Drawing.Size(800, 251);
+            this.pnListBox.TabIndex = 5;
+            // 
             // listBox1
             // 
             this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -95,26 +118,15 @@
             this.listBox1.ItemHeight = 38;
             this.listBox1.Location = new System.Drawing.Point(0, 0);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(831, 253);
+            this.listBox1.Size = new System.Drawing.Size(800, 251);
             this.listBox1.TabIndex = 0;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.listBox1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(23, 85);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(831, 253);
-            this.panel1.TabIndex = 3;
             // 
             // RadFrmShowClasses
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(854, 416);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.radPanel2);
-            this.Controls.Add(this.radPanel1);
+            this.Controls.Add(this.BorderPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "RadFrmShowClasses";
             // 
@@ -127,12 +139,13 @@
             this.ThemeName = "TelerikMetro";
             this.Load += new System.EventHandler(this.RadFrmShowClasses_Load);
             this.SizeChanged += new System.EventHandler(this.RadFrmShowClasses_SizeChanged);
-            ((System.ComponentModel.ISupportInitialize)(this.radPanel1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radPanel2)).EndInit();
             this.radPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.radButton2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButton1)).EndInit();
-            this.panel1.ResumeLayout(false);
+            this.BorderPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.radPanel1)).EndInit();
+            this.pnListBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -140,11 +153,12 @@
 
         #endregion
 
-        private Telerik.WinControls.UI.RadPanel radPanel1;
         private Telerik.WinControls.UI.RadPanel radPanel2;
         private Telerik.WinControls.UI.RadButton radButton1;
         private Telerik.WinControls.UI.RadButton radButton2;
+        private System.Windows.Forms.Panel BorderPanel;
+        private System.Windows.Forms.Panel pnListBox;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Panel panel1;
+        private Telerik.WinControls.UI.RadPanel radPanel1;
     }
 }

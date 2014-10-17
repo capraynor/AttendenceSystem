@@ -66,7 +66,7 @@ namespace AttendanceSystemAlpha
         FP_HANDLE FpHandle;
 
         private delegate void SetControlPropertyThreadSafeDelegate(Control control, string propertyName, object[] propertyValue);
-        private volatile Boolean ContinueOpration = true;
+        private volatile Boolean ContinueOpration = false;
         private int nRet = 0;
         private ushort FingerprinterVerifyID = 0;
         private ushort FingerprinterScore = 0;
@@ -127,7 +127,6 @@ namespace AttendanceSystemAlpha
             this.Width = 1280;
             this.Height = 775;
             string __serverUrl = File.ReadAllText(@"ServerUrl.txt");
-            
             fDataModule.setServerURL(__serverUrl);
             Properties.Settings.Default.ServerUrl = __serverUrl;
             
@@ -184,7 +183,8 @@ namespace AttendanceSystemAlpha
         /// <param name="e"></param>
         private void radButton1_Click(object sender, EventArgs e)
         {
-
+            DialogResult dr2 = MessageBox.Show("确定结束点名吗？", "确认结束点名", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (dr2 != DialogResult.OK) return;
             DataTable ClassStatusTable = frmChooseClasses._chooseClassBriefcase.FindTable("ClassStatus");
             // todo manangement
              DataRow mngClassStatusRow = ClassStatusTable.Select("Table编号 = '" + frmChooseClasses.Jieci.ToString() + "'")
@@ -346,7 +346,7 @@ namespace AttendanceSystemAlpha
                 loginForm.ShowDialog();
                 if (!loginForm.IsLogin()) return;
                 ProgressHelper.StartProgressThread();
-                int __count = mngdmTable.Rows.Count;
+                int __count = mngdmTable.Rows.Count; // 用于进度条的显示
                 int i = 0;
                 foreach (DataRow dr in mngdmTable.Rows)
                 {
@@ -426,6 +426,16 @@ namespace AttendanceSystemAlpha
                 MessageBox.Show("数据提交成功");
                 jsid = "";
                 loginForm.Close();
+
+                //刷新指纹信息 begin
+                DialogResult dr2 = MessageBox.Show("需要刷新此门课程的指纹信息吗", "刷新指纹信息", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (dr2 == DialogResult.OK)
+                {
+                    fDataModule.RefreshStudentInformation(rowSktable07.KKNO.Value, mngchooseClassBriefcase);
+                }
+
+                
+                //刷新指纹信息 end
 
             }
             catch (Exception exception)
@@ -553,7 +563,7 @@ namespace AttendanceSystemAlpha
             radButton1.Enabled = true;
             panel19.Visible = panel22.Visible = true; // 设置信息区域可见
             //**********饼图*********//
-
+            lbYdrs.Text = frmChooseClasses._chooseClassBriefcase.Properties[Properties.Settings.Default.PropertiesTotalStudentNumber];
             List<string> xData = new List<string>() { "实到：0 人", "未到：" + frmChooseClasses.DmTable.Rows.Count+"人" };
             List<int> yData = new List<int>() { 0, frmChooseClasses.DmTable.Rows.Count };
             //chart1.Series[0]["PieLabelStyle"] = "Outside";//将文字移到外侧
@@ -568,7 +578,6 @@ namespace AttendanceSystemAlpha
             Thread verifyThread = new Thread(VerifyFingerprint);
             verifyThread.IsBackground = true;
             verifyThread.Start();
-           
             
             ProgressHelper.SetProgress(100);
             
@@ -637,6 +646,11 @@ namespace AttendanceSystemAlpha
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
+            if (ContinueOpration)
+            {
+                MessageBox.Show("请先结束点名");
+                return;
+            }
             DialogResult dr2 = MessageBox.Show("确定退出吗？", "退出", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (dr2 != DialogResult.OK) return;
             this.Close();
@@ -655,16 +669,15 @@ namespace AttendanceSystemAlpha
 
         private void VerifyFingerprint()
         {
+            
             while (ContinueOpration)
             {
                 DataTable classTable = propertieBriefcase.FindTable("ClassNameTable"); // 班级表
                 int sdrs = 0;
-                int dkrs = 0;
-                int similarity = 0;
-                int IdentifyNum = 0;
                 string XSID = "";
                 string xsName = "";
                 byte[] xszpBytes = null;
+                
                 
                 nRet =  HDFingerprintHelper.StartVerify(FpHandle, "fingerprint.bmp", ref  FingerprinterVerifyID, ref  FingerprinterScore,
                    3000); // 新的指纹仪验证语句 如果没有检测到指纹 返回值为9 即没有搜索到指纹
@@ -692,7 +705,7 @@ namespace AttendanceSystemAlpha
                 classTime = DateTimePicker1.Value;
                  xsidRows = xsidTable.Select("指纹识别号 = '" + FingerprinterVerifyID.ToString() + "'");
 
-                System.Media.SoundPlayer player; // 声音 player 声明
+                SoundPlayer player; // 声音 player 声明
                 try
                 {
                     switch (nRet)
@@ -795,9 +808,9 @@ namespace AttendanceSystemAlpha
                                 //lbDcsj.Text = Convert.ToDateTime(dmRows.First()["DMSJ1"]).ToString("t", DateTimeFormatInfo.InvariantInfo);
                                 SetControlPropertyThreadSafe(lbDcsj, "Text", new object[] { Convert.ToDateTime(dmRows.First()["DMSJ1"]).ToString("t", DateTimeFormatInfo.InvariantInfo) });
 
-                                //lbYdrs.Text =  briefcase.Properties[Properties.Settings.Default.PropertiesTotalStudentNumber];
+                                
                                 //lbYdrs.Text = dmTable.Rows.Count.ToString();
-                                //***********************更新label显示**********************************
+                                //***********************更新label显示**********************************//已删除 代码供参考
                                 //SetControlPropertyThreadSafe(lbYdrs, "Text", new object[] { dmTable.Rows.Count.ToString() });
                                 ////lbDKPercent.Text = (Convert.ToDouble(sdrs) / Convert.ToDouble(lbYdrs.Text)).ToString("0.00%");
                                 //SetControlPropertyThreadSafe(lbDKPercent, "Text", new object[] { (Convert.ToDouble(sdrs) / Convert.ToDouble(lbYdrs.Text)).ToString("0.00%") });
@@ -805,20 +818,17 @@ namespace AttendanceSystemAlpha
                                 //SetControlPropertyThreadSafe(lbSdrs, "Text", new object[] { sdrs.ToString() });
 
                                 ////lbCdrs.Text = CountLateStudentNumber(dmTable).ToString();
-                                //SetControlPropertyThreadSafe(lbCdrs, "Text", new object[] { CountLateStudentNumber(dmTable).ToString() });
+                                //SetControlPropertyThreadSafe(lbCdrs, "Text", new object[] { CountLateStudentNumber(dmTable).ToString() });//已删除 代码供参考
                                 //***********************更新label显示**********************************
                                 //**********饼图*********//
 
                                 List<string> xData = new List<string>() { "实到:" + sdrs + "人", "未到" + (dmTable.Rows.Count-sdrs) + "人" };
 
                                 List<int> yData = new List<int>() { sdrs, dmTable.Rows.Count - sdrs };
-                                //chart1.Series[0]["PieLabelStyle"] = "Outside";//将文字移到外侧
-                                //chart1.Series[0]["PieLineColor"] = "Black";//绘制黑色的连线。
-                                //chart1.Series[0].Points.DataBindXY(xData, yData);
-                                //SetControlPropertyThreadSafe(chart1, "Series[0].Points.DataBindXY"  , new object[]{xData , yData} );
                                 chart1.Invoke((MethodInvoker) delegate { chart1.Series[0].Points.DataBindXY(xData, yData); });
-                                HDFingerprintHelper.LiftUrFinger(FpHandle , 5000);
                                 //***********饼图*********//
+                                HDFingerprintHelper.LiftUrFinger(FpHandle , 5000);
+                                
                             }//Locker:ThreadLocker.CallingBriefcaseLocker
                         }
                             break;
@@ -856,24 +866,24 @@ namespace AttendanceSystemAlpha
                             }
                             else
                             {
-                                MessageBox.Show("指纹仪被拔出或未连接 请重新插入指纹仪 并点击确定 错误代码" + nRet.ToString()+FpHandle.ToString());
+                                this.Invoke(new Action(() => { MessageBox.Show(this, "指纹仪被拔出或未连接 请重新插入指纹仪 并点击确定 错误代码" + nRet.ToString() + FpHandle.ToString()); }));
                                 FpHandle = IntPtr.Zero;
                                 while (FpHandle == IntPtr.Zero)
                                 {
                                     FpHandle = HDFingerprintHelper.FpOpenUsb(0xFFFFFFFF, 1000);
                                     if (FpHandle == IntPtr.Zero)
                                     {
-                                        MessageBox.Show("指纹仪初始化失败，请重新插入指纹仪");
+                                        this.Invoke(new Action(() => { MessageBox.Show(this, "指纹仪初始化失败，请重新插入指纹仪"); }));
                                     }
                                 }
-                                MessageBox.Show("指纹仪初始化成功");
+                                this.Invoke(new Action(() => { MessageBox.Show(this, "指纹仪初始化成功"); }));
                             }
                             break;
                     }
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("出现了一个错误。请将错误代码报告给管理员。错误代码：" + e.Message+"单击 确定 继续点名操作");
+                    this.Invoke(new Action(() => { MessageBox.Show(this, "出现了一个错误。请将错误代码报告给管理员。错误代码：" + e.Message + "单击 确定 继续点名操作"); }));
                 }
             }
             
