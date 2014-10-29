@@ -224,7 +224,8 @@ namespace AttendenceSystem_Alp
 
             IQueryable<SKTABLE_07_VIEW> sktableView1s =
                 from c in
-                    remoteDataAdapter.GetTable<SKTABLE_07_VIEW>() where  c.KKNO == kktable05.KKNO
+                    remoteDataAdapter.GetTable<SKTABLE_07_VIEW>()
+                where c.KKNO == kktable05.KKNO && c.SKDATE > new DateTime(2014, 10, 14)
                 select c;
             //进度 百分之二十
             newBriefcase.AddTable(OfflineHelper.TableListToDataTable(sktableView1s.ToList(), "SKTABLE"));  // 将SKTABLE离线出来 带出每节课的课程信息
@@ -242,8 +243,16 @@ namespace AttendenceSystem_Alp
                 classRecordRow = classRecordTable.NewRow();
                 classRecordRow[0] = sktableView1.SKNO.ToString();
                 classRecordRow[1] = sktableView1.SKDATE.ToString();
-                classRecordRow[2] = GlobalParams.DidNotSigned;
-                classRecordRow[3] = GlobalParams.NotSubmitYet;
+                if (sktableView1.SKZT == 0)
+                {
+                    classRecordRow[2] = GlobalParams.DidNotSigned;
+                    classRecordRow[3] = GlobalParams.NotSubmitYet;
+                }
+                else
+                {
+                    classRecordRow[2] = GlobalParams.Signed;
+                    classRecordRow[3] = GlobalParams.Submitted;
+                }
                 classRecordTable.Rows.Add(classRecordRow);
             }
             ProgressHelper.SetProgress(80);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -29,6 +30,7 @@ namespace AttendanceSystemAlpha
         public string TeacherName = "";
         public DataTable DmTable = null;
         public bool flag = false;
+        
         public RadfrmChooseClasses()
         {
             
@@ -99,6 +101,21 @@ namespace AttendanceSystemAlpha
 
         private void radButton1_Click(object sender, EventArgs e)
         {
+            if (currentPasswd != textBox1.Text || string.IsNullOrEmpty(textBox1.Text))
+            {
+                MessageBox.Show("请输入正确的密码");
+                textBox1.Focus();
+                textBox1.SelectAll();
+                return;
+            }
+            if (!Properties.Settings.Default.NeedUpload)
+            {
+                if (((DataRowView)cbboxJieCi.SelectedItem).Row["SKZT"].ToString() == "1")
+                {
+                    MessageBox.Show("本节课已经进行了点名操作，无法再次点名");
+                    return;
+                }
+            }
             Jieci = Convert.ToInt64(cbboxJieCi.SelectedValue);
             DataRowView __tempDRV = (DataRowView) cbboxJieCi.SelectedItem;
             DataRow __tempDr = __tempDRV.Row;
@@ -107,13 +124,9 @@ namespace AttendanceSystemAlpha
             SjSkdate = (DateTime) __tempDr["SKDATE"];
             SjXkdate = (DateTime) __tempDr["XKDATE"];
             Jieci = (long) __tempDr["SKNO"];
-            if (currentPasswd != textBox1.Text || string.IsNullOrEmpty(textBox1.Text))
-            {
-                MessageBox.Show("请输入正确的密码");
-                textBox1.Focus();
-                textBox1.SelectAll();
-                return;
-            }
+            
+
+            
             DmTable = _chooseClassBriefcase.FindTable(Jieci.ToString());
             Properties.Settings.Default.CurrentRollCallClassNO = comboBox1.SelectedValue.ToString();
             flag = true;

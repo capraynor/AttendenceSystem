@@ -138,8 +138,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="AttendenceSystem_Alp.relativityClient" />
-    <None Include="DataModules.relativityClient" />
-    <None Include="DataModules1.relativityClient" />
+    <None Include="DataModules2.relativityClient" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

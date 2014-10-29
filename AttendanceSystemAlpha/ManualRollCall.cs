@@ -127,6 +127,10 @@ namespace AttendanceSystemAlpha
                     {
                         dmRows.First()["DMSJ1"] = DateTime.Now;
                     }
+                    else if (DateTime.Now <  _rollCallTime)
+                    {
+                        dmRows.First()["DMSJ1"] = DateTime.Now;
+                    }
                     else
                     {
                         dmRows.First()["DMSJ1"] = _rollCallTime;

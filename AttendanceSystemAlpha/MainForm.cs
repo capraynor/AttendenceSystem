@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Globalization;
@@ -11,6 +12,7 @@ using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using System.Linq;
+using System.Xml;
 using AttendanceSystemAlpha.Properties;
 using AttendenceSystem_Alp;
 using AttendenceSystem_Alp.PC;
@@ -71,12 +73,34 @@ namespace AttendanceSystemAlpha
         private ushort FingerprinterVerifyID = 0;
         private ushort FingerprinterScore = 0;
         private ManualRollCall frmmanualRollCall;
+        private Briefcase ChooseClassBriefcase;
+        //XML日志
         #endregion
-
+        private static readonly object logLocker = new object();
+        private static XmlDocument _doc = new XmlDocument();
+        //static void Log(string logname, string details)
+        //{
+        //    lock (logLocker)
+        //    {
+        //        var el = (XmlElement)_doc.DocumentElement.AppendChild(_doc.CreateElement("Detail"));
+        //        el.SetAttribute("Logname", logname);
+        //        el.AppendChild(_doc.CreateElement("details")).InnerText = details;
+        //        _doc.Save("logs.txt");
+        //    }
+        //}
+        //XML日志
         public MainForm()
         {
             InitializeComponent();
-            
+            if (File.Exists("logs.txt"))
+                _doc.Load("logs.txt");
+            else
+            {
+                var root = _doc.CreateElement("Logs");
+                _doc.AppendChild(root);
+            }
+
+
             xsidTable = new DataTable("学生信息");
             fDataModule = new DataModule();
             
@@ -135,7 +159,7 @@ namespace AttendanceSystemAlpha
             
             //**********饼图*********//
 
-            List<string> xData = new List<string>() { "实到：0", "未到:50" };
+            List<string> xData = new List<string>() { "实到：0", "未到:0" };
             List<int> yData = new List<int>() {0 , 50 };
             //chart1.Series[0]["PieLabelStyle"] = "Outside";//将文字移到外侧
             //chart1.Series[0]["PieLineColor"] = "Black";//绘制黑色的连线。
@@ -185,24 +209,29 @@ namespace AttendanceSystemAlpha
         {
             DialogResult dr2 = MessageBox.Show("确定结束点名吗？", "确认结束点名", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (dr2 != DialogResult.OK) return;
-            DataTable ClassStatusTable = frmChooseClasses._chooseClassBriefcase.FindTable("ClassStatus");
-            // todo manangement
-             DataRow mngClassStatusRow = ClassStatusTable.Select("Table编号 = '" + frmChooseClasses.Jieci.ToString() + "'")
-                    .First();
-
-            mngClassStatusRow.BeginEdit();
-            mngClassStatusRow["签到情况"] = "已签到";
-            mngClassStatusRow.EndEdit();
-            frmChooseClasses._chooseClassBriefcase.AddTable(ClassStatusTable);
-            frmChooseClasses._chooseClassBriefcase.WriteBriefcase();
+            DialogResult dr3 = MessageBox.Show("结束点名之后本节课将不能再次点名", "确认结束点名", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (dr3 != DialogResult.OK) return;
+            ////DataTable ClassStatusTable = frmChooseClasses._chooseClassBriefcase.FindTable("ClassStatus");
+            ////// todo manangement
+            //// DataRow mngClassStatusRow = ClassStatusTable.Select("Table编号 = '" + frmChooseClasses.Jieci.ToString() + "'")
+            ////        .First();
+            ////mngClassStatusRow.BeginEdit();
+            ////mngClassStatusRow["签到情况"] = "已签到";
+            ////mngClassStatusRow.EndEdit();
+            //frmChooseClasses._chooseClassBriefcase.AddTable(ClassStatusTable);
+            //frmChooseClasses._chooseClassBriefcase.WriteBriefcase();
             DataTable sktable = frmChooseClasses._chooseClassBriefcase.FindTable("SKTABLE");
             DataRow skRow = null;
             skRow = sktable.Select("SKNO = '" + frmChooseClasses.Jieci.ToString() + "'").First();
             skRow.BeginEdit();
             skRow["SKDATE"] = DateTimePicker1.Value;
+            skRow["SKZT"] = 1; //不能再次点名
             skRow.EndEdit();
-            frmChooseClasses._chooseClassBriefcase.AddTable(OfflineHelper.TableListToDataTable(EnumerableExtension.ToList<SKTABLE_07_VIEW>(sktable), "SKTABLE"));
-            frmChooseClasses._chooseClassBriefcase.WriteBriefcase();
+            lock (ThreadLocker.CallingBriefcaseLocker)
+            {
+                frmChooseClasses._chooseClassBriefcase.AddTable(OfflineHelper.TableListToDataTable(EnumerableExtension.ToList<SKTABLE_07_VIEW>(sktable), "SKTABLE"));
+                frmChooseClasses._chooseClassBriefcase.WriteBriefcase();
+            }
             
             radButton1.Enabled = false;
             rbtnStartcall.Enabled = true;
@@ -212,7 +241,7 @@ namespace AttendanceSystemAlpha
             lbStudentName.Text = "";
             lbDczt.Text = "";
             lbDcsj.Text = "";
-            pboxPhoto.Image = Properties.Resources.attendance_list_icon;
+            pboxPhoto.Image = Resources.attendance_list_icon;
             ContinueOpration = false;
             HDFingerprintHelper.FpCloseUsb(FpHandle);
             lbStudentName.Text = "学生姓名";
@@ -353,10 +382,10 @@ namespace AttendanceSystemAlpha
                     dr.BeginEdit();
                     dr["POSTDATE"] = DateTime.Now;
                     dr["POSTMANNO"] = Convert.ToDecimal(fDataModule.GetUserID());
-                    if ((Int16) dr["DKZT"] == 5)
+                    if ((Int16)dr["DKZT"] == 5)
                     {
                         dr["DKZT"] = (Int16)3;
-                    }
+                    } 
                     dr.EndEdit();
                     ProgressHelper.SetProgress((int) (20*(++i/__count)));
                 }
@@ -402,7 +431,8 @@ namespace AttendanceSystemAlpha
                 rowSktable07.SKDATE =
                     Convert.ToDateTime(
                         mngSKtable.Select("SKNO = '" + rowSktable07.SKNO.ToString() + "'").First()["SKDATE"]);
-                rowSktable07.SKZT = 1;
+                rowSktable07.SKZT = 1; //todo: 上课状态
+
 
                 fDataModule.UpdateSktable(rowSktable07); // sktable 提交完成
                 ProgressHelper.SetProgress(95);
@@ -432,9 +462,8 @@ namespace AttendanceSystemAlpha
                 if (dr2 == DialogResult.OK)
                 {
                     fDataModule.RefreshStudentInformation(rowSktable07.KKNO.Value, mngchooseClassBriefcase);
+                    MessageBox.Show("刷新指纹信息成功");
                 }
-
-                
                 //刷新指纹信息 end
 
             }
@@ -477,6 +506,7 @@ namespace AttendanceSystemAlpha
 
         private void rbtnStartcall_Click_1(object sender, EventArgs e)
         {
+            Properties.Settings.Default.NeedUpload = false;
             xsidTable = new DataTable("学生信息");
             
             if (!Directory.Exists(string.Format(Properties.Settings.Default.OfflineFolder, "")) || System.IO.Directory.GetFiles(string.Format(Properties.Settings.Default.OfflineFolder, "")).Length == 0)
@@ -488,8 +518,9 @@ namespace AttendanceSystemAlpha
             frmChooseClasses.ShowDialog(); // 获得各种信息 弹窗 
             if (!frmChooseClasses.flag) return;
             dmTable = frmChooseClasses.DmTable;
-            
+            //Log("已选择课程", frmChooseClasses.Jieci.ToString());
             propertieBriefcase = frmChooseClasses.propertieBriefcase;
+            ChooseClassBriefcase = frmChooseClasses._chooseClassBriefcase;
             if (!xsidTable.Columns.Contains("学生学号"))
             {
                 xsidTable.Columns.Add("学生学号");
@@ -523,7 +554,7 @@ namespace AttendanceSystemAlpha
             {
                 
             }// 初始化指纹仪
-            
+            //Log("指纹仪初始化完成", FpHandle.ToString());
             uint16_t fingerId = 0;
             nRet =  HDFingerprintHelper.FpEmpty(FpHandle, 0); // 清空指纹仪
             if (nRet != 0)
@@ -546,6 +577,7 @@ namespace AttendanceSystemAlpha
                     xsidRow["指纹识别号"] = fingerId.ToString();
                     xsidTable.Rows.Add(xsidRow);
                     fingerId++; // 指纹编号递增
+                    //Log("已下载指纹", dataRows["XSID"].ToString());
                 }
                 catch (Exception exception)
                 {
@@ -578,7 +610,7 @@ namespace AttendanceSystemAlpha
             Thread verifyThread = new Thread(VerifyFingerprint);
             verifyThread.IsBackground = true;
             verifyThread.Start();
-            
+            //Log("开始验证指纹", frmChooseClasses.Jieci.ToString());
             ProgressHelper.SetProgress(100);
             
             radButton1.Enabled = true;
@@ -589,6 +621,7 @@ namespace AttendanceSystemAlpha
 
         private void rbtnMngShowInformation_Click(object sender, EventArgs e)
         {
+            Properties.Settings.Default.NeedUpload = true;
             frmChooseClasses.ShowDialog();
             if (!frmChooseClasses.flag) return;
             mngdmTable = frmChooseClasses.DmTable;
@@ -677,11 +710,11 @@ namespace AttendanceSystemAlpha
                 string XSID = "";
                 string xsName = "";
                 byte[] xszpBytes = null;
-                
-                
+
+                //Log("检测手指是否按下", frmChooseClasses.Jieci.ToString());
                 nRet =  HDFingerprintHelper.StartVerify(FpHandle, "fingerprint.bmp", ref  FingerprinterVerifyID, ref  FingerprinterScore,
                    3000); // 新的指纹仪验证语句 如果没有检测到指纹 返回值为9 即没有搜索到指纹
-                
+                //Log("检测到手指按下", string.Format("编号{0} , 指纹识别质量{1}", FingerprinterVerifyID, FingerprinterScore));
                 if (File.Exists("fingerprint.bmp"))
                 {
                     FileStream fs = new FileStream("fingerprint.bmp", FileMode.Open, FileAccess.Read, FileShare.Read);
@@ -693,9 +726,10 @@ namespace AttendanceSystemAlpha
                     }
                     catch (Exception)
                     {
-                        
+                         //Log("写入指纹图像","failed" );
                     }
                     fs.Close();
+                    //Log("写入指纹图像","success" );
                 }
                 
                 DataRow[] xsidRows;
@@ -704,7 +738,7 @@ namespace AttendanceSystemAlpha
 
                 classTime = DateTimePicker1.Value;
                  xsidRows = xsidTable.Select("指纹识别号 = '" + FingerprinterVerifyID.ToString() + "'");
-
+                 
                 SoundPlayer player; // 声音 player 声明
                 try
                 {
@@ -712,12 +746,13 @@ namespace AttendanceSystemAlpha
                     {
                         case 0: // 这个分支被lock了 lock对象：ThreadLocker.CallingBriefcaseLocker
                         {
+                            //Log("指纹搜索成功正在查找学生信息", "Success");
 
                             lock (ThreadLocker.CallingBriefcaseLocker)
                             {
                                 XSID = xsidRows.First()["学生学号"].ToString();
                                 dmRows = dmTable.Select("XSID = '" + XSID + "'");
-
+                                //Log("学生信息查找成功", XSID);
                                 // Briefcase briefcase =
                                 // new FileBriefcase(string.Format(Properties.Settings.Default.OfflineFolder, cbboxClassname.SelectedValue), true);
 
@@ -727,6 +762,7 @@ namespace AttendanceSystemAlpha
 
                                 if ((DateTime.Compare(DateTimePicker1.Value, DateTime.Now.AddMinutes(15)) > 0) || (DateTime.Compare(DateTimePicker1.Value.AddHours(2), DateTime.Now) < 0))
                                 {
+                                    //Log("未到点名时间", DateTime.Now.ToString());
                                     dmRows.First().EndEdit();
                                     SetControlPropertyThreadSafe(lbStudentName , "Text" , new object[]{"还未到点名时间"});
                                     player = new SoundPlayer(Resources.beepFail);
@@ -738,6 +774,16 @@ namespace AttendanceSystemAlpha
                                 Boolean errFlag = dmTable.Rows.Cast<DataRow>().Any(dr => dr["DMSJ1"] != DBNull.Value && DateTime.Compare((DateTime) dr["DMSJ1"], DateTime.Now) > 0); // 判断当前时间是否在数据库最大的时间之前。如果是，该变量应为true
                                 if (errFlag)
                                 { // 如果为false，跳出循环
+                                    //Log("时间错误：本次签到时间比之前已经签到的时间都提前", DateTime.Now.ToString());
+                                    player = new SoundPlayer(Resources.beepFail);
+                                    player.Play();//播放声音
+                                    player.Dispose();
+                                    SetControlPropertyThreadSafe(lbStudentClass, "Text", new object[] { "" });
+                                    SetControlPropertyThreadSafe(lbStudentId, "Text", new object[] { "" });
+                                    SetControlPropertyThreadSafe(lbStudentXy, "Text", new object[] { "" });
+                                    SetControlPropertyThreadSafe(lbStudentName, "Text", new object[] { "时间错误" });
+                                    SetControlPropertyThreadSafe(lbDczt, "Text", new object[] { "" });
+                                    SetControlPropertyThreadSafe(lbDcsj, "Text", new object[] { "" });
                                     continue;
                                 }
 

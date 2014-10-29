@@ -25,6 +25,11 @@ namespace AttendanceSystemAlpha
         private void radButton1_Click(object sender, EventArgs e)
         {
             isChanged = true;
+            if (radDateTimePicker1.Value.Date != DateTime.Now.Date)
+            {
+                MessageBox.Show("请选择一个合适的时间");
+                return;
+            }
             dt = radDateTimePicker1.Value;
             this.Hide();
         }

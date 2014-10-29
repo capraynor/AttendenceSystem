@@ -35,6 +35,7 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -92,6 +93,10 @@
             this.panel2.Size = new System.Drawing.Size(442, 254);
             this.panel2.TabIndex = 8;
             // 
+            // timer2
+            // 
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
             // ProgressForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -120,5 +125,6 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Timer timer2;
     }
 }
