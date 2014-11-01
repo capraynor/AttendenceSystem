@@ -16,20 +16,20 @@ namespace AttendanceSystemAlpha
     
     public partial class RadfrmChooseClasses : Telerik.WinControls.UI.RadForm
     {
-        public DataTable _propertiesTable;
-        private string currentPasswd = "           55555555555            ";
-        public Briefcase propertieBriefcase = null;
-        public Briefcase _chooseClassBriefcase = null;
-        public long ClassNumber = 0;
-        public string ClassName = "";
-        public long Jieci = 0;
-        public DateTime SjSkdate;
-        public DateTime YdSkdate;
-        public DateTime YdXkdate;
-        public DateTime SjXkdate;
-        public string TeacherName = "";
-        public DataTable DmTable = null;
-        public bool flag = false;
+        //public DataTable PropertiesTable;
+        private string _currentPasswd = "           55555555555            ";
+        //public Briefcase PropertieBriefcase;
+        //public Briefcase _chooseClassBriefcase;
+        //public long ClassNumber;
+        //public string ClassName = "";
+        //public long Jieci = 0;
+        //public DateTime SjSkdate;
+        //public DateTime YdSkdate;
+        //public DateTime YdXkdate;
+        //public DateTime SjXkdate;
+        //public string TeacherName = "";
+        //public DataTable DmTable = null;
+        //public bool flag = false;
         
         public RadfrmChooseClasses()
         {
@@ -45,29 +45,28 @@ namespace AttendanceSystemAlpha
         private void RadfrmChooseClasses_Load(object sender, EventArgs e)
         {
             this.textBox1.Text = "";
-            propertieBriefcase = new FileBriefcase(Properties.Settings.Default.PropertiesBriefcaseFolder, true);
-            _propertiesTable = propertieBriefcase.FindTable("PropertiesTable");
-            comboBox1.DataSource = _propertiesTable;
+            FormChooseClassParams.PropertieBriefcase = new FileBriefcase(Properties.Settings.Default.PropertiesBriefcaseFolder, true);
+            FormChooseClassParams.PropertiesTable = FormChooseClassParams.PropertieBriefcase.FindTable("PropertiesTable");
             comboBox1.DisplayMember = "开课名称";
             comboBox1.ValueMember = "开课编号";
+            comboBox1.DataSource = FormChooseClassParams.PropertiesTable;
             this.Height = 354;
             this.Width = 725;
         }
-
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_propertiesTable.Select("开课编号 = '" + comboBox1.SelectedValue + "'").Length == 0) return;
-            TeacherName = _propertiesTable.Select("开课编号 = '" + comboBox1.SelectedValue + "'").First()["教师姓名"].ToString();
+            if (FormChooseClassParams.PropertiesTable.Select("开课编号 = '" + comboBox1.SelectedValue + "'").Length == 0) return;
+            FormChooseClassParams.TeacherName = FormChooseClassParams.PropertiesTable.Select("开课编号 = '" + comboBox1.SelectedValue + "'").First()["教师姓名"].ToString();
             //教师姓名
-            _chooseClassBriefcase = new FileBriefcase(string.Format(Properties.Settings.Default.OfflineFolder, comboBox1.SelectedValue), true);
+            FormChooseClassParams.ChooseClassBriefcase = new FileBriefcase(string.Format(Properties.Settings.Default.OfflineFolder, comboBox1.SelectedValue), true);//Combobox1:选择这节课要上哪门课
 
-            currentPasswd = _chooseClassBriefcase.Properties[Properties.Settings.Default.PropertiesBriefcasePasswd];
+            _currentPasswd =FormChooseClassParams.ChooseClassBriefcase.Properties[Properties.Settings.Default.PropertiesBriefcasePasswd];
             //密码
-            ClassName = comboBox1.Text;
+            FormChooseClassParams.ClassName = comboBox1.Text;
             //开课名称
-            ClassNumber = Convert.ToInt64(comboBox1.SelectedValue);
+            FormChooseClassParams.ClassNumber = Convert.ToInt64(comboBox1.SelectedValue);
             //开课编号
-            DataTable skTable = _chooseClassBriefcase.FindTable("SKTABLE");
+            DataTable skTable = FormChooseClassParams.ChooseClassBriefcase.FindTable("SKTABLE");
             cbboxJieCi.DisplayMember = "SKDATE";
             cbboxJieCi.ValueMember = "SKNO";
             cbboxJieCi.DataSource = skTable;
@@ -101,7 +100,7 @@ namespace AttendanceSystemAlpha
 
         private void radButton1_Click(object sender, EventArgs e)
         {
-            if (currentPasswd != textBox1.Text || string.IsNullOrEmpty(textBox1.Text))
+            if (_currentPasswd != textBox1.Text || string.IsNullOrEmpty(textBox1.Text))
             {
                 MessageBox.Show("请输入正确的密码");
                 textBox1.Focus();
@@ -116,33 +115,33 @@ namespace AttendanceSystemAlpha
                     return;
                 }
             }
-            Jieci = Convert.ToInt64(cbboxJieCi.SelectedValue);
+            FormChooseClassParams.Jieci = Convert.ToInt64(cbboxJieCi.SelectedValue);
             DataRowView __tempDRV = (DataRowView) cbboxJieCi.SelectedItem;
             DataRow __tempDr = __tempDRV.Row;
-            YdSkdate = (DateTime) __tempDr["YDSKDATE"];
-            YdXkdate = (DateTime) __tempDr["YDXKDATE"];
-            SjSkdate = (DateTime) __tempDr["SKDATE"];
-            SjXkdate = (DateTime) __tempDr["XKDATE"];
-            Jieci = (long) __tempDr["SKNO"];
-            
+            FormChooseClassParams.YdSkdate = (DateTime) __tempDr["YDSKDATE"];
+            FormChooseClassParams.YdXkdate = (DateTime) __tempDr["YDXKDATE"];
+            FormChooseClassParams.SjSkdate = (DateTime) __tempDr["SKDATE"];
+            FormChooseClassParams.SjXkdate = (DateTime) __tempDr["XKDATE"];
+            FormChooseClassParams.Jieci = (long)__tempDr["SKNO"];
 
-            
-            DmTable = _chooseClassBriefcase.FindTable(Jieci.ToString());
+
+
+            FormChooseClassParams.DmTable = FormChooseClassParams.ChooseClassBriefcase.FindTable(FormChooseClassParams.Jieci.ToString());
             Properties.Settings.Default.CurrentRollCallClassNO = comboBox1.SelectedValue.ToString();
-            flag = true;
+            FormChooseClassParams.Flag = true;
             this.Hide();
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SjSkdate = Convert.ToDateTime(cbboxJieCi.Text);
-            Jieci = Convert.ToInt64(cbboxJieCi.SelectedValue);
+            FormChooseClassParams.SjSkdate = Convert.ToDateTime(cbboxJieCi.Text);
+            FormChooseClassParams.Jieci = Convert.ToInt64(cbboxJieCi.SelectedValue);
             radButton1.Enabled = true;
         }
 
         private void radButton2_Click(object sender, EventArgs e)
         {
-            flag = false;
+            FormChooseClassParams.Flag = false;
         }
     }
 }
