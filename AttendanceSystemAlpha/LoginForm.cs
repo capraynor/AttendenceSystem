@@ -34,9 +34,6 @@ namespace AttendanceSystemAlpha
             this.Hide();
             tboxPasswd.Text = "";
             tboxUsername.Text = "";
-            lbMsg.BackColor = Color.LightBlue;
-            
-            
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
@@ -46,6 +43,11 @@ namespace AttendanceSystemAlpha
 
         private void rbtnLogin_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(tboxPasswd.Text) || string.IsNullOrWhiteSpace(tboxUsername.Text))
+            {
+                MessageBox.Show("请输入用户名或者密码");
+                return;
+            }
             try
             {
                 _fDataModule.SetUserID(tboxUsername.Text);
@@ -60,16 +62,13 @@ namespace AttendanceSystemAlpha
                 return;
             }
 
-
             if (isLogin)
             {
-                lbMsg.BackColor = Color.LightBlue;
                 Hide();
             }
             else
             {
-                this.lbMsg.BackColor = Color.Red;
-                MessageBox.Show("用户名或密码错误");
+                MessageBox.Show("登录失败");
             }
         }
 

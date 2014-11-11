@@ -39,20 +39,27 @@
             // 
             // clientChannel
             // 
-            this.clientChannel.TargetUrl = @"localhost:7099/bin";
+            this.clientChannel.Password = "";
+            this.clientChannel.TargetUrl = "localhost:7099/bin";
+            this.clientChannel.UserName = "";
             this.clientChannel.OnLoginNeeded += new RemObjects.SDK.LoginNeededEventHandler(this.ClientChannel_OnLoginNeeded);
             // 
             // message
             // 
             this.message.ContentType = "application/octet-stream";
             this.message.SerializerInstance = null;
+            this.message.ServerExceptionPrefix = "服务器出现了一个异常：";
             // 
             // remoteService
             // 
             this.remoteService.Channel = this.clientChannel;
+            this.remoteService.CloneMessage = true;
             this.remoteService.Message = this.message;
             this.remoteService.ServiceName = "DataService";
-            this.remoteService.CloneMessage = true;
+            // 
+            // dataStreamer
+            // 
+            this.dataStreamer.SendReducedDelta = false;
             // 
             // remoteDataAdapter
             // 
@@ -63,25 +70,27 @@
             this.remoteDataAdapter.DataRequestCall.Parameters.Add("Result", "Binary", RemObjects.SDK.ParameterDirection.Result);
             this.remoteDataAdapter.DataRequestCall.OutgoingTableNamesParameter = "aTableNameArray";
             this.remoteDataAdapter.DataRequestCall.IncomingDataParameter = "Result";
+            this.remoteDataAdapter.DataStreamer = this.dataStreamer;
             this.remoteDataAdapter.DataUpdateCall.MethodName = "UpdateData";
             this.remoteDataAdapter.DataUpdateCall.Parameters.Clear();
             this.remoteDataAdapter.DataUpdateCall.Parameters.Add("aDelta", "Binary", RemObjects.SDK.ParameterDirection.In);
             this.remoteDataAdapter.DataUpdateCall.Parameters.Add("Result", "Binary", RemObjects.SDK.ParameterDirection.Result);
             this.remoteDataAdapter.DataUpdateCall.OutgoingDeltaParameter = "aDelta";
             this.remoteDataAdapter.DataUpdateCall.IncomingDeltaParameter = "Result";
+            this.remoteDataAdapter.FailureBehavior = RemObjects.DataAbstract.FailureBehavior.None;
+            this.remoteDataAdapter.RemoteService = this.remoteService;
             this.remoteDataAdapter.SchemaCall.MethodName = "GetSchema";
             this.remoteDataAdapter.SchemaCall.Parameters.Clear();
             this.remoteDataAdapter.SchemaCall.Parameters.Add("aFilter", "String", RemObjects.SDK.ParameterDirection.In);
             this.remoteDataAdapter.SchemaCall.Parameters.Add("Result", "String", RemObjects.SDK.ParameterDirection.Result);
             this.remoteDataAdapter.SchemaCall.IncomingSchemaParameter = "Result";
-            this.remoteDataAdapter.DataStreamer = this.dataStreamer;
-            this.remoteDataAdapter.RemoteService = this.remoteService;
             this.remoteDataAdapter.ScriptProvider = this.ecmaScriptProvider;
             this.remoteDataAdapter.UseDynamicWhere = false;
             // 
             // ecmaScriptProvider
             // 
             this.ecmaScriptProvider.Context = null;
+            this.ecmaScriptProvider.DebugMode = RemObjects.DataAbstract.ScriptDebugMode.None;
             ((System.ComponentModel.ISupportInitialize)(this.remoteDataAdapter)).EndInit();
 
         }

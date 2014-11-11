@@ -23,6 +23,10 @@ namespace AttendanceSystemAlpha
 
         private void rbtnFinish_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(tboxLoadpasswd.Text))
+            {
+                lbOfflinePasswdStatus.Text = "请输入\n课程密码";
+            }
             if (tboxLoadpasswd.Text != tboxRepeatPasswd.Text)
             {
                 lbOfflinePasswdStatus.Text = "两次密码\n需一致";
@@ -31,7 +35,6 @@ namespace AttendanceSystemAlpha
             }
             Properties.Settings.Default.CurrentDownloadPasswd = tboxLoadpasswd.Text;
             lbOfflinePasswdStatus.Text = "           ";
-            tboxRepeatPasswd.BackColor = Color.Green;
             //if (checkBox1.Checked)
             //{
             //    Properties.Settings.Default.DownloadPasswd = tboxLoadpasswd.Text;

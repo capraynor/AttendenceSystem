@@ -471,7 +471,6 @@ namespace AttendenceSystem_Alp
                    remoteDataAdapter.GetTable<XKTABLE_VIEWRO>()
                where c.KKNO == kkno
                select c;
-            ProgressHelper.SetProgress(20);//进度 百分之15
 
             ClassBriefcase.AddTable(OfflineHelper.TableListToDataTable(xktableView1s.ToList(), "XKTABLE_VIEW1")); // 将XKTABLE离线出来 带出学生信息
             ClassBriefcase.WriteBriefcase();

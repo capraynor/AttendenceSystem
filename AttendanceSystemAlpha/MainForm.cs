@@ -87,6 +87,7 @@ namespace AttendanceSystemAlpha
         #endregion
         private static readonly object logLocker = new object();
         private static XmlDocument _doc = new XmlDocument();
+        private bool isDoingRollCall = false;
         //static void Log(string logname, string details)
         //{
         //    lock (logLocker)
@@ -252,6 +253,7 @@ namespace AttendanceSystemAlpha
             lbDcsj.Text = "";
             pboxPhoto.Image = Resources.attendance_list_icon;
             ContinueOpration = false;
+            isDoingRollCall = false;
             HDFingerprintHelper.FpCloseUsb(FpHandle);
             lbStudentName.Text = "学生姓名";
             panel19.Visible = panel22.Visible = false;
@@ -481,7 +483,7 @@ namespace AttendanceSystemAlpha
                 ProgressHelper.StopProgressThread();
                 ProgressHelper.SetProgress(0);
                 //lbMngOfflineStatus.Text = "数据提交失败 请将以下信息提供给管理员：" +exception.Message;
-                MessageBox.Show("数据提交失败 请将以下信息提供给管理员：" + exception.Message);
+                MessageBox.Show("数据提交异常 请将以下信息提供给管理员：" + exception.Message);
                 return;
             }
         }
@@ -551,7 +553,6 @@ namespace AttendanceSystemAlpha
             {
 
                 frmChooseDate.Close();
-                MessageBox.Show("您取消了操作");
                 toolStripOperationStatus.Text = "您取消了点名操作";
                 return;
             }
@@ -559,17 +560,30 @@ namespace AttendanceSystemAlpha
             xkTable = FormChooseClassParams.ChooseClassBriefcase.FindTable("XKTABLE_VIEW1");
             
             ProgressHelper.StartProgressThread();
+            int _initCount = 0;
             while ((FpHandle = HDFingerprintHelper.FpOpenUsb(0xFFFFFFFF, 1000)) == IntPtr.Zero)
             {
-                
+
+                    ProgressHelper.StopProgressThread();
+                    DialogResult dr2 = MessageBox.Show("初始化指纹仪失败，\n点击【确定】，重新初始化指纹仪\n点击【取消】停止使用指纹仪，并开始手动考勤", "确认开启手动考勤", MessageBoxButtons.OKCancel, MessageBoxIcon.Question); //指纹仪如果没有初始化成功，则手动考勤
+                    if (dr2 == DialogResult.OK) continue; //不用指纹仪考勤
+                    InitWithoutFingerPrint();
+                    StartManualRollCall();
+                    return;
+
             }// 初始化指纹仪
             //Log("指纹仪初始化完成", FpHandle.ToString());
+            ProgressHelper.StartProgressThread();
             uint16_t fingerId = 0;
             nRet =  HDFingerprintHelper.FpEmpty(FpHandle, 0); // 清空指纹仪
             if (nRet != 0)
             {
                 ProgressHelper.StopProgressThread();
-                MessageBox.Show("指纹仪初始化失败 错误代码:" + nRet.ToString());
+                DialogResult dr2 = MessageBox.Show("指纹仪初始化失败 错误代码:" + nRet.ToString()+"是否开始手动考勤？", "指纹仪初始化失败", MessageBoxButtons.OKCancel, MessageBoxIcon.Question); //指纹仪如果没有初始化成功，则手动考勤
+                if (dr2 != DialogResult.OK) return;
+                InitWithoutFingerPrint();
+                //不用指纹仪考勤的函数应该写在这里
+                //
                 return;
             }
             ProgressHelper.SetProgress(10);
@@ -577,10 +591,23 @@ namespace AttendanceSystemAlpha
             int i = 0;
             foreach (DataRow dataRows in xkTable.Rows.Cast<DataRow>().Where(dataRows => dataRows["ZW2"] != DBNull.Value))
             {
-                HDFingerprintHelper.Download1Fingerprint(FpHandle, dataRows["ZW2"].ToString(), fingerId); // 下载一条指纹字符串到指纹仪中
+                
 
                 try
                 {
+                    nRet = HDFingerprintHelper.Download1Fingerprint(FpHandle, dataRows["ZW2"].ToString(), fingerId); // 下载一条指纹字符串到指纹仪中
+                    if (nRet != 0)
+                    {
+                        ProgressHelper.StopProgressThread();
+
+                        DialogResult dr2 = MessageBox.Show("下载指纹时出错，是否开始手动考勤？", "确认开启手动考勤", MessageBoxButtons.OKCancel, MessageBoxIcon.Question); //指纹仪如果没有初始化成功，则手动考勤
+                        if (dr2 != DialogResult.OK) return;
+                        InitWithoutFingerPrint();
+                        StartManualRollCall();
+                        //不用指纹仪考勤的初始化函数应该写在这里
+                        //
+                        return;
+                    }
                     DataRow xsidRow = xsidTable.NewRow();
                     xsidRow["学生学号"] = dataRows["XSID"].ToString();
                     xsidRow["指纹识别号"] = fingerId.ToString();
@@ -614,6 +641,7 @@ namespace AttendanceSystemAlpha
             //this.lbSdrs.Text = "0";
             //this.lbMngDkpercent.Text = "0.00%"; // 这段代码是用来初始化label显示的。
             ContinueOpration = true;
+            isDoingRollCall = true;
             
             Thread verifyThread = new Thread(VerifyFingerprint);
             verifyThread.IsBackground = true;
@@ -687,7 +715,7 @@ namespace AttendanceSystemAlpha
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            if (ContinueOpration)
+            if (isDoingRollCall)
             {
                 MessageBox.Show("请先结束点名");
                 return;
@@ -920,17 +948,43 @@ namespace AttendanceSystemAlpha
                             }
                             else
                             {
-                                this.Invoke(new Action(() => { MessageBox.Show(this, "指纹仪被拔出或未连接 请重新插入指纹仪 并点击确定 错误代码" + nRet.ToString() + FpHandle.ToString()); }));
-                                FpHandle = IntPtr.Zero;
+                                this.Invoke(new Action(() =>
+                                {
+                                    DialogResult dr2 = MessageBox.Show("指纹仪故障 错误代码:" + nRet + "\n点击【确定】，重新初始化指纹仪\n点击【取消】停止使用指纹仪，并开始手动考勤", "指纹仪故障", MessageBoxButtons.OKCancel, MessageBoxIcon.Question); //指纹仪如果没有初始化成功，则手动考勤
+                                    if (dr2 != DialogResult.OK)
+                                    {
+                                        ContinueOpration = false;
+                                        HDFingerprintHelper.FpCloseUsb(FpHandle);
+                                        StartManualRollCall();
+                                    }
+                                    else if ((FpHandle = HDFingerprintHelper.FpOpenUsb(0xFFFFFFFF, 1000)) != IntPtr.Zero)
+                                    {
+                                        MessageBox.Show(this, "指纹仪初始化成功");
+                                    }
+                                }));
+                                
                                 while (FpHandle == IntPtr.Zero)
                                 {
                                     FpHandle = HDFingerprintHelper.FpOpenUsb(0xFFFFFFFF, 1000);
                                     if (FpHandle == IntPtr.Zero)
                                     {
-                                        this.Invoke(new Action(() => { MessageBox.Show(this, "指纹仪初始化失败，请重新插入指纹仪"); }));
+                                        this.Invoke(new Action(() =>
+                                        {
+                                            DialogResult dr2 = MessageBox.Show("指纹仪初始化失败 " + "\n点击【确定】，重新初始化指纹仪\n点击【取消】停止使用指纹仪，并开始手动考勤", "指纹仪故障", MessageBoxButtons.OKCancel, MessageBoxIcon.Question); //指纹仪如果没有初始化成功，则手动考勤
+                                            if (dr2 != DialogResult.OK)
+                                            {
+                                                ContinueOpration = false;
+                                                HDFingerprintHelper.FpCloseUsb(FpHandle);
+                                                StartManualRollCall();
+                                            }
+                                        }));
+                                    }
+                                    else
+                                    {
+                                        this.Invoke(new Action(() => { MessageBox.Show(this, "指纹仪初始化成功"); }));
                                     }
                                 }
-                                this.Invoke(new Action(() => { MessageBox.Show(this, "指纹仪初始化成功"); }));
+                                
                             }
                             break;
                     }
@@ -940,8 +994,6 @@ namespace AttendanceSystemAlpha
                     this.Invoke(new Action(() => { MessageBox.Show(this, "出现了一个错误。请将错误代码报告给管理员。错误代码：" + e.Message + "单击 确定 继续点名操作"); }));
                 }
             }
-            
-            //if (nRet == 512)
         }
         public static void SetControlPropertyThreadSafe(Control control, string propertyName, object[] propertyValue)
         {
@@ -995,7 +1047,15 @@ namespace AttendanceSystemAlpha
         //手动签到部分->>
         private void BtnManualRollCall_Click(object sender, EventArgs e)
         {
-            Briefcase classBriefcase = new FileBriefcase(string.Format(Properties.Settings.Default.OfflineFolder,Properties.Settings.Default.CurrentRollCallClassNO), true); // 根据properties中的CurrentRollCallClassNO选中课程 并提取密码
+            StartManualRollCall();
+        }
+
+        private void StartManualRollCall()
+        {
+            Briefcase classBriefcase =
+                new FileBriefcase(
+                    string.Format(Properties.Settings.Default.OfflineFolder, Properties.Settings.Default.CurrentRollCallClassNO),
+                    true); // 根据properties中的CurrentRollCallClassNO选中课程 并提取密码
 
             string currentPasswd = classBriefcase.Properties[Properties.Settings.Default.PropertiesBriefcasePasswd];
             frmVerifyOfflinePasswd frmVerifyOfflinePasswd = new frmVerifyOfflinePasswd(currentPasswd);
@@ -1006,24 +1066,46 @@ namespace AttendanceSystemAlpha
             }
             lock (ThreadLocker.CallingBriefcaseLocker)
             {
-                Briefcase manualRollCallBriefcase = FormChooseClassParams.ChooseClassBriefcase;
-                _frmmanualRollCall = new ManualRollCall(manualRollCallBriefcase, FormChooseClassParams.Jieci, ref dmTable, DateTimePicker1.Value);
+                _frmmanualRollCall = new ManualRollCall(FormChooseClassParams.ChooseClassBriefcase, FormChooseClassParams.Jieci, ref dmTable,
+                    DateTimePicker1.Value);
             }
             _frmmanualRollCall.ShowDialog();
             lock (ThreadLocker.CallingBriefcaseLocker)
             {
                 dmTable = FormChooseClassParams.ChooseClassBriefcase.FindTable(FormChooseClassParams.Jieci.ToString());
                 int sdrs = CountArriveSudentNumber(dmTable) + CountLateStudentNumber(dmTable);
-                List<string> xData = new List<string>() { "实到:" + sdrs + "人", "未到" + (dmTable.Rows.Count - sdrs) + "人" };
+                List<string> xData = new List<string>() {"实到:" + sdrs + "人", "未到" + (dmTable.Rows.Count - sdrs) + "人"};
 
-                List<int> yData = new List<int>() { sdrs, dmTable.Rows.Count - sdrs };
+                List<int> yData = new List<int>() {sdrs, dmTable.Rows.Count - sdrs};
                 //chart1.Series[0]["PieLabelStyle"] = "Outside";//将文字移到外侧
                 //chart1.Series[0]["PieLineColor"] = "Black";//绘制黑色的连线。
                 //chart1.Series[0].Points.DataBindXY(xData, yData);
                 //SetControlPropertyThreadSafe(chart1, "Series[0].Points.DataBindXY"  , new object[]{xData , yData} );
-                chart1.Invoke((MethodInvoker)delegate { chart1.Series[0].Points.DataBindXY(xData, yData); });
+                chart1.Invoke((MethodInvoker) delegate { chart1.Series[0].Points.DataBindXY(xData, yData); });
             }
         }
+
         //<<-手动签到部分
+        private void InitWithoutFingerPrint()
+        {
+            lbTeacherName.Text = FormChooseClassParams.TeacherName;
+            lbClassName.Text = FormChooseClassParams.ClassName;
+            preparedTime.Value = FormChooseClassParams.SjSkdate;
+            rbtnStartcall.Enabled = false;
+            radButton1.Enabled = true;
+            panel19.Visible = panel22.Visible = true; // 设置信息区域可见
+            //**********饼图*********//
+            lbYdrs.Text = FormChooseClassParams.ChooseClassBriefcase.Properties[Properties.Settings.Default.PropertiesTotalStudentNumber];
+            List<string> xData = new List<string>() { "实到：0 人", "未到：" + FormChooseClassParams.DmTable.Rows.Count + "人" };
+            List<int> yData = new List<int>() { 0, FormChooseClassParams.DmTable.Rows.Count };
+            //chart1.Series[0]["PieLabelStyle"] = "Outside";//将文字移到外侧
+            //chart1.Series[0]["PieLineColor"] = "Black";//绘制黑色的连线。
+            chart1.Series[0].Points.DataBindXY(xData, yData);
+            ContinueOpration = false;
+            isDoingRollCall = true;
+            radButton1.Enabled = true;
+            rbtnStartcall.Enabled = false;
+            BtnManualRollCall.Enabled = true;
+        }
     }
 }

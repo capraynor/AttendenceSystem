@@ -243,7 +243,7 @@ namespace AttendanceSystemAlpha
             this.mainPageView.Font = new System.Drawing.Font("微软雅黑", 27.75F, System.Drawing.FontStyle.Bold);
             this.mainPageView.Location = new System.Drawing.Point(0, 0);
             this.mainPageView.Name = "mainPageView";
-            this.mainPageView.SelectedPage = this.viewpageCall;
+            this.mainPageView.SelectedPage = this.viewpageDataManagement;
             this.mainPageView.Size = new System.Drawing.Size(1279, 575);
             this.mainPageView.TabIndex = 0;
             this.mainPageView.ThemeName = "TelerikMetro";
@@ -899,7 +899,7 @@ namespace AttendanceSystemAlpha
             this.mngGridView.Font = new System.Drawing.Font("微软雅黑", 10F);
             this.mngGridView.Location = new System.Drawing.Point(0, 0);
             // 
-            // 
+            // mngGridView
             // 
             this.mngGridView.MasterTemplate.AllowAddNewRow = false;
             this.mngGridView.MasterTemplate.AllowCellContextMenu = false;
