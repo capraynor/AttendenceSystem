@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.radButton2 = new Telerik.WinControls.UI.RadButton();
+            this.radButton1 = new Telerik.WinControls.UI.RadButton();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.radButton1 = new Telerik.WinControls.UI.RadButton();
-            this.radButton2 = new Telerik.WinControls.UI.RadButton();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButton2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radButton1)).BeginInit();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,6 +55,47 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(620, 261);
             this.panel1.TabIndex = 0;
+            // 
+            // radButton2
+            // 
+            this.radButton2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.radButton2.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold);
+            this.radButton2.Location = new System.Drawing.Point(432, 199);
+            this.radButton2.Name = "radButton2";
+            this.radButton2.Size = new System.Drawing.Size(154, 49);
+            this.radButton2.TabIndex = 5;
+            this.radButton2.Text = "取    消";
+            this.radButton2.Click += new System.EventHandler(this.radButton2_Click);
+            // 
+            // radButton1
+            // 
+            this.radButton1.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold);
+            this.radButton1.Location = new System.Drawing.Point(272, 199);
+            this.radButton1.Name = "radButton1";
+            this.radButton1.Size = new System.Drawing.Size(154, 49);
+            this.radButton1.TabIndex = 4;
+            this.radButton1.Text = "确    定";
+            this.radButton1.Click += new System.EventHandler(this.radButton1_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("微软雅黑", 21.75F);
+            this.label1.Location = new System.Drawing.Point(33, 136);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(162, 38);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "请输入密码";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Bold);
+            this.textBox1.Location = new System.Drawing.Point(201, 129);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.PasswordChar = '*';
+            this.textBox1.Size = new System.Drawing.Size(385, 50);
+            this.textBox1.TabIndex = 1;
+            this.textBox1.Click += new System.EventHandler(this.textBox1_Click);
             // 
             // panel2
             // 
@@ -77,46 +118,6 @@
             this.label2.TabIndex = 17;
             this.label2.Text = "请输入课程密码";
             // 
-            // textBox1
-            // 
-            this.textBox1.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Bold);
-            this.textBox1.Location = new System.Drawing.Point(201, 129);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.PasswordChar = '*';
-            this.textBox1.Size = new System.Drawing.Size(385, 50);
-            this.textBox1.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("微软雅黑", 21.75F);
-            this.label1.Location = new System.Drawing.Point(33, 136);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(162, 38);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "请输入密码";
-            // 
-            // radButton1
-            // 
-            this.radButton1.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold);
-            this.radButton1.Location = new System.Drawing.Point(272, 199);
-            this.radButton1.Name = "radButton1";
-            this.radButton1.Size = new System.Drawing.Size(154, 49);
-            this.radButton1.TabIndex = 4;
-            this.radButton1.Text = "确    定";
-            this.radButton1.Click += new System.EventHandler(this.radButton1_Click);
-            // 
-            // radButton2
-            // 
-            this.radButton2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.radButton2.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold);
-            this.radButton2.Location = new System.Drawing.Point(432, 199);
-            this.radButton2.Name = "radButton2";
-            this.radButton2.Size = new System.Drawing.Size(154, 49);
-            this.radButton2.TabIndex = 5;
-            this.radButton2.Text = "取    消";
-            this.radButton2.Click += new System.EventHandler(this.radButton2_Click);
-            // 
             // frmVerifyOfflinePasswd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -134,10 +135,10 @@
             this.Text = "frmVerifyOfflinePasswd";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radButton2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radButton1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.radButton1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radButton2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 

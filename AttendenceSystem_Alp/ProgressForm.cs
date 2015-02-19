@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters;
 using System.Text;
 using System.Windows.Forms;
+using AttendenceSystem_Alp.Properties;
 
 namespace AttendenceSystem_Alp
 {
@@ -27,12 +28,15 @@ namespace AttendenceSystem_Alp
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.ProgressValue >= 100)
+            lock (GlobalParams.ProgressValueLocker)
             {
-                Properties.Settings.Default.ProgressValue = 100;
-                this.Close();
+                if (Settings.Default.ProgressValue >= 100)
+                {
+                    Settings.Default.ProgressValue = 100;
+                    this.Close();
+                }
+                progressBar1.Value = Settings.Default.ProgressValue;
             }
-            progressBar1.Value = Properties.Settings.Default.ProgressValue;
         }
 
         private void ProgressForm_Deactivate(object sender, EventArgs e)
@@ -42,9 +46,12 @@ namespace AttendenceSystem_Alp
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.CloseProgressForm)
+            lock (GlobalParams.CloseProgressWindowLocker)
             {
-                this.Close();
+                if (Settings.Default.CloseProgressForm)
+                {
+                    this.Close();
+                }
             }
         }
 

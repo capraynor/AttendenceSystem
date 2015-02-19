@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
@@ -79,6 +80,34 @@ namespace AttendanceSystemAlpha
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void tboxLoadpasswd_Click(object sender, EventArgs e)
+        {
+            //弹出键盘
+            try
+            {
+                Process.Start(@"C:/Program Files/Common Files/microsoft shared/ink/tabtip.exe");
+            }
+            catch (Exception)
+            {
+
+            }
+            //弹出键盘
+        }
+
+        private void tboxRepeatPasswd_Click(object sender, EventArgs e)
+        {
+            //弹出键盘
+            try
+            {
+                Process.Start(@"C:/Program Files/Common Files/microsoft shared/ink/tabtip.exe");
+            }
+            catch (Exception)
+            {
+
+            }
+            //弹出键盘
         }
     }
 }

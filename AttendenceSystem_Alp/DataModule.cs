@@ -104,6 +104,7 @@ namespace AttendenceSystem_Alp
                     this.remoteDataAdapter.GetTable<SKTABLE_07_VIEW>()
                 where c.SKNO == skno
                 select c;
+
             this.Context.SKTABLE_07_VIEW = sktable07S.ToList();
         }
         public void GetSktableQuery(long kkno)
@@ -121,12 +122,12 @@ namespace AttendenceSystem_Alp
         /// </summary>
         /// <param name="offlinePasswd"></param>
         /// <param name="checkedItem"></param>
-        public int ServerToBriefcase
+        public void ServerToBriefcase
             (string offlinePasswd, CheckedListBox.SelectedObjectCollection checkedItem)
         {
            
             
-            int i = 0;// 你懂的0,0
+            //int i = 0;// 用于显示进度条 已废弃
             
             foreach (var jsandkktable05S in this.Context.JSANDKKVIEWRO)
             {
@@ -141,10 +142,10 @@ namespace AttendenceSystem_Alp
                     if (
                         !File.Exists(
                             string.Format(GlobalParams.CurrentOfflineDataFile, jsandkktable05S.KKNO.ToString()) +
-                            ".daBriefcase"))
+                            ".daBriefcase"))　// 判断当前下载课程是否存在
                     {
                         StartDownloadData(jsandkktable05S, offlinePasswd);
-                        i++;
+                        //i++;
                     }
                     else
                     {
@@ -158,8 +159,8 @@ namespace AttendenceSystem_Alp
                         File.Delete(
                             string.Format(GlobalParams.CurrentOfflineDataFile, jsandkktable05S.KKNO.ToString()) +
                             ".daBriefcase");
-                        StartDownloadData(jsandkktable05S, offlinePasswd);
-                        i++;
+                        StartDownloadData(jsandkktable05S, offlinePasswd); // 开始下载课程
+                        //i++;
                     }
                 }
                 catch (Exception exception)
@@ -173,7 +174,7 @@ namespace AttendenceSystem_Alp
                     ProgressHelper.StopProgressThread();
                 }
             }
-            //判断班级表是否被下载 如果没下载 下载
+            //判断班级表是否被下载 如果没下载 下载之
             Briefcase propertiesBriefcase = new FileBriefcase(GlobalParams.PropertiesBriefcaseName, true);
             DataTable classNameTable = null;
             
@@ -187,63 +188,95 @@ namespace AttendenceSystem_Alp
                 propertiesBriefcase.AddTable(classNameTable);
                 propertiesBriefcase.WriteBriefcase();
             
-            return i;
+            //return i;
         }
 
         private bool StartDownloadData(JSANDKKVIEWRO kktable05, string offlinePasswd) // 一门开课课程
         {
-            ProgressHelper.StartProgressThread();
-            Briefcase newBriefcase = new FileBriefcase(string.Format(GlobalParams.CurrentOfflineDataFile, kktable05.KKNO.ToString()));
+            ProgressHelper.StartProgressThread(); // 开始显示进度条
+            Briefcase newBriefcase = new FileBriefcase(string.Format(
+                GlobalParams.CurrentOfflineDataFile, 
+                kktable05.KKNO.ToString())); // 在内存中新建一个Briefcase 名字为该课程的开课编号
             ProgressHelper.SetProgress(5); // 进度 百分之5
-            DataTable classRecordTable = null;
+            DataTable classRecordTable = null; // 一张上课表 对应每一节课
             DataRow classRecordRow = null;
             classRecordTable = new DataTable("ClassStatus");
-            if (!classRecordTable.Columns.Contains("Table编号"))
+            if (!classRecordTable.Columns.Contains("Table编号")) //这里算是一个BUG. 需要重新写.
             {
                 classRecordTable.Columns.Add("Table编号", type: Type.GetType("System.String"));
                 classRecordTable.Columns.Add("课次", type: Type.GetType("System.String"));
                 classRecordTable.Columns.Add("签到情况", type: Type.GetType("System.String"));
                 classRecordTable.Columns.Add("离线数据提交情况", type: Type.GetType("System.String"));
             }
-            newBriefcase.Properties.Add(GlobalParams.PropertiesLastModified, DateTime.Now.ToString());
-            newBriefcase.Properties.Add(GlobalParams.PropertiesTeacherName, Properties.Settings.Default.UserName);
+            newBriefcase.Properties.Add(GlobalParams.PropertiesLastModified, 
+                DateTime.Now.ToString()); // 在briefcase中增加一个属性 用于记录最后一次更改的日期
+
+            newBriefcase.Properties.Add(GlobalParams.PropertiesTeacherName, 
+                Properties.Settings.Default.UserName);//增加一个属性 用于记录教师姓名
+
             ProgressHelper.SetProgress(6); // 进度 百分之6
-            newBriefcase.Properties.Add(GlobalParams.PropertiesTeacherID, Properties.Settings.Default.UserId);
-            newBriefcase.Properties.Add(GlobalParams.PropertiesPasswd, offlinePasswd);
-            newBriefcase.Properties.Add(GlobalParams.PropertiesClassName, kktable05.KKNAME);
-            newBriefcase.Properties.Add(GlobalParams.PropertiesLastCheckin, "1");
+
+            newBriefcase.Properties.Add(GlobalParams.PropertiesTeacherID, 
+                Properties.Settings.Default.UserId); // 增加一个属性 用于记录教师工号
+
+            newBriefcase.Properties.Add(GlobalParams.PropertiesPasswd, 
+                offlinePasswd);//用于记录离线密码.
+
+            newBriefcase.Properties.Add(GlobalParams.PropertiesClassName, 
+                kktable05.KKNAME);//增加一个属性 用于记录开课名称
+
+            newBriefcase.Properties.Add(GlobalParams.PropertiesLastCheckin, 
+                "1");//用于记录最后一次考勤的节次
+
             ProgressHelper.SetProgress(10); //进度 百分之10
-            newBriefcase.Properties.Add(GlobalParams.PropertiesTotalStudentNumber, kktable05.XXRS.ToString());
+            newBriefcase.Properties.Add(GlobalParams.PropertiesTotalStudentNumber, 
+                kktable05.XXRS.ToString());//增加一个属性 用于记录选学人数
+
             IQueryable<XKTABLE_VIEWRO> xktableView1s =
                 from c in
                     remoteDataAdapter.GetTable<XKTABLE_VIEWRO>() where c.KKNO == kktable05.KKNO
-                select c;
+                select c;//构造LINQ语句 (选课表 XKTABLE_VIEWRO 学生信息)
+
             ProgressHelper.SetProgress(20);//进度 百分之15
 
-            newBriefcase.AddTable(OfflineHelper.TableListToDataTable(xktableView1s.ToList(), "XKTABLE_VIEW1")); // 将XKTABLE离线出来 带出学生信息
+            newBriefcase.AddTable(
+                OfflineHelper.TableListToDataTable
+                (xktableView1s.ToList(), "XKTABLE_VIEW1")); 
+            // 将XKTABLE_VIEWRO(学生信息)放在briefcase里
 
             IQueryable<SKTABLE_07_VIEW> sktableView1s =
                 from c in
                     remoteDataAdapter.GetTable<SKTABLE_07_VIEW>()
                 where c.KKNO == kktable05.KKNO && c.SKDATE > new DateTime(2014, 10, 14)
-                select c;
+                select c;//SKTABLE_07_view为教师的上课表.教师选择完课程之后需要选择节次. 
+            //节次的来源即为该表. 一节课一条记录
+            
+            //将大于10月14号的数据下载下来 10月14日之后的数据都是正常的数据. 
             //进度 百分之二十
-            newBriefcase.AddTable(OfflineHelper.TableListToDataTable(sktableView1s.ToList(), "SKTABLE"));  // 将SKTABLE离线出来 带出每节课的课程信息
+            newBriefcase.AddTable(OfflineHelper.TableListToDataTable(sktableView1s.ToList(), 
+                "SKTABLE"));  // 下载SKTABLE_07_VIEW 并将其添加进briefcase中 里面包含了课程的信息
             //百分之20
             ProgressHelper.SetProgress(20);
             
             foreach (var sktableView1 in sktableView1s)
-            {
-                Properties.Settings.Default.ProgressValue += 2;
-                IQueryable<DMTABLE_08_NOPIC_VIEW> dmtable08S =
+            {//开始遍历上课表,并根据SKNO(上课编号) 获取每一节课对应的DMTABLE_08_NOPIC_VIEW
+                Properties.Settings.Default.ProgressValue += 2; // 进度指示
+
+                IQueryable<DMTABLE_08_NOPIC_VIEW> dmtable08S =  // 构造LINQ语句 此处算法应改进
                     from c in
                         remoteDataAdapter.GetTable<DMTABLE_08_NOPIC_VIEW>()where  c.SKNO == sktableView1.SKNO
-                    select c;
-                newBriefcase.AddTable(OfflineHelper.TableListToDataTable(dmtable08S.ToList(), sktableView1.SKNO.ToString()));
+                    select c;//每一节课对应一张点名表
+
+                newBriefcase.AddTable(
+                    OfflineHelper.TableListToDataTable(dmtable08S.ToList(), 
+                    sktableView1.SKNO.ToString()));//将点名表加入briefcase
+
                 classRecordRow = classRecordTable.NewRow();
-                classRecordRow[0] = sktableView1.SKNO.ToString();
-                classRecordRow[1] = sktableView1.SKDATE.ToString();
-                if (sktableView1.SKZT == 0)
+                //在课程记录表中新建一行记录. 包含该节课是否已经签到的标记
+
+                classRecordRow[0] = sktableView1.SKNO.ToString();//上课编号
+                classRecordRow[1] = sktableView1.SKDATE.ToString();//上课时间
+                if (sktableView1.SKZT == 0)//判断考勤状态 若已经完成考勤,则该堂课不能进行考勤工作.
                 {
                     classRecordRow[2] = GlobalParams.DidNotSigned;
                     classRecordRow[3] = GlobalParams.NotSubmitYet;
@@ -253,41 +286,64 @@ namespace AttendenceSystem_Alp
                     classRecordRow[2] = GlobalParams.Signed;
                     classRecordRow[3] = GlobalParams.Submitted;
                 }
-                classRecordTable.Rows.Add(classRecordRow);
+                classRecordTable.Rows.Add(classRecordRow); //将刚创建的这一行添加到表中.
             }
-            ProgressHelper.SetProgress(80);
-            newBriefcase.AddTable(classRecordTable); // briefcase里有几个table
-            newBriefcase.WriteBriefcase();
-            Briefcase propertiesBriefcase = new FileBriefcase(GlobalParams.PropertiesBriefcaseName, true);
-            DataTable propertiesTable = propertiesBriefcase.FindTable("PropertiesTable");
-            DataRow propertiesRow = null;
-            propertiesRow = propertiesTable.NewRow();
-            propertiesRow[0] = kktable05.KKNO.ToString();
-            propertiesRow[1] = Properties.Settings.Default.UserName;
-            propertiesRow[2] = kktable05.KKNAME;
-            DataRow[] dataRows = propertiesTable.Select("开课编号 = '" + kktable05.KKNO.ToString() + "'");
-            if (dataRows.Length >= 1)
+            ProgressHelper.SetProgress(80); // 进度条
+
+            newBriefcase.AddTable(classRecordTable); // 将用于记录每节课的表放在briefcase中
+
+            newBriefcase.WriteBriefcase();//保存briefcase到硬盘上
+
+            Briefcase propertiesBriefcase = 
+                new FileBriefcase(GlobalParams.PropertiesBriefcaseName, true);//true代表提前读取数据
+
+            DataTable propertiesTable = 
+                propertiesBriefcase.FindTable("PropertiesTable");
+            //本地的打开properties表 向其中添加一条记录 properties表中包含了所有的已经离线的开课记录
+
+            DataRow propertiesRow = null;//创建一个记录变量 
+            propertiesRow = propertiesTable.NewRow();//new出来一条记录 
+
+            propertiesRow[0] = kktable05.KKNO.ToString();//开课编号
+
+            propertiesRow[1] = Properties.Settings.Default.UserName;//用户名
+
+            propertiesRow[2] = kktable05.KKNAME;//开课名称
+
+            DataRow[] dataRows = 
+                propertiesTable.Select("开课编号 = '" + kktable05.KKNO.ToString() + "'");
+            //判断该课程是否已经添加进propertiestable中
+
+            if (dataRows.Length >= 1) // propertiestable已经有了该课程
             {
 
                 foreach (var dataRow in dataRows)
                 {
-                    dataRow.Delete();
+                    dataRow.Delete();//删除该课程
                 }
-                propertiesTable.Rows.Add(propertiesRow);
+
+                propertiesTable.Rows.Add(propertiesRow);//添加该课程(更新)
             }
             else
             {
-                propertiesTable.Rows.Add(propertiesRow);
+                propertiesTable.Rows.Add(propertiesRow);//添加该课程(新增)
             }
-            ProgressHelper.SetProgress(90);
-            propertiesBriefcase.RemoveTable("PropertiesTable");
+            ProgressHelper.SetProgress(90);//设置进度条
+            propertiesBriefcase.RemoveTable("PropertiesTable");//移除propertiestable(必要的操作)
 
-            propertiesBriefcase.AddTable(propertiesTable);
-            propertiesBriefcase.WriteBriefcase();
-            ProgressHelper.SetProgress(100);
-            ProgressHelper.StopProgressThread();
-            ProgressHelper.SetProgress(0);
-            MessageBox.Show(string.Format("操作成功 课程 【{0}】 已被下载 ", kktable05.KKNAME));
+            propertiesBriefcase.AddTable(propertiesTable);//添加propertiestable
+
+            propertiesBriefcase.WriteBriefcase();//写入更改
+
+            ProgressHelper.SetProgress(100);//进度条显示100%
+
+            ProgressHelper.StopProgressThread();//停止显示进度条窗口
+
+            ProgressHelper.SetProgress(0);//重置进度条窗口
+
+            MessageBox.Show(string.Format("操作成功 课程 【{0}】 已被下载 ", 
+                kktable05.KKNAME));//弹窗提示
+
             return true;
         }
 
@@ -443,7 +499,7 @@ namespace AttendenceSystem_Alp
             }
             catch (Exception ex)
             {
-                MessageBox.Show("数据库登录异常 请重启软件或联系管理员\n 异常信息:\n" + ex.Message);
+                MessageBox.Show("登录异常：调试信息：\n" + ex.Message);
                 return false;
             }
             if (!lLogged)
@@ -464,6 +520,11 @@ namespace AttendenceSystem_Alp
             remoteDataAdapter.ApplyChanges();
         }
 
+        /// <summary>
+        /// 刷新指纹信息
+        /// </summary>
+        /// <param name="kkno">开课编号</param>
+        /// <param name="ClassBriefcase">该节课的Briefcase</param>
         public void RefreshStudentInformation(long kkno ,Briefcase ClassBriefcase)
         {
             IQueryable<XKTABLE_VIEWRO> xktableView1s =
@@ -472,8 +533,11 @@ namespace AttendenceSystem_Alp
                where c.KKNO == kkno
                select c;
 
-            ClassBriefcase.AddTable(OfflineHelper.TableListToDataTable(xktableView1s.ToList(), "XKTABLE_VIEW1")); // 将XKTABLE离线出来 带出学生信息
-            ClassBriefcase.WriteBriefcase();
+            ClassBriefcase.AddTable(
+                OfflineHelper.TableListToDataTable(
+                xktableView1s.ToList(), "XKTABLE_VIEW1")); // 获取指纹信息并添加到Birefcase
+
+            ClassBriefcase.WriteBriefcase();//保存更改
             
         }
     }

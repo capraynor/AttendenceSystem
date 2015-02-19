@@ -143,5 +143,19 @@ namespace AttendanceSystemAlpha
         {
             FormChooseClassParams.Flag = false;
         }
+
+        private void textBox1_Click(object sender, EventArgs e)
+        {
+            //弹出键盘
+            try
+            {
+                Process.Start(@"C:/Program Files/Common Files/microsoft shared/ink/tabtip.exe");
+            }
+            catch (Exception)
+            {
+
+            }
+            //弹出键盘
+        }
     }
 }

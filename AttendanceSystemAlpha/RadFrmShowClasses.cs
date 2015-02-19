@@ -55,8 +55,11 @@ namespace AttendanceSystemAlpha
                 return;
             }
             ListBox.SelectedObjectCollection checkedToDownload = listBox1.SelectedItems;
+            //选择的那门课程
+
             ____fDataModule.ServerToBriefcase
                 (Properties.Settings.Default.CurrentDownloadPasswd, checkedToDownload);
+            //开始下载课程信息
         }
     }
 }

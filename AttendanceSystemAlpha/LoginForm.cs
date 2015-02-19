@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using AttendenceSystem_Alp;
@@ -47,7 +48,7 @@ namespace AttendanceSystemAlpha
             {
                 MessageBox.Show("请输入用户名或者密码");
                 return;
-            }
+            } // 检查是否输入了用户名和密码
             try
             {
                 _fDataModule.SetUserID(tboxUsername.Text);
@@ -58,7 +59,7 @@ namespace AttendanceSystemAlpha
             }
             catch (Exception exception)
             {
-                MessageBox.Show("出现一个错误.请将以下信息提供给管理员\n" + exception.Message);
+                MessageBox.Show("啊哦，服务器提出了一个问题：\n" + exception.Message);
                 return;
             }
 
@@ -76,6 +77,34 @@ namespace AttendanceSystemAlpha
         {
             this.Width = 488;
             this.Height = 309;
+        }
+
+        private void tboxUsername_Click(object sender, EventArgs e)
+        {
+            //弹出键盘
+            try
+            {
+                Process.Start(@"C:/Program Files/Common Files/microsoft shared/ink/tabtip.exe");
+            }
+            catch (Exception)
+            {
+
+            }
+            //弹出键盘
+        }
+
+        private void tboxPasswd_Click(object sender, EventArgs e)
+        {
+            //弹出键盘
+            try
+            {
+                Process.Start(@"C:/Program Files/Common Files/microsoft shared/ink/tabtip.exe");
+            }
+            catch (Exception)
+            {
+
+            }
+            //弹出键盘
         }
     }
 }

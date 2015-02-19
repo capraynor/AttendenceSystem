@@ -32,13 +32,13 @@
             this.pnLogin = new System.Windows.Forms.Panel();
             this.lblStatus = new System.Windows.Forms.Label();
             this.pnHead = new System.Windows.Forms.Panel();
+            this.lbMsg = new System.Windows.Forms.Label();
             this.rbtnLogin = new Telerik.WinControls.UI.RadButton();
             this.rbtnCancel = new Telerik.WinControls.UI.RadButton();
             this.tboxPasswd = new System.Windows.Forms.TextBox();
             this.tboxUsername = new System.Windows.Forms.TextBox();
             this.lbPasswd = new System.Windows.Forms.Label();
             this.lbUsername = new System.Windows.Forms.Label();
-            this.lbMsg = new System.Windows.Forms.Label();
             this.pnLogin.SuspendLayout();
             this.pnHead.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rbtnLogin)).BeginInit();
@@ -82,6 +82,17 @@
             this.pnHead.Size = new System.Drawing.Size(486, 86);
             this.pnHead.TabIndex = 6;
             // 
+            // lbMsg
+            // 
+            this.lbMsg.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbMsg.Font = new System.Drawing.Font("微软雅黑", 30F);
+            this.lbMsg.Location = new System.Drawing.Point(0, 0);
+            this.lbMsg.Name = "lbMsg";
+            this.lbMsg.Size = new System.Drawing.Size(486, 86);
+            this.lbMsg.TabIndex = 0;
+            this.lbMsg.Text = "登录服务器";
+            this.lbMsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // rbtnLogin
             // 
             this.rbtnLogin.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -110,6 +121,7 @@
             this.tboxPasswd.PasswordChar = '*';
             this.tboxPasswd.Size = new System.Drawing.Size(288, 39);
             this.tboxPasswd.TabIndex = 3;
+            this.tboxPasswd.Click += new System.EventHandler(this.tboxPasswd_Click);
             // 
             // tboxUsername
             // 
@@ -118,6 +130,7 @@
             this.tboxUsername.Name = "tboxUsername";
             this.tboxUsername.Size = new System.Drawing.Size(288, 39);
             this.tboxUsername.TabIndex = 2;
+            this.tboxUsername.Click += new System.EventHandler(this.tboxUsername_Click);
             // 
             // lbPasswd
             // 
@@ -138,17 +151,6 @@
             this.lbUsername.Size = new System.Drawing.Size(110, 31);
             this.lbUsername.TabIndex = 0;
             this.lbUsername.Text = "用户名：";
-            // 
-            // lbMsg
-            // 
-            this.lbMsg.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbMsg.Font = new System.Drawing.Font("微软雅黑", 30F);
-            this.lbMsg.Location = new System.Drawing.Point(0, 0);
-            this.lbMsg.Name = "lbMsg";
-            this.lbMsg.Size = new System.Drawing.Size(486, 86);
-            this.lbMsg.TabIndex = 0;
-            this.lbMsg.Text = "登录服务器";
-            this.lbMsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LoginForm
             // 

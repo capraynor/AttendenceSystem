@@ -28,7 +28,7 @@ namespace AttendanceSystemAlpha
         private DataTable xkTable;
         private DataTable bjTable;
         private DataTable backupDisplayTable;
-        public ManualRollCall(Briefcase _classBriefcase , long _jieci ,ref DataTable dmTable , DateTime RollcallTime)
+        public ManualRollCall(Briefcase _classBriefcase , long _jieci ,DataTable dmTable , DateTime RollcallTime)
         {
             InitializeComponent();
             this.classBriefcase = _classBriefcase;
@@ -117,6 +117,8 @@ namespace AttendanceSystemAlpha
             DataRow[] displayRows;
             lock (ThreadLocker.CallingBriefcaseLocker)
             {
+                if (GridStudentName.CurrentRow == null)
+                    return;
                 dmRows =   _dmTable.Select("XSID = '" + GridStudentName.CurrentRow.Cells[1].Value.ToString() + "'");
                 if (dmRows.Any())
                 {
@@ -182,6 +184,7 @@ namespace AttendanceSystemAlpha
                         Helpers.EnumerableExtension.ToList<DMTABLE_08_NOPIC_VIEW>(_dmTable), _dmTable.TableName);
                 classBriefcase.AddTable(_dmTable);
                 classBriefcase.WriteBriefcase();
+                FormChooseClassParams.ChooseClassBriefcase = classBriefcase;
             }
         }
 

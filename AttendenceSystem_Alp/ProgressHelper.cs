@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms.VisualStyles;
+using AttendenceSystem_Alp.Properties;
 
 namespace AttendenceSystem_Alp
 {
@@ -13,7 +14,10 @@ namespace AttendenceSystem_Alp
         private static void ShowProgress()
         {
             ProgressForm progressForm = new ProgressForm();
-            Properties.Settings.Default.CloseProgressForm = false;
+            lock (GlobalParams.CloseProgressWindowLocker)
+            {
+                Settings.Default.CloseProgressForm = false;
+            }
             try
             {
                 progressForm.ShowDialog();
@@ -27,19 +31,28 @@ namespace AttendenceSystem_Alp
         public static void StartProgressThread()
         {
             thread = new Thread(ShowProgress);
-            Properties.Settings.Default.CloseProgressForm = false;
+            lock (GlobalParams.CloseProgressWindowLocker)
+            {
+                Settings.Default.CloseProgressForm = false;
+            }
             thread.IsBackground = true;
             thread.Start();
         }
 
         public static void  StopProgressThread()
         {
-            Properties.Settings.Default.CloseProgressForm = true;
+            lock (GlobalParams.CloseProgressWindowLocker)
+            {
+                Settings.Default.CloseProgressForm = true;
+            }
         }
 
         public static void SetProgress(int Value)
         {
-            Properties.Settings.Default.ProgressValue = Value;
+            lock (GlobalParams.ProgressValueLocker)
+            {
+                Settings.Default.ProgressValue = Value;
+            }
         }
 
         

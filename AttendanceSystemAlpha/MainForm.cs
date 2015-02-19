@@ -146,16 +146,16 @@ namespace AttendanceSystemAlpha
            
             this.Visible = false;
             //平板和笔记本的区别
-            //if (this.WindowState == FormWindowState.Maximized)
-            //{
-            //    this.WindowState = FormWindowState.Normal;
-            //}
-            //else
-            //{
-            //    this.FormBorderStyle = FormBorderStyle.None;
-            //    this.MaximumSize = new Size(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
-            //    this.WindowState = FormWindowState.Maximized;
-            //}
+            if (this.WindowState == FormWindowState.Maximized)
+            {
+                this.WindowState = FormWindowState.Normal;
+            }
+            else
+            {
+                this.FormBorderStyle = FormBorderStyle.None;
+                this.MaximumSize = new Size(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
+                this.WindowState = FormWindowState.Maximized;
+            }
             
             //平板和笔记本的区别
             this.Width = 1280;
@@ -216,11 +216,19 @@ namespace AttendanceSystemAlpha
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void radButton1_Click(object sender, EventArgs e)
-        {
-            DialogResult dr2 = MessageBox.Show("确定结束点名吗？", "确认结束点名", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+        {//结束点名按钮函数
+            DialogResult dr2 = 
+                MessageBox.Show("确定结束点名吗？", "确认结束点名", 
+                MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            
             if (dr2 != DialogResult.OK) return;
-            DialogResult dr3 = MessageBox.Show("结束点名之后本节课将不能再次点名", "确认结束点名", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+            DialogResult dr3 = 
+                MessageBox.Show("结束点名之后本节课将不能再次点名", 
+                "确认结束点名", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            
             if (dr3 != DialogResult.OK) return;
+
             ////DataTable ClassStatusTable = frmChooseClasses._chooseClassBriefcase.FindTable("ClassStatus");
             ////// todo manangement
             //// DataRow mngClassStatusRow = ClassStatusTable.Select("Table编号 = '" + frmChooseClasses.Jieci.ToString() + "'")
@@ -230,20 +238,36 @@ namespace AttendanceSystemAlpha
             ////mngClassStatusRow.EndEdit();
             //frmChooseClasses._chooseClassBriefcase.AddTable(ClassStatusTable);
             //frmChooseClasses._chooseClassBriefcase.WriteBriefcase();
-            DataTable sktable = FormChooseClassParams.ChooseClassBriefcase.FindTable("SKTABLE");
-            DataRow skRow = null;
-            skRow = sktable.Select("SKNO = '" + FormChooseClassParams.Jieci + "'").First();
-            skRow.BeginEdit();
-            skRow["SKDATE"] = DateTimePicker1.Value;
-            skRow["SKZT"] = 1; //不能再次点名
+            DataTable sktable = FormChooseClassParams.
+                ChooseClassBriefcase.FindTable("SKTABLE");//从"选择课程窗口参数类"里获取SKTABLE
+
+            DataRow skRow = null;//初始化skrow 该变量用于遍历变量,并且用于提交更改本地数据.
+
+            skRow = sktable.Select
+                ("SKNO = '" + FormChooseClassParams.Jieci + "'").First();
+            //获取到节次编号(上课编号)之后,从SKTABLE(离线过的上课表)中获取需要上传的那节课的详细信息
+
+            skRow.BeginEdit();//开始编辑这行信息
+            skRow["SKDATE"] = DateTimePicker1.Value;//写入上课时间
+            skRow["SKZT"] = 1; //更改上课状态为1(已经考勤)
             skRow.EndEdit();
+
             lock (ThreadLocker.CallingBriefcaseLocker)
             {
-                FormChooseClassParams.ChooseClassBriefcase.AddTable(OfflineHelper.TableListToDataTable(EnumerableExtension.ToList<SKTABLE_07_VIEW>(sktable), "SKTABLE"));
-                FormChooseClassParams.ChooseClassBriefcase.WriteBriefcase();
+                FormChooseClassParams.
+                    ChooseClassBriefcase.
+                    AddTable(OfflineHelper.
+                    TableListToDataTable
+                    (EnumerableExtension.ToList<SKTABLE_07_VIEW>(sktable), "SKTABLE"));
+                //将更改过的SKTABLE添加到本地数据中 并挂起更改
+
+                FormChooseClassParams.
+                    ChooseClassBriefcase.WriteBriefcase();//写入数据
             }
             
+            //**********初始化界面***********//
             radButton1.Enabled = false;
+
             rbtnStartcall.Enabled = true;
             lbStudentClass.Text = "";
             lbStudentId.Text = "";
@@ -254,20 +278,36 @@ namespace AttendanceSystemAlpha
             pboxPhoto.Image = Resources.attendance_list_icon;
             ContinueOpration = false;
             isDoingRollCall = false;
-            HDFingerprintHelper.FpCloseUsb(FpHandle);
+            if (ContinueOpration)
+            {
+                HDFingerprintHelper.FpCloseUsb(FpHandle);
+            }
             lbStudentName.Text = "学生姓名";
             panel19.Visible = panel22.Visible = false;
             radButton1.Enabled = false;
             rbtnStartcall.Enabled = true;
             BtnManualRollCall.Enabled = false;
+            //**********初始化界面***********//
         }
+        /// <summary>
+        ///统计正常上课学生数据
+        /// </summary>
+        /// <param name="dmTable">已经离线的点名表</param>
+        /// <returns>正常上课学生人数</returns>
         private static int CountArriveSudentNumber(DataTable dmTable)
         {
             DataRow[] dmRows;
+
             dmRows = dmTable.Select("DKZT = '0'");
+
             return dmRows.Count();
         }
 
+        /// <summary>
+        /// 统计迟到学生人数
+        /// </summary>
+        /// <param name="dmTable">已经离线的点名表</param>
+        /// <returns>迟到人数</returns>
         private static int CountLateStudentNumber(DataTable dmTable)
         {
             DataRow[] dmRows;
@@ -275,6 +315,11 @@ namespace AttendanceSystemAlpha
             return dmRows.Count();
         }
 
+        /// <summary>
+        /// 统计早退学生人数
+        /// </summary>
+        /// <param name="dmTable">已经离线的点名表</param>
+        /// <returns></returns>
         private static int CountLeaveEarly(DataTable dmTable)
         {
             DataRow[] dmRows;
@@ -282,31 +327,47 @@ namespace AttendanceSystemAlpha
             return dmRows.Count();
         }
 
+        /// <summary>
+        /// 统计缺勤人数
+        /// </summary>
+        /// <param name="dmTable">已经离线的点名表</param>
+        /// <returns></returns>
         private static int CountAbsentStudent(DataTable dmTable)
         {
             DataRow[] dmRows;
+
             dmRows = dmTable.Select("DKZT = 3 or DKZT = 5");
+
             return dmRows.Count();
         }
         
-
+        /// <summary>
+        /// 显示已经选择的课程的信息
+        /// </summary>
         private void ShowOfflineInformations()
         {
             //DataTable mngxkTable = null;
-            DataTable dtResault = new DataTable();
-            if (!dtResault.Columns.Contains("到课状态"))
+            DataTable dtResault = new DataTable();//建立临时的datatable  用于底部gridview 的显示
+
+            if (!dtResault.Columns.Contains("到课状态"))//为临时的datatable添加字段
             {
                 dtResault.Columns.Add("姓名", typeof (string));
+
                 dtResault.Columns.Add("到课状态", typeof (string));
+
                 dtResault.Columns.Add("学号", typeof (string));
+
                 dtResault.Columns.Add("到课时间", typeof (DateTime));
             }
 
             //mngxkTable = mngchooseClassBriefcase.FindTable("XKTABLE_VIEW1");//从briefcase中将选课表拉出来
             //mngGridView.DataSource = mngdmTable;
-            int _studentTotal = 0;
-            int _sdrs = 0;
+            int _studentTotal = 0;//学生总数
+
+            int _sdrs = 0;//实到人数
+
             double _dkpercent = 0.0;
+
             _studentTotal = _mngdmTable.Rows.Count;
             //_studentTotal = (CountArriveSudentNumber(mngdmTable) + CountLateStudentNumber(mngdmTable) +
             //                CountLeaveEarly(mngdmTable) + CountAbsentStudent(mngdmTable));//todo: 直接数人数
@@ -377,43 +438,71 @@ namespace AttendanceSystemAlpha
         }
 
       
-
+        
         private void radButton2_Click(object sender, EventArgs e)
-        {            
+        {//上传考勤数据
             try
             {
                 _loginForm = new LoginForm(fDataModule , jsid); // todo get userID
-                _loginForm.ShowDialog();
-                if (!_loginForm.IsLogin()) return;
-                ProgressHelper.StartProgressThread();
+
+                _loginForm.ShowDialog();//显示登录窗口
+
+                if (!_loginForm.IsLogin()) return;//若登录失败 则退出该函数
+
+                ProgressHelper.StartProgressThread();//开始显示上传进度
+
                 int __count = _mngdmTable.Rows.Count; // 用于进度条的显示
+
                 int i = 0;
+
                 foreach (DataRow dr in _mngdmTable.Rows)
                 {
+                    //遍历每一行点名记录 更改本地数据 并挂起上传操作
                     dr.BeginEdit();
-                    dr["POSTDATE"] = DateTime.Now;
-                    dr["POSTMANNO"] = Convert.ToDecimal(fDataModule.GetUserID());
-                    if ((Int16)dr["DKZT"] == 5)
+
+                    dr["POSTDATE"] = DateTime.Now;//本地数据修改:上传时间
+
+                    dr["POSTMANNO"] = Convert.ToDecimal(fDataModule.GetUserID());//上传人员编号
+
+                    if ((Int16)dr["DKZT"] == 5)//到课状态 5(未考勤) 强制转换成 3(旷课)
                     {
                         dr["DKZT"] = (Int16)3;
                     } 
-                    dr.EndEdit();
-                    ProgressHelper.SetProgress((int) (20*(++i/__count)));
+
+                    dr.EndEdit();//结束编辑
+
+                    ProgressHelper.SetProgress((int) (20*(++i/__count)));//设置进度条显示
                 }
+
                 ProgressHelper.SetProgress(20);//progress:  0-20
-                var dmtableList = EnumerableExtension.ToList<DMTABLE_08_NOPIC_VIEW>(_mngdmTable);
-                _mngchooseClassBriefcase.AddTable(OfflineHelper.TableListToDataTable(dmtableList,JieCi.ToString()));
-                i = 0;
+
+                var dmtableList = 
+                    EnumerableExtension.
+                    ToList<DMTABLE_08_NOPIC_VIEW>(_mngdmTable);
+                //将dmtable转换成list 以便向服务器上传考勤结果
+
+                _mngchooseClassBriefcase.
+                    AddTable
+                    (OfflineHelper.
+                    TableListToDataTable(dmtableList,JieCi.ToString()));
+
+                i = 0;//用于进度条的显示
+
                 foreach (var dmtable08 in dmtableList)
                 {
                     fDataModule.UpdateDmtable(dmtable08); // dmtable update完成
+
                     ProgressHelper.SetProgress(20+ (int) (70*(++i/__count)));
                 }
-                fDataModule.ApplyChanges(); 
+                fDataModule.ApplyChanges(); //提交更改
+
                 ProgressHelper.SetProgress(90);
+
                 //mngSKtable = _chooseClassBriefcase.FindTable() // todo update sktable 点名方式 早退人数
                 long _skno = JieCi;
+
                 fDataModule.GetSktableQueryUpload(_skno);
+
                 if (!fDataModule.Context.SKTABLE_07_VIEW.Any()) // 选择 sktable需要上传的那一列
                 {
                     throw new Exception("数据库异常 找不到该教师的相关信息 \n请重试或者联系管理员");
@@ -425,57 +514,76 @@ namespace AttendanceSystemAlpha
                 //rowSktable07.DMFS = Convert.ToInt16(2);
                 rowSktable07.EDITMANNO = Convert.ToInt64(fDataModule.GetUserID());
                 
-                rowSktable07.CDRS = Convert.ToInt16(CountLateStudentNumber(_mngdmTable));
-                rowSktable07.KKRS = Convert.ToInt16(CountAbsentStudent(_mngdmTable));
-                rowSktable07.ZCRS = Convert.ToInt16(CountArriveSudentNumber(_mngdmTable));
+                rowSktable07.CDRS = Convert.ToInt16(CountLateStudentNumber(_mngdmTable));//统计迟到人数
+
+                rowSktable07.KKRS = Convert.ToInt16(CountAbsentStudent(_mngdmTable));//统计旷课人数
+
+                rowSktable07.ZCRS = Convert.ToInt16(CountArriveSudentNumber(_mngdmTable));//统计正常人数
                 
                 
                 
                 //SKTABLE_07 rowSktable07 = new SKTABLE_07();
                 //rowSktable07.EDITDATE = DateTime.Now;
                 rowSktable07.DMFS = Convert.ToInt16(1); // 一次点名
+
                 rowSktable07.RZFS = Convert.ToInt16(2); // 指纹认证
-                //rowSktable07.EDITMANNO = Convert.ToInt64(fDataModule.GetUserID());
+
                 rowSktable07.ZTRS = 0;
                 //rowSktable07.ZTRS = Convert.ToInt16(CountLeaveEarly(mngdmTable));
-                rowSktable07.CDRS = Convert.ToInt16(CountLateStudentNumber(_mngdmTable));
+
                 rowSktable07.SKDATE =
                     Convert.ToDateTime(
                         _mngSKtable.Select("SKNO = '" + rowSktable07.SKNO.ToString() + "'").First()["SKDATE"]);
-                rowSktable07.SKZT = 1; //todo: 上课状态
+                rowSktable07.SKZT = 1; //签到状态变为1  (已经签到)
 
 
                 fDataModule.UpdateSktable(rowSktable07); // sktable 提交完成
-                ProgressHelper.SetProgress(95);
+
+                ProgressHelper.SetProgress(95);//进度条
+
                 fDataModule.ApplyChanges();//提交更改
 
-                DataTable mngClassStatusTable = _mngchooseClassBriefcase.FindTable("ClassStatus");
+                DataTable mngClassStatusTable = 
+                    _mngchooseClassBriefcase.FindTable("ClassStatus");//更改考勤状态
                 
-                DataRow mngClassStatusRow = mngClassStatusTable.Select("Table编号 = '" + rowSktable07.SKNO + "'")
-                        .First();
+                DataRow mngClassStatusRow = 
+                    mngClassStatusTable.Select("Table编号 = '" + rowSktable07.SKNO + "'")
+                        .First();//获取该堂课考勤状态的那一行
                     
-                mngClassStatusRow.BeginEdit();
-                mngClassStatusRow["离线数据提交情况"] = "已提交";
-                mngClassStatusRow.EndEdit();
-                _mngchooseClassBriefcase.AddTable(mngClassStatusTable);
-                _mngchooseClassBriefcase.WriteBriefcase();
-                ProgressHelper.SetProgress(100);
-                ProgressHelper.StopProgressThread();
-                ProgressHelper.SetProgress(0);
-                //lbMngOfflineStatus.Text = "数据提交成功";
-                toolStripOperationStatus.Text = "数据提交成功";
-                MessageBox.Show("数据提交成功");
-                jsid = "";
-                _loginForm.Close();
+                mngClassStatusRow.BeginEdit();//开始编辑这一行
 
-                //刷新指纹信息 begin
+                mngClassStatusRow["离线数据提交情况"] = "已提交";//更改离线数据提交情况
+
+                mngClassStatusRow.EndEdit();//结束编辑
+
+                _mngchooseClassBriefcase.AddTable(mngClassStatusTable);//保存更改之后的数据
+
+                _mngchooseClassBriefcase.WriteBriefcase();//保存更改
+
+                ProgressHelper.SetProgress(100);
+
+                ProgressHelper.StopProgressThread();
+
+                ProgressHelper.SetProgress(0);
+
+                //lbMngOfflineStatus.Text = "数据提交成功";
+
+                toolStripOperationStatus.Text = "数据提交成功";
+
+                MessageBox.Show("数据提交成功");
+
+                jsid = "";
+
+                _loginForm.Close();//结束登录窗口
+
+                //开始刷新指纹信息
                 DialogResult dr2 = MessageBox.Show("需要刷新此门课程的指纹信息吗", "刷新指纹信息", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (dr2 == DialogResult.OK)
                 {
                     fDataModule.RefreshStudentInformation(rowSktable07.KKNO.Value, _mngchooseClassBriefcase);
                     MessageBox.Show("刷新指纹信息成功");
                 }
-                //刷新指纹信息 end
+                //完成刷新指纹信息
 
             }
             catch (Exception exception)
@@ -558,13 +666,10 @@ namespace AttendanceSystemAlpha
             }
             //选择上课时间
             xkTable = FormChooseClassParams.ChooseClassBriefcase.FindTable("XKTABLE_VIEW1");
-            
-            ProgressHelper.StartProgressThread();
+
             int _initCount = 0;
             while ((FpHandle = HDFingerprintHelper.FpOpenUsb(0xFFFFFFFF, 1000)) == IntPtr.Zero)
             {
-
-                    ProgressHelper.StopProgressThread();
                     DialogResult dr2 = MessageBox.Show("初始化指纹仪失败，\n点击【确定】，重新初始化指纹仪\n点击【取消】停止使用指纹仪，并开始手动考勤", "确认开启手动考勤", MessageBoxButtons.OKCancel, MessageBoxIcon.Question); //指纹仪如果没有初始化成功，则手动考勤
                     if (dr2 == DialogResult.OK) continue; //不用指纹仪考勤
                     InitWithoutFingerPrint();
@@ -573,12 +678,12 @@ namespace AttendanceSystemAlpha
 
             }// 初始化指纹仪
             //Log("指纹仪初始化完成", FpHandle.ToString());
-            ProgressHelper.StartProgressThread();
+            
             uint16_t fingerId = 0;
             nRet =  HDFingerprintHelper.FpEmpty(FpHandle, 0); // 清空指纹仪
             if (nRet != 0)
             {
-                ProgressHelper.StopProgressThread();
+                
                 DialogResult dr2 = MessageBox.Show("指纹仪初始化失败 错误代码:" + nRet.ToString()+"是否开始手动考勤？", "指纹仪初始化失败", MessageBoxButtons.OKCancel, MessageBoxIcon.Question); //指纹仪如果没有初始化成功，则手动考勤
                 if (dr2 != DialogResult.OK) return;
                 InitWithoutFingerPrint();
@@ -586,6 +691,7 @@ namespace AttendanceSystemAlpha
                 //
                 return;
             }
+            ProgressHelper.StartProgressThread();
             ProgressHelper.SetProgress(10);
             int __count = xkTable.Rows.Count;
             int i = 0;
@@ -1008,11 +1114,7 @@ namespace AttendanceSystemAlpha
         }
         
 
-        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-
-        }
-
+        
         private void DateTimePicker1_MouseUp(object sender, MouseEventArgs e)
         {
             
@@ -1066,22 +1168,16 @@ namespace AttendanceSystemAlpha
             }
             lock (ThreadLocker.CallingBriefcaseLocker)
             {
-                _frmmanualRollCall = new ManualRollCall(FormChooseClassParams.ChooseClassBriefcase, FormChooseClassParams.Jieci, ref dmTable,
+                _frmmanualRollCall = new ManualRollCall(FormChooseClassParams.ChooseClassBriefcase, FormChooseClassParams.Jieci, dmTable,
                     DateTimePicker1.Value);
-            }
-            _frmmanualRollCall.ShowDialog();
-            lock (ThreadLocker.CallingBriefcaseLocker)
-            {
+                _frmmanualRollCall.ShowDialog();
                 dmTable = FormChooseClassParams.ChooseClassBriefcase.FindTable(FormChooseClassParams.Jieci.ToString());
                 int sdrs = CountArriveSudentNumber(dmTable) + CountLateStudentNumber(dmTable);
                 List<string> xData = new List<string>() {"实到:" + sdrs + "人", "未到" + (dmTable.Rows.Count - sdrs) + "人"};
 
                 List<int> yData = new List<int>() {sdrs, dmTable.Rows.Count - sdrs};
-                //chart1.Series[0]["PieLabelStyle"] = "Outside";//将文字移到外侧
-                //chart1.Series[0]["PieLineColor"] = "Black";//绘制黑色的连线。
-                //chart1.Series[0].Points.DataBindXY(xData, yData);
-                //SetControlPropertyThreadSafe(chart1, "Series[0].Points.DataBindXY"  , new object[]{xData , yData} );
-                chart1.Invoke((MethodInvoker) delegate { chart1.Series[0].Points.DataBindXY(xData, yData); });
+
+                chart1.Invoke((MethodInvoker) (() => chart1.Series[0].Points.DataBindXY(xData, yData)));
             }
         }
 

@@ -29,5 +29,7 @@
         public static string Signed = "已签到";
         public static string NotSubmitYet = "未提交";
         public static string Submitted = "已提交";
+        public static object CloseProgressWindowLocker = new object();
+        public static object ProgressValueLocker = new object();
     }
 }

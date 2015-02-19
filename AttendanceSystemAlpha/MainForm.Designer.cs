@@ -132,7 +132,6 @@ namespace AttendanceSystemAlpha
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel18 = new System.Windows.Forms.Panel();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.pnHead.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -240,10 +239,10 @@ namespace AttendanceSystemAlpha
             this.mainPageView.Controls.Add(this.viewpageCall);
             this.mainPageView.Controls.Add(this.viewpageDataManagement);
             this.mainPageView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainPageView.Font = new System.Drawing.Font("微软雅黑", 27.75F, System.Drawing.FontStyle.Bold);
+            this.mainPageView.Font = new System.Drawing.Font("Microsoft YaHei", 27.75F, System.Drawing.FontStyle.Bold);
             this.mainPageView.Location = new System.Drawing.Point(0, 0);
             this.mainPageView.Name = "mainPageView";
-            this.mainPageView.SelectedPage = this.viewpageDataManagement;
+            this.mainPageView.SelectedPage = this.viewpageLoadData;
             this.mainPageView.Size = new System.Drawing.Size(1279, 575);
             this.mainPageView.TabIndex = 0;
             this.mainPageView.ThemeName = "TelerikMetro";
@@ -253,7 +252,7 @@ namespace AttendanceSystemAlpha
             // viewpageLoadData
             // 
             this.viewpageLoadData.Controls.Add(this.pnLoad);
-            this.viewpageLoadData.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.viewpageLoadData.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.viewpageLoadData.ItemSize = new System.Drawing.SizeF(175F, 63F);
             this.viewpageLoadData.Location = new System.Drawing.Point(205, 4);
             this.viewpageLoadData.Name = "viewpageLoadData";
@@ -284,7 +283,7 @@ namespace AttendanceSystemAlpha
             // lboxClassName
             // 
             this.lboxClassName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lboxClassName.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lboxClassName.Font = new System.Drawing.Font("Microsoft YaHei", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lboxClassName.FormattingEnabled = true;
             this.lboxClassName.ItemHeight = 38;
             this.lboxClassName.Location = new System.Drawing.Point(0, 0);
@@ -306,7 +305,7 @@ namespace AttendanceSystemAlpha
             // 
             this.radButton6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.radButton6.Enabled = false;
-            this.radButton6.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold);
+            this.radButton6.Font = new System.Drawing.Font("Microsoft YaHei", 21.75F, System.Drawing.FontStyle.Bold);
             this.radButton6.Location = new System.Drawing.Point(628, 21);
             this.radButton6.Name = "radButton6";
             this.radButton6.Size = new System.Drawing.Size(209, 71);
@@ -317,7 +316,7 @@ namespace AttendanceSystemAlpha
             // radButton5
             // 
             this.radButton5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.radButton5.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold);
+            this.radButton5.Font = new System.Drawing.Font("Microsoft YaHei", 21.75F, System.Drawing.FontStyle.Bold);
             this.radButton5.Location = new System.Drawing.Point(843, 21);
             this.radButton5.Name = "radButton5";
             this.radButton5.Size = new System.Drawing.Size(209, 71);
@@ -338,7 +337,7 @@ namespace AttendanceSystemAlpha
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("微软雅黑", 20F);
+            this.label18.Font = new System.Drawing.Font("Microsoft YaHei", 20F);
             this.label18.Location = new System.Drawing.Point(12, 11);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(231, 35);
@@ -348,7 +347,7 @@ namespace AttendanceSystemAlpha
             // viewpageCall
             // 
             this.viewpageCall.Controls.Add(this.pnMaincall);
-            this.viewpageCall.Font = new System.Drawing.Font("微软雅黑", 15.75F);
+            this.viewpageCall.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F);
             this.viewpageCall.ItemSize = new System.Drawing.SizeF(175F, 63F);
             this.viewpageCall.Location = new System.Drawing.Point(205, 4);
             this.viewpageCall.Name = "viewpageCall";
@@ -390,7 +389,7 @@ namespace AttendanceSystemAlpha
             // 
             this.BtnManualRollCall.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.BtnManualRollCall.Enabled = false;
-            this.BtnManualRollCall.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.BtnManualRollCall.Font = new System.Drawing.Font("Microsoft YaHei", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.BtnManualRollCall.Location = new System.Drawing.Point(24, 153);
             this.BtnManualRollCall.Name = "BtnManualRollCall";
             this.BtnManualRollCall.Size = new System.Drawing.Size(161, 56);
@@ -401,7 +400,7 @@ namespace AttendanceSystemAlpha
             // rbtnStartcall
             // 
             this.rbtnStartcall.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.rbtnStartcall.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rbtnStartcall.Font = new System.Drawing.Font("Microsoft YaHei", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.rbtnStartcall.Location = new System.Drawing.Point(24, 19);
             this.rbtnStartcall.Name = "rbtnStartcall";
             this.rbtnStartcall.Size = new System.Drawing.Size(161, 56);
@@ -413,7 +412,7 @@ namespace AttendanceSystemAlpha
             // 
             this.radButton1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.radButton1.Enabled = false;
-            this.radButton1.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.radButton1.Font = new System.Drawing.Font("Microsoft YaHei", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.radButton1.Location = new System.Drawing.Point(24, 86);
             this.radButton1.Name = "radButton1";
             this.radButton1.Size = new System.Drawing.Size(161, 56);
@@ -443,7 +442,7 @@ namespace AttendanceSystemAlpha
             this.gboxClassmsg.Controls.Add(this.label1);
             this.gboxClassmsg.Controls.Add(this.label3);
             this.gboxClassmsg.Controls.Add(this.label2);
-            this.gboxClassmsg.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.gboxClassmsg.Font = new System.Drawing.Font("Microsoft YaHei", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.gboxClassmsg.Location = new System.Drawing.Point(17, 17);
             this.gboxClassmsg.Name = "gboxClassmsg";
             this.gboxClassmsg.Size = new System.Drawing.Size(831, 194);
@@ -455,7 +454,7 @@ namespace AttendanceSystemAlpha
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.Font = new System.Drawing.Font("Microsoft YaHei", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label4.Location = new System.Drawing.Point(457, 42);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(112, 27);
@@ -488,7 +487,7 @@ namespace AttendanceSystemAlpha
             // 
             this.lbClassName.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbClassName.AutoSize = true;
-            this.lbClassName.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbClassName.Font = new System.Drawing.Font("Microsoft YaHei", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbClassName.Location = new System.Drawing.Point(8, 12);
             this.lbClassName.Name = "lbClassName";
             this.lbClassName.Size = new System.Drawing.Size(120, 27);
@@ -499,7 +498,7 @@ namespace AttendanceSystemAlpha
             // 
             this.lbTeacherName.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbTeacherName.AutoSize = true;
-            this.lbTeacherName.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbTeacherName.Font = new System.Drawing.Font("Microsoft YaHei", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbTeacherName.Location = new System.Drawing.Point(8, 92);
             this.lbTeacherName.Name = "lbTeacherName";
             this.lbTeacherName.Size = new System.Drawing.Size(120, 27);
@@ -510,7 +509,7 @@ namespace AttendanceSystemAlpha
             // 
             this.lbClassLocation.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbClassLocation.AutoSize = true;
-            this.lbClassLocation.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbClassLocation.Font = new System.Drawing.Font("Microsoft YaHei", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbClassLocation.Location = new System.Drawing.Point(8, 129);
             this.lbClassLocation.Name = "lbClassLocation";
             this.lbClassLocation.Size = new System.Drawing.Size(120, 27);
@@ -532,7 +531,7 @@ namespace AttendanceSystemAlpha
             // 
             this.lbYdrs.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbYdrs.AutoSize = true;
-            this.lbYdrs.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbYdrs.Font = new System.Drawing.Font("Microsoft YaHei", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbYdrs.Location = new System.Drawing.Point(3, 12);
             this.lbYdrs.Name = "lbYdrs";
             this.lbYdrs.Size = new System.Drawing.Size(108, 27);
@@ -542,7 +541,7 @@ namespace AttendanceSystemAlpha
             // DateTimePicker1
             // 
             this.DateTimePicker1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.DateTimePicker1.CalendarFont = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.DateTimePicker1.CalendarFont = new System.Drawing.Font("Microsoft YaHei", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.DateTimePicker1.CustomFormat = "yyyy-MM-dd HH:mm";
             this.DateTimePicker1.Enabled = false;
             this.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
@@ -557,7 +556,7 @@ namespace AttendanceSystemAlpha
             // 
             this.lbCallMethod.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbCallMethod.AutoSize = true;
-            this.lbCallMethod.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbCallMethod.Font = new System.Drawing.Font("Microsoft YaHei", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbCallMethod.Location = new System.Drawing.Point(3, 92);
             this.lbCallMethod.Name = "lbCallMethod";
             this.lbCallMethod.Size = new System.Drawing.Size(92, 27);
@@ -568,7 +567,7 @@ namespace AttendanceSystemAlpha
             // 
             this.lbCallTimes.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbCallTimes.AutoSize = true;
-            this.lbCallTimes.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbCallTimes.Font = new System.Drawing.Font("Microsoft YaHei", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbCallTimes.Location = new System.Drawing.Point(3, 129);
             this.lbCallTimes.Name = "lbCallTimes";
             this.lbCallTimes.Size = new System.Drawing.Size(24, 27);
@@ -579,7 +578,7 @@ namespace AttendanceSystemAlpha
             // 
             this.label16.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label16.Font = new System.Drawing.Font("Microsoft YaHei", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label16.Location = new System.Drawing.Point(457, 159);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(112, 27);
@@ -590,7 +589,7 @@ namespace AttendanceSystemAlpha
             // 
             this.label15.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label15.Font = new System.Drawing.Font("Microsoft YaHei", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label15.Location = new System.Drawing.Point(457, 120);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(112, 27);
@@ -601,7 +600,7 @@ namespace AttendanceSystemAlpha
             // 
             this.lbCname.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbCname.AutoSize = true;
-            this.lbCname.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbCname.Font = new System.Drawing.Font("Microsoft YaHei", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbCname.Location = new System.Drawing.Point(24, 42);
             this.lbCname.Name = "lbCname";
             this.lbCname.Size = new System.Drawing.Size(112, 27);
@@ -612,7 +611,7 @@ namespace AttendanceSystemAlpha
             // 
             this.label11.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label11.Font = new System.Drawing.Font("Microsoft YaHei", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label11.Location = new System.Drawing.Point(24, 159);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(112, 27);
@@ -623,7 +622,7 @@ namespace AttendanceSystemAlpha
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Font = new System.Drawing.Font("Microsoft YaHei", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.Location = new System.Drawing.Point(24, 81);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(132, 27);
@@ -634,7 +633,7 @@ namespace AttendanceSystemAlpha
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Font = new System.Drawing.Font("Microsoft YaHei", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label3.Location = new System.Drawing.Point(24, 120);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(112, 27);
@@ -645,7 +644,7 @@ namespace AttendanceSystemAlpha
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Font = new System.Drawing.Font("Microsoft YaHei", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label2.Location = new System.Drawing.Point(457, 81);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(152, 27);
@@ -677,7 +676,7 @@ namespace AttendanceSystemAlpha
             this.gboxStudentMsg.Controls.Add(this.label7);
             this.gboxStudentMsg.Controls.Add(this.label6);
             this.gboxStudentMsg.Controls.Add(this.pboxPhoto);
-            this.gboxStudentMsg.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.gboxStudentMsg.Font = new System.Drawing.Font("Microsoft YaHei", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.gboxStudentMsg.Location = new System.Drawing.Point(18, 17);
             this.gboxStudentMsg.Name = "gboxStudentMsg";
             this.gboxStudentMsg.Size = new System.Drawing.Size(641, 332);
@@ -689,7 +688,7 @@ namespace AttendanceSystemAlpha
             // 
             this.lbDcsj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbDcsj.AutoSize = true;
-            this.lbDcsj.Font = new System.Drawing.Font("微软雅黑", 20F);
+            this.lbDcsj.Font = new System.Drawing.Font("Microsoft YaHei", 20F);
             this.lbDcsj.Location = new System.Drawing.Point(388, 286);
             this.lbDcsj.Name = "lbDcsj";
             this.lbDcsj.Size = new System.Drawing.Size(63, 35);
@@ -700,7 +699,7 @@ namespace AttendanceSystemAlpha
             // 
             this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("微软雅黑", 20F);
+            this.label12.Font = new System.Drawing.Font("Microsoft YaHei", 20F);
             this.label12.Location = new System.Drawing.Point(246, 286);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(150, 35);
@@ -711,7 +710,7 @@ namespace AttendanceSystemAlpha
             // 
             this.lbDczt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbDczt.AutoSize = true;
-            this.lbDczt.Font = new System.Drawing.Font("微软雅黑", 20F);
+            this.lbDczt.Font = new System.Drawing.Font("Microsoft YaHei", 20F);
             this.lbDczt.Location = new System.Drawing.Point(389, 244);
             this.lbDczt.Name = "lbDczt";
             this.lbDczt.Size = new System.Drawing.Size(151, 35);
@@ -722,7 +721,7 @@ namespace AttendanceSystemAlpha
             // 
             this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("微软雅黑", 20F);
+            this.label10.Font = new System.Drawing.Font("Microsoft YaHei", 20F);
             this.label10.Location = new System.Drawing.Point(246, 243);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(150, 35);
@@ -733,7 +732,7 @@ namespace AttendanceSystemAlpha
             // 
             this.lbStudentXy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbStudentXy.AutoSize = true;
-            this.lbStudentXy.Font = new System.Drawing.Font("微软雅黑", 20F);
+            this.lbStudentXy.Font = new System.Drawing.Font("Microsoft YaHei", 20F);
             this.lbStudentXy.Location = new System.Drawing.Point(388, 157);
             this.lbStudentXy.Name = "lbStudentXy";
             this.lbStudentXy.Size = new System.Drawing.Size(151, 35);
@@ -744,7 +743,7 @@ namespace AttendanceSystemAlpha
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("微软雅黑", 20F);
+            this.label9.Font = new System.Drawing.Font("Microsoft YaHei", 20F);
             this.label9.Location = new System.Drawing.Point(246, 157);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(150, 35);
@@ -755,7 +754,7 @@ namespace AttendanceSystemAlpha
             // 
             this.lbStudentClass.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbStudentClass.AutoSize = true;
-            this.lbStudentClass.Font = new System.Drawing.Font("微软雅黑", 20F);
+            this.lbStudentClass.Font = new System.Drawing.Font("Microsoft YaHei", 20F);
             this.lbStudentClass.Location = new System.Drawing.Point(388, 114);
             this.lbStudentClass.Name = "lbStudentClass";
             this.lbStudentClass.Size = new System.Drawing.Size(151, 35);
@@ -766,7 +765,7 @@ namespace AttendanceSystemAlpha
             // 
             this.lbStudentName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbStudentName.AutoSize = true;
-            this.lbStudentName.Font = new System.Drawing.Font("微软雅黑", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbStudentName.Font = new System.Drawing.Font("Microsoft YaHei", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbStudentName.Location = new System.Drawing.Point(240, 33);
             this.lbStudentName.Name = "lbStudentName";
             this.lbStudentName.Size = new System.Drawing.Size(348, 70);
@@ -778,7 +777,7 @@ namespace AttendanceSystemAlpha
             // 
             this.lbStudentId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbStudentId.AutoSize = true;
-            this.lbStudentId.Font = new System.Drawing.Font("微软雅黑", 20F);
+            this.lbStudentId.Font = new System.Drawing.Font("Microsoft YaHei", 20F);
             this.lbStudentId.Location = new System.Drawing.Point(388, 200);
             this.lbStudentId.Name = "lbStudentId";
             this.lbStudentId.Size = new System.Drawing.Size(151, 35);
@@ -789,7 +788,7 @@ namespace AttendanceSystemAlpha
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("微软雅黑", 20F);
+            this.label7.Font = new System.Drawing.Font("Microsoft YaHei", 20F);
             this.label7.Location = new System.Drawing.Point(246, 200);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(150, 35);
@@ -800,7 +799,7 @@ namespace AttendanceSystemAlpha
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("微软雅黑", 20F);
+            this.label6.Font = new System.Drawing.Font("Microsoft YaHei", 20F);
             this.label6.Location = new System.Drawing.Point(246, 114);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(150, 35);
@@ -822,7 +821,7 @@ namespace AttendanceSystemAlpha
             // gboxMsg
             // 
             this.gboxMsg.Controls.Add(this.chart1);
-            this.gboxMsg.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.gboxMsg.Font = new System.Drawing.Font("Microsoft YaHei", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.gboxMsg.Location = new System.Drawing.Point(689, 17);
             this.gboxMsg.Name = "gboxMsg";
             this.gboxMsg.Size = new System.Drawing.Size(384, 332);
@@ -835,7 +834,7 @@ namespace AttendanceSystemAlpha
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            legend1.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             legend1.IsDockedInsideChartArea = false;
             legend1.IsTextAutoFit = false;
             legend1.Name = "Legend1";
@@ -856,7 +855,7 @@ namespace AttendanceSystemAlpha
             // 
             this.viewpageDataManagement.Controls.Add(this.panel8);
             this.viewpageDataManagement.Controls.Add(this.panel9);
-            this.viewpageDataManagement.Font = new System.Drawing.Font("微软雅黑", 15.75F);
+            this.viewpageDataManagement.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F);
             this.viewpageDataManagement.ItemSize = new System.Drawing.SizeF(175F, 63F);
             this.viewpageDataManagement.Location = new System.Drawing.Point(205, 4);
             this.viewpageDataManagement.Name = "viewpageDataManagement";
@@ -896,10 +895,10 @@ namespace AttendanceSystemAlpha
             // 
             this.mngGridView.AutoSizeRows = true;
             this.mngGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mngGridView.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.mngGridView.Font = new System.Drawing.Font("Microsoft YaHei", 10F);
             this.mngGridView.Location = new System.Drawing.Point(0, 0);
             // 
-            // mngGridView
+            // 
             // 
             this.mngGridView.MasterTemplate.AllowAddNewRow = false;
             this.mngGridView.MasterTemplate.AllowCellContextMenu = false;
@@ -929,7 +928,7 @@ namespace AttendanceSystemAlpha
             // radButton2
             // 
             this.radButton2.Enabled = false;
-            this.radButton2.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold);
+            this.radButton2.Font = new System.Drawing.Font("Microsoft YaHei", 21.75F, System.Drawing.FontStyle.Bold);
             this.radButton2.Location = new System.Drawing.Point(24, 102);
             this.radButton2.Name = "radButton2";
             this.radButton2.Size = new System.Drawing.Size(161, 80);
@@ -940,7 +939,7 @@ namespace AttendanceSystemAlpha
             // radButton3
             // 
             this.radButton3.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.radButton3.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold);
+            this.radButton3.Font = new System.Drawing.Font("Microsoft YaHei", 21.75F, System.Drawing.FontStyle.Bold);
             this.radButton3.Location = new System.Drawing.Point(-584, 55);
             this.radButton3.Name = "radButton3";
             this.radButton3.Size = new System.Drawing.Size(161, 89);
@@ -949,7 +948,7 @@ namespace AttendanceSystemAlpha
             // 
             // rbtnMngShowInformation
             // 
-            this.rbtnMngShowInformation.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold);
+            this.rbtnMngShowInformation.Font = new System.Drawing.Font("Microsoft YaHei", 21.75F, System.Drawing.FontStyle.Bold);
             this.rbtnMngShowInformation.Location = new System.Drawing.Point(24, 15);
             this.rbtnMngShowInformation.Name = "rbtnMngShowInformation";
             this.rbtnMngShowInformation.Size = new System.Drawing.Size(161, 80);
@@ -970,7 +969,7 @@ namespace AttendanceSystemAlpha
             // panel234
             // 
             this.panel234.Controls.Add(this.panel21);
-            this.panel234.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.panel234.Font = new System.Drawing.Font("Microsoft YaHei", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.panel234.Location = new System.Drawing.Point(24, 15);
             this.panel234.Name = "panel234";
             this.panel234.Size = new System.Drawing.Size(600, 338);
@@ -1004,7 +1003,7 @@ namespace AttendanceSystemAlpha
             // lbMngClassName
             // 
             this.lbMngClassName.AutoSize = true;
-            this.lbMngClassName.Font = new System.Drawing.Font("微软雅黑", 18F);
+            this.lbMngClassName.Font = new System.Drawing.Font("Microsoft YaHei", 18F);
             this.lbMngClassName.Location = new System.Drawing.Point(15, 29);
             this.lbMngClassName.Name = "lbMngClassName";
             this.lbMngClassName.Size = new System.Drawing.Size(126, 31);
@@ -1014,7 +1013,7 @@ namespace AttendanceSystemAlpha
             // lbMngCallMethod
             // 
             this.lbMngCallMethod.AutoSize = true;
-            this.lbMngCallMethod.Font = new System.Drawing.Font("微软雅黑", 18F);
+            this.lbMngCallMethod.Font = new System.Drawing.Font("Microsoft YaHei", 18F);
             this.lbMngCallMethod.Location = new System.Drawing.Point(15, 175);
             this.lbMngCallMethod.Name = "lbMngCallMethod";
             this.lbMngCallMethod.Size = new System.Drawing.Size(119, 31);
@@ -1023,10 +1022,10 @@ namespace AttendanceSystemAlpha
             // 
             // dateTimePicker2
             // 
-            this.dateTimePicker2.CalendarFont = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.dateTimePicker2.CalendarFont = new System.Drawing.Font("Microsoft YaHei", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.dateTimePicker2.CustomFormat = "yyyy-MM-dd HH:mm";
             this.dateTimePicker2.Enabled = false;
-            this.dateTimePicker2.Font = new System.Drawing.Font("微软雅黑", 18F);
+            this.dateTimePicker2.Font = new System.Drawing.Font("Microsoft YaHei", 18F);
             this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker2.Location = new System.Drawing.Point(15, 118);
             this.dateTimePicker2.Name = "dateTimePicker2";
@@ -1036,7 +1035,7 @@ namespace AttendanceSystemAlpha
             // lbMngjieci
             // 
             this.lbMngjieci.AutoSize = true;
-            this.lbMngjieci.Font = new System.Drawing.Font("微软雅黑", 18F);
+            this.lbMngjieci.Font = new System.Drawing.Font("Microsoft YaHei", 18F);
             this.lbMngjieci.Location = new System.Drawing.Point(15, 219);
             this.lbMngjieci.Name = "lbMngjieci";
             this.lbMngjieci.Size = new System.Drawing.Size(126, 31);
@@ -1047,7 +1046,7 @@ namespace AttendanceSystemAlpha
             // lbMngTeacherName
             // 
             this.lbMngTeacherName.AutoSize = true;
-            this.lbMngTeacherName.Font = new System.Drawing.Font("微软雅黑", 18F);
+            this.lbMngTeacherName.Font = new System.Drawing.Font("Microsoft YaHei", 18F);
             this.lbMngTeacherName.Location = new System.Drawing.Point(15, 75);
             this.lbMngTeacherName.Name = "lbMngTeacherName";
             this.lbMngTeacherName.Size = new System.Drawing.Size(126, 31);
@@ -1070,7 +1069,7 @@ namespace AttendanceSystemAlpha
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("微软雅黑", 18F);
+            this.label26.Font = new System.Drawing.Font("Microsoft YaHei", 18F);
             this.label26.Location = new System.Drawing.Point(16, 29);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(134, 31);
@@ -1080,7 +1079,7 @@ namespace AttendanceSystemAlpha
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("微软雅黑", 18F);
+            this.label24.Font = new System.Drawing.Font("Microsoft YaHei", 18F);
             this.label24.Location = new System.Drawing.Point(16, 219);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(134, 31);
@@ -1091,7 +1090,7 @@ namespace AttendanceSystemAlpha
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("微软雅黑", 18F);
+            this.label20.Font = new System.Drawing.Font("Microsoft YaHei", 18F);
             this.label20.Location = new System.Drawing.Point(16, 175);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(134, 31);
@@ -1101,7 +1100,7 @@ namespace AttendanceSystemAlpha
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("微软雅黑", 18F);
+            this.label23.Font = new System.Drawing.Font("Microsoft YaHei", 18F);
             this.label23.Location = new System.Drawing.Point(16, 126);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(134, 31);
@@ -1111,7 +1110,7 @@ namespace AttendanceSystemAlpha
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("微软雅黑", 18F);
+            this.label22.Font = new System.Drawing.Font("Microsoft YaHei", 18F);
             this.label22.Location = new System.Drawing.Point(16, 75);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(134, 31);
@@ -1133,7 +1132,7 @@ namespace AttendanceSystemAlpha
             chartArea2.Name = "ChartArea1";
             this.chart2.ChartAreas.Add(chartArea2);
             this.chart2.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            legend2.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             legend2.IsTextAutoFit = false;
             legend2.Name = "Legend1";
             this.chart2.Legends.Add(legend2);
@@ -1166,14 +1165,14 @@ namespace AttendanceSystemAlpha
             // 
             // toolStripStatusLabel2
             // 
-            this.toolStripStatusLabel2.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.toolStripStatusLabel2.Font = new System.Drawing.Font("Microsoft YaHei", 12F);
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
             this.toolStripStatusLabel2.Size = new System.Drawing.Size(168, 21);
             this.toolStripStatusLabel2.Text = "欢迎使用点名系统      ";
             // 
             // toolStripStatusLabel1
             // 
-            this.toolStripStatusLabel1.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.toolStripStatusLabel1.Font = new System.Drawing.Font("Microsoft YaHei", 12F);
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(90, 21);
             this.toolStripStatusLabel1.Text = "当前时间：";
@@ -1181,7 +1180,7 @@ namespace AttendanceSystemAlpha
             // toolStripTimeLabel
             // 
             this.toolStripTimeLabel.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedOuter;
-            this.toolStripTimeLabel.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.toolStripTimeLabel.Font = new System.Drawing.Font("Microsoft YaHei", 12F);
             this.toolStripTimeLabel.Name = "toolStripTimeLabel";
             this.toolStripTimeLabel.Size = new System.Drawing.Size(37, 21);
             this.toolStripTimeLabel.Text = "aaa";
@@ -1189,7 +1188,7 @@ namespace AttendanceSystemAlpha
             // toolStripStatusLabel3
             // 
             this.toolStripStatusLabel3.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedOuter;
-            this.toolStripStatusLabel3.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.toolStripStatusLabel3.Font = new System.Drawing.Font("Microsoft YaHei", 12F);
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
             this.toolStripStatusLabel3.Size = new System.Drawing.Size(130, 21);
             this.toolStripStatusLabel3.Text = "        操作状态：";
@@ -1197,7 +1196,7 @@ namespace AttendanceSystemAlpha
             // toolStripOperationStatus
             // 
             this.toolStripOperationStatus.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedOuter;
-            this.toolStripOperationStatus.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.toolStripOperationStatus.Font = new System.Drawing.Font("Microsoft YaHei", 12F);
             this.toolStripOperationStatus.Name = "toolStripOperationStatus";
             this.toolStripOperationStatus.Size = new System.Drawing.Size(90, 21);
             this.toolStripOperationStatus.Text = "未进行操作";
@@ -1220,23 +1219,16 @@ namespace AttendanceSystemAlpha
             this.panel18.BackColor = System.Drawing.Color.Transparent;
             this.panel18.BackgroundImage = global::AttendanceSystemAlpha.Properties.Resources.BlueBackground;
             this.panel18.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel18.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel18.Location = new System.Drawing.Point(0, 0);
             this.panel18.Name = "panel18";
-            this.panel18.Size = new System.Drawing.Size(1281, 728);
+            this.panel18.Size = new System.Drawing.Size(67, 728);
             this.panel18.TabIndex = 2;
             this.panel18.Click += new System.EventHandler(this.pictureBox1_Click);
             this.panel18.Paint += new System.Windows.Forms.PaintEventHandler(this.panel18_Paint);
             // 
-            // backgroundWorker1
-            // 
-            this.backgroundWorker1.WorkerReportsProgress = true;
-            this.backgroundWorker1.WorkerSupportsCancellation = true;
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1281, 728);
             this.Controls.Add(this.panel18);
@@ -1401,7 +1393,6 @@ namespace AttendanceSystemAlpha
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Panel panel18;
         private System.Windows.Forms.DateTimePicker preparedTime;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Panel panel21;
         private System.Windows.Forms.Panel PnMngClassInfo;
         private System.Windows.Forms.Panel panel20;

@@ -136,6 +136,7 @@
             this.textBox1.PasswordChar = '*';
             this.textBox1.Size = new System.Drawing.Size(485, 50);
             this.textBox1.TabIndex = 20;
+            this.textBox1.Click += new System.EventHandler(this.textBox1_Click);
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // lbCname
