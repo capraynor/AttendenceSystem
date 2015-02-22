@@ -8,7 +8,7 @@ namespace AttendanceSystemAlpha
 {
     public partial class LoginForm : Telerik.WinControls.UI.RadForm
     {
-        private bool isLogin;
+        private bool isLogin;//保存登录结果
         private DataModule _fDataModule;
         public bool IsLogin()
         {
@@ -43,18 +43,24 @@ namespace AttendanceSystemAlpha
         }
 
         private void rbtnLogin_Click(object sender, EventArgs e)
-        {
+        {//确定按钮
+
             if (string.IsNullOrWhiteSpace(tboxPasswd.Text) || string.IsNullOrWhiteSpace(tboxUsername.Text))
             {
+
                 MessageBox.Show("请输入用户名或者密码");
+
                 return;
             } // 检查是否输入了用户名和密码
             try
             {
                 _fDataModule.SetUserID(tboxUsername.Text);
+
                 _fDataModule.SetPasswd(tboxPasswd.Text);
+                
                 _fDataModule.SetUp(Properties.Settings.Default.ServerUrl);
-                isLogin = _fDataModule.login();
+                
+                isLogin = _fDataModule.login();//保存登录结果
                 
             }
             catch (Exception exception)
