@@ -191,9 +191,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="UI_TemporaryKey.pfx" />
-    <None Include="Version_V0.05.1">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FormChooseClassParams.cs" />
