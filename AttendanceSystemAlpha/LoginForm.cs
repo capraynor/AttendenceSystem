@@ -9,8 +9,8 @@ namespace AttendanceSystemAlpha
     public partial class LoginForm : Telerik.WinControls.UI.RadForm
     {
         private bool isLogin;//保存登录结果
-        private DataModule _fDataModule;
-        public bool IsLogin()
+        private DataModule _fDataModule;//已经登录过的datamodule
+        public bool IsLogin() // 返回登录状态
         {
             return isLogin;
         }

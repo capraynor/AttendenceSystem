@@ -18,46 +18,77 @@ using Telerik.WinControls;
 namespace AttendanceSystemAlpha
 {
     public partial class ManualRollCall : Telerik.WinControls.UI.RadForm
-    {
-        private long jieci;
-        private Briefcase classBriefcase;
-        private DataTable _dmTable;
-        private DateTime _rollCallTime;
-        private DataTable displayTable;
-        private int currentLine = 0;
-        private DataTable xkTable;
-        private DataTable bjTable;
-        private DataTable backupDisplayTable;
+    {//手动签到窗口
+        private long jieci; // 本节课的节次号码
+
+        private Briefcase classBriefcase;//本节课的briefcase
+        
+        private DataTable _dmTable;//点名表
+        
+        private DateTime _rollCallTime;//签到时间
+        
+        private DataTable displayTable;//用于显示的datatable
+        
+        private int currentLine = 0;//用于记录当前行
+        
+        private DataTable xkTable;//选课表 (Datatable)
+        
+        private DataTable bjTable;//班级表
+        
+        private DataTable backupDisplayTable;//显示表用于显示的datatable的备份
+        
         public ManualRollCall(Briefcase _classBriefcase , long _jieci ,DataTable dmTable , DateTime RollcallTime)
         {
             InitializeComponent();
-            this.classBriefcase = _classBriefcase;
-            this.jieci = _jieci;
+            ///////////////////////////////////////
+            this.classBriefcase = _classBriefcase;//本门课的briefcase(通过该窗口的构造函数传进来)
+
+            this.jieci = _jieci;//节次编号
+
             _dmTable = dmTable;
+
             _rollCallTime = RollcallTime;
-            Briefcase propertieBriefcase = new FileBriefcase(Properties.Settings.Default.PropertiesBriefcaseFolder, true);
-            bjTable = propertieBriefcase.FindTable("ClassNameTable");
-            xkTable = classBriefcase.FindTable("XKTABLE_VIEW1");
+            //以上语句在为成员赋值 不要管啦////////////////////
+            Briefcase propertieBriefcase = 
+                new FileBriefcase
+                    (Properties.Settings.Default.PropertiesBriefcaseFolder, true); //打开propertiesBriefcase,用于获取班级表
+
+            bjTable = propertieBriefcase.FindTable("ClassNameTable");//班级表
+
+            xkTable = classBriefcase.FindTable("XKTABLE_VIEW1");//拉出选课表 获取学生信息
         }
 
         private void ManualRollCall_Load(object sender, EventArgs e)
         {
-            displayTable = new DataTable();
-            if (!displayTable.Columns.Contains("到课状态"))
+
+            displayTable = new DataTable();//初始化用于显示的datatable
+
+            if (!displayTable.Columns.Contains("到课状态"))//todo:这是一个不合理的地方 要改 
             {
+
                 displayTable.Columns.Add("姓名", typeof(string));
+
                 displayTable.Columns.Add("学号", typeof(string));
+
                 displayTable.Columns.Add("到课状态", typeof(string));
+
             }
-            foreach (DataRow Row in _dmTable.Rows)
+
+            foreach (DataRow Row in _dmTable.Rows)//遍历dmtable,将datatable加到显示表中
             {
-                DataRow displayRow = displayTable.NewRow();
-                if (Row["XSID"] != DBNull.Value)
+
+                DataRow displayRow = displayTable.NewRow();//新建一行
+
+                if (Row["XSID"] != DBNull.Value)//Fucking DBA!
                 {
-                    displayRow["学号"] = Convert.ToString(Row["XSID"]);
+
+                    displayRow["学号"] = Convert.ToString(Row["XSID"]);//学号
+
                 }
-                displayRow["到课状态"] = Convert.ToString(Row["DKZT"]);
-                switch (Convert.ToString(Row["DKZT"]))
+                displayRow["到课状态"] = Convert.ToString(Row["DKZT"]);//考勤状态
+
+                //考勤状态说明: 0 正常到课 1 迟到 2 早退 3 旷课 4 请假
+                switch (Convert.ToString(Row["DKZT"]))//将 DKZT 号码转换成文字
                 {
                     case "0":
                         {
@@ -90,19 +121,25 @@ namespace AttendanceSystemAlpha
                             break;
                         }
                 }
+
                 if (Row["XSNAME"] != DBNull.Value)
                 {
+
                     displayRow["姓名"] = Row["XSNAME"].ToString();
+
                 }
                 
                 //resaultRow["到课时间"] = Convert.ToDateTime(Row["DMSJ1"]);\
                 displayTable.Rows.Add(displayRow);
             }
-            GridStudentName.DataSource = displayTable;
-            backupDisplayTable = displayTable;
-            currentLine = GridStudentName.CurrentRow.Index;
+
+            GridStudentName.DataSource = displayTable;//gridview和displaytable进行绑定
+
+            backupDisplayTable = displayTable;//备份displaytable
+
+            currentLine = GridStudentName.CurrentRow.Index;//记录当前行
             
-            refreshChart();
+            refreshChart();//刷新图表
             
 
         }
@@ -113,13 +150,23 @@ namespace AttendanceSystemAlpha
         /// <param name="isArrive">学生是否来上课 true 来上课 false 没有来上课</param>
         private void ChangeOnedmtableRecord(Int16 dkzt, bool isArrive)
         {
-            DataRow[] dmRows;
-            DataRow[] displayRows;
-            lock (ThreadLocker.CallingBriefcaseLocker)
+            DataRow[] dmRows;//点名表的若干行
+
+            DataRow[] displayRows;//显示表的若干行
+
+            lock (ThreadLocker.CallingBriefcaseLocker)//加锁
             {
-                if (GridStudentName.CurrentRow == null)
+                if (GridStudentName.CurrentRow == null) //Fucking DBA AGAIN!!!! 总是存在有问题的数据 所以会出错
+                {
+
                     return;
-                dmRows =   _dmTable.Select("XSID = '" + GridStudentName.CurrentRow.Cells[1].Value.ToString() + "'");
+
+                }
+                //GridStudentName:用于显示学生信息的gridview
+
+                dmRows =   _dmTable.Select
+                    ("XSID = '" + GridStudentName.CurrentRow.Cells[1].Value.ToString() + "'");//
+
                 if (dmRows.Any())
                 {
                     dmRows.First().BeginEdit();
