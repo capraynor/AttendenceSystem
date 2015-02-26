@@ -16,30 +16,20 @@ namespace AttendanceSystemAlpha
     
     public partial class RadfrmChooseClasses : Telerik.WinControls.UI.RadForm
     {
-        //public DataTable PropertiesTable;
-        private string _currentPasswd = "           55555555555            ";
-        //public Briefcase PropertieBriefcase;
-        //public Briefcase _chooseClassBriefcase;
-        //public long ClassNumber;
-        //public string ClassName = "";
-        //public long Jieci = 0;
-        //public DateTime SjSkdate;
-        //public DateTime YdSkdate;
-        //public DateTime YdXkdate;
-        //public DateTime SjXkdate;
-        //public string TeacherName = "";
-        //public DataTable DmTable = null;
-        //public bool flag = false;
-        
+        private string _currentPasswd = "           55555555555            ";//当前密码 初始化为一个不可能的值
+
+        //选择课程窗口
+        //已删除窗口类内变量.
         public RadfrmChooseClasses()
         {
             
             InitializeComponent();
+        
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            
+            //之前用于验证离线密码.目前已经废弃.
         }
 
         private void RadfrmChooseClasses_Load(object sender, EventArgs e)
