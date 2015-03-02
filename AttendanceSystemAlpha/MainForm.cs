@@ -179,6 +179,7 @@ namespace AttendanceSystemAlpha
             this.Visible = true;
             SetMngControlInvisible();
             panel19.Visible = panel22.Visible = false;
+           
         }
 
 
