@@ -38,7 +38,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -103,6 +103,12 @@
   <PropertyGroup>
     <SignManifests>false</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="RemObjects.InternetPack">
       <Name>RemObjects.InternetPack</Name>
@@ -162,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -270,6 +277,10 @@
     <Content Include="ServerUrl.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="sfxcfg.txt" />
+    <Content Include="UpdateServer.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\beepSuccess.wav" />
     <None Include="Resources\beepFail.wav" />
     <None Include="Resources\BlueBackground.png" />
@@ -289,9 +300,9 @@
     <None Include="Resources\标志.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client,KB2468871">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.5 %28x86 和 x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 和 x64%29与 .NET Framework 4 的更新%28KB2468871%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -309,6 +320,10 @@
     <ProjectReference Include="..\AttendenceSystem_Alp\DataModules.csproj">
       <Project>{dec7d794-1a33-4b4e-9175-9bb7622416a3}</Project>
       <Name>DataModules</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoUpdater.NET\AutoUpdater.NET.csproj">
+      <Project>{fb9e7e6b-b19f-4f37-a708-2996190cef13}</Project>
+      <Name>AutoUpdater.NET</Name>
     </ProjectReference>
     <ProjectReference Include="..\DatatableConverter\DatatableHelper.csproj">
       <Project>{452eba27-1542-43c2-9c3e-7e3d6a469de9}</Project>

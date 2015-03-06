@@ -50,7 +50,16 @@ namespace AutoUpdaterDotNET
             if (!e.Cancelled)
             {
                 var processStartInfo = new ProcessStartInfo {FileName = _tempPath, UseShellExecute = true};
-                Process.Start(processStartInfo);
+                processStartInfo.Verb = "runas";//获取管理员权限
+                try
+                {
+                    Process.Start(processStartInfo);//开始运行下载的安装包
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message);//如果申请权限失败 则显示失败信息
+                }
+
                 if (AutoUpdater.IsWinFormsApplication)
                 {
                     Application.Exit();

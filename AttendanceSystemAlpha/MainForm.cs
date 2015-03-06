@@ -16,6 +16,7 @@ using System.Xml;
 using AttendanceSystemAlpha.Properties;
 using AttendenceSystem_Alp;
 using AttendenceSystem_Alp.PC;
+using AutoUpdaterDotNET;
 using HDFingerPrintHelper;
 using RemObjects.DataAbstract;
 using Helpers;
@@ -85,8 +86,8 @@ namespace AttendanceSystemAlpha
         private long CurrentRollCallJieci;
         //XML日志
         #endregion
-        private static readonly object logLocker = new object();
-        private static XmlDocument _doc = new XmlDocument();
+        //private static readonly object logLocker = new object();
+        //private static XmlDocument _doc = new XmlDocument();
         private bool isDoingRollCall = false;
         //static void Log(string logname, string details)
         //{
@@ -102,14 +103,14 @@ namespace AttendanceSystemAlpha
         public MainForm()
         {
             InitializeComponent();
-            if (File.Exists("logs.txt"))
-                _doc.Load("logs.txt");
-            else
-            {
-                var root = _doc.CreateElement("Logs");
-                _doc.AppendChild(root);
-            }
-
+            //if (File.Exists("logs.txt"))
+            //    _doc.Load("logs.txt");
+            //else
+            //{
+            //    var root = _doc.CreateElement("Logs");
+            //    _doc.AppendChild(root);
+            //}
+            this.panel18.BringToFront();
 
             xsidTable = new DataTable("学生信息");
             fDataModule = new DataModule();
@@ -158,8 +159,8 @@ namespace AttendanceSystemAlpha
             }
             
             //平板和笔记本的区别
-            this.Width = 1280;
-            this.Height = 775;
+            //this.Width = 1280;
+            //this.Height = 775;
             string __serverUrl = File.ReadAllText(@"ServerUrl.txt");
             fDataModule.setServerURL(__serverUrl);
             Properties.Settings.Default.ServerUrl = __serverUrl;
@@ -179,6 +180,12 @@ namespace AttendanceSystemAlpha
             this.Visible = true;
             SetMngControlInvisible();
             panel19.Visible = panel22.Visible = false;
+
+            this.toolStripVersionLabel.Text = string.Format("   版本号：{0}" , Assembly.GetExecutingAssembly().GetName().Version.ToString());//显示版本号
+
+            string updateurl = File.ReadAllText(@"UpdateServer.txt");//获得升级地址
+
+            AutoUpdater.Start(updateurl);//开始升级操作
            
         }
 
