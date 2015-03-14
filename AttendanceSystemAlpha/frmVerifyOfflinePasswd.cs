@@ -13,10 +13,10 @@ namespace AttendanceSystemAlpha
     public partial class frmVerifyOfflinePasswd : Telerik.WinControls.UI.RadForm
     {
         private string passwd;
-        public frmVerifyOfflinePasswd(string _passwd)
+        public frmVerifyOfflinePasswd(string passwd)
         {
             InitializeComponent();
-            passwd = _passwd;
+            this.passwd = passwd;
         }
 
         private void radButton1_Click(object sender, EventArgs e)

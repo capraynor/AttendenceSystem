@@ -447,6 +447,7 @@
             this.Text = "手动签到";
             this.ThemeName = "ControlDefault";
             this.Load += new System.EventHandler(this.ManualRollCall_Load);
+            this.SizeChanged += new System.EventHandler(this.ManualRollCall_SizeChanged);
             this.VisibleChanged += new System.EventHandler(this.ManualRollCall_VisibleChanged);
             this.pn0_0.ResumeLayout(false);
             this.pn1_2.ResumeLayout(false);

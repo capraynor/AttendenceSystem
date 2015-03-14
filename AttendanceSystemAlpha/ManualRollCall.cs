@@ -434,7 +434,7 @@ namespace AttendanceSystemAlpha
         {
             this.Hide();
             this.Height = 740;
-            this.Width = 904;
+            this.Width = 998;
         }
 
         private void ManualRollCall_VisibleChanged(object sender, EventArgs e)
@@ -579,6 +579,12 @@ namespace AttendanceSystemAlpha
         private void radButton9_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void ManualRollCall_SizeChanged(object sender, EventArgs e)
+        {
+            this.Height = 740;
+            this.Width = 998;
         }
 
     }

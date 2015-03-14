@@ -1146,13 +1146,73 @@ namespace AttendanceSystemAlpha
             
         }
 
-        private void radButton6_Click(object sender, EventArgs e)
+        private void radButton6_Click(object sender, EventArgs e) // 删除课程按钮
         {
             if (!Directory.Exists(string.Format(Properties.Settings.Default.OfflineFolder, "")) || System.IO.Directory.GetFiles(string.Format(Properties.Settings.Default.OfflineFolder, "")).Length == 0)
             {
                 MessageBox.Show("没有离线数据 请先下载离线数据");
                 return;
             }
+
+            var selectedClassId = lboxClassName.SelectedValue.ToString();
+
+            ///////////////开始验证密码/////////////
+            Briefcase classBriefcase =
+                new FileBriefcase(
+                    string.Format(Properties.Settings.Default.OfflineFolder, selectedClassId),
+                    true); // 根据selectedClassId选中课程 并提取密码
+
+            var currentPasswd = classBriefcase.Properties[Properties.Settings.Default.PropertiesBriefcasePasswd];//提取密码
+            frmVerifyOfflinePasswd frmVerifyOfflinePasswd = new frmVerifyOfflinePasswd(currentPasswd);//开始验证密码
+            frmVerifyOfflinePasswd.ShowDialog();
+            if (frmVerifyOfflinePasswd.DialogResult == DialogResult.Cancel)
+            {
+                return;
+            }
+            ///////////////密码验证完毕/////////////
+            
+            DeleteClass(selectedClassId);
+
+            RefreshlboxClassname();
+            //第一步：删除课程
+            //第二步：修改PropertiesBriefcase
+            //第三步：
+
+
+        }
+
+        /// <summary>
+        /// 删除一个已经下载的课程
+        /// </summary>
+        /// <param name="selectedID">选中的课程ID</param>
+        private void DeleteClass(string selectedID)
+        {
+            File.Delete(string.Format(GlobalParams.CurrentOfflineDataFile, selectedID) +
+                            ".daBriefcase");//删除该课程对应的Briefcase
+            Briefcase propertiesBriefcase = new FileBriefcase(Properties.Settings.Default.PropertiesBriefcaseFolder, true);//实例化一个Briefcase ，用来对Briefcase进行更改
+
+            DataTable propertiesDataTable = propertiesBriefcase.FindTable("PropertiesTable");//获取PropertiesBriefcase中的PropertiesTable（Datatable）
+
+            propertiesDataTable.Rows.Remove(propertiesDataTable.Select("开课编号 = '" + selectedID + "'").First());
+
+            propertiesBriefcase.AddTable(propertiesDataTable);//对PropertiesBriefcase进行更改并挂起该操作
+
+            propertiesBriefcase.WriteBriefcase();//保存对PropertiesBriefcase的更改
+
+
+
+        }
+
+        /// <summary>
+        /// 刷新 lboxClassname的显示
+        /// </summary>
+        private void RefreshlboxClassname()
+        {
+            Briefcase propertiesBriefcase = new FileBriefcase(Properties.Settings.Default.PropertiesBriefcaseFolder, true);//实例化一个Briefcase ，用来对Briefcase进行更改
+
+            DataTable propertiesDataTable = propertiesBriefcase.FindTable("PropertiesTable");//获取PropertiesBriefcase中的PropertiesTable（Datatable）
+
+            this.lboxClassName.DataSource = propertiesDataTable;
         }
         //手动签到部分->>
         private void BtnManualRollCall_Click(object sender, EventArgs e)

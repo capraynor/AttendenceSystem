@@ -128,11 +128,11 @@ namespace AttendanceSystemAlpha
             this.toolStripTimeLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripOperationStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripVersionLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel18 = new System.Windows.Forms.Panel();
-            this.toolStripVersionLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnHead.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -305,7 +305,6 @@ namespace AttendanceSystemAlpha
             // radButton6
             // 
             this.radButton6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.radButton6.Enabled = false;
             this.radButton6.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold);
             this.radButton6.Location = new System.Drawing.Point(628, 21);
             this.radButton6.Name = "radButton6";
@@ -1203,6 +1202,13 @@ namespace AttendanceSystemAlpha
             this.toolStripOperationStatus.Size = new System.Drawing.Size(90, 21);
             this.toolStripOperationStatus.Text = "未进行操作";
             // 
+            // toolStripVersionLabel
+            // 
+            this.toolStripVersionLabel.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.toolStripVersionLabel.Name = "toolStripVersionLabel";
+            this.toolStripVersionLabel.Size = new System.Drawing.Size(78, 21);
+            this.toolStripVersionLabel.Text = "    版本：";
+            // 
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.CornflowerBlue;
@@ -1228,13 +1234,6 @@ namespace AttendanceSystemAlpha
             this.panel18.TabIndex = 2;
             this.panel18.Click += new System.EventHandler(this.pictureBox1_Click);
             this.panel18.Paint += new System.Windows.Forms.PaintEventHandler(this.panel18_Paint);
-            // 
-            // toolStripVersionLabel
-            // 
-            this.toolStripVersionLabel.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.toolStripVersionLabel.Name = "toolStripVersionLabel";
-            this.toolStripVersionLabel.Size = new System.Drawing.Size(78, 21);
-            this.toolStripVersionLabel.Text = "    版本：";
             // 
             // MainForm
             // 
